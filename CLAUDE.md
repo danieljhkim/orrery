@@ -9,13 +9,12 @@ working physical models you can play with. That's this repo.
 
 ## Layout
 
-Prose at the top level, everything executable under `lab/`:
+Everything in orrery is executable, under `lab/`. The **theory** this apparatus tests lives in
+the sibling repo **principia** (`codebases/principia`): `theory/` (evidence ledgers) and
+`studies/` (sourced physics notes) split out on 2026-07-10. principia's ledgers cite these sims
+via `../../orrery/lab/sims/<slug>/`.
 
 ```
-theory/             Our own theories — one living doc per line of inquiry, each
-                    with an evidence ledger (claim → status → sims/studies).
-                    Contract in theory/README.md.
-studies/            Sourced notes on established physics (real citations only).
 lab/
   sims/<slug>/      One directory per sim. Always contains sim.json (metadata).
     sim.json          slug, title, kind, entry, status, created, topics,
@@ -42,9 +41,10 @@ This repo has two complementary memory-only agents, both running one-shot via wo
 - **faraday / Sol (Codex)** (`agentbase/faraday/memory`) is the experimental physicist and
   primary owner of executable `lab/`: designing, implementing, running, and numerically
   validating sims; maintaining the shared apparatus; capturing reproducible results.
-- **kepler / Fable (Claude)** (`agentbase/kepler/memory`) is the theoretical physicist and
-  primary owner of `theory/` and `studies/`: literature judgment, evidence-ledger status, and
-  reconciliation when experimental results support or contradict a claim.
+- **kepler / Fable (Claude)** (`agentbase/kepler/memory`) is the theoretical physicist, owner of
+  the **principia** theory corpus (`codebases/principia`: `theory/` + `studies/`): literature
+  judgment, evidence-ledger status, and reconciliation when experimental results support or
+  contradict a claim.
 
 Invokers must select the matching provider and load that agent's `CLAUDE.md` contract first.
 Cross-lane questions use explicit handoffs: faraday reports the apparatus, result, and

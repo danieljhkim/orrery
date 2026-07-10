@@ -13,8 +13,8 @@ open http://localhost:8000/lab/gallery/    # browsable catalog of all sims
 uv run lab/sims/vortex-bell/vortex_bell.py   # python sims run through uv
 ```
 
-Prose lives at the top level (`theory/`, `studies/`); everything that runs
-lives under `lab/`.
+Everything that runs lives under `lab/`. The theory it tests lives in the
+sibling repo [principia](../principia) (`theory/`, `studies/`).
 
 ## Add a sim
 
