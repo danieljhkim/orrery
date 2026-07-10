@@ -7,16 +7,19 @@ Bell tests, field visualizations). Named for the clockwork solar-system models.
 ## Quickstart
 
 ```sh
-tools/serve.sh                # static server on :8000
-open http://localhost:8000/gallery/    # browsable catalog of all sims
+lab/tools/serve.sh                # static server on :8000
+open http://localhost:8000/lab/gallery/    # browsable catalog of all sims
 
-uv run sims/vortex-bell/vortex_bell.py   # python sims run through uv
+uv run lab/sims/vortex-bell/vortex_bell.py   # python sims run through uv
 ```
+
+Prose lives at the top level (`theory/`, `studies/`); everything that runs
+lives under `lab/`.
 
 ## Add a sim
 
 ```sh
-tools/new-sim.sh my-sim --kind web --title "My Sim"
+lab/tools/new-sim.sh my-sim --kind web --title "My Sim"
 ```
 
 See [CLAUDE.md](CLAUDE.md) for the sim contract (metadata, provenance,

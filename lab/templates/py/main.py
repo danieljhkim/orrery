@@ -3,7 +3,7 @@
 What this models, what question it answers, and where the discussion lives
 (almanac note path) go here — the docstring is the sim's abstract.
 
-Usage: uv run sims/__SLUG__/main.py
+Usage: uv run lab/sims/__SLUG__/main.py
 """
 
 import numpy as np

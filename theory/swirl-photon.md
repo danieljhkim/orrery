@@ -22,8 +22,8 @@ kept as the correspondence record the other threads build on.
 
 | Claim | Status | Evidence |
 |---|---|---|
-| The turn sheds a genuinely detaching 1/r field (radiation) distinct from the bound 1/r² velocity field | supported | [swirl-ball](../sims/swirl-ball/) (v6 renders both: gold bound field, cyan radiation kink); standard Liénard–Wiechert / Purcell kink construction |
-| The detached swirl is self-sustaining in the far zone (E and B regenerating each other, carrying energy, momentum, angular momentum) | supported | [swirl-ball-far-field](../sims/swirl-ball-far-field/) — free wave-equation solution, no reference to the charge |
+| The turn sheds a genuinely detaching 1/r field (radiation) distinct from the bound 1/r² velocity field | supported | [swirl-ball](../lab/sims/swirl-ball/) (v6 renders both: gold bound field, cyan radiation kink); standard Liénard–Wiechert / Purcell kink construction |
+| The detached swirl is self-sustaining in the far zone (E and B regenerating each other, carrying energy, momentum, angular momentum) | supported | [swirl-ball-far-field](../lab/sims/swirl-ball-far-field/) — free wave-equation solution, no reference to the charge |
 | The swirl *is* a photon, classically | refuted | a one-photon state has ⟨E⟩ = 0 everywhere, and Grangier–Roger–Aspect antibunching (1986) shows a single photon never triggers both beamsplitter outputs while self-interfering — needs a `../studies/` note to carry the citation properly |
 | The swirl is the classical field mode whose quantized excitations are photons | supported | the resolution of the thread; consistent with both sims and the antibunching constraint |
 

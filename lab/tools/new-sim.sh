@@ -3,9 +3,9 @@
 # new-sim.sh — scaffold a new sim from templates/.
 #
 # Usage:
-#   tools/new-sim.sh <slug> [--kind web|py] [--title "Human Title"]
+#   lab/tools/new-sim.sh <slug> [--kind web|py] [--title "Human Title"]
 #
-# Creates sims/<slug>/ with a runnable starter + sim.json, then rebuilds the
+# Creates lab/sims/<slug>/ with a runnable starter + sim.json, then rebuilds the
 # gallery. Slug is kebab-case; kind defaults to web.
 set -euo pipefail
 
@@ -27,7 +27,7 @@ case "$KIND" in web|py) ;; *) echo "kind must be web or py" >&2; exit 1 ;; esac
 [[ "$SLUG" =~ ^[a-z0-9][a-z0-9-]*$ ]] || { echo "slug must be kebab-case" >&2; exit 1; }
 
 DEST="$ROOT/sims/$SLUG"
-[ -e "$DEST" ] && { echo "sims/$SLUG already exists" >&2; exit 1; }
+[ -e "$DEST" ] && { echo "lab/sims/$SLUG already exists" >&2; exit 1; }
 
 cp -R "$ROOT/templates/$KIND" "$DEST"
 DATE="$(date +%Y-%m-%d)"
@@ -37,6 +37,6 @@ for f in "$DEST"/*; do
 done
 
 python3 "$ROOT/tools/build-gallery.py"
-echo "created sims/$SLUG (kind=$KIND)"
-[ "$KIND" = web ] && echo "view: tools/serve.sh then http://localhost:8000/sims/$SLUG/"
-[ "$KIND" = py ] && echo "run:  uv run sims/$SLUG/main.py"
+echo "created lab/sims/$SLUG (kind=$KIND)"
+[ "$KIND" = web ] && echo "view: lab/tools/serve.sh then http://localhost:8000/lab/sims/$SLUG/"
+[ "$KIND" = py ] && echo "run:  uv run lab/sims/$SLUG/main.py"
