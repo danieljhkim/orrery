@@ -21,11 +21,24 @@ lib/web/            Shared ES modules for interactive sims — loop.js (fixed-dt
                     canvas + pan/zoom + HUD), integrators.js (leapfrog/RK4/
                     n-body), vec.js, style.css (house dark theme).
 lib/py/orrery/      Shared Python helpers (rng, unit_vectors, chsh_S).
+theory/             Our own theories — one living doc per line of inquiry, each
+                    with an evidence ledger (claim → status → sims/studies).
+                    Contract in theory/README.md.
+studies/            Sourced notes on established physics (real citations only).
 vendor/three/       Pinned three.js r128 (global build). No CDN references.
 templates/          Starter web + py sims used by tools/new-sim.sh.
 tools/              new-sim.sh · build-gallery.py · serve.sh
 gallery/index.html  Generated catalog — never edit by hand.
 ```
+
+## Stewardship
+
+This repo is maintained by **kepler**, the constellation's physicist agent
+(`agentbase/kepler/memory` — memory-only, runs one-shot via worker `agent_invoke`; its
+AGENTS.md carries the invocation contract). Kepler enforces the sim contract, curates
+`studies/`, and keeps `theory/` evidence ledgers consistent with the sims: when a sim or
+study contradicts a theory claim, the claim's status changes in the same change-set. Refuted
+theory branches keep their docs (`status: refuted`) — they are results, not embarrassments.
 
 ## The sim contract
 
