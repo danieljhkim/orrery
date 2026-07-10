@@ -1,0 +1,14 @@
+{
+  "slug": "pendulum-driven",
+  "title": "Damped driven pendulum",
+  "kind": "web",
+  "entry": "index.html",
+  "status": "active",
+  "created": "2026-07-09",
+  "topics": [
+    "classical-mechanics",
+    "chaos"
+  ],
+  "summary": "Starter sim demonstrating the lib/web harness: damped driven pendulum, RK4, live parameter sliders. Crank the drive up past ~1.2 for chaos.",
+  "provenance": {}
+}

@@ -1,0 +1,151 @@
+<h2 class="sr-only" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);">Simulation of stars orbiting in swirling space: gravity plus a rotating medium that entrains matter, with a live rotation curve comparing star speeds to Kepler and to the flow.</h2>
+<div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin:0 0 12px;">
+  <button id="playBtn" aria-label="Pause" style="width:40px;"><i class="ti ti-player-pause" id="playIcon"></i></button>
+  <label style="font-size:13px;color:var(--text-secondary);">Swirl speed</label>
+  <input type="range" id="u0" min="0" max="2.5" step="0.1" value="1.2" style="flex:1;min-width:110px;">
+  <span id="u0Out" style="font-size:13px;font-weight:500;min-width:28px;">1.2</span>
+  <label style="font-size:13px;color:var(--text-secondary);">Coupling</label>
+  <input type="range" id="kc" min="0" max="0.08" step="0.004" value="0.02" style="width:90px;">
+  <span id="kcOut" style="font-size:13px;font-weight:500;min-width:38px;">0.02</span>
+  <select id="prof" style="font-size:13px;">
+    <option value="flat" selected>Flat swirl</option>
+    <option value="solid">Solid body</option>
+    <option value="whirl">Whirlpool</option>
+  </select>
+  <button id="respawnBtn" style="font-size:13px;" aria-label="Respawn stars"><i class="ti ti-refresh" aria-hidden="true"></i></button>
+</div>
+<div style="border-radius:12px;overflow:hidden;border:0.5px solid var(--border);background:#050510;">
+  <canvas id="c" width="1320" height="800" style="display:block;width:100%;height:400px;"></canvas>
+</div>
+<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:12px;margin:12px 0 0;">
+  <div style="background:var(--surface-1);border-radius:var(--radius);padding:0.8rem 1rem;">
+    <div style="font-size:13px;color:var(--text-muted);">Outer stars vs Kepler</div>
+    <div id="ratio" style="font-size:24px;font-weight:500;">–</div>
+  </div>
+  <div style="background:var(--surface-1);border-radius:var(--radius);padding:0.8rem 1rem;">
+    <div style="font-size:13px;color:var(--text-muted);">Curve shape</div>
+    <div id="shape" style="font-size:24px;font-weight:500;">–</div>
+  </div>
+</div>
+<script>
+(function(){
+var canvas=document.getElementById('c'),ctx=canvas.getContext('2d');
+var W=1320,H=800,CX=400,CY=400,RMAXV=380;
+var GM=225,u0=1.2,kc=0.02,prof='flat',playing=true;
+function flow(r){
+  if(prof==='flat')return u0*Math.min(r/80,1);
+  if(prof==='solid')return u0*r/RMAXV*1.6;
+  return u0*80/Math.max(r,24);
+}
+var NP=220,parts=[];
+function spawn(p){
+  var r=40+Math.random()*320,th=Math.random()*Math.PI*2;
+  p.x=r*Math.cos(th);p.y=r*Math.sin(th);
+  var v=Math.sqrt(GM/r);
+  p.vx=-v*Math.sin(th);p.vy=v*Math.cos(th);
+}
+for(var i=0;i<NP;i++){var p={};spawn(p);parts.push(p);}
+function respawnAll(){parts.forEach(spawn);ctx.fillStyle='#050510';ctx.fillRect(0,0,820,H);}
+function step(dt){
+  parts.forEach(function(p){
+    var r=Math.sqrt(p.x*p.x+p.y*p.y);
+    if(r<14||r>430){spawn(p);return;}
+    var ir=1/r;
+    var ag=GM/(r*r+40);
+    var ax=-ag*p.x*ir, ay=-ag*p.y*ir;
+    var u=flow(r);
+    var ux=-u*p.y*ir, uy=u*p.x*ir;
+    ax+=kc*(ux-p.vx); ay+=kc*(uy-p.vy);
+    p.vx+=ax*dt;p.vy+=ay*dt;
+    p.x+=p.vx*dt;p.y+=p.vy*dt;
+  });
+}
+var rings=[80,160,240,320],phases=[];
+rings.forEach(function(){var a=[];for(var j=0;j<14;j++)a.push(Math.random()*Math.PI*2);phases.push(a);});
+function drawLeft(){
+  ctx.fillStyle='rgba(5,5,16,0.10)';
+  ctx.fillRect(0,0,820,H);
+  ctx.strokeStyle='rgba(91,127,212,0.25)';ctx.lineWidth=1.5;
+  rings.forEach(function(r){
+    ctx.beginPath();ctx.arc(CX,CY,r,0,Math.PI*2);ctx.stroke();
+  });
+  ctx.fillStyle='rgba(120,150,230,0.8)';
+  rings.forEach(function(r,i){
+    var om=flow(r)/r;
+    phases[i]=phases[i].map(function(ph){return ph+om*1.0;});
+    phases[i].forEach(function(ph){
+      ctx.beginPath();ctx.arc(CX+r*Math.cos(ph),CY+r*Math.sin(ph),2.4,0,Math.PI*2);ctx.fill();
+    });
+  });
+  ctx.fillStyle='#000';ctx.beginPath();ctx.arc(CX,CY,10,0,Math.PI*2);ctx.fill();
+  ctx.strokeStyle='#ff9f43';ctx.lineWidth=2;ctx.beginPath();ctx.arc(CX,CY,12,0,Math.PI*2);ctx.stroke();
+  ctx.fillStyle='#ffffff';
+  parts.forEach(function(p){
+    ctx.fillRect(CX+p.x-1.4,CY+p.y-1.4,2.8,2.8);
+  });
+  ctx.strokeStyle='#2a2f45';ctx.lineWidth=2;
+  ctx.beginPath();ctx.moveTo(830,0);ctx.lineTo(830,H);ctx.stroke();
+}
+var PX0=890,PX1=1300,PY0=700,PY1=90,VMAX=3;
+function px(r){return PX0+(r/RMAXV)*(PX1-PX0);}
+function py(v){return PY0-(Math.min(v,VMAX)/VMAX)*(PY0-PY1);}
+var frame=0;
+function drawRight(){
+  ctx.fillStyle='#050510';ctx.fillRect(834,0,W-834,H);
+  ctx.font='22px sans-serif';ctx.fillStyle='#8b93b8';
+  ctx.fillText('rotation curve v(r)',PX0,50);
+  ctx.strokeStyle='#2a2f45';ctx.lineWidth=2;
+  ctx.beginPath();ctx.moveTo(PX0,PY0);ctx.lineTo(PX1,PY0);ctx.stroke();
+  ctx.beginPath();ctx.moveTo(PX0,PY0);ctx.lineTo(PX0,PY1);ctx.stroke();
+  ctx.setLineDash([8,7]);ctx.strokeStyle='#888780';ctx.lineWidth=2.5;
+  ctx.beginPath();
+  for(var r=20;r<=RMAXV;r+=4){var X=px(r),Y=py(Math.sqrt(GM/r));r===20?ctx.moveTo(X,Y):ctx.lineTo(X,Y);}
+  ctx.stroke();
+  ctx.setLineDash([2,5]);ctx.strokeStyle='#5b7fd4';
+  ctx.beginPath();
+  for(var r=20;r<=RMAXV;r+=4){var X=px(r),Y=py(flow(r));r===20?ctx.moveTo(X,Y):ctx.lineTo(X,Y);}
+  ctx.stroke();ctx.setLineDash([]);
+  ctx.fillStyle='#888780';ctx.fillText('Kepler',px(300),py(Math.sqrt(GM/300))+34);
+  ctx.fillStyle='#5b7fd4';ctx.fillText('space flow',px(255),py(flow(300))-18);
+  ctx.fillStyle='#e8b04a';
+  var sum=0,cnt=0,ksum=0;
+  parts.forEach(function(p){
+    var r=Math.sqrt(p.x*p.x+p.y*p.y);
+    if(r<20||r>RMAXV)return;
+    var vt=Math.abs((p.x*p.vy-p.y*p.vx)/r);
+    ctx.fillRect(px(r)-2,py(vt)-2,4,4);
+    if(r>280){sum+=vt;cnt++;ksum+=Math.sqrt(GM/r);}
+  });
+  if(frame%20===0&&cnt>3){
+    var ratio=sum/ksum;
+    document.getElementById('ratio').textContent=ratio.toFixed(2)+'×';
+    document.getElementById('shape').textContent=ratio>1.5?'flat / rising':(ratio>1.1?'flattened':'Keplerian');
+  }
+  ctx.fillStyle='#8b93b8';ctx.fillText('r →',PX1-60,PY0+34);
+}
+document.getElementById('playBtn').addEventListener('click',function(){
+  playing=!playing;
+  document.getElementById('playIcon').className=playing?'ti ti-player-pause':'ti ti-player-play';
+  this.setAttribute('aria-label',playing?'Pause':'Play');
+});
+document.getElementById('u0').addEventListener('input',function(){
+  u0=+this.value;document.getElementById('u0Out').textContent=u0.toFixed(1);
+});
+document.getElementById('kc').addEventListener('input',function(){
+  kc=+this.value;document.getElementById('kcOut').textContent=kc.toFixed(3);
+});
+document.getElementById('prof').addEventListener('change',function(){prof=this.value;});
+document.getElementById('respawnBtn').addEventListener('click',respawnAll);
+ctx.fillStyle='#050510';ctx.fillRect(0,0,W,H);
+function loop(){
+  requestAnimationFrame(loop);
+  if(playing){
+    step(0.5);step(0.5);
+    frame++;
+    drawLeft();
+    drawRight();
+  }
+}
+loop();
+})();
+</script>

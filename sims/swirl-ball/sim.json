@@ -1,0 +1,18 @@
+{
+  "slug": "swirl-ball",
+  "title": "Swirl-ball electron model",
+  "kind": "web",
+  "entry": "index.html",
+  "status": "imported",
+  "created": "2026-06-27",
+  "topics": [
+    "electromagnetism",
+    "electron-models"
+  ],
+  "family": "swirl-photon",
+  "summary": "The swirl-ball picture of the electron (v6, latest iteration; v3/v5 kept under variants/). Companion field capture in assets/.",
+  "provenance": {
+    "almanac": "15-discussions/26-06/swirl-photon-correspondence.md",
+    "imported_from": "almanac/_attachments/swirl-ball-sim/"
+  }
+}

@@ -1,0 +1,19 @@
+{
+  "slug": "pingpong-bell",
+  "title": "Ping-pong Bell tally analysis",
+  "kind": "py",
+  "entry": "analyze_bell.py",
+  "status": "imported",
+  "created": "2026-07-06",
+  "topics": [
+    "quantum",
+    "bell-inequality",
+    "tabletop-experiment"
+  ],
+  "family": "bell-tests",
+  "summary": "Analysis pipeline for the tabletop ping-pong Bell experiment: reads tally CSVs, computes correlations and the CHSH statistic. Sample data included.",
+  "provenance": {
+    "almanac": "20-projects/pingpong-bell/protocol-and-analysis.md",
+    "imported_from": "almanac/_attachments/pingpong-bell/"
+  }
+}

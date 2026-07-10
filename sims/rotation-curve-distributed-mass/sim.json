@@ -1,0 +1,18 @@
+{
+  "slug": "rotation-curve-distributed-mass",
+  "title": "Rotation curve of a distributed mass",
+  "kind": "web",
+  "entry": "index.html",
+  "status": "imported",
+  "created": "2026-07-05",
+  "topics": [
+    "gravity",
+    "galaxy-rotation"
+  ],
+  "family": "gravity-as-scarcity",
+  "summary": "Orbital-velocity curve for an extended (non-point) mass distribution \u2014 the flat-rotation-curve question the scarcity model probes.",
+  "provenance": {
+    "almanac": "15-discussions/26-07/gravity-as-scarcity-of-space.md",
+    "imported_from": "almanac/40-outputs/gravity/distributed_mass_rotation_curve.html"
+  }
+}

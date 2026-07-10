@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+  html, body { margin: 0; padding: 0; background: #04120b; overflow: hidden; }
+  canvas { display: block; cursor: pointer; }
+</style>
+</head>
+<body>
+<canvas id="c"></canvas>
+<script>
+const cv = document.getElementById('c');
+const ctx = cv.getContext('2d');
+
+// ---------- constants ----------
+const C_SIM  = 3.0;           // speed of light, px per frame
+const PERIOD = 660;           // frames per full circuit -> electron speed ~1.1 px/frame, beta ~0.37
+const B = 20;                 // turn radius around the pole tip
+const GAIN = 240;             // display gain on field values
+const KV = 0.85;
+
+const GOLD = [255, 211, 110]; // B pointing toward the viewer (out of screen)
+const CYAN = [110, 200, 255]; // B pointing away (into screen)
+const BG = [4, 18, 11];
+
+let W, H, cx, groundY, R, SPD, DPR;
+let CELL, gw, gh, off, octx, img, trc;
+
+function geom() {
+  const hMin = R * 0.12, hMax = R * 0.95;
+  const yTop = groundY - hMax * KV;
+  const yBot = groundY - hMin * KV;
+  const L = yBot - yTop;
+  const cap = Math.PI * B;
+  return { yTop, yBot, L, cap, P: 2 * L + 2 * cap };
+}
+
+function resize() {
+  DPR = Math.min(window.devicePixelRatio || 1, 2);
+  W = window.innerWidth; H = window.innerHeight;
+  cv.width = W * DPR; cv.height = H * DPR;
+  cv.style.width = W + 'px'; cv.style.height = H + 'px';
+  ctx.setTransform(DPR, 0, 0, DPR, 0, 0);
+  cx = W / 2;
+  groundY = H * 0.70;
+  R = Math.min(W * 0.36, H * 0.55);
+  SPD = geom().P / PERIOD;
+
+  CELL = Math.min(10, Math.max(6, Math.round(Math.min(W, H) / 110)));
+  gw = Math.ceil(W / CELL); gh = Math.ceil(H / CELL);
+  off = document.createElement('canvas');
+  off.width = gw; off.height = gh;
+  octx = off.getContext('2d');
+  img = octx.createImageData(gw, gh);
+  trc = new Float32Array(gw * gh);       // cached retarded times (warm starts)
+}
+resize();
+window.addEventListener('resize', resize);
+
+// ---------- electron trajectory (closed form, defined for all time) ----------
+// Up the pole, tight turn around the tip, down, mirrored turn at the bottom.
+function posAt(tf) {
+  const g = geom();
+  let s = ((tf * SPD) % g.P + g.P) % g.P;
+  if (s < g.L) {
+    return { x: cx - B, y: g.yBot - s };
+  } else if (s < g.L + g.cap) {
+    const a = Math.PI + (s - g.L) / B;
+    return { x: cx + B * Math.cos(a), y: g.yTop + B * Math.sin(a) };
+  } else if (s < 2 * g.L + g.cap) {
+    return { x: cx + B, y: g.yTop + (s - g.L - g.cap) };
+  } else {
+    const a = (s - 2 * g.L - g.cap) / B;
+    return { x: cx + B * Math.cos(a), y: g.yBot + B * Math.sin(a) };
+  }
+}
+
+// ---------- exact Lienard-Wiechert field, B_z on a grid ----------
+// For each grid point: solve the retarded-time condition c(t - tr) = R(tr)
+// by fixed-point iteration (contraction since beta < 1), then evaluate
+//   E = q(1-b^2)(n-b)/(g^3 R^2)  +  q [n x ((n-b) x bdot)] / (g^3 R c)
+//   B_z = (n x E)_z
+// Velocity field: bound, 1/R^2. Acceleration field: radiation, 1/R.
+function computeField(t) {
+  const d = img.data;
+  let idx = 0;
+  for (let j = 0; j < gh; j++) {
+    const py = (j + 0.5) * CELL;
+    for (let i = 0; i < gw; i++, idx++) {
+      const px = (i + 0.5) * CELL;
+
+      let tr = trc[idx];
+      for (let k = 0; k < 3; k++) {
+        const s = posAt(tr);
+        tr = t - Math.hypot(px - s.x, py - s.y) / C_SIM;
+      }
+      trc[idx] = tr;
+
+      const s0 = posAt(tr), s1 = posAt(tr + 1), sm = posAt(tr - 1);
+      let dx = px - s0.x, dy = py - s0.y;
+      let Rr = Math.sqrt(dx * dx + dy * dy);
+      if (Rr < 8) Rr = 8;
+      const nx = dx / Rr, ny = dy / Rr;
+
+      const bx = (s1.x - sm.x) / (2 * C_SIM), by = (s1.y - sm.y) / (2 * C_SIM);
+      const wx = (s1.x + sm.x - 2 * s0.x) / C_SIM, wy = (s1.y + sm.y - 2 * s0.y) / C_SIM;
+
+      const b2 = bx * bx + by * by;
+      const gd = 1 - (nx * bx + ny * by);
+      const gd3 = gd * gd * gd;
+      const ux = nx - bx, uy = ny - by;
+      const q = -1;                              // electron
+
+      const pv = q * (1 - b2) / (gd3 * Rr * Rr);
+      const ndw = nx * wx + ny * wy;
+      const ndu = nx * ux + ny * uy;
+      const pr = q / (gd3 * Rr * C_SIM);
+      const Ex = pv * ux + pr * (ux * ndw - wx * ndu);
+      const Ey = pv * uy + pr * (uy * ndw - wy * ndu);
+
+      // (n x E)_z, sign flipped so positive = B toward the viewer;
+      // multiplied by R so the 1/R radiation shells stay visible at distance
+      const val = -(nx * Ey - ny * Ex) * Rr;
+      const m = Math.tanh(Math.abs(val) * GAIN);
+      const col = val > 0 ? GOLD : CYAN;
+
+      const o = idx * 4;
+      d[o]     = BG[0] + (col[0] - BG[0]) * m;
+      d[o + 1] = BG[1] + (col[1] - BG[1]) * m;
+      d[o + 2] = BG[2] + (col[2] - BG[2]) * m;
+      d[o + 3] = 255;
+    }
+  }
+  octx.putImageData(img, 0, 0);
+}
+
+// ---------- scene ----------
+function drawScene() {
+  ctx.strokeStyle = 'rgba(90, 200, 120, 0.3)';
+  ctx.lineWidth = 1.2;
+  ctx.beginPath();
+  ctx.ellipse(cx, groundY, R, R * 0.24, 0, 0, Math.PI * 2);
+  ctx.stroke();
+
+  const g = geom();
+  ctx.strokeStyle = 'rgba(90, 200, 120, 0.55)';
+  ctx.lineWidth = 2;
+  ctx.beginPath();
+  ctx.moveTo(cx, groundY + R * 0.24 + 50);
+  ctx.lineTo(cx, g.yTop);
+  ctx.stroke();
+}
+
+function drawLegend() {
+  const x = 16;
+  let y = H - 80;
+  ctx.font = '12px system-ui, sans-serif';
+  ctx.textBaseline = 'middle';
+  ctx.fillStyle = `rgba(${GOLD[0]},${GOLD[1]},${GOLD[2]},0.85)`;
+  ctx.beginPath(); ctx.arc(x + 4, y, 4, 0, Math.PI * 2); ctx.fill();
+  ctx.fillStyle = 'rgba(220,230,225,0.6)';
+  ctx.fillText('B toward you (out of screen)', x + 16, y);
+  y += 19;
+  ctx.fillStyle = `rgba(${CYAN[0]},${CYAN[1]},${CYAN[2]},0.85)`;
+  ctx.beginPath(); ctx.arc(x + 4, y, 4, 0, Math.PI * 2); ctx.fill();
+  ctx.fillStyle = 'rgba(220,230,225,0.6)';
+  ctx.fillText('B away from you (into screen)', x + 16, y);
+  y += 19;
+  ctx.fillStyle = 'rgba(220,230,225,0.6)';
+  ctx.fillText('exact Liénard–Wiechert fields, slice through the pole', x + 16, y);
+  y += 19;
+  ctx.fillStyle = 'rgba(220,230,225,0.4)';
+  ctx.fillText(paused ? 'paused — tap to resume' : 'tap to pause', x + 16, y);
+  ctx.textBaseline = 'alphabetic';
+}
+
+// ---------- animation ----------
+let t = 0;
+let paused = false;
+cv.addEventListener('pointerdown', () => { paused = !paused; });
+
+function loop() {
+  requestAnimationFrame(loop);
+  if (!paused) {
+    t++;
+    computeField(t);
+  }
+
+  ctx.fillStyle = '#04120b';
+  ctx.fillRect(0, 0, W, H);
+  ctx.imageSmoothingEnabled = true;
+  ctx.drawImage(off, 0, 0, W, H);
+  drawScene();
+
+  // electron
+  const p = posAt(t);
+  const p1 = posAt(t + 1), pm = posAt(t - 1);
+  const vy = (p1.y - pm.y) / 2, vx = (p1.x - pm.x) / 2;
+  const sp = Math.hypot(vx, vy) + 1e-6;
+  const u = (vy / sp + 1) / 2;
+  const tint = [
+    Math.round(GOLD[0] + (CYAN[0] - GOLD[0]) * u),
+    Math.round(GOLD[1] + (CYAN[1] - GOLD[1]) * u),
+    Math.round(GOLD[2] + (CYAN[2] - GOLD[2]) * u)
+  ];
+  const r = 9;
+  const glow = ctx.createRadialGradient(p.x, p.y, 0, p.x, p.y, r * 5);
+  glow.addColorStop(0, 'rgba(255,255,255,0.95)');
+  glow.addColorStop(0.25, `rgba(${tint[0]},${tint[1]},${tint[2]},0.4)`);
+  glow.addColorStop(1, `rgba(${tint[0]},${tint[1]},${tint[2]},0)`);
+  ctx.fillStyle = glow;
+  ctx.beginPath();
+  ctx.arc(p.x, p.y, r * 5, 0, Math.PI * 2);
+  ctx.fill();
+  ctx.fillStyle = '#ffffff';
+  ctx.beginPath();
+  ctx.arc(p.x, p.y, r, 0, Math.PI * 2);
+  ctx.fill();
+  ctx.fillStyle = 'rgba(230,235,245,0.85)';
+  ctx.font = '13px system-ui, sans-serif';
+  ctx.fillText('e⁻', p.x + 14, p.y + 4);
+
+  drawLegend();
+}
+loop();
+</script>
+</body>
+</html>

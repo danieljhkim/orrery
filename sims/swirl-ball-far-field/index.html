@@ -1,0 +1,517 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<title>Oscillating Electron — Radiating B-Field</title>
+<style>
+  :root{
+    --gold:#ffd36e;
+    --cyan:#6ec8ff;
+    --green:#5ac878;
+    --ink:#9fd0b0;
+  }
+  html,body{margin:0;padding:0;background:#04120b;overflow:hidden;height:100%;}
+  canvas{display:block;touch-action:none;}
+
+  /* ---------- control panel ---------- */
+  #panel{
+    position:fixed; left:18px; bottom:18px; z-index:10;
+    width:248px;
+    font:11px/1.45 ui-monospace,"SF Mono",Menlo,Consolas,monospace;
+    color:var(--ink);
+    background:rgba(5,20,13,0.55);
+    border:1px solid rgba(90,200,120,0.18);
+    border-radius:4px;
+    backdrop-filter:blur(7px);
+    -webkit-backdrop-filter:blur(7px);
+    opacity:0.30;
+    transition:opacity .35s ease;
+    user-select:none;
+    box-shadow:0 8px 40px rgba(0,0,0,0.35);
+  }
+  #panel:hover,#panel:focus-within,#panel.pinned{opacity:1;}
+  #panel.collapsed .pbody{display:none;}
+
+  .phead{
+    display:flex; align-items:center; justify-content:space-between;
+    padding:9px 12px; cursor:pointer;
+    letter-spacing:.18em; text-transform:uppercase; font-size:10px;
+    color:rgba(159,208,176,0.75);
+    border-bottom:1px solid rgba(90,200,120,0.12);
+  }
+  #panel.collapsed .phead{border-bottom:none;}
+  .chev{transition:transform .3s ease; opacity:.7;}
+  #panel.collapsed .chev{transform:rotate(-90deg);}
+
+  .pbody{padding:6px 12px 12px;}
+
+  /* readout */
+  .readout{
+    display:flex; align-items:baseline; gap:8px;
+    padding:9px 0 11px; margin-bottom:4px;
+    border-bottom:1px solid rgba(90,200,120,0.10);
+  }
+  .beta{font-size:23px; letter-spacing:.02em; color:#eaf6ee; font-weight:500;}
+  .beta b{font-weight:600;}
+  .betasub{font-size:9.5px; color:rgba(159,208,176,0.55); letter-spacing:.04em;}
+  .betabar{position:relative; height:3px; margin-top:10px; background:rgba(90,200,120,0.14); border-radius:2px;}
+  .betabar i{position:absolute; left:0; top:0; bottom:0; border-radius:2px; transition:width .12s linear,background .2s;}
+  .betabar u{position:absolute; top:-3px; bottom:-3px; width:1px; background:rgba(255,255,255,0.45); left:100%;}
+  .betatick{position:absolute; top:6px; right:0; transform:none; font-size:8px; color:rgba(159,208,176,0.5); letter-spacing:.05em;}
+
+  .row{margin:11px 0 0;}
+  .rlab{display:flex; justify-content:space-between; align-items:baseline; margin-bottom:5px;}
+  .rlab span:first-child{letter-spacing:.13em; text-transform:uppercase; font-size:9.5px; color:rgba(159,208,176,0.7);}
+  .rval{color:#dcefe2; font-size:10px;}
+
+  input[type=range]{
+    -webkit-appearance:none; appearance:none; width:100%; height:14px;
+    background:transparent; cursor:pointer; margin:0;
+  }
+  input[type=range]::-webkit-slider-runnable-track{height:2px; background:rgba(90,200,120,0.28); border-radius:2px;}
+  input[type=range]::-moz-range-track{height:2px; background:rgba(90,200,120,0.28); border-radius:2px;}
+  input[type=range]::-webkit-slider-thumb{
+    -webkit-appearance:none; appearance:none; width:11px; height:11px; margin-top:-4.5px;
+    border-radius:50%; background:var(--gold);
+    box-shadow:0 0 9px rgba(255,211,110,0.6); border:none;
+  }
+  input[type=range]::-moz-range-thumb{
+    width:11px; height:11px; border:none; border-radius:50%; background:var(--gold);
+    box-shadow:0 0 9px rgba(255,211,110,0.6);
+  }
+
+  .toggles{display:flex; flex-direction:column; gap:8px; margin-top:14px; padding-top:11px; border-top:1px solid rgba(90,200,120,0.10);}
+  .tog{display:flex; align-items:center; justify-content:space-between; cursor:pointer;}
+  .tog span{letter-spacing:.1em; text-transform:uppercase; font-size:9.5px; color:rgba(159,208,176,0.7);}
+  .sw{position:relative; width:30px; height:15px; border-radius:8px; background:rgba(90,200,120,0.16); border:1px solid rgba(90,200,120,0.25); transition:background .2s;}
+  .sw::after{content:""; position:absolute; top:1.5px; left:1.5px; width:10px; height:10px; border-radius:50%; background:rgba(159,208,176,0.6); transition:transform .2s,background .2s;}
+  .tog.on .sw{background:rgba(110,200,255,0.3); border-color:rgba(110,200,255,0.5);}
+  .tog.on .sw::after{transform:translateX(15px); background:var(--cyan); box-shadow:0 0 8px rgba(110,200,255,0.7);}
+
+  .legend{display:flex; gap:14px; margin-top:13px; padding-top:10px; border-top:1px solid rgba(90,200,120,0.10); font-size:9px; letter-spacing:.04em; color:rgba(159,208,176,0.55);}
+  .legend i{display:inline-block; width:14px; height:2px; vertical-align:middle; margin-right:5px;}
+
+  #hint{
+    position:fixed; left:50%; top:24px; transform:translateX(-50%); z-index:9;
+    font:10px/1 ui-monospace,Menlo,monospace; letter-spacing:.22em; text-transform:uppercase;
+    color:rgba(159,208,176,0.4); pointer-events:none; transition:opacity .6s;
+  }
+  #pause{
+    position:fixed; left:50%; top:50%; transform:translate(-50%,-50%); z-index:9;
+    font:11px/1 ui-monospace,Menlo,monospace; letter-spacing:.3em; text-transform:uppercase;
+    color:rgba(234,246,238,0.78); pointer-events:none; opacity:0; transition:opacity .25s;
+    display:flex; align-items:center; gap:9px;
+  }
+  #pause.show{opacity:1;}
+  #pause b{font-size:16px; letter-spacing:0;}
+</style>
+</head>
+<body>
+
+<canvas id="c"></canvas>
+
+<div id="hint">tap field to pause</div>
+<div id="pause"><b>❚❚</b><span>paused</span></div>
+
+<div id="panel" class="pinned">
+  <div class="phead" id="phead">
+    <span>Field Parameters</span>
+    <span class="chev">▾</span>
+  </div>
+  <div class="pbody">
+    <div class="readout">
+      <div class="beta">β&nbsp;=&nbsp;<b id="betaVal">0.00</b></div>
+      <div class="betasub" id="betaSub">v / c</div>
+    </div>
+    <div class="betabar"><i id="betaFill"></i><u></u><span class="betatick">c</span></div>
+
+    <div class="row">
+      <div class="rlab"><span>Amplitude</span><span class="rval" id="vAmp"></span></div>
+      <input type="range" id="amp" min="0.3" max="1.1" step="0.01" value="0.95">
+    </div>
+    <div class="row">
+      <div class="rlab"><span>Frequency</span><span class="rval" id="vFreq"></span></div>
+      <input type="range" id="freq" min="0.03" max="0.6" step="0.005" value="0.12">
+    </div>
+    <div class="row" data-comment-anchor="875ce7059e-div">
+      <div class="rlab"><span>Propagation c</span><span class="rval" id="vC"></span></div>
+      <input type="range" id="cspd" min="40" max="900" step="5" value="240">
+    </div>
+    <div class="row">
+      <div class="rlab"><span>Turn sharpness</span><span class="rval" id="vTurn"></span></div>
+      <input type="range" id="turn" min="5" max="70" step="1" value="15">
+    </div>
+    <div class="row">
+      <div class="rlab"><span data-comment-anchor="0cbb14da3b-span">Emission density</span><span class="rval" id="vDens"></span></div>
+      <input type="range" id="dens" min="20" max="80" step="1" value="55">
+    </div>
+    <div class="row">
+      <div class="rlab"><span>Ring lifetime</span><span class="rval" id="vLife"></span></div>
+      <input type="range" id="life" min="0.6" max="9" step="0.1" value="4.5">
+    </div>
+
+    <div class="toggles">
+      <div class="tog" id="togRad"><span>Radiation emphasis</span><div class="sw"></div></div>
+      <div class="tog" id="togDip"><span>Dipole envelope</span><div class="sw"></div></div>
+    </div>
+
+    <div class="legend">
+      <div><i style="background:var(--gold)"></i>rising</div>
+      <div><i style="background:var(--cyan)"></i>falling</div>
+    </div>
+  </div>
+</div>
+
+<script>
+const cv = document.getElementById('c');
+const ctx = cv.getContext('2d');
+
+// ---------- parameters (each maps to a physical quantity) ----------
+const P = {
+  amp: 0.95,    // pole height as fraction of scene radius -> oscillation length
+  freq: 0.12,   // circuits per second (Hz)
+  c: 240,       // ring propagation speed, scene-px / second
+  turnB: 15,    // hairpin radius at the pole tips, px
+  density: 55,  // rings emitted per 100 px of path
+  life: 4.5,    // ring lifetime, seconds
+  radiation: false,
+  dipole: false
+};
+
+// ---------- canvas / retina ----------
+let W, H, cx, groundY, R, DPR = 1;
+const TILT = 0.24;   // perspective squash for horizontal rings & ground circle
+const KV   = 0.85;   // vertical scale for heights
+
+// reference centripetal acceleration at default settings & current viewport.
+// Radiated power ~ a^2 (Larmor); we use a/A_REF to set how bright a detached
+// turn-ring is, so BOTH speed (amp/freq) and turn sharpness drive radiation.
+const DEF = { amp: 0.95, freq: 0.12, turn: 15 };
+let A_REF = 1;
+function computeARef() {
+  const hMax = R * DEF.amp, hMin = R * 0.12;
+  const L = (hMax - hMin) * KV;
+  const path = 2 * L + 2 * Math.PI * DEF.turn;
+  const v = path * DEF.freq;
+  A_REF = (v * v) / DEF.turn;
+}
+
+function resize() {
+  DPR = Math.min(window.devicePixelRatio || 1, 2.5);
+  W = window.innerWidth; H = window.innerHeight;
+  cv.width = Math.round(W * DPR); cv.height = Math.round(H * DPR);
+  cv.style.width = W + 'px'; cv.style.height = H + 'px';
+  ctx.setTransform(DPR, 0, 0, DPR, 0, 0);
+  cx = W / 2; groundY = H * 0.70;
+  R = Math.min(W * 0.36, H * 0.55);
+  computeARef();
+}
+resize();
+window.addEventListener('resize', resize);
+
+// ---------- colours ----------
+const COL_UP   = [255, 211, 110];   // gold  : rising  -> B clockwise from above
+const COL_DOWN = [110, 200, 255];   // cyan  : falling -> B counter-clockwise
+function lerpCol(u) {
+  return [
+    Math.round(COL_UP[0] + (COL_DOWN[0] - COL_UP[0]) * u),
+    Math.round(COL_UP[1] + (COL_DOWN[1] - COL_UP[1]) * u),
+    Math.round(COL_UP[2] + (COL_DOWN[2] - COL_UP[2]) * u)
+  ];
+}
+
+// ---------- geometry ----------
+// Racetrack: straight UP the left of the pole, semicircular cap over the tip,
+// straight DOWN the right, semicircular cap under the base. Constant speed.
+function geom() {
+  const hMax = R * P.amp, hMin = R * 0.12;
+  const yTop = groundY - hMax * KV;
+  const yBot = groundY - hMin * KV;
+  const L = yBot - yTop;            // straight-run length (oscillation length)
+  const B = P.turnB;
+  const cap = Math.PI * B;          // arc length of one semicircular turn
+  return { yTop, yBot, L, B, cap, path: 2 * L + 2 * cap };
+}
+
+// position + unit tangent + whether we're in a turn, for arc-length s
+function pathState(s) {
+  const g = geom(), B = g.B;
+  s = ((s % g.path) + g.path) % g.path;
+  if (s < g.L) {                                  // ascending (left)
+    return { x: cx - B, y: g.yBot - s, tx: 0, ty: -1, turn: false };
+  }
+  s -= g.L;
+  if (s < g.cap) {                                // over the tip
+    const a = Math.PI + s / B;
+    return { x: cx + B * Math.cos(a), y: g.yTop + B * Math.sin(a),
+             tx: -Math.sin(a), ty: Math.cos(a), turn: true };
+  }
+  s -= g.cap;
+  if (s < g.L) {                                  // descending (right)
+    return { x: cx + B, y: g.yTop + s, tx: 0, ty: 1, turn: false };
+  }
+  s -= g.L;
+  const a = s / B;                                // under the base
+  return { x: cx + B * Math.cos(a), y: g.yBot + B * Math.sin(a),
+           tx: -Math.sin(a), ty: Math.cos(a), turn: true };
+}
+
+// ---------- magnetic-field rings ----------
+// Each ring is born at the electron, in the plane PERPENDICULAR to its velocity
+// (B circles the current). It then expands outward at the propagation speed c.
+const rings = [];
+function spawnRing(st, v) {
+  const vyN = st.ty;                  // unit tangent y: <0 rising, >0 falling
+  const u = (vyN + 1) / 2;
+  rings.push({
+    x: st.x, y: st.y,
+    r: 7,                             // born at the electron
+    rot: Math.atan2(st.tx, -st.ty),   // ring plane stays perpendicular to v
+    dashDir: vyN < 0 ? 1 : -1,        // circulation sense flips with the current
+    dash: Math.random() * 24,
+    col: lerpCol(u),
+    born: T,
+    turn: st.turn,
+    accel: st.turn ? (v * v) / P.turnB : 0   // centripetal accel at emission
+  });
+}
+
+// ---------- scene ----------
+function drawScene() {
+  ctx.strokeStyle = 'rgba(90, 200, 120, 0.40)';
+  ctx.lineWidth = 1.2;
+  ctx.beginPath();
+  ctx.ellipse(cx, groundY, R, R * TILT, 0, 0, Math.PI * 2);
+  ctx.stroke();
+  for (let i = 0; i < 36; i++) {
+    const a = (i / 36) * Math.PI * 2;
+    const x1 = cx + (R - 6) * Math.cos(a), y1 = groundY + (R - 6) * TILT * Math.sin(a);
+    const x2 = cx + (R + 6) * Math.cos(a), y2 = groundY + (R + 6) * TILT * Math.sin(a);
+    ctx.beginPath(); ctx.moveTo(x1, y1); ctx.lineTo(x2, y2); ctx.stroke();
+  }
+  const g = geom();
+  ctx.strokeStyle = 'rgba(90, 200, 120, 0.55)';
+  ctx.lineWidth = 2;
+  ctx.beginPath();
+  ctx.moveTo(cx, groundY + R * TILT + 50);
+  ctx.lineTo(cx, g.yTop);
+  ctx.stroke();
+  ctx.lineWidth = 1.1;
+  for (let yy = groundY + R * TILT + 36; yy > g.yTop; yy -= 36) {
+    ctx.beginPath(); ctx.moveTo(cx - 6, yy); ctx.lineTo(cx + 6, yy); ctx.stroke();
+  }
+}
+
+// ---------- dipole-radiation envelope (optional overlay) ----------
+// The up/down oscillation is a vertical oscillating dipole. Its far-field power
+// pattern is sin^2(theta) about the motion axis: maximal perpendicular to the
+// pole, vanishing along it. We draw the figure-eight cross-section in the
+// motion plane (here cos^2 of the screen angle, since theta is from vertical).
+function drawDipole() {
+  const g = geom();
+  const cyc = (g.yTop + g.yBot) / 2;
+  const scale = R * 0.62;
+  ctx.save();
+  for (let pass = 0; pass < 2; pass++) {
+    ctx.beginPath();
+    for (let i = 0; i <= 220; i++) {
+      const al = (i / 220) * Math.PI * 2;
+      const rho = scale * Math.cos(al) * Math.cos(al);   // sin^2(theta) lobe
+      const x = cx + rho * Math.cos(al);
+      const y = cyc + rho * Math.sin(al);
+      i ? ctx.lineTo(x, y) : ctx.moveTo(x, y);
+    }
+    ctx.closePath();
+    if (pass === 0) { ctx.fillStyle = 'rgba(120,180,150,0.04)'; ctx.fill(); }
+    else { ctx.strokeStyle = 'rgba(180,215,195,0.16)'; ctx.lineWidth = 1; ctx.stroke(); }
+  }
+  ctx.restore();
+}
+
+// ---------- ring rendering ----------
+function drawRing(s) {
+  const age = T - s.born;
+  const fade = 1 - age / P.life;
+  if (fade <= 0) return;
+  let a, lw;
+  if (P.radiation) {
+    // Radiation requires acceleration: only the turn-born rings carry detaching
+    // far-field. Brightness tracks a/A_REF (Larmor-ish), so tighter turns and
+    // faster motion visibly strengthen the detached front; straight runs are
+    // zero-accel near-field and stay dim.
+    if (s.turn) {
+      const k = Math.min(s.accel / A_REF, 1);
+      a = fade * (0.12 + 0.72 * k); lw = 1.1 + 1.5 * k;
+    } else { a = fade * 0.05; lw = 1.0; }
+  } else {
+    a = fade * 0.5; lw = 1.6;
+  }
+  ctx.strokeStyle = `rgba(${s.col[0]},${s.col[1]},${s.col[2]},${a})`;
+  ctx.lineWidth = lw;
+  ctx.setLineDash([9, 13]);
+  ctx.lineDashOffset = s.dash;
+  ctx.beginPath();
+  ctx.ellipse(s.x, s.y, s.r, s.r * TILT, s.rot, 0, Math.PI * 2);
+  ctx.stroke();
+  ctx.setLineDash([]);
+}
+
+// ---------- animation loop ----------
+let T = 0;                 // simulation clock, seconds
+let dist = 0;              // arc length travelled
+let distSinceEmit = 0;
+let prevState = pathState(0);
+let paused = false;
+let last = performance.now() / 1000;
+
+function loop(now) {
+  requestAnimationFrame(loop);
+  now /= 1000;
+  let dt = now - last; last = now;
+  if (paused) dt = 0;
+  dt = Math.min(dt, 0.05);
+  T += dt;
+
+  const g = geom();
+  const vReq = g.path * P.freq;            // speed the freq slider is asking for
+  const v = Math.min(vReq, 0.995 * P.c);   // a charge cannot reach c -> beta < 1
+  const ds = v * dt;
+  dist += ds;
+
+  // emit rings by path length (rings per unit length)
+  const spacing = 100 / P.density;
+  distSinceEmit += ds;
+  let guard = 0;
+  while (distSinceEmit >= spacing && guard++ < 400) {
+    distSinceEmit -= spacing;
+    const st = pathState(dist - distSinceEmit);
+    spawnRing(st, v);
+  }
+  if (rings.length > 2400) rings.splice(0, rings.length - 2400);
+
+  const p = pathState(dist);
+
+  // ---- paint ----
+  ctx.fillStyle = '#04120b';
+  ctx.fillRect(0, 0, W, H);
+  drawScene();
+  if (P.dipole) drawDipole();
+
+  const diag = Math.hypot(W, H);
+  for (let i = rings.length - 1; i >= 0; i--) {
+    const s = rings[i];
+    s.r += P.c * dt;
+    s.dash -= s.dashDir * 36 * dt;
+    if ((T - s.born) >= P.life || s.r > diag) rings.splice(i, 1);
+  }
+  rings.slice().sort((a, b) => a.y - b.y).forEach(drawRing);
+
+  // ---- electron ----
+  const u = (p.ty + 1) / 2;
+  const tint = lerpCol(u);
+  const er = 9;
+  const glow = ctx.createRadialGradient(p.x, p.y, 0, p.x, p.y, er * 5);
+  glow.addColorStop(0, 'rgba(255,255,255,0.95)');
+  glow.addColorStop(0.25, `rgba(${tint[0]},${tint[1]},${tint[2]},0.4)`);
+  glow.addColorStop(1, `rgba(${tint[0]},${tint[1]},${tint[2]},0)`);
+  ctx.fillStyle = glow;
+  ctx.beginPath(); ctx.arc(p.x, p.y, er * 5, 0, Math.PI * 2); ctx.fill();
+  ctx.fillStyle = '#ffffff';
+  ctx.beginPath(); ctx.arc(p.x, p.y, er, 0, Math.PI * 2); ctx.fill();
+  ctx.fillStyle = 'rgba(230,235,245,0.85)';
+  ctx.font = '13px ui-monospace, Menlo, monospace';
+  ctx.fillText('e⁻', p.x + 14, p.y + 4);
+
+  // ---- readouts ----
+  if ((readoutFrame = (readoutFrame + 1) % 4) === 0) updateBeta(v, g);
+}
+
+// ---------- readouts / panel wiring ----------
+let readoutFrame = 0;
+const $ = id => document.getElementById(id);
+
+function updateBeta(v, g) {
+  const beta = v / P.c;                          // now genuinely in [0,1)
+  $('betaVal').textContent = beta.toFixed(2);
+  const limited = beta >= 0.99;
+  $('betaSub').textContent = limited
+    ? 'c-limited'
+    : `v ${Math.round(v)} · c ${Math.round(P.c)} px/s`;
+  const fill = $('betaFill');
+  fill.style.width = (Math.min(beta, 1) * 100) + '%';   // full bar = c
+  let colr;
+  if (beta < 0.5)      colr = 'rgba(90,200,120,0.85)';
+  else if (beta < 0.85) colr = 'rgba(255,211,110,0.9)';
+  else                  colr = 'rgba(255,150,90,0.95)';  // hot, still below c
+  fill.style.background = colr;
+}
+
+function updateStatic() {
+  const g = geom();
+  const vReq = g.path * P.freq;
+  const vCap = 0.995 * P.c;
+  const capped = vReq > vCap;
+  $('vAmp').textContent  = Math.round(g.L) + ' px';
+  $('vFreq').textContent = capped
+    ? (vCap / g.path).toFixed(2) + ' Hz · c-cap'
+    : P.freq.toFixed(2) + ' Hz · T ' + (1 / P.freq).toFixed(1) + 's';
+  $('vC').textContent    = Math.round(P.c) + ' px/s';
+  $('vTurn').textContent = P.turnB + ' px';
+  $('vDens').textContent = P.density + '/100px';
+  $('vLife').textContent = P.life.toFixed(1) + ' s';
+}
+
+function bind(id, key, parse) {
+  const el = $(id);
+  el.addEventListener('input', () => { P[key] = parse(el.value); updateStatic(); });
+}
+bind('amp', 'amp', parseFloat);
+bind('freq', 'freq', parseFloat);
+bind('cspd', 'c', parseFloat);
+bind('turn', 'turnB', v => parseInt(v, 10));
+bind('dens', 'density', v => parseInt(v, 10));
+bind('life', 'life', parseFloat);
+
+function toggle(id, key) {
+  const el = $(id);
+  el.addEventListener('click', () => {
+    P[key] = !P[key];
+    el.classList.toggle('on', P[key]);
+  });
+}
+toggle('togRad', 'radiation');
+toggle('togDip', 'dipole');
+
+$('phead').addEventListener('click', () => {
+  $('panel').classList.toggle('collapsed');
+});
+
+updateStatic();
+
+// ---------- pause on tap (anywhere on the field, not the panel) ----------
+const panel = $('panel');
+const hint = $('hint');
+const pauseEl = $('pause');
+let hintFaded = false;
+function togglePause() {
+  paused = !paused;
+  pauseEl.classList.toggle('show', paused);
+  if (paused) last = performance.now() / 1000;   // avoid a dt jump on resume
+}
+cv.addEventListener('pointerdown', e => {
+  if (panel.contains(e.target)) return;
+  togglePause();
+  if (!hintFaded) { hint.style.opacity = '0'; hintFaded = true; }
+});
+window.addEventListener('keydown', e => {
+  if (e.code === 'Space') { e.preventDefault(); togglePause(); }
+});
+// let the panel un-pin (drop to low contrast) shortly after load
+setTimeout(() => panel.classList.remove('pinned'), 2600);
+setTimeout(() => { if (!hintFaded) hint.style.opacity = '0'; }, 6000);
+
+requestAnimationFrame(loop);
+</script>
+
+
+</body></html>

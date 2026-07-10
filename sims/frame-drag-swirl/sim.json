@@ -1,0 +1,18 @@
+{
+  "slug": "frame-drag-swirl",
+  "title": "Swirling space frame-drag sim",
+  "kind": "web",
+  "entry": "index.html",
+  "status": "imported",
+  "created": "2026-07-05",
+  "topics": [
+    "gravity",
+    "frame-dragging"
+  ],
+  "family": "gravity-as-scarcity",
+  "summary": "2D visualization of space itself swirling around a rotating mass \u2014 frame-dragging in the scarcity picture.",
+  "provenance": {
+    "almanac": "15-discussions/26-07/gravity-as-scarcity-of-space.md",
+    "imported_from": "almanac/40-outputs/gravity/swirling_space_frame_drag_sim.html"
+  }
+}

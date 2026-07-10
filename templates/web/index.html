@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>__TITLE__</title>
+<link rel="stylesheet" href="../../lib/web/style.css">
+</head>
+<body>
+<h1 class="sim-title">__TITLE__</h1>
+<div id="controls"></div>
+<div class="orrery-wrap" id="wrap"></div>
+<p class="hint">Template sim: a damped driven pendulum (RK4). Replace the physics,
+keep the harness. Drag to pan, scroll to zoom.</p>
+
+<script type="module">
+import { createLoop } from '../../lib/web/loop.js';
+import { createPanel } from '../../lib/web/panel.js';
+import { createCanvas2D, attachPanZoom, createHud } from '../../lib/web/canvas2d.js';
+import { rk4 } from '../../lib/web/integrators.js';
+
+// --- state: y = [theta, omega] ------------------------------------------
+const y = new Float64Array([2.5, 0]);
+let t = 0;
+const P = { damping: 0.15, drive: 0.0, driveFreq: 2/3, g: 9.81, L: 1 };
+
+function deriv(s, dy) {
+  dy[0] = s[1];
+  dy[1] = -(P.g / P.L) * Math.sin(s[0]) - P.damping * s[1]
+          + P.drive * Math.cos(P.driveFreq * t);
+}
+
+// --- rendering ------------------------------------------------------------
+const surface = createCanvas2D({ mount: document.getElementById('wrap'), height: 520 });
+const view = attachPanZoom(surface.canvas, { scale: 160 });
+const hud = createHud(document.getElementById('wrap'));
+const trail = [];
+
+function render() {
+  const { ctx } = surface;
+  surface.clear('#050510');
+  ctx.save();
+  view.apply(ctx);
+
+  const px = P.L * Math.sin(y[0]), py = P.L * Math.cos(y[0]);
+  trail.push([px, py]);
+  if (trail.length > 400) trail.shift();
+
+  ctx.lineWidth = 1 / view.scale;
+  ctx.strokeStyle = 'rgba(122,162,255,0.35)';
+  ctx.beginPath();
+  trail.forEach(([tx, ty], i) => i ? ctx.lineTo(tx, ty) : ctx.moveTo(tx, ty));
+  ctx.stroke();
+
+  ctx.strokeStyle = '#8b93b8';
+  ctx.lineWidth = 2 / view.scale;
+  ctx.beginPath(); ctx.moveTo(0, 0); ctx.lineTo(px, py); ctx.stroke();
+  ctx.fillStyle = '#c9cede';
+  ctx.beginPath(); ctx.arc(px, py, 7 / view.scale, 0, Math.PI * 2); ctx.fill();
+  ctx.restore();
+
+  const E = 0.5 * (P.L * y[1]) ** 2 - P.g * P.L * Math.cos(y[0]);
+  hud.set(`t = ${t.toFixed(2)} s   E = ${E.toFixed(3)}`);
+}
+
+// --- loop + controls -------------------------------------------------------
+const loop = createLoop({
+  step: (dt) => { rk4(y, dt, deriv); t += dt; },
+  render,
+  dt: 1 / 240,
+});
+
+const panel = createPanel([
+  { type: 'button', key: 'play', label: 'Pause', onClick: (btn) => { btn.textContent = loop.toggle() ? 'Pause' : 'Play'; } },
+  { type: 'range', key: 'speed', label: 'Speed', min: 0.1, max: 8, step: 0.1, value: 1,
+    format: (v) => `${v.toFixed(1)}x`, onChange: (v) => { loop.speed = v; } },
+  { type: 'range', key: 'damping', label: 'Damping', min: 0, max: 1, step: 0.01, value: P.damping,
+    format: (v) => v.toFixed(2), onChange: (v) => { P.damping = v; } },
+  { type: 'range', key: 'drive', label: 'Drive', min: 0, max: 2, step: 0.05, value: P.drive,
+    format: (v) => v.toFixed(2), onChange: (v) => { P.drive = v; } },
+  { type: 'button', label: 'Reset', onClick: () => { y[0] = 2.5; y[1] = 0; t = 0; trail.length = 0; loop.reset(); } },
+], { mount: document.getElementById('controls') });
+
+loop.start();
+</script>
+</body>
+</html>

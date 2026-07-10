@@ -1,0 +1,17 @@
+{
+  "slug": "solar-system-nbody",
+  "title": "Solar system n-body simulator",
+  "kind": "web",
+  "entry": "index.html",
+  "status": "imported",
+  "created": "2026-07-05",
+  "topics": [
+    "gravity",
+    "n-body",
+    "orbital-mechanics"
+  ],
+  "summary": "All 9 bodies feel each other's gravity \u2014 nothing on rails. Leapfrog (kick-drift-kick) in AU / years / solar masses; drag to rotate, scroll to zoom.",
+  "provenance": {
+    "imported_from": "almanac/40-outputs/gravity/solar-system-simulator.html"
+  }
+}

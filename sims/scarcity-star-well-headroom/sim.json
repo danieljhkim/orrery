@@ -1,0 +1,18 @@
+{
+  "slug": "scarcity-star-well-headroom",
+  "title": "Nonlinear headroom star-well profile",
+  "kind": "web",
+  "entry": "index.html",
+  "status": "imported",
+  "created": "2026-07-05",
+  "topics": [
+    "gravity",
+    "potential-wells"
+  ],
+  "family": "gravity-as-scarcity",
+  "summary": "1D profile of a star's potential well under the nonlinear-headroom variant of the scarcity model.",
+  "provenance": {
+    "almanac": "15-discussions/26-07/gravity-as-scarcity-of-space.md",
+    "imported_from": "almanac/40-outputs/gravity/nonlinear_headroom_star_well_profile.html"
+  }
+}

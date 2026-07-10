@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Solar system n-body simulator</title>
+<style>
+  body { margin: 0; padding: 24px; background: #0b0b14; color: #c9cede; font-family: system-ui, sans-serif; }
+  .controls { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; max-width: 900px; margin: 0 auto 12px; }
+  .controls label { font-size: 13px; color: #8b93b8; }
+  .controls button { background: transparent; color: #c9cede; border: 1px solid #3a3f55; border-radius: 8px; padding: 6px 12px; font-size: 13px; cursor: pointer; }
+  .controls button:hover { background: #1a1f30; }
+  .controls input[type=range] { flex: 1; min-width: 120px; }
+  #speedOut { font-size: 13px; min-width: 86px; }
+  #wrap { max-width: 900px; margin: 0 auto; border-radius: 12px; overflow: hidden; border: 1px solid #2a2f45; background: #050510; position: relative; }
+  #c { display: block; width: 100%; height: 560px; cursor: grab; }
+  #hud { position: absolute; top: 10px; left: 12px; font-size: 12px; color: #8b93b8; font-family: monospace; pointer-events: none; }
+  .hint { max-width: 900px; margin: 8px auto 0; font-size: 13px; color: #6a7090; }
+</style>
+</head>
+<body>
+<div class="controls">
+  <button id="playBtn" style="width:70px;">Pause</button>
+  <label>Speed</label>
+  <input type="range" id="speed" min="1" max="200" step="1" value="30">
+  <span id="speedOut">30 days/sec</span>
+  <button id="viewInner">Inner</button>
+  <button id="viewFull">Full</button>
+  <button id="resetBtn">Reset</button>
+</div>
+<div id="wrap">
+  <canvas id="c"></canvas>
+  <div id="hud">Year 0.00</div>
+</div>
+<p class="hint">Drag to rotate, scroll to zoom. All 9 bodies feel each other's gravity — nothing is on rails. Leapfrog (kick-drift-kick) integration in AU / years / solar masses (G = 4&pi;&sup2;).</p>
+<script src="../../vendor/three/three.min.js"></script>
+<script>
+(function(){
+var G = 4*Math.PI*Math.PI, EPS2 = 1e-8;
+var DATA = [
+ {n:"Sun",     m:1,       a:0,     c:0xffd27d, r:0.30},
+ {n:"Mercury", m:1.66e-7, a:0.387, c:0xb5a79b, r:0.045},
+ {n:"Venus",   m:2.45e-6, a:0.723, c:0xe6c07a, r:0.085},
+ {n:"Earth",   m:3.00e-6, a:1.000, c:0x4a90d9, r:0.09},
+ {n:"Mars",    m:3.23e-7, a:1.524, c:0xd1603d, r:0.065},
+ {n:"Jupiter", m:9.54e-4, a:5.203, c:0xd8b98a, r:0.26},
+ {n:"Saturn",  m:2.86e-4, a:9.537, c:0xe3d1a0, r:0.22},
+ {n:"Uranus",  m:4.37e-5, a:19.19, c:0x9fd6d2, r:0.15},
+ {n:"Neptune", m:5.15e-5, a:30.07, c:0x5b7fd4, r:0.15}
+];
+var canvas = document.getElementById('c');
+var renderer = new THREE.WebGLRenderer({canvas:canvas, antialias:true});
+renderer.setPixelRatio(Math.min(window.devicePixelRatio,2));
+var scene = new THREE.Scene();
+scene.background = new THREE.Color(0x050510);
+var camera = new THREE.PerspectiveCamera(50, 1, 0.01, 2000);
+scene.add(new THREE.AmbientLight(0x404050, 1.2));
+var sunLight = new THREE.PointLight(0xfff2d0, 1.6, 0, 2);
+scene.add(sunLight);
+
+var starGeo = new THREE.BufferGeometry();
+var starPos = new Float32Array(2400);
+for(var i=0;i<800;i++){
+  var u=Math.random()*2-1, th=Math.random()*Math.PI*2, R=300+Math.random()*300;
+  var s=Math.sqrt(1-u*u);
+  starPos[i*3]=R*s*Math.cos(th); starPos[i*3+1]=R*u; starPos[i*3+2]=R*s*Math.sin(th);
+}
+starGeo.setAttribute('position', new THREE.BufferAttribute(starPos,3));
+scene.add(new THREE.Points(starGeo, new THREE.PointsMaterial({color:0x8890aa,size:1.2,sizeAttenuation:false})));
+
+var bodies=[], TRAIL=600;
+function makeBodies(){
+  bodies.forEach(function(b){ scene.remove(b.mesh); if(b.line) scene.remove(b.line); });
+  bodies=[];
+  var px=0,py=0,pz=0;
+  DATA.forEach(function(d,i){
+    var b={m:d.m, x:0,y:0,z:0, vx:0,vy:0,vz:0, ax:0,ay:0,az:0, baseR:d.r};
+    if(i>0){
+      var ang=i*2.39996;
+      b.x=d.a*Math.cos(ang); b.z=d.a*Math.sin(ang);
+      var v=Math.sqrt(G/d.a);
+      b.vx=-v*Math.sin(ang); b.vz=v*Math.cos(ang);
+      px+=d.m*b.vx; pz+=d.m*b.vz;
+    }
+    var mat = i===0 ? new THREE.MeshBasicMaterial({color:d.c})
+                    : new THREE.MeshLambertMaterial({color:d.c});
+    b.mesh=new THREE.Mesh(new THREE.SphereGeometry(d.r,24,16),mat);
+    scene.add(b.mesh);
+    if(i===6){
+      var ring=new THREE.Mesh(new THREE.RingGeometry(d.r*1.4,d.r*2.2,48),
+        new THREE.MeshBasicMaterial({color:0xcbb88a,side:THREE.DoubleSide,transparent:true,opacity:0.5}));
+      ring.rotation.x=Math.PI/2.4; b.mesh.add(ring);
+    }
+    if(i>0){
+      b.tbuf=new Float32Array(TRAIL*3); b.tlen=0; b.thead=0;
+      var g=new THREE.BufferGeometry();
+      g.setAttribute('position',new THREE.BufferAttribute(b.tbuf,3));
+      g.setDrawRange(0,0);
+      b.line=new THREE.Line(g,new THREE.LineBasicMaterial({color:d.c,transparent:true,opacity:0.45}));
+      scene.add(b.line);
+    }
+    bodies.push(b);
+  });
+  bodies[0].vx=-px; bodies[0].vz=-pz;
+}
+function accel(){
+  var n=bodies.length;
+  for(var i=0;i<n;i++){ bodies[i].ax=0; bodies[i].ay=0; bodies[i].az=0; }
+  for(var i=0;i<n;i++) for(var j=i+1;j<n;j++){
+    var a=bodies[i], b=bodies[j];
+    var dx=b.x-a.x, dy=b.y-a.y, dz=b.z-a.z;
+    var r2=dx*dx+dy*dy+dz*dz+EPS2, inv=1/(Math.sqrt(r2)*r2), f=G*inv;
+    a.ax+=f*b.m*dx; a.ay+=f*b.m*dy; a.az+=f*b.m*dz;
+    b.ax-=f*a.m*dx; b.ay-=f*a.m*dy; b.az-=f*a.m*dz;
+  }
+}
+function step(dt){
+  bodies.forEach(function(b){ b.vx+=b.ax*dt/2; b.vy+=b.ay*dt/2; b.vz+=b.az*dt/2;
+    b.x+=b.vx*dt; b.y+=b.vy*dt; b.z+=b.vz*dt; });
+  accel();
+  bodies.forEach(function(b){ b.vx+=b.ax*dt/2; b.vy+=b.ay*dt/2; b.vz+=b.az*dt/2; });
+}
+
+var camTheta=0.6, camPhi=1.15, camR=8, camTarget=8;
+function updateCam(){
+  camR += (camTarget-camR)*0.12;
+  var s=Math.sin(camPhi);
+  camera.position.set(camR*s*Math.cos(camTheta), camR*Math.cos(camPhi), camR*s*Math.sin(camTheta));
+  camera.lookAt(0,0,0);
+}
+var dragging=false,lx=0,ly=0;
+canvas.addEventListener('pointerdown',function(e){dragging=true;lx=e.clientX;ly=e.clientY;canvas.style.cursor='grabbing';canvas.setPointerCapture(e.pointerId);});
+canvas.addEventListener('pointermove',function(e){if(!dragging)return;
+  camTheta+=(e.clientX-lx)*0.006; camPhi-=(e.clientY-ly)*0.006;
+  camPhi=Math.max(0.15,Math.min(Math.PI-0.15,camPhi)); lx=e.clientX; ly=e.clientY;});
+canvas.addEventListener('pointerup',function(){dragging=false;canvas.style.cursor='grab';});
+canvas.addEventListener('wheel',function(e){e.preventDefault();
+  camTarget*=1+e.deltaY*0.0012; camTarget=Math.max(1.5,Math.min(150,camTarget));},{passive:false});
+
+var playing=true, speedDays=30, tYears=0;
+document.getElementById('playBtn').addEventListener('click',function(){
+  playing=!playing;
+  this.textContent = playing?'Pause':'Play';
+});
+var speedEl=document.getElementById('speed');
+speedEl.addEventListener('input',function(){ speedDays=+this.value;
+  document.getElementById('speedOut').textContent=speedDays+' days/sec'; });
+document.getElementById('viewInner').addEventListener('click',function(){camTarget=8;});
+document.getElementById('viewFull').addEventListener('click',function(){camTarget=85;});
+document.getElementById('resetBtn').addEventListener('click',function(){ makeBodies(); accel(); tYears=0; });
+
+function resize(){
+  var w=canvas.clientWidth,h=canvas.clientHeight;
+  if(canvas.width!==w*renderer.getPixelRatio()){ renderer.setSize(w,h,false); camera.aspect=w/h; camera.updateProjectionMatrix(); }
+}
+makeBodies(); accel();
+var last=performance.now();
+function loop(now){
+  requestAnimationFrame(loop);
+  var fdt=Math.min((now-last)/1000,0.05); last=now;
+  resize();
+  if(playing){
+    var dtY=speedDays*fdt/365.25, sub=Math.max(1,Math.ceil(dtY/0.002)), h=dtY/sub;
+    for(var k=0;k<sub;k++) step(h);
+    tYears+=dtY;
+    bodies.forEach(function(b,i){
+      if(i===0)return;
+      b.tbuf[b.thead*3]=b.x; b.tbuf[b.thead*3+1]=b.y; b.tbuf[b.thead*3+2]=b.z;
+      b.thead=(b.thead+1)%TRAIL; if(b.tlen<TRAIL)b.tlen++;
+      var pos=b.line.geometry.attributes.position.array;
+      for(var t=0;t<b.tlen;t++){
+        var src=((b.thead-b.tlen+t+TRAIL)%TRAIL)*3;
+        pos[t*3]=b.tbuf[src]; pos[t*3+1]=b.tbuf[src+1]; pos[t*3+2]=b.tbuf[src+2];
+      }
+      b.line.geometry.attributes.position.needsUpdate=true;
+      b.line.geometry.setDrawRange(0,b.tlen);
+    });
+  }
+  var sc=Math.max(1,Math.min(8,camR/10));
+  bodies.forEach(function(b,i){
+    b.mesh.position.set(b.x,b.y,b.z);
+    var s=i===0?Math.max(1,sc*0.7):sc;
+    b.mesh.scale.set(s,s,s);
+  });
+  sunLight.position.set(bodies[0].x,bodies[0].y,bodies[0].z);
+  document.getElementById('hud').textContent='Year '+tYears.toFixed(2);
+  updateCam();
+  renderer.render(scene,camera);
+}
+requestAnimationFrame(loop);
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,92 @@
+/* Shared look for orrery web sims — the dark theme the early sims converged on. */
+:root {
+  --bg: #0b0b14;
+  --panel-bg: #050510;
+  --text: #c9cede;
+  --muted: #8b93b8;
+  --faint: #6a7090;
+  --border: #2a2f45;
+  --border-strong: #3a3f55;
+  --hover: #1a1f30;
+  --accent: #7aa2ff;
+}
+
+body {
+  margin: 0;
+  padding: 24px;
+  background: var(--bg);
+  color: var(--text);
+  font-family: system-ui, sans-serif;
+}
+
+.orrery-controls {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+  max-width: 900px;
+  margin: 0 auto 12px;
+}
+.orrery-controls label { font-size: 13px; color: var(--muted); }
+.orrery-controls button {
+  background: transparent;
+  color: var(--text);
+  border: 1px solid var(--border-strong);
+  border-radius: 8px;
+  padding: 6px 12px;
+  font-size: 13px;
+  cursor: pointer;
+}
+.orrery-controls button:hover { background: var(--hover); }
+.orrery-controls button.active { border-color: var(--accent); color: var(--accent); }
+.orrery-controls input[type="range"] { flex: 1; min-width: 120px; }
+.orrery-controls select {
+  background: var(--panel-bg);
+  color: var(--text);
+  border: 1px solid var(--border-strong);
+  border-radius: 8px;
+  padding: 5px 8px;
+  font-size: 13px;
+}
+.orrery-controls .readout {
+  font-size: 13px;
+  font-family: ui-monospace, monospace;
+  color: var(--muted);
+  min-width: 80px;
+}
+
+.orrery-wrap {
+  max-width: 900px;
+  margin: 0 auto;
+  border-radius: 12px;
+  overflow: hidden;
+  border: 1px solid var(--border);
+  background: var(--panel-bg);
+  position: relative;
+}
+.orrery-wrap canvas { display: block; width: 100%; }
+
+.orrery-hud {
+  position: absolute;
+  top: 10px;
+  left: 12px;
+  font-size: 12px;
+  color: var(--muted);
+  font-family: ui-monospace, monospace;
+  pointer-events: none;
+  white-space: pre;
+}
+
+.hint {
+  max-width: 900px;
+  margin: 8px auto 0;
+  font-size: 13px;
+  color: var(--faint);
+}
+
+h1.sim-title {
+  max-width: 900px;
+  margin: 0 auto 12px;
+  font-size: 18px;
+  font-weight: 600;
+}

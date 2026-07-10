@@ -1,0 +1,139 @@
+<h2 class="sr-only" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);">Interactive galaxy rotation curve comparing Newtonian gravity with the headroom-suppressed scarcity model, where distributed mass keeps the field varying across the disk.</h2>
+<div style="display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin:0 0 12px;">
+  <label style="font-size:13px;color:var(--text-secondary);">Galaxy mass</label>
+  <input type="range" id="mass" min="0.4" max="3" step="0.05" value="1.5" style="flex:1;min-width:140px;">
+  <span id="massOut" style="font-size:13px;font-weight:500;min-width:30px;">1.5</span>
+  <label style="font-size:13px;color:var(--text-secondary);">Bulge fraction</label>
+  <input type="range" id="bulge" min="0" max="0.8" step="0.05" value="0.3" style="width:100px;">
+  <span id="bulgeOut" style="font-size:13px;font-weight:500;min-width:36px;">30%</span>
+</div>
+<div style="border-radius:12px;overflow:hidden;border:0.5px solid var(--border);background:#050510;">
+  <canvas id="c" width="1320" height="800" style="display:block;width:100%;height:400px;"></canvas>
+</div>
+<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px;margin:12px 0 0;">
+  <div style="background:var(--surface-1);border-radius:var(--radius);padding:0.8rem 1rem;">
+    <div style="font-size:13px;color:var(--text-muted);">Central suppression</div>
+    <div id="supp" style="font-size:24px;font-weight:500;">–</div>
+  </div>
+  <div style="background:var(--surface-1);border-radius:var(--radius);padding:0.8rem 1rem;">
+    <div style="font-size:13px;color:var(--text-muted);">Boost at edge</div>
+    <div id="boost" style="font-size:24px;font-weight:500;">–</div>
+  </div>
+  <div style="background:var(--surface-1);border-radius:var(--radius);padding:0.8rem 1rem;">
+    <div style="font-size:13px;color:var(--text-muted);">Flatness: Newton</div>
+    <div id="flatN" style="font-size:24px;font-weight:500;">–</div>
+  </div>
+  <div style="background:var(--surface-1);border-radius:var(--radius);padding:0.8rem 1rem;">
+    <div style="font-size:13px;color:var(--text-muted);">Flatness: model</div>
+    <div id="flatM" style="font-size:24px;font-weight:500;">–</div>
+  </div>
+</div>
+<script>
+(function(){
+var canvas=document.getElementById('c'),ctx=canvas.getContext('2d');
+var W=1320,H=800;
+var G0=6, RMAX=100, DR=0.2, NPT=Math.round(RMAX/DR);
+var AB=3, RD=15, RCAL=8;
+var Mtot=1.5, fB=0.3;
+var rs=[],Ms=[],ss=[],vN=[],vM=[],vC=[];
+function encM(r){
+  var mb=Mtot*fB, md=Mtot*(1-fB);
+  var b=mb*r*r/((r+AB)*(r+AB));
+  var x=r/RD;
+  var d=md*(1-(1+x)*Math.exp(-x));
+  return b+d;
+}
+function compute(){
+  rs=[];Ms=[];ss=new Array(NPT);
+  for(var i=0;i<NPT;i++){rs.push((i+1)*DR);Ms.push(encM(rs[i]));}
+  ss[NPT-1]=0;
+  for(var i=NPT-2;i>=0;i--){
+    var r=rs[i+1];
+    var g=G0*(1-ss[i+1])*Ms[i+1]/(r*r);
+    ss[i]=Math.min(0.999,ss[i+1]+g*DR);
+  }
+  var iCal=Math.round(RCAL/DR)-1;
+  var calF=Math.sqrt(1-ss[iCal]);
+  vN=[];vM=[];vC=[];
+  for(var i=0;i<NPT;i++){
+    var v0=Math.sqrt(G0*Ms[i]/rs[i]);
+    vN.push(v0);
+    vM.push(v0*Math.sqrt(1-ss[i]));
+    vC.push(v0*calF);
+  }
+  return {calF:calF};
+}
+var MLs=90,MRs=40;
+function draw(){
+  var res=compute();
+  ctx.clearRect(0,0,W,H);
+  ctx.font='22px sans-serif';
+  var T1=40,B1=210;
+  ctx.fillStyle='#8b93b8';
+  ctx.fillText('scarcity s(r) — built by the distributed mass itself',MLs,T1-10);
+  ctx.strokeStyle='#2a2f45';ctx.lineWidth=2;
+  ctx.beginPath();ctx.moveTo(MLs,B1);ctx.lineTo(W-MRs,B1);ctx.stroke();
+  var sMax=Math.max(ss[0],0.01);
+  ctx.strokeStyle='#5b7fd4';ctx.lineWidth=3;
+  ctx.beginPath();
+  for(var i=0;i<NPT;i++){
+    var X=MLs+(rs[i]/RMAX)*(W-MLs-MRs), Y=B1-(ss[i]/1)*(B1-T1);
+    i===0?ctx.moveTo(X,Y):ctx.lineTo(X,Y);
+  }
+  ctx.stroke();
+  ctx.fillStyle='#5b7fd4';
+  ctx.fillText('s(0) = '+ss[0].toFixed(2),W-MRs-160,T1+24);
+  var T2=290,B2=720;
+  ctx.fillStyle='#8b93b8';
+  ctx.fillText('rotation curve v(r)',MLs,T2-10);
+  ctx.strokeStyle='#2a2f45';ctx.lineWidth=2;
+  ctx.beginPath();ctx.moveTo(MLs,B2);ctx.lineTo(W-MRs,B2);ctx.stroke();
+  ctx.beginPath();ctx.moveTo(MLs,B2);ctx.lineTo(MLs,T2);ctx.stroke();
+  var vmax=0;
+  for(var i=0;i<NPT;i++){if(vC[i]>vmax)vmax=vC[i];if(vM[i]>vmax)vmax=vM[i];}
+  vmax*=1.1;
+  function py(v){return B2-(v/vmax)*(B2-T2);}
+  function px(r){return MLs+(r/RMAX)*(W-MLs-MRs);}
+  var iCal=Math.round(RCAL/DR)-1;
+  ctx.fillStyle='rgba(29,158,117,0.18)';
+  ctx.beginPath();
+  ctx.moveTo(px(rs[iCal]),py(vC[iCal]));
+  for(var i=iCal;i<NPT;i++)ctx.lineTo(px(rs[i]),py(vM[i]));
+  for(var i=NPT-1;i>=iCal;i--)ctx.lineTo(px(rs[i]),py(vC[i]));
+  ctx.closePath();ctx.fill();
+  ctx.setLineDash([8,7]);ctx.strokeStyle='#888780';ctx.lineWidth=3;
+  ctx.beginPath();
+  for(var i=0;i<NPT;i++){var X=px(rs[i]),Y=py(vC[i]);i===0?ctx.moveTo(X,Y):ctx.lineTo(X,Y);}
+  ctx.stroke();ctx.setLineDash([]);
+  ctx.strokeStyle='#e8b04a';ctx.lineWidth=4;
+  ctx.beginPath();
+  for(var i=0;i<NPT;i++){var X=px(rs[i]),Y=py(vM[i]);i===0?ctx.moveTo(X,Y):ctx.lineTo(X,Y);}
+  ctx.stroke();
+  ctx.setLineDash([3,5]);ctx.strokeStyle='#4a4f68';ctx.lineWidth=2;
+  ctx.beginPath();ctx.moveTo(px(RCAL),T2);ctx.lineTo(px(RCAL),B2);ctx.stroke();ctx.setLineDash([]);
+  ctx.fillStyle='#8b93b8';
+  ctx.fillText('G calibrated here',px(RCAL)+8,T2+26);
+  ctx.fillStyle='#e8b04a';
+  ctx.fillText('scarcity model',px(62),py(vM[Math.round(62/DR)])-16);
+  ctx.fillStyle='#888780';
+  ctx.fillText('Newton (local G)',px(62),py(vC[Math.round(62/DR)])+34);
+  ctx.fillStyle='#1D9E75';
+  ctx.fillText('"dark matter" gap',px(78),py((vM[Math.round(88/DR)]+vC[Math.round(88/DR)])/2)-40);
+  ctx.fillStyle='#8b93b8';
+  ctx.fillText('r →',W-MRs-50,B2+34);
+  var iE=NPT-6, iP=0;var vpN=0,vpM=0;
+  for(var i=0;i<NPT;i++){if(vC[i]>vpN)vpN=vC[i];if(vM[i]>vpM)vpM=vM[i];}
+  document.getElementById('supp').textContent=Math.round(ss[0]*100)+'%';
+  document.getElementById('boost').textContent='+'+Math.round(100*(vM[iE]/vC[iE]-1))+'%';
+  document.getElementById('flatN').textContent=Math.round(100*vC[iE]/vpN)+'%';
+  document.getElementById('flatM').textContent=Math.round(100*vM[iE]/vpM)+'%';
+}
+document.getElementById('mass').addEventListener('input',function(){
+  Mtot=+this.value;document.getElementById('massOut').textContent=Mtot.toFixed(2).replace(/0$/,'');draw();
+});
+document.getElementById('bulge').addEventListener('input',function(){
+  fB=+this.value;document.getElementById('bulgeOut').textContent=Math.round(fB*100)+'%';draw();
+});
+draw();
+})();
+</script>

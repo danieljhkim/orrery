@@ -1,0 +1,290 @@
+<h2 class="sr-only" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);">3D grid gravity field with subtract, divide, and cumulative scarcity modes, orbit trails, and an optional slice viewer hidden by default.</h2>
+<div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin:0 0 12px;">
+  <button id="playBtn" aria-label="Pause" style="width:40px;"><i class="ti ti-player-pause" id="playIcon"></i></button>
+  <label style="font-size:13px;color:var(--text-secondary);">Mode</label>
+  <select id="mode" style="font-size:13px;">
+    <option value="cum" selected>Cumulative scarcity</option>
+    <option value="sub">Subtract count</option>
+    <option value="div">Divide by count</option>
+  </select>
+  <label style="font-size:13px;color:var(--text-secondary);">Total force</label>
+  <input type="range" id="total" min="50000" max="1000000" step="25000" value="300000" style="flex:1;min-width:100px;">
+  <span id="totalOut" style="font-size:13px;font-weight:500;min-width:44px;">300k</span>
+  <label style="display:flex;align-items:center;gap:6px;font-size:13px;color:var(--text-secondary);">
+    <input type="checkbox" id="sliceOn"> Slice
+  </label>
+  <input type="range" id="slicez" min="0" max="99" step="1" value="50" style="width:80px;display:none;">
+  <button id="respawnBtn" style="font-size:13px;" aria-label="Respawn particles"><i class="ti ti-refresh" aria-hidden="true"></i></button>
+</div>
+<div style="border-radius:12px;overflow:hidden;border:0.5px solid var(--border);background:#050510;position:relative;">
+  <canvas id="c" style="display:block;width:100%;height:460px;cursor:grab;"></canvas>
+  <div id="hud" style="position:absolute;top:10px;left:12px;font-size:12px;color:#8b93b8;font-family:var(--font-mono);pointer-events:none;"></div>
+</div>
+<p style="font-size:13px;color:var(--text-muted);margin:8px 0 0;">Slice viewer is now opt-in — tick Slice to inspect one z-layer of the matrix. Watch the colored trails: closed ellipses in cumulative mode, decaying rosettes in divide mode, a hard gravity boundary in subtract mode.</p>
+<script src="../../vendor/three/three.min.js"></script>
+<script>
+(function(){
+var N=100, C=(N-1)/2, w=new Float32Array(N*N*N);
+var RBH=3, TOTAL=300000, MODE='cum';
+var kMax=Math.ceil(C*Math.sqrt(3))+1, counts=new Float32Array(kMax+1), layerW=new Float32Array(kMax+1);
+var wMin=1e-6, boundaryK=0, GFORCE=1;
+function idx(x,y,z){return x+N*(y+N*z);}
+var rBin=new Uint8Array(N*N*N);
+(function(){
+  for(var z=0;z<N;z++)for(var y=0;y<N;y++)for(var x=0;x<N;x++){
+    var dx=x-C,dy=y-C,dz=z-C;
+    var k=Math.floor(Math.sqrt(dx*dx+dy*dy+dz*dz));
+    rBin[idx(x,y,z)]=k;
+    counts[k]++;
+  }
+})();
+function buildField(){
+  var k0=Math.floor(RBH)+1,k;
+  for(k=0;k<=kMax;k++)layerW[k]=0;
+  if(MODE==='sub'){
+    var R=TOTAL;
+    for(k=k0;k<=kMax;k++){R-=counts[k];layerW[k]=Math.max(R,0);}
+  } else if(MODE==='div'){
+    for(k=k0;k<=kMax;k++)layerW[k]=TOTAL/Math.max(counts[k],1);
+  } else {
+    var acc=0;
+    for(k=kMax;k>=k0;k--){acc+=TOTAL/Math.max(counts[k],1);layerW[k]=acc;}
+  }
+  var mx=0;
+  for(k=k0;k<=kMax;k++)if(layerW[k]>mx)mx=layerW[k];
+  if(mx<=0)mx=1;
+  boundaryK=0;
+  for(k=k0;k<=kMax;k++){layerW[k]/=mx;if(MODE==='sub'&&!boundaryK&&layerW[k]<=0&&k>k0)boundaryK=k;}
+  wMin=1;
+  for(k=k0;k<=kMax;k++)if(layerW[k]>0&&layerW[k]<wMin)wMin=layerW[k];
+  for(k=0;k<k0;k++)layerW[k]=1;
+  var n=N*N*N;
+  for(var i=0;i<n;i++)w[i]=layerW[rBin[i]];
+  var g=[0,0,0];grad(C+20,C,C,g);
+  var a=Math.sqrt(g[0]*g[0]+g[1]*g[1]+g[2]*g[2]);
+  GFORCE=0.35/Math.max(a,1e-9);
+}
+function sample(x,y,z){
+  x=Math.max(0,Math.min(N-1.001,x));y=Math.max(0,Math.min(N-1.001,y));z=Math.max(0,Math.min(N-1.001,z));
+  var x0=x|0,y0=y|0,z0=z|0,fx=x-x0,fy=y-y0,fz=z-z0;
+  var c00=w[idx(x0,y0,z0)]*(1-fx)+w[idx(x0+1,y0,z0)]*fx;
+  var c10=w[idx(x0,y0+1,z0)]*(1-fx)+w[idx(x0+1,y0+1,z0)]*fx;
+  var c01=w[idx(x0,y0,z0+1)]*(1-fx)+w[idx(x0+1,y0,z0+1)]*fx;
+  var c11=w[idx(x0,y0+1,z0+1)]*(1-fx)+w[idx(x0+1,y0+1,z0+1)]*fx;
+  return (c00*(1-fy)+c10*fy)*(1-fz)+(c01*(1-fy)+c11*fy)*fz;
+}
+function grad(x,y,z,out){
+  var h=1.5;
+  out[0]=(sample(x+h,y,z)-sample(x-h,y,z))/(2*h);
+  out[1]=(sample(x,y+h,z)-sample(x,y-h,z))/(2*h);
+  out[2]=(sample(x,y,z+h)-sample(x,y,z-h))/(2*h);
+}
+function ramp(t,rgb){
+  t=Math.max(0,Math.min(1,t));
+  var r,g,b;
+  if(t<0.4){var u=t/0.4;r=0.03+u*0.02;g=0.05+u*0.35;b=0.20+u*0.55;}
+  else if(t<0.75){var u=(t-0.4)/0.35;r=0.05+u*0.90;g=0.40+u*0.45;b=0.75-u*0.55;}
+  else{var u=(t-0.75)/0.25;r=0.95+u*0.05;g=0.85+u*0.15;b=0.20+u*0.80;}
+  rgb[0]=r;rgb[1]=g;rgb[2]=b;
+}
+function norm(v){
+  if(v<=0)return 0;
+  if(MODE==='div'){var lo=Math.log(wMin);return (Math.log(Math.max(v,wMin))-lo)/(-lo||1);}
+  if(MODE==='cum')return Math.pow(v,1.8);
+  return v;
+}
+
+var canvas=document.getElementById('c');
+var renderer=new THREE.WebGLRenderer({canvas:canvas,antialias:true});
+renderer.setPixelRatio(Math.min(window.devicePixelRatio,2));
+var scene=new THREE.Scene();
+scene.background=new THREE.Color(0x050510);
+var camera=new THREE.PerspectiveCamera(50,1,0.1,3000);
+
+var bhMesh=new THREE.Mesh(new THREE.SphereGeometry(1,32,24),new THREE.MeshBasicMaterial({color:0x000000}));
+var bhRing=new THREE.Mesh(new THREE.TorusGeometry(1.15,0.05,8,48),
+  new THREE.MeshBasicMaterial({color:0xff9f43,transparent:true,opacity:0.7}));
+bhRing.rotation.x=Math.PI/2;
+bhMesh.scale.set(RBH,RBH,RBH);bhRing.scale.set(RBH,RBH,RBH);
+scene.add(bhMesh);scene.add(bhRing);
+
+var boundary=new THREE.LineSegments(
+  new THREE.WireframeGeometry(new THREE.SphereGeometry(1,20,14)),
+  new THREE.LineBasicMaterial({color:0x6b7fd4,transparent:true,opacity:0.28}));
+scene.add(boundary);
+
+var STRIDE=4, side=Math.ceil(N/STRIDE), nPts=side*side*side;
+var cloudPos=new Float32Array(nPts*3), cloudCol=new Float32Array(nPts*3);
+var cg=new THREE.BufferGeometry();
+cg.setAttribute('position',new THREE.BufferAttribute(cloudPos,3));
+cg.setAttribute('color',new THREE.BufferAttribute(cloudCol,3));
+var cloud=new THREE.Points(cg,new THREE.PointsMaterial({size:1.6,vertexColors:true,transparent:true,opacity:0.55,blending:THREE.AdditiveBlending,depthWrite:false}));
+scene.add(cloud);
+function buildCloud(){
+  var k=0,rgb=[0,0,0];
+  for(var z=0;z<N;z+=STRIDE)for(var y=0;y<N;y+=STRIDE)for(var x=0;x<N;x+=STRIDE){
+    cloudPos[k*3]=x-C;cloudPos[k*3+1]=y-C;cloudPos[k*3+2]=z-C;
+    ramp(norm(w[idx(x,y,z)])*0.85,rgb);
+    cloudCol[k*3]=rgb[0];cloudCol[k*3+1]=rgb[1];cloudCol[k*3+2]=rgb[2];
+    k++;
+  }
+  cg.attributes.position.needsUpdate=true;
+  cg.attributes.color.needsUpdate=true;
+}
+
+var slicePos=new Float32Array(N*N*3), sliceCol=new Float32Array(N*N*3);
+var sg=new THREE.BufferGeometry();
+sg.setAttribute('position',new THREE.BufferAttribute(slicePos,3));
+sg.setAttribute('color',new THREE.BufferAttribute(sliceCol,3));
+var slicePts=new THREE.Points(sg,new THREE.PointsMaterial({size:2.0,vertexColors:true,transparent:true,opacity:0.75}));
+slicePts.visible=false;
+scene.add(slicePts);
+var sliceZ=50;
+function drawSlice(){
+  if(!slicePts.visible)return;
+  var k=0,rgb=[0,0,0];
+  for(var y=0;y<N;y++)for(var x=0;x<N;x++){
+    slicePos[k*3]=x-C;slicePos[k*3+1]=y-C;slicePos[k*3+2]=sliceZ-C;
+    ramp(norm(w[idx(x,y,sliceZ)]),rgb);
+    sliceCol[k*3]=rgb[0];sliceCol[k*3+1]=rgb[1];sliceCol[k*3+2]=rgb[2];
+    k++;
+  }
+  sg.attributes.position.needsUpdate=true;
+  sg.attributes.color.needsUpdate=true;
+}
+
+var box=new THREE.LineSegments(new THREE.EdgesGeometry(new THREE.BoxGeometry(N,N,N)),
+  new THREE.LineBasicMaterial({color:0x2a2f45}));
+scene.add(box);
+
+var NP=60, NT=3, TRAIL=700, parts=[], consumed=0, escaped=0;
+var trailCols=[0xff9f43,0x35c4a5,0xe86aa6];
+var pPos=new Float32Array(NP*3);
+var pg=new THREE.BufferGeometry();
+pg.setAttribute('position',new THREE.BufferAttribute(pPos,3));
+var pPoints=new THREE.Points(pg,new THREE.PointsMaterial({color:0xffffff,size:2.6,sizeAttenuation:false}));
+scene.add(pPoints);
+var trails=[];
+for(var t=0;t<NT;t++){
+  var buf=new Float32Array(TRAIL*3);
+  var g=new THREE.BufferGeometry();
+  g.setAttribute('position',new THREE.BufferAttribute(buf,3));
+  g.setDrawRange(0,0);
+  var line=new THREE.Line(g,new THREE.LineBasicMaterial({color:trailCols[t],transparent:true,opacity:0.8}));
+  scene.add(line);
+  trails.push({buf:buf,geo:g,len:0,head:0,line:line});
+}
+function resetTrail(i){if(i<NT){trails[i].len=0;trails[i].head=0;trails[i].geo.setDrawRange(0,0);}}
+function spawn(p,i){
+  var rHi=boundaryK?Math.min(boundaryK-4,42):42;
+  var r=(RBH+7)+Math.random()*Math.max(rHi-(RBH+7),4), th=Math.random()*Math.PI*2;
+  var tilt=(i<NT)?0:(Math.random()-0.5)*0.6;
+  p.x=C+r*Math.cos(th);p.y=C+r*Math.sin(th);p.z=C+r*tilt*0.3;
+  var g=[0,0,0];grad(p.x,p.y,p.z,g);
+  var aMag=GFORCE*Math.sqrt(g[0]*g[0]+g[1]*g[1]+g[2]*g[2]);
+  var v=Math.sqrt(Math.max(aMag*r,1e-6))*(0.8+Math.random()*0.3);
+  p.vx=-v*Math.sin(th);p.vy=v*Math.cos(th);p.vz=0;
+  resetTrail(i);
+}
+for(var i=0;i<NP;i++)parts.push({});
+function respawnAll(){consumed=0;escaped=0;parts.forEach(function(p,i){spawn(p,i);});}
+function stepParts(dt){
+  var g=[0,0,0], capR=RBH+0.5, capR2=capR*capR;
+  parts.forEach(function(p,i){
+    grad(p.x,p.y,p.z,g);
+    p.vx+=GFORCE*g[0]*dt;p.vy+=GFORCE*g[1]*dt;p.vz+=GFORCE*g[2]*dt;
+    p.x+=p.vx*dt;p.y+=p.vy*dt;p.z+=p.vz*dt;
+    var dx=p.x-C,dy=p.y-C,dz=p.z-C;
+    if(dx*dx+dy*dy+dz*dz<capR2){consumed++;spawn(p,i);}
+    else if(p.x<1||p.x>N-2||p.y<1||p.y>N-2||p.z<1||p.z>N-2){escaped++;spawn(p,i);}
+  });
+}
+function updateTrails(){
+  for(var i=0;i<NT;i++){
+    var tr=trails[i],p=parts[i];
+    tr.buf[tr.head*3]=p.x-C;tr.buf[tr.head*3+1]=p.y-C;tr.buf[tr.head*3+2]=p.z-C;
+    tr.head=(tr.head+1)%TRAIL;if(tr.len<TRAIL)tr.len++;
+    var pos=tr.geo.attributes.position.array;
+    for(var t2=0;t2<tr.len;t2++){
+      var src=((tr.head-tr.len+t2+TRAIL)%TRAIL)*3;
+      pos[t2*3]=tr.buf[src];pos[t2*3+1]=tr.buf[src+1];pos[t2*3+2]=tr.buf[src+2];
+    }
+    tr.geo.attributes.position.needsUpdate=true;
+    tr.geo.setDrawRange(0,tr.len);
+  }
+}
+
+var camTheta=0.7, camPhi=1.05, camR=190;
+function updateCam(){
+  var s=Math.sin(camPhi);
+  camera.position.set(camR*s*Math.cos(camTheta),camR*Math.cos(camPhi),camR*s*Math.sin(camTheta));
+  camera.lookAt(0,0,0);
+}
+var dragging=false,lx=0,ly=0;
+canvas.addEventListener('pointerdown',function(e){dragging=true;lx=e.clientX;ly=e.clientY;canvas.style.cursor='grabbing';canvas.setPointerCapture(e.pointerId);});
+canvas.addEventListener('pointermove',function(e){if(!dragging)return;
+  camTheta+=(e.clientX-lx)*0.006;camPhi-=(e.clientY-ly)*0.006;
+  camPhi=Math.max(0.15,Math.min(Math.PI-0.15,camPhi));lx=e.clientX;ly=e.clientY;});
+canvas.addEventListener('pointerup',function(){dragging=false;canvas.style.cursor='grab';});
+canvas.addEventListener('wheel',function(e){e.preventDefault();
+  camR*=1+e.deltaY*0.0012;camR=Math.max(30,Math.min(600,camR));},{passive:false});
+
+var playing=true;
+document.getElementById('playBtn').addEventListener('click',function(){
+  playing=!playing;
+  document.getElementById('playIcon').className=playing?'ti ti-player-pause':'ti ti-player-play';
+  this.setAttribute('aria-label',playing?'Pause':'Play');
+});
+document.getElementById('mode').addEventListener('change',function(){MODE=this.value;rebuild();});
+document.getElementById('total').addEventListener('input',function(){
+  document.getElementById('totalOut').textContent=Math.round(this.value/1000)+'k';
+});
+document.getElementById('total').addEventListener('change',function(){TOTAL=+this.value;rebuild();});
+var sliceSlider=document.getElementById('slicez');
+document.getElementById('sliceOn').addEventListener('change',function(){
+  slicePts.visible=this.checked;
+  sliceSlider.style.display=this.checked?'':'none';
+  drawSlice();
+});
+sliceSlider.addEventListener('input',function(){sliceZ=+this.value;drawSlice();});
+document.getElementById('respawnBtn').addEventListener('click',respawnAll);
+function updateHud(){
+  var b;
+  if(MODE==='sub')b=boundaryK?('gravity ends at r≈'+boundaryK):'budget never runs out';
+  else if(MODE==='div')b='w ∝ 1/r² · force ∝ 1/r³ · orbits decay';
+  else b='w ∝ 1/r · force ∝ 1/r² · Kepler orbits';
+  document.getElementById('hud').textContent=b+' · consumed '+consumed+' · escaped '+escaped;
+}
+function rebuild(){
+  buildField();buildCloud();drawSlice();
+  if(MODE==='sub'&&boundaryK){boundary.visible=true;boundary.scale.set(boundaryK,boundaryK,boundaryK);}
+  else boundary.visible=false;
+  respawnAll();
+}
+rebuild();
+
+function resize(){
+  var W=canvas.clientWidth,H=canvas.clientHeight;
+  if(canvas.width!==W*renderer.getPixelRatio()){renderer.setSize(W,H,false);camera.aspect=W/H;camera.updateProjectionMatrix();}
+}
+var last=performance.now();
+function loop(now){
+  requestAnimationFrame(loop);
+  var fdt=Math.min((now-last)/1000,0.05);last=now;
+  resize();
+  if(playing){
+    var dt=fdt*0.35, sub=4;
+    for(var k=0;k<sub;k++)stepParts(dt/sub);
+    for(var i=0;i<NP;i++){
+      pPos[i*3]=parts[i].x-C;pPos[i*3+1]=parts[i].y-C;pPos[i*3+2]=parts[i].z-C;
+    }
+    pg.attributes.position.needsUpdate=true;
+    updateTrails();
+  }
+  updateHud();
+  updateCam();
+  renderer.render(scene,camera);
+}
+requestAnimationFrame(loop);
+})();
+</script>

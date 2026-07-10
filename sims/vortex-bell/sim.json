@@ -1,0 +1,19 @@
+{
+  "slug": "vortex-bell",
+  "title": "Vortex-electron CHSH Monte Carlo",
+  "kind": "py",
+  "entry": "vortex_bell.py",
+  "status": "imported",
+  "created": "2026-07-05",
+  "topics": [
+    "quantum",
+    "bell-inequality",
+    "monte-carlo"
+  ],
+  "family": "bell-tests",
+  "summary": "CHSH test of the 'friction vortex' local hidden-variable model: |S| saturates at exactly 2, the local bound, vs QM's 2.83. Plus corkscrew and tilt-enumeration variants.",
+  "provenance": {
+    "almanac": "15-discussions/26-07/vortex-electron-vs-bell.md",
+    "imported_from": "almanac/_attachments/vortex-bell-sim/"
+  }
+}

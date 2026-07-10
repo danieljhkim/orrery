@@ -1,0 +1,11 @@
+{
+  "slug": "__SLUG__",
+  "title": "__TITLE__",
+  "kind": "py",
+  "entry": "main.py",
+  "status": "active",
+  "created": "__DATE__",
+  "topics": [],
+  "summary": "",
+  "provenance": {}
+}

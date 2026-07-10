@@ -1,0 +1,101 @@
+<h2 class="sr-only" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);">Interactive profile showing how a star's own gravity well is clipped by the scarcity already used up by a central black hole, becoming asymmetric at the cap radius.</h2>
+<div style="display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin:0 0 12px;">
+  <label style="font-size:13px;color:var(--text-secondary);">Star position</label>
+  <input type="range" id="pos" min="6" max="95" step="1" value="68" style="flex:1;min-width:160px;">
+  <span id="posOut" style="font-size:13px;font-weight:500;min-width:36px;">68</span>
+  <label style="font-size:13px;color:var(--text-secondary);">Star mass</label>
+  <input type="range" id="mass" min="0.5" max="4" step="0.1" value="1.8" style="width:90px;">
+</div>
+<div style="border-radius:12px;overflow:hidden;border:0.5px solid var(--border);background:#050510;position:relative;">
+  <canvas id="c" width="1320" height="640" style="display:block;width:100%;height:320px;"></canvas>
+</div>
+<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:12px;margin:12px 0 0;">
+  <div style="background:var(--surface-1);border-radius:var(--radius);padding:0.8rem 1rem;">
+    <div style="font-size:13px;color:var(--text-muted);">Pull toward center</div>
+    <div id="gIn" style="font-size:24px;font-weight:500;">–</div>
+  </div>
+  <div style="background:var(--surface-1);border-radius:var(--radius);padding:0.8rem 1rem;">
+    <div style="font-size:13px;color:var(--text-muted);">Pull away from center</div>
+    <div id="gOut" style="font-size:24px;font-weight:500;">–</div>
+  </div>
+  <div style="background:var(--surface-1);border-radius:var(--radius);padding:0.8rem 1rem;">
+    <div style="font-size:13px;color:var(--text-muted);">Effective G (% of free space)</div>
+    <div id="gEff" style="font-size:24px;font-weight:500;">–</div>
+  </div>
+</div>
+<script>
+(function(){
+var canvas=document.getElementById('c'), ctx=canvas.getContext('2d');
+var W=1320,H=640,ML=90,MR=40,MT=50,MB=70;
+var RC=70, RBH=2, B=1/(1/RBH-1/RC);
+var starX=68, starM=1.8;
+function bg(r){
+  if(r<RBH)return 1;
+  if(r>=RC)return 0;
+  return Math.min(1,B*(1/r-1/RC));
+}
+function starWant(rho,m){return m*0.12/Math.max(Math.abs(rho),0.9);}
+function field(x){
+  var s=bg(x);
+  var head=1-s;
+  var d=Math.min(starWant(x-starX,starM),head);
+  return {bg:s,tot:s+d,star:d};
+}
+function px(x){return ML+(x/100)*(W-ML-MR);}
+function py(v){return MT+(1-v)*(H-MT-MB);}
+function draw(){
+  ctx.clearRect(0,0,W,H);
+  ctx.font='22px sans-serif';
+  ctx.fillStyle='#8b93b8';
+  ctx.strokeStyle='#2a2f45';ctx.lineWidth=2;
+  ctx.beginPath();ctx.moveTo(ML,py(0));ctx.lineTo(W-MR,py(0));ctx.stroke();
+  ctx.beginPath();ctx.moveTo(ML,py(0));ctx.lineTo(ML,MT);ctx.stroke();
+  ctx.setLineDash([8,8]);ctx.strokeStyle='#4a4f68';
+  ctx.beginPath();ctx.moveTo(ML,py(1));ctx.lineTo(W-MR,py(1));ctx.stroke();
+  ctx.fillText('cap (space fully depleted)',ML+8,py(1)-10);
+  ctx.beginPath();ctx.moveTo(px(RC),MT);ctx.lineTo(px(RC),py(0));ctx.stroke();
+  ctx.fillText('cap radius',px(RC)-45,py(0)+34);
+  ctx.setLineDash([]);
+  ctx.fillText('black hole',ML+4,py(0)+34);
+  ctx.fillText('scarcity',ML-80,MT+10);
+  ctx.setLineDash([6,6]);ctx.strokeStyle='#5f6a94';ctx.lineWidth=2.5;
+  ctx.beginPath();
+  for(var x=0;x<=100;x+=0.25){var v=bg(Math.max(x,0.5));var X=px(x),Y=py(v);x===0?ctx.moveTo(X,Y):ctx.lineTo(X,Y);}
+  ctx.stroke();ctx.setLineDash([]);
+  ctx.strokeStyle='#e8b04a';ctx.lineWidth=3.5;
+  ctx.beginPath();
+  for(var x=0;x<=100;x+=0.25){var f=field(Math.max(x,0.5));var X=px(x),Y=py(f.tot);x===0?ctx.moveTo(X,Y):ctx.lineTo(X,Y);}
+  ctx.stroke();
+  var fs=field(starX);
+  ctx.fillStyle='#ffffff';
+  ctx.beginPath();ctx.arc(px(starX),py(fs.tot)-14,9,0,Math.PI*2);ctx.fill();
+  ctx.fillStyle='#8b93b8';
+  ctx.fillText('star',px(starX)-16,py(fs.tot)-34);
+  var h=2.5;
+  var gi=Math.max(0,(field(starX-h).star-field(starX-3*h).star)/(2*h));
+  var go=Math.max(0,(field(starX+h).star-field(starX+3*h).star)/(2*h));
+  var free=starWant(h,starM)-starWant(3*h,starM);var gFree=free/(2*h);
+  var sc=2600;
+  ctx.lineWidth=5;ctx.strokeStyle='#D85A30';
+  arrow(px(starX)-14,py(fs.tot)+30,-Math.min(gi*sc,220));
+  arrow(px(starX)+14,py(fs.tot)+30,Math.min(go*sc,220));
+  document.getElementById('gIn').textContent=(gi*1000).toFixed(1);
+  document.getElementById('gOut').textContent=(go*1000).toFixed(1);
+  var eff=Math.round(100*(gi+go)/(2*gFree));
+  document.getElementById('gEff').textContent=eff+'%';
+  function arrow(x,y,len){
+    if(Math.abs(len)<4)len=len<0?-4:4;
+    ctx.beginPath();ctx.moveTo(x,y);ctx.lineTo(x+len,y);ctx.stroke();
+    var s2=len<0?-1:1;
+    ctx.beginPath();ctx.moveTo(x+len,y);ctx.lineTo(x+len-10*s2,y-7);ctx.moveTo(x+len,y);ctx.lineTo(x+len-10*s2,y+7);ctx.stroke();
+  }
+}
+document.getElementById('pos').addEventListener('input',function(){
+  starX=+this.value;document.getElementById('posOut').textContent=starX;draw();
+});
+document.getElementById('mass').addEventListener('input',function(){
+  starM=+this.value;draw();
+});
+draw();
+})();
+</script>

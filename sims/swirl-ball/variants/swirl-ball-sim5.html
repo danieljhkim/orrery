@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+  html, body { margin: 0; padding: 0; background: #04120b; overflow: hidden; }
+  canvas { display: block; cursor: pointer; }
+</style>
+</head>
+<body>
+<canvas id="c"></canvas>
+<script>
+const cv = document.getElementById('c');
+const ctx = cv.getContext('2d');
+
+let W, H, cx, groundY, R, DPR;
+const TILT = 0.24;            // perspective squash for rings / ground circle
+const KV   = 0.85;            // vertical scale for heights
+function resize() {
+  DPR = Math.min(window.devicePixelRatio || 1, 2);
+  W = window.innerWidth;
+  H = window.innerHeight;
+  cv.width  = W * DPR;        // crisp rendering on high-DPI displays
+  cv.height = H * DPR;
+  cv.style.width  = W + 'px';
+  cv.style.height = H + 'px';
+  ctx.setTransform(DPR, 0, 0, DPR, 0, 0);
+  cx = W / 2;
+  groundY = H * 0.70;
+  R = Math.min(W * 0.36, H * 0.55);
+}
+resize();
+window.addEventListener('resize', resize);
+
+// ---------- constants ----------
+const B = 16;                 // turn radius: tight loop around the pole tip
+const PERIOD = 8.5 * 60;      // one full circuit (~8.5s), constant speed
+const C_SIM  = 1.25;          // ring expansion speed — the same for every ring
+const EMIT_EVERY = 8;         // frames between ring emissions
+
+const COL_UP   = [255, 211, 110];  // gold : rising  -> B clockwise from above
+const COL_DOWN = [110, 200, 255];  // cyan : falling -> B counterclockwise from above
+
+function lerpCol(u) {              // u: 0 = rising, 1 = falling
+  return [
+    COL_UP[0] + (COL_DOWN[0] - COL_UP[0]) * u,
+    COL_UP[1] + (COL_DOWN[1] - COL_UP[1]) * u,
+    COL_UP[2] + (COL_DOWN[2] - COL_UP[2]) * u
+  ].map(Math.round);
+}
+
+// ---------- electron path ----------
+// Up the pole, a tight semicircular turn around the tip, back down,
+// and a mirrored turn under the bottom. Constant speed throughout.
+function geom() {
+  const hMin = R * 0.12, hMax = R * 0.95;
+  const yTop = groundY - hMax * KV;
+  const yBot = groundY - hMin * KV;
+  const L = yBot - yTop;
+  const cap = Math.PI * B;
+  return { yTop, yBot, L, cap, P: 2 * L + 2 * cap };
+}
+function pathPoint(s) {
+  const g = geom();
+  s = ((s % g.P) + g.P) % g.P;
+  if (s < g.L) {                                   // ascending, left of the pole
+    return { x: cx - B, y: g.yBot - s };
+  } else if (s < g.L + g.cap) {                    // turning over the tip
+    const a = Math.PI + (s - g.L) / B;
+    return { x: cx + B * Math.cos(a), y: g.yTop + B * Math.sin(a) };
+  } else if (s < 2 * g.L + g.cap) {                // descending, right of the pole
+    return { x: cx + B, y: g.yTop + (s - g.L - g.cap) };
+  } else {                                         // turning under the bottom
+    const a = (s - 2 * g.L - g.cap) / B;
+    return { x: cx + B * Math.cos(a), y: g.yBot + B * Math.sin(a) };
+  }
+}
+
+// ---------- magnetic field rings ----------
+// Born at the electron, in the plane perpendicular to its velocity.
+const rings = [];
+
+function spawnRing(x, y, vx, vy) {
+  const sp = Math.hypot(vx, vy) + 1e-6;
+  const vyN = vy / sp;                  // -1 rising ... +1 falling
+  const u = (vyN + 1) / 2;
+  rings.push({
+    x, y,
+    r: 7,
+    rot: Math.atan2(vx, -vy),           // ring plane stays ⊥ to velocity at emission
+    dashDir: vyN < 0 ? 1 : -1,          // circulation flips with the current
+    dash: Math.random() * 24,
+    col: lerpCol(u),
+    life: 0,
+    maxLife: 520
+  });
+}
+
+function drawRing(s) {
+  const fade = 1 - s.life / s.maxLife;
+  const a = 0.5 * fade;
+  ctx.strokeStyle = `rgba(${s.col[0]},${s.col[1]},${s.col[2]},${a})`;
+  ctx.lineWidth = 1.6;
+  ctx.setLineDash([9, 13]);
+  ctx.lineDashOffset = s.dash;
+  ctx.beginPath();
+  ctx.ellipse(s.x, s.y, s.r, s.r * TILT, s.rot, 0, Math.PI * 2);
+  ctx.stroke();
+  ctx.setLineDash([]);
+}
+
+// ---------- static scene ----------
+function drawScene() {
+  ctx.strokeStyle = 'rgba(90, 200, 120, 0.45)';
+  ctx.lineWidth = 1.4;
+  ctx.beginPath();
+  ctx.ellipse(cx, groundY, R, R * TILT, 0, 0, Math.PI * 2);
+  ctx.stroke();
+  for (let i = 0; i < 36; i++) {
+    const a = (i / 36) * Math.PI * 2;
+    const x1 = cx + (R - 7) * Math.cos(a), y1 = groundY + (R - 7) * TILT * Math.sin(a);
+    const x2 = cx + (R + 7) * Math.cos(a), y2 = groundY + (R + 7) * TILT * Math.sin(a);
+    ctx.beginPath(); ctx.moveTo(x1, y1); ctx.lineTo(x2, y2); ctx.stroke();
+  }
+
+  const g = geom();
+  ctx.strokeStyle = 'rgba(90, 200, 120, 0.6)';
+  ctx.lineWidth = 2;
+  ctx.beginPath();
+  ctx.moveTo(cx, groundY + R * TILT + 50);
+  ctx.lineTo(cx, g.yTop);
+  ctx.stroke();
+  ctx.lineWidth = 1.2;
+  for (let yy = groundY + R * TILT + 36; yy > g.yTop; yy -= 36) {
+    ctx.beginPath(); ctx.moveTo(cx - 6, yy); ctx.lineTo(cx + 6, yy); ctx.stroke();
+  }
+}
+
+// ---------- legend ----------
+function drawLegend() {
+  const x = 16;
+  let y = H - 80;
+  ctx.font = '12px system-ui, sans-serif';
+  ctx.textBaseline = 'middle';
+
+  ctx.fillStyle = `rgba(${COL_UP[0]},${COL_UP[1]},${COL_UP[2]},0.8)`;
+  ctx.beginPath(); ctx.arc(x + 4, y, 4, 0, Math.PI * 2); ctx.fill();
+  ctx.fillStyle = 'rgba(220,230,225,0.55)';
+  ctx.fillText('electron rising — B clockwise from above', x + 16, y);
+
+  y += 19;
+  ctx.fillStyle = `rgba(${COL_DOWN[0]},${COL_DOWN[1]},${COL_DOWN[2]},0.8)`;
+  ctx.beginPath(); ctx.arc(x + 4, y, 4, 0, Math.PI * 2); ctx.fill();
+  ctx.fillStyle = 'rgba(220,230,225,0.55)';
+  ctx.fillText('electron falling — B counter-clockwise', x + 16, y);
+
+  y += 19;
+  ctx.fillStyle = 'rgba(220,230,225,0.55)';
+  ctx.fillText('rings expand at constant speed "c"', x + 16, y);
+
+  y += 19;
+  ctx.fillStyle = 'rgba(220,230,225,0.4)';
+  ctx.fillText(paused ? 'paused — tap to resume' : 'tap to pause', x + 16, y);
+  ctx.textBaseline = 'alphabetic';
+}
+
+// ---------- animation ----------
+let dist = 0;
+let paused = false;
+let cur = { p: pathPoint(0), vx: 0, vy: -1 };
+let prev = pathPoint(0);
+
+cv.addEventListener('pointerdown', () => { paused = !paused; });
+
+function loop() {
+  requestAnimationFrame(loop);
+  const g = geom();
+
+  if (!paused) {
+    dist += g.P / PERIOD;                        // constant speed
+    const p = pathPoint(dist);
+    cur = { p, vx: p.x - prev.x, vy: p.y - prev.y };
+    prev = p;
+
+    // the electron generates field continuously — including through the turns
+    if (Math.floor(dist / (g.P / PERIOD)) % EMIT_EVERY === 0) {
+      spawnRing(p.x, p.y, cur.vx, cur.vy);
+    }
+
+    for (let i = rings.length - 1; i >= 0; i--) {
+      const s = rings[i];
+      s.life++;
+      s.r += C_SIM;                              // field front expands away from the electron
+      s.dash -= s.dashDir * 0.9;                 // marching dashes = circulation
+      if (s.life >= s.maxLife || s.r > Math.max(W, H)) rings.splice(i, 1);
+    }
+  }
+
+  ctx.fillStyle = '#04120b';
+  ctx.fillRect(0, 0, W, H);
+  drawScene();
+  rings.slice().sort((a, b) => a.y - b.y).forEach(drawRing);
+
+  // ---------- electron ----------
+  const p = cur.p;
+  const sp = Math.hypot(cur.vx, cur.vy) + 1e-6;
+  const u = (cur.vy / sp + 1) / 2;
+  const tint = lerpCol(u);
+  const r = 9;
+  const glow = ctx.createRadialGradient(p.x, p.y, 0, p.x, p.y, r * 5);
+  glow.addColorStop(0, 'rgba(255,255,255,0.95)');
+  glow.addColorStop(0.25, `rgba(${tint[0]},${tint[1]},${tint[2]},0.4)`);
+  glow.addColorStop(1, `rgba(${tint[0]},${tint[1]},${tint[2]},0)`);
+  ctx.fillStyle = glow;
+  ctx.beginPath();
+  ctx.arc(p.x, p.y, r * 5, 0, Math.PI * 2);
+  ctx.fill();
+
+  ctx.fillStyle = '#ffffff';
+  ctx.beginPath();
+  ctx.arc(p.x, p.y, r, 0, Math.PI * 2);
+  ctx.fill();
+
+  ctx.fillStyle = 'rgba(230,235,245,0.85)';
+  ctx.font = '13px system-ui, sans-serif';
+  ctx.fillText('e⁻', p.x + 14, p.y + 4);
+
+  drawLegend();
+}
+loop();
+</script>
+</body>
+</html>

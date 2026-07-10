@@ -1,0 +1,19 @@
+{
+  "slug": "scarcity-grid-weight-black-hole",
+  "title": "Grid weight field around a black-hole sphere",
+  "kind": "web",
+  "entry": "index.html",
+  "status": "imported",
+  "created": "2026-07-05",
+  "topics": [
+    "gravity",
+    "black-holes",
+    "field-visualization"
+  ],
+  "family": "gravity-as-scarcity",
+  "summary": "3D grid whose node weights render the scarcity field around a compact (black-hole-like) sphere.",
+  "provenance": {
+    "almanac": "15-discussions/26-07/gravity-as-scarcity-of-space.md",
+    "imported_from": "almanac/40-outputs/gravity/grid_weight_field_black_hole_sphere.html"
+  }
+}
