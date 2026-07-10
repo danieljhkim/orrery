@@ -1,0 +1,26 @@
+{
+  "slug": "scarcity-rotation-curve-fit",
+  "title": "Scarcity rotation-curve fit",
+  "kind": "py",
+  "entry": "main.py",
+  "status": "active",
+  "created": "2026-07-10",
+  "topics": [
+    "gravity",
+    "galaxy-rotation",
+    "model-fitting",
+    "gaia"
+  ],
+  "family": "gravity-as-scarcity",
+  "summary": "The locally calibrated scarcity shape strongly improves on the nested Newtonian-baryons control, but its 2.70 km/s fit and 5.26 km/s held-out RMSE still fail the quoted statistical-error likelihood.",
+  "seed": 42,
+  "provenance": {
+    "almanac": "15-discussions/26-07/gravity-as-scarcity-of-space.md",
+    "orbit_tasks": [
+      "ORB-10077",
+      "ORB-10075"
+    ],
+    "dataset": "astrolabe/data/processed/derived/mw_rotation_curve.parquet",
+    "extends": "rotation-curve-distributed-mass"
+  }
+}

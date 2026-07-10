@@ -1,0 +1,1064 @@
+{
+  "task": "ORB-10077",
+  "source_task": "ORB-10075",
+  "question": "Does one scarcity shape normalization improve on the nested Newtonian-baryons control for the 5\u201315 kpc Gaia DR3 curve?",
+  "protocol": {
+    "fit_range_kpc": [
+      5.0,
+      15.0
+    ],
+    "consistency_range_kpc": [
+      15.0,
+      18.75
+    ],
+    "asymmetric_drift_nuisance_kms": [
+      3.0,
+      10.0
+    ],
+    "decision_rule": "Relative comparison decisive only if |delta AIC| >= 10 and sign is stable over all 27 profile variants.",
+    "seed": 42,
+    "bootstrap_resamples": 200
+  },
+  "apparatus": {
+    "profile": {
+      "disk_scale_kpc": 2.6,
+      "bulge_fraction": 0.2,
+      "bulge_scale_kpc": 0.7
+    },
+    "outer_radius_kpc": 100.0,
+    "radial_step_kpc": 0.01,
+    "local_g_calibration_radius_kpc": 8.25,
+    "equation": "v_S^2 = G_local M F(r)/r * q(r)/q(R0), where q(r)=exp[-beta integral_r^Rmax F(u)/u^2 du]",
+    "limitations": [
+      "The exponential disk is represented by a spherical enclosed-mass surrogate, not an exact thin-disk potential.",
+      "The scarcity equation is a phenomenological continuum mapping of the imported lattice toy.",
+      "The parquet uncertainties are statistical errors on median v_phi and omit dominant distance, selection, and radially varying asymmetric-drift systematics."
+    ]
+  },
+  "data": {
+    "path": "/Users/daniel/workspace/constellation/codebases/astrolabe/data/processed/derived/mw_rotation_curve.parquet",
+    "lineage_sidecar": {
+      "name": "mw_rotation_curve",
+      "kind": "derived",
+      "source": "analysis.rotation_curve",
+      "query": {
+        "r_min_kpc": 4.0,
+        "r_max_kpc": 25.0,
+        "bin_kpc": 0.5,
+        "z_max_kpc": 0.5,
+        "min_stars": 30,
+        "distance_col": "r_med_photogeo",
+        "dedup": "unique source_id across the three lineage catalogs",
+        "selection_note": "inner sample POE>3; outer d>3.5kpc POE>3; anticenter d>6kpc POE>1 (Bailer-Jones photogeometric distances carry the far bins)",
+        "method": "median v_phi per R bin, |z| < 0.5 kpc; NOT asymmetric-drift corrected (biased low ~5-15 km/s for a mixed sample); err = 1.4826*MAD/sqrt(n)",
+        "galactocentric_params": {
+          "galcen_distance_kpc": 8.122,
+          "z_sun_pc": 20.8,
+          "galcen_v_sun_kms": [
+            12.9,
+            245.6,
+            7.78
+          ]
+        }
+      },
+      "fetched_at": "2026-07-10T06:10:13.672771+00:00",
+      "n_rows": 30,
+      "columns": [
+        "R_kpc",
+        "v_c_kms",
+        "v_c_err_kms",
+        "n_stars"
+      ],
+      "lineage": [
+        {
+          "dataset": "mw_disk_gaia",
+          "fetched_at": "2026-07-10T06:03:53.810655+00:00"
+        },
+        {
+          "dataset": "mw_disk_outer_gaia",
+          "fetched_at": "2026-07-10T06:06:30.731932+00:00"
+        },
+        {
+          "dataset": "mw_disk_anticenter_gaia",
+          "fetched_at": "2026-07-10T06:10:13.411965+00:00"
+        }
+      ]
+    },
+    "fit_bins": 20,
+    "consistency_bins": 8
+  },
+  "fits": {
+    "scarcity": {
+      "model": "scarcity",
+      "mass_msun": 120364246135.36768,
+      "beta_kpc": 5.25,
+      "alpha_kpc_per_msun": 4.3617603803172464e-11,
+      "drift_kms": 3.0,
+      "chi2": 2458.8278050288204,
+      "dof": 17,
+      "reduced_chi2": 144.63692970757768,
+      "rmse_kms": 2.695770419097533,
+      "mae_kms": 2.0327833959760797,
+      "aic": 2464.8278050288204,
+      "bic": 2467.8150018494825,
+      "predicted_observed_kms": [
+        216.16498834077044,
+        219.56935713585565,
+        222.05728485713084,
+        223.75882826792872,
+        224.78942342547734,
+        225.25095263554036,
+        225.23283624853084,
+        224.8131419921887,
+        224.05968750660426,
+        223.03111091434718,
+        221.77788913740198,
+        220.34328985047142,
+        218.7642486772554,
+        217.07216790291915,
+        215.29363650776176,
+        213.45107384168165,
+        211.56330093783555,
+        209.64604449140526,
+        207.71237906884696,
+        205.7731132991052
+      ],
+      "predicted_circular_kms": [
+        219.16498834077044,
+        222.56935713585565,
+        225.05728485713084,
+        226.75882826792872,
+        227.78942342547734,
+        228.25095263554036,
+        228.23283624853084,
+        227.8131419921887,
+        227.05968750660426,
+        226.03111091434718,
+        224.77788913740198,
+        223.34328985047142,
+        221.7642486772554,
+        220.07216790291915,
+        218.29363650776176,
+        216.45107384168165,
+        214.56330093783555,
+        212.64604449140526,
+        210.71237906884696,
+        208.7731132991052
+      ],
+      "residual_kms": [
+        -5.025737314950703,
+        -1.8246740183642771,
+        0.25800757735029833,
+        0.5577708911132504,
+        1.175459170612612,
+        1.8541345976280184,
+        0.6282010330108108,
+        -0.767764051162402,
+        -2.2899887039013436,
+        -2.2880302968811463,
+        -3.144754112635553,
+        -4.627546700802952,
+        -2.165361690565504,
+        -0.18962293110399742,
+        0.012030519573329457,
+        0.007812705628623462,
+        0.8824027016706566,
+        2.233769872616392,
+        4.724267582112162,
+        5.998331447837558
+      ]
+    },
+    "newtonian_baryons": {
+      "model": "newtonian-baryons",
+      "mass_msun": 122389639502.91324,
+      "beta_kpc": 0.0,
+      "alpha_kpc_per_msun": 0.0,
+      "drift_kms": 3.0,
+      "chi2": 102877.03369827801,
+      "dof": 18,
+      "reduced_chi2": 5715.390761015446,
+      "rmse_kms": 18.398157291014627,
+      "mae_kms": 15.18086716933026,
+      "aic": 102881.03369827801,
+      "bic": 102883.02516282513,
+      "predicted_observed_kms": [
+        249.33436786360426,
+        246.04820441067216,
+        242.50768596787398,
+        238.78997502740597,
+        234.95797476955417,
+        231.06266633178262,
+        227.14508526803377,
+        223.23798968422574,
+        219.36726489252771,
+        215.553103926376,
+        211.8109982279934,
+        208.15256808304807,
+        204.58625803754364,
+        201.11791867725935,
+        197.75129280524888,
+        194.48842119660418,
+        191.32998069516663,
+        188.2755653878487,
+        185.32391989212408,
+        182.4731323689315
+      ],
+      "predicted_circular_kms": [
+        252.33436786360426,
+        249.04820441067216,
+        245.50768596787398,
+        241.78997502740597,
+        237.95797476955417,
+        234.06266633178262,
+        230.14508526803377,
+        226.23798968422574,
+        222.36726489252771,
+        218.553103926376,
+        214.8109982279934,
+        211.15256808304807,
+        207.58625803754364,
+        204.11791867725935,
+        200.75129280524888,
+        197.48842119660418,
+        194.32998069516663,
+        191.2755653878487,
+        188.32391989212408,
+        185.4731323689315
+      ],
+      "residual_kms": [
+        -38.195116837784525,
+        -28.30352129318078,
+        -20.192393533392845,
+        -14.473375868364002,
+        -8.99309217346422,
+        -3.9575790986142465,
+        -1.2840479864921122,
+        0.8073882568005502,
+        2.402433910175205,
+        5.189976691090038,
+        6.822136796773037,
+        7.563175066620403,
+        12.012628949146261,
+        15.764626294555796,
+        17.55437422208621,
+        18.970465350706093,
+        21.11572294433958,
+        23.604248976172954,
+        27.112726758835038,
+        29.298312378011275
+      ]
+    },
+    "delta_aic_scarcity_minus_newtonian": -100416.2058932492,
+    "delta_bic_scarcity_minus_newtonian": -100415.21016097565
+  },
+  "held_out_consistency": {
+    "scarcity": {
+      "n": 8,
+      "chi2": 266.0075928455247,
+      "rmse_kms": 5.256333989133382,
+      "mae_kms": 4.860690062485141,
+      "mean_residual_kms": 4.860690062485141
+    },
+    "newtonian_baryons": {
+      "n": 8,
+      "chi2": 9559.665506484804,
+      "rmse_kms": 31.161928583498693,
+      "mae_kms": 31.065517892366696,
+      "mean_residual_kms": 31.065517892366696
+    }
+  },
+  "bootstrap_95_percent_intervals": {
+    "resamples": 200,
+    "mass_msun": {
+      "p2_5": 119255917480.48589,
+      "median": 120401183152.00021,
+      "p97_5": 128469722168.37556
+    },
+    "beta_kpc": {
+      "p2_5": 4.95,
+      "median": 5.300000000000001,
+      "p97_5": 5.551250000000001
+    },
+    "drift_kms": {
+      "p2_5": 3.0,
+      "median": 3.0,
+      "p97_5": 10.0
+    },
+    "delta_aic": {
+      "p2_5": -134303.42035301638,
+      "median": -95491.8503019558,
+      "p97_5": -59098.224101956555
+    }
+  },
+  "profile_sensitivity": {
+    "variants": [
+      {
+        "profile": {
+          "disk_scale_kpc": 2.2,
+          "bulge_fraction": 0.1,
+          "bulge_scale_kpc": 0.5
+        },
+        "scarcity_mass_msun": 112746663423.9705,
+        "scarcity_beta_kpc": 5.800000000000001,
+        "scarcity_drift_kms": 3.0,
+        "scarcity_rmse_kms": 2.666132590436264,
+        "newtonian_mass_msun": 114636902152.97261,
+        "newtonian_drift_kms": 3.0,
+        "newtonian_rmse_kms": 21.212064107325478,
+        "delta_aic_scarcity_minus_newtonian": -136737.5111178226
+      },
+      {
+        "profile": {
+          "disk_scale_kpc": 2.2,
+          "bulge_fraction": 0.1,
+          "bulge_scale_kpc": 0.7
+        },
+        "scarcity_mass_msun": 113267683818.13289,
+        "scarcity_beta_kpc": 5.75,
+        "scarcity_drift_kms": 3.0,
+        "scarcity_rmse_kms": 2.6973407248318106,
+        "newtonian_mass_msun": 115154894534.99411,
+        "newtonian_drift_kms": 3.0,
+        "newtonian_rmse_kms": 21.04142789627828,
+        "delta_aic_scarcity_minus_newtonian": -134504.92257838798
+      },
+      {
+        "profile": {
+          "disk_scale_kpc": 2.2,
+          "bulge_fraction": 0.1,
+          "bulge_scale_kpc": 1.0
+        },
+        "scarcity_mass_msun": 113954631628.82582,
+        "scarcity_beta_kpc": 5.75,
+        "scarcity_drift_kms": 3.0,
+        "scarcity_rmse_kms": 2.6668376351887986,
+        "newtonian_mass_msun": 115874779371.6287,
+        "newtonian_drift_kms": 3.0,
+        "newtonian_rmse_kms": 20.820085434777024,
+        "delta_aic_scarcity_minus_newtonian": -131627.09427372736
+      },
+      {
+        "profile": {
+          "disk_scale_kpc": 2.2,
+          "bulge_fraction": 0.2,
+          "bulge_scale_kpc": 0.5
+        },
+        "scarcity_mass_msun": 112649666747.84785,
+        "scarcity_beta_kpc": 6.0,
+        "scarcity_drift_kms": 3.0,
+        "scarcity_rmse_kms": 2.6213122566510547,
+        "newtonian_mass_msun": 114500080687.76282,
+        "newtonian_drift_kms": 3.0,
+        "newtonian_rmse_kms": 22.020396808401575,
+        "delta_aic_scarcity_minus_newtonian": -147471.5984500557
+      },
+      {
+        "profile": {
+          "disk_scale_kpc": 2.2,
+          "bulge_fraction": 0.2,
+          "bulge_scale_kpc": 0.7
+        },
+        "scarcity_mass_msun": 113665204353.55138,
+        "scarcity_beta_kpc": 5.95,
+        "scarcity_drift_kms": 3.0,
+        "scarcity_rmse_kms": 2.6308773661844427,
+        "newtonian_mass_msun": 115538861244.14793,
+        "newtonian_drift_kms": 3.0,
+        "newtonian_rmse_kms": 21.684838182365002,
+        "delta_aic_scarcity_minus_newtonian": -142927.75964704485
+      },
+      {
+        "profile": {
+          "disk_scale_kpc": 2.2,
+          "bulge_fraction": 0.2,
+          "bulge_scale_kpc": 1.0
+        },
+        "scarcity_mass_msun": 115086294671.88899,
+        "scarcity_beta_kpc": 5.9,
+        "scarcity_drift_kms": 3.0,
+        "scarcity_rmse_kms": 2.626809514270372,
+        "newtonian_mass_msun": 116998000797.25145,
+        "newtonian_drift_kms": 3.0,
+        "newtonian_rmse_kms": 21.24547934326185,
+        "delta_aic_scarcity_minus_newtonian": -137069.25592833184
+      },
+      {
+        "profile": {
+          "disk_scale_kpc": 2.2,
+          "bulge_fraction": 0.3,
+          "bulge_scale_kpc": 0.5
+        },
+        "scarcity_mass_msun": 112558056622.91307,
+        "scarcity_beta_kpc": 6.2,
+        "scarcity_drift_kms": 3.0,
+        "scarcity_rmse_kms": 2.5875443882474887,
+        "newtonian_mass_msun": 114361993416.34798,
+        "newtonian_drift_kms": 3.0,
+        "newtonian_rmse_kms": 22.82934227602237,
+        "delta_aic_scarcity_minus_newtonian": -158601.6676783663
+      },
+      {
+        "profile": {
+          "disk_scale_kpc": 2.2,
+          "bulge_fraction": 0.3,
+          "bulge_scale_kpc": 0.7
+        },
+        "scarcity_mass_msun": 114070878225.02072,
+        "scarcity_beta_kpc": 6.15,
+        "scarcity_drift_kms": 3.0,
+        "scarcity_rmse_kms": 2.577477672972805,
+        "newtonian_mass_msun": 115924332185.22209,
+        "newtonian_drift_kms": 3.0,
+        "newtonian_rmse_kms": 22.33493696900683,
+        "delta_aic_scarcity_minus_newtonian": -151678.66703977078
+      },
+      {
+        "profile": {
+          "disk_scale_kpc": 2.2,
+          "bulge_fraction": 0.3,
+          "bulge_scale_kpc": 1.0
+        },
+        "scarcity_mass_msun": 116216363612.76488,
+        "scarcity_beta_kpc": 6.1000000000000005,
+        "scarcity_drift_kms": 3.0,
+        "scarcity_rmse_kms": 2.5475011149523854,
+        "newtonian_mass_msun": 118142681757.90392,
+        "newtonian_drift_kms": 3.0,
+        "newtonian_rmse_kms": 21.68140831138484,
+        "delta_aic_scarcity_minus_newtonian": -142736.90738054542
+      },
+      {
+        "profile": {
+          "disk_scale_kpc": 2.6,
+          "bulge_fraction": 0.1,
+          "bulge_scale_kpc": 0.5
+        },
+        "scarcity_mass_msun": 120238266914.8658,
+        "scarcity_beta_kpc": 5.0,
+        "scarcity_drift_kms": 3.0,
+        "scarcity_rmse_kms": 2.707428155993271,
+        "newtonian_mass_msun": 122270141251.30302,
+        "newtonian_drift_kms": 3.0,
+        "newtonian_rmse_kms": 17.48760302045801,
+        "delta_aic_scarcity_minus_newtonian": -90320.72047608827
+      },
+      {
+        "profile": {
+          "disk_scale_kpc": 2.6,
+          "bulge_fraction": 0.1,
+          "bulge_scale_kpc": 0.7
+        },
+        "scarcity_mass_msun": 120828495884.64523,
+        "scarcity_beta_kpc": 4.95,
+        "scarcity_drift_kms": 3.0,
+        "scarcity_rmse_kms": 2.7231845746372185,
+        "newtonian_mass_msun": 122857729403.66107,
+        "newtonian_drift_kms": 3.0,
+        "newtonian_rmse_kms": 17.288606118402992,
+        "delta_aic_scarcity_minus_newtonian": -88196.38664866365
+      },
+      {
+        "profile": {
+          "disk_scale_kpc": 2.6,
+          "bulge_fraction": 0.1,
+          "bulge_scale_kpc": 1.0
+        },
+        "scarcity_mass_msun": 121640444450.0693,
+        "scarcity_beta_kpc": 4.9,
+        "scarcity_drift_kms": 3.0,
+        "scarcity_rmse_kms": 2.7276491224938337,
+        "newtonian_mass_msun": 123675012733.69904,
+        "newtonian_drift_kms": 3.0,
+        "newtonian_rmse_kms": 17.028800048603195,
+        "delta_aic_scarcity_minus_newtonian": -85450.69582400634
+      },
+      {
+        "profile": {
+          "disk_scale_kpc": 2.6,
+          "bulge_fraction": 0.2,
+          "bulge_scale_kpc": 0.5
+        },
+        "scarcity_mass_msun": 119228567075.7237,
+        "scarcity_beta_kpc": 5.300000000000001,
+        "scarcity_drift_kms": 3.0,
+        "scarcity_rmse_kms": 2.7163567231780417,
+        "newtonian_mass_msun": 121227723329.84122,
+        "newtonian_drift_kms": 3.0,
+        "newtonian_rmse_kms": 18.78350070349764,
+        "delta_aic_scarcity_minus_newtonian": -104820.33557691412
+      },
+      {
+        "profile": {
+          "disk_scale_kpc": 2.6,
+          "bulge_fraction": 0.2,
+          "bulge_scale_kpc": 0.7
+        },
+        "scarcity_mass_msun": 120364246135.36768,
+        "scarcity_beta_kpc": 5.25,
+        "scarcity_drift_kms": 3.0,
+        "scarcity_rmse_kms": 2.695770419097533,
+        "newtonian_mass_msun": 122389639502.91324,
+        "newtonian_drift_kms": 3.0,
+        "newtonian_rmse_kms": 18.398157291014627,
+        "delta_aic_scarcity_minus_newtonian": -100416.2058932492
+      },
+      {
+        "profile": {
+          "disk_scale_kpc": 2.6,
+          "bulge_fraction": 0.2,
+          "bulge_scale_kpc": 1.0
+        },
+        "scarcity_mass_msun": 121955557916.26599,
+        "scarcity_beta_kpc": 5.2,
+        "scarcity_drift_kms": 3.0,
+        "scarcity_rmse_kms": 2.6536573249831723,
+        "newtonian_mass_msun": 124023885312.72308,
+        "newtonian_drift_kms": 3.0,
+        "newtonian_rmse_kms": 17.8903673554338,
+        "delta_aic_scarcity_minus_newtonian": -94733.62180409259
+      },
+      {
+        "profile": {
+          "disk_scale_kpc": 2.6,
+          "bulge_fraction": 0.3,
+          "bulge_scale_kpc": 0.5
+        },
+        "scarcity_mass_msun": 118215638286.95311,
+        "scarcity_beta_kpc": 5.65,
+        "scarcity_drift_kms": 3.0,
+        "scarcity_rmse_kms": 2.6610288131424253,
+        "newtonian_mass_msun": 120198748706.59413,
+        "newtonian_drift_kms": 3.0,
+        "newtonian_rmse_kms": 20.06228872099143,
+        "delta_aic_scarcity_minus_newtonian": -120164.17982164348
+      },
+      {
+        "profile": {
+          "disk_scale_kpc": 2.6,
+          "bulge_fraction": 0.3,
+          "bulge_scale_kpc": 0.7
+        },
+        "scarcity_mass_msun": 119912966142.93616,
+        "scarcity_beta_kpc": 5.550000000000001,
+        "scarcity_drift_kms": 3.0,
+        "scarcity_rmse_kms": 2.6745827470565753,
+        "newtonian_mass_msun": 121921918311.1108,
+        "newtonian_drift_kms": 3.0,
+        "newtonian_rmse_kms": 19.503714489015678,
+        "delta_aic_scarcity_minus_newtonian": -113353.20200957647
+      },
+      {
+        "profile": {
+          "disk_scale_kpc": 2.6,
+          "bulge_fraction": 0.3,
+          "bulge_scale_kpc": 1.0
+        },
+        "scarcity_mass_msun": 122312385296.95413,
+        "scarcity_beta_kpc": 5.45,
+        "scarcity_drift_kms": 3.0,
+        "scarcity_rmse_kms": 2.650513387774138,
+        "newtonian_mass_msun": 124372692085.62692,
+        "newtonian_drift_kms": 3.0,
+        "newtonian_rmse_kms": 18.760687166621853,
+        "delta_aic_scarcity_minus_newtonian": -104574.01903886854
+      },
+      {
+        "profile": {
+          "disk_scale_kpc": 3.0,
+          "bulge_fraction": 0.1,
+          "bulge_scale_kpc": 0.5
+        },
+        "scarcity_mass_msun": 129090210916.11203,
+        "scarcity_beta_kpc": 4.2,
+        "scarcity_drift_kms": 3.0,
+        "scarcity_rmse_kms": 2.7502590316441404,
+        "newtonian_mass_msun": 131104562959.66241,
+        "newtonian_drift_kms": 3.0,
+        "newtonian_rmse_kms": 14.111605445003088,
+        "delta_aic_scarcity_minus_newtonian": -56194.51586057153
+      },
+      {
+        "profile": {
+          "disk_scale_kpc": 3.0,
+          "bulge_fraction": 0.1,
+          "bulge_scale_kpc": 0.7
+        },
+        "scarcity_mass_msun": 129767398008.78297,
+        "scarcity_beta_kpc": 4.15,
+        "scarcity_drift_kms": 3.0,
+        "scarcity_rmse_kms": 2.743420068661962,
+        "newtonian_mass_msun": 131778255357.71541,
+        "newtonian_drift_kms": 3.0,
+        "newtonian_rmse_kms": 13.88192579324723,
+        "delta_aic_scarcity_minus_newtonian": -54253.937542381915
+      },
+      {
+        "profile": {
+          "disk_scale_kpc": 3.0,
+          "bulge_fraction": 0.1,
+          "bulge_scale_kpc": 1.0
+        },
+        "scarcity_mass_msun": 130732674509.28827,
+        "scarcity_beta_kpc": 4.05,
+        "scarcity_drift_kms": 3.0,
+        "scarcity_rmse_kms": 2.774504662972894,
+        "newtonian_mass_msun": 132716156493.95949,
+        "newtonian_drift_kms": 3.0,
+        "newtonian_rmse_kms": 13.580658288594341,
+        "delta_aic_scarcity_minus_newtonian": -51748.73667264759
+      },
+      {
+        "profile": {
+          "disk_scale_kpc": 3.0,
+          "bulge_fraction": 0.2,
+          "bulge_scale_kpc": 0.5
+        },
+        "scarcity_mass_msun": 126821756094.68019,
+        "scarcity_beta_kpc": 4.7,
+        "scarcity_drift_kms": 3.0,
+        "scarcity_rmse_kms": 2.749866144959809,
+        "newtonian_mass_msun": 128894237644.18962,
+        "newtonian_drift_kms": 3.0,
+        "newtonian_rmse_kms": 15.911495824704012,
+        "delta_aic_scarcity_minus_newtonian": -72725.32433168057
+      },
+      {
+        "profile": {
+          "disk_scale_kpc": 3.0,
+          "bulge_fraction": 0.2,
+          "bulge_scale_kpc": 0.7
+        },
+        "scarcity_mass_msun": 128136099380.7601,
+        "scarcity_beta_kpc": 4.6000000000000005,
+        "scarcity_drift_kms": 3.0,
+        "scarcity_rmse_kms": 2.7496731730079675,
+        "newtonian_mass_msun": 130205159237.63524,
+        "newtonian_drift_kms": 3.0,
+        "newtonian_rmse_kms": 15.473343307605587,
+        "delta_aic_scarcity_minus_newtonian": -68553.56945620157
+      },
+      {
+        "profile": {
+          "disk_scale_kpc": 3.0,
+          "bulge_fraction": 0.2,
+          "bulge_scale_kpc": 1.0
+        },
+        "scarcity_mass_msun": 129968800781.44066,
+        "scarcity_beta_kpc": 4.5,
+        "scarcity_drift_kms": 3.0,
+        "scarcity_rmse_kms": 2.7133009735140545,
+        "newtonian_mass_msun": 132051674203.45018,
+        "newtonian_drift_kms": 3.0,
+        "newtonian_rmse_kms": 14.893108226831702,
+        "delta_aic_scarcity_minus_newtonian": -63193.64666523201
+      },
+      {
+        "profile": {
+          "disk_scale_kpc": 3.0,
+          "bulge_fraction": 0.3,
+          "bulge_scale_kpc": 0.5
+        },
+        "scarcity_mass_msun": 125173227582.53395,
+        "scarcity_beta_kpc": 5.15,
+        "scarcity_drift_kms": 3.45,
+        "scarcity_rmse_kms": 2.7745068067852476,
+        "newtonian_mass_msun": 126748893942.71606,
+        "newtonian_drift_kms": 3.0,
+        "newtonian_rmse_kms": 17.659978299475576,
+        "delta_aic_scarcity_minus_newtonian": -90783.96401488854
+      },
+      {
+        "profile": {
+          "disk_scale_kpc": 3.0,
+          "bulge_fraction": 0.3,
+          "bulge_scale_kpc": 0.7
+        },
+        "scarcity_mass_msun": 127516745776.53427,
+        "scarcity_beta_kpc": 5.050000000000001,
+        "scarcity_drift_kms": 3.85,
+        "scarcity_rmse_kms": 2.7426789852606563,
+        "newtonian_mass_msun": 128662434433.98935,
+        "newtonian_drift_kms": 3.0,
+        "newtonian_rmse_kms": 17.035086030109163,
+        "delta_aic_scarcity_minus_newtonian": -84168.18099553128
+      },
+      {
+        "profile": {
+          "disk_scale_kpc": 3.0,
+          "bulge_fraction": 0.3,
+          "bulge_scale_kpc": 1.0
+        },
+        "scarcity_mass_msun": 129290126339.62413,
+        "scarcity_beta_kpc": 4.8500000000000005,
+        "scarcity_drift_kms": 3.0,
+        "scarcity_rmse_kms": 2.7661629513591035,
+        "newtonian_mass_msun": 131388973286.2675,
+        "newtonian_drift_kms": 3.0,
+        "newtonian_rmse_kms": 16.199558863782435,
+        "delta_aic_scarcity_minus_newtonian": -75679.85009819394
+      }
+    ],
+    "delta_aic_min": -158601.6676783663,
+    "delta_aic_max": -51748.73667264759,
+    "preference_sign_stable": true
+  },
+  "lattice_convergence": [
+    {
+      "outer_radius_kpc": 50.0,
+      "step_kpc": 0.02,
+      "mass_msun": 120364240797.46918,
+      "beta_kpc": 5.25,
+      "drift_kms": 3.0,
+      "rmse_kms": 2.695748497511681,
+      "max_prediction_shift_vs_baseline_kms": 0.0001439154782474361
+    },
+    {
+      "outer_radius_kpc": 50.0,
+      "step_kpc": 0.01,
+      "mass_msun": 120364246135.36772,
+      "beta_kpc": 5.25,
+      "drift_kms": 3.0,
+      "rmse_kms": 2.6957704190975242,
+      "max_prediction_shift_vs_baseline_kms": 5.684341886080802e-14
+    },
+    {
+      "outer_radius_kpc": 50.0,
+      "step_kpc": 0.005,
+      "mass_msun": 120364246580.19223,
+      "beta_kpc": 5.25,
+      "drift_kms": 3.0,
+      "rmse_kms": 2.695772245943333,
+      "max_prediction_shift_vs_baseline_kms": 1.1992890904366504e-05
+    },
+    {
+      "outer_radius_kpc": 100.0,
+      "step_kpc": 0.02,
+      "mass_msun": 120364240797.46918,
+      "beta_kpc": 5.25,
+      "drift_kms": 3.0,
+      "rmse_kms": 2.695748497511673,
+      "max_prediction_shift_vs_baseline_kms": 0.0001439154782474361
+    },
+    {
+      "outer_radius_kpc": 100.0,
+      "step_kpc": 0.01,
+      "mass_msun": 120364246135.36768,
+      "beta_kpc": 5.25,
+      "drift_kms": 3.0,
+      "rmse_kms": 2.695770419097533,
+      "max_prediction_shift_vs_baseline_kms": 0.0
+    },
+    {
+      "outer_radius_kpc": 100.0,
+      "step_kpc": 0.005,
+      "mass_msun": 120364246580.19223,
+      "beta_kpc": 5.25,
+      "drift_kms": 3.0,
+      "rmse_kms": 2.695772245943336,
+      "max_prediction_shift_vs_baseline_kms": 1.1992890847523086e-05
+    },
+    {
+      "outer_radius_kpc": 200.0,
+      "step_kpc": 0.02,
+      "mass_msun": 120364240797.46918,
+      "beta_kpc": 5.25,
+      "drift_kms": 3.0,
+      "rmse_kms": 2.695748497511668,
+      "max_prediction_shift_vs_baseline_kms": 0.00014391547827585782
+    },
+    {
+      "outer_radius_kpc": 200.0,
+      "step_kpc": 0.01,
+      "mass_msun": 120364246135.36768,
+      "beta_kpc": 5.25,
+      "drift_kms": 3.0,
+      "rmse_kms": 2.695770419097533,
+      "max_prediction_shift_vs_baseline_kms": 2.842170943040401e-14
+    },
+    {
+      "outer_radius_kpc": 200.0,
+      "step_kpc": 0.005,
+      "mass_msun": 120364246580.19223,
+      "beta_kpc": 5.25,
+      "drift_kms": 3.0,
+      "rmse_kms": 2.6957722459433326,
+      "max_prediction_shift_vs_baseline_kms": 1.1992890875944795e-05
+    }
+  ],
+  "outer_followup": {
+    "needs_20_to_25_kpc": false,
+    "reason": "The existing 5\u201315 kpc band already gives a decisive, profile-stable relative comparison; extending to 20\u201325 kpc is not needed to discriminate this apparatus."
+  },
+  "rows": [
+    {
+      "R_kpc": 4.25,
+      "v_phi_kms": 188.28823241440628,
+      "statistical_error_kms": 0.4617978836825822,
+      "n_stars": 11119,
+      "band": "excluded",
+      "scarcity_predicted_observed_kms": 206.00680444043175,
+      "newtonian_predicted_observed_kms": 254.74652055642713
+    },
+    {
+      "R_kpc": 4.75,
+      "v_phi_kms": 200.86773368804631,
+      "statistical_error_kms": 0.3714389904710658,
+      "n_stars": 13984,
+      "band": "excluded",
+      "scarcity_predicted_observed_kms": 211.69840818195019,
+      "newtonian_predicted_observed_kms": 252.2719866697108
+    },
+    {
+      "R_kpc": 5.25,
+      "v_phi_kms": 211.13925102581973,
+      "statistical_error_kms": 0.33242362331420006,
+      "n_stars": 13945,
+      "band": "fit",
+      "scarcity_predicted_observed_kms": 216.16498834077044,
+      "newtonian_predicted_observed_kms": 249.33436786360429
+    },
+    {
+      "R_kpc": 5.75,
+      "v_phi_kms": 217.74468311749138,
+      "statistical_error_kms": 0.27288976404186943,
+      "n_stars": 16317,
+      "band": "fit",
+      "scarcity_predicted_observed_kms": 219.56935713585568,
+      "newtonian_predicted_observed_kms": 246.04820441067218
+    },
+    {
+      "R_kpc": 6.25,
+      "v_phi_kms": 222.31529243448114,
+      "statistical_error_kms": 0.22275201152122265,
+      "n_stars": 20613,
+      "band": "fit",
+      "scarcity_predicted_observed_kms": 222.05728485713084,
+      "newtonian_predicted_observed_kms": 242.50768596787398
+    },
+    {
+      "R_kpc": 6.75,
+      "v_phi_kms": 224.31659915904197,
+      "statistical_error_kms": 0.16824468852442231,
+      "n_stars": 27477,
+      "band": "fit",
+      "scarcity_predicted_observed_kms": 223.7588282679287,
+      "newtonian_predicted_observed_kms": 238.78997502740597
+    },
+    {
+      "R_kpc": 7.25,
+      "v_phi_kms": 225.96488259608995,
+      "statistical_error_kms": 0.13203455064915215,
+      "n_stars": 39053,
+      "band": "fit",
+      "scarcity_predicted_observed_kms": 224.78942342547734,
+      "newtonian_predicted_observed_kms": 234.95797476955417
+    },
+    {
+      "R_kpc": 7.75,
+      "v_phi_kms": 227.10508723316838,
+      "statistical_error_kms": 0.10678285128433562,
+      "n_stars": 52499,
+      "band": "fit",
+      "scarcity_predicted_observed_kms": 225.25095263554036,
+      "newtonian_predicted_observed_kms": 231.06266633178268
+    },
+    {
+      "R_kpc": 8.25,
+      "v_phi_kms": 225.86103728154166,
+      "statistical_error_kms": 0.10259758076869893,
+      "n_stars": 46600,
+      "band": "fit",
+      "scarcity_predicted_observed_kms": 225.23283624853084,
+      "newtonian_predicted_observed_kms": 227.1450852680338
+    },
+    {
+      "R_kpc": 8.75,
+      "v_phi_kms": 224.0453779410263,
+      "statistical_error_kms": 0.11413742325645583,
+      "n_stars": 32182,
+      "band": "fit",
+      "scarcity_predicted_observed_kms": 224.8131419921887,
+      "newtonian_predicted_observed_kms": 223.23798968422577
+    },
+    {
+      "R_kpc": 9.25,
+      "v_phi_kms": 221.76969880270292,
+      "statistical_error_kms": 0.1660969898970931,
+      "n_stars": 16525,
+      "band": "fit",
+      "scarcity_predicted_observed_kms": 224.05968750660426,
+      "newtonian_predicted_observed_kms": 219.36726489252774
+    },
+    {
+      "R_kpc": 9.75,
+      "v_phi_kms": 220.74308061746603,
+      "statistical_error_kms": 0.2223753454305263,
+      "n_stars": 9341,
+      "band": "fit",
+      "scarcity_predicted_observed_kms": 223.03111091434718,
+      "newtonian_predicted_observed_kms": 215.55310392637597
+    },
+    {
+      "R_kpc": 10.25,
+      "v_phi_kms": 218.63313502476643,
+      "statistical_error_kms": 0.22158631444691854,
+      "n_stars": 7953,
+      "band": "fit",
+      "scarcity_predicted_observed_kms": 221.77788913740196,
+      "newtonian_predicted_observed_kms": 211.81099822799342
+    },
+    {
+      "R_kpc": 10.75,
+      "v_phi_kms": 215.71574314966847,
+      "statistical_error_kms": 0.2213831972953126,
+      "n_stars": 9528,
+      "band": "fit",
+      "scarcity_predicted_observed_kms": 220.3432898504714,
+      "newtonian_predicted_observed_kms": 208.15256808304804
+    },
+    {
+      "R_kpc": 11.25,
+      "v_phi_kms": 216.5988869866899,
+      "statistical_error_kms": 0.21615951625278182,
+      "n_stars": 10889,
+      "band": "fit",
+      "scarcity_predicted_observed_kms": 218.7642486772554,
+      "newtonian_predicted_observed_kms": 204.58625803754367
+    },
+    {
+      "R_kpc": 11.75,
+      "v_phi_kms": 216.88254497181515,
+      "statistical_error_kms": 0.20417254427689982,
+      "n_stars": 11567,
+      "band": "fit",
+      "scarcity_predicted_observed_kms": 217.07216790291915,
+      "newtonian_predicted_observed_kms": 201.11791867725935
+    },
+    {
+      "R_kpc": 12.25,
+      "v_phi_kms": 215.3056670273351,
+      "statistical_error_kms": 0.21419112793947953,
+      "n_stars": 10142,
+      "band": "fit",
+      "scarcity_predicted_observed_kms": 215.2936365077618,
+      "newtonian_predicted_observed_kms": 197.7512928052489
+    },
+    {
+      "R_kpc": 12.75,
+      "v_phi_kms": 213.45888654731027,
+      "statistical_error_kms": 0.23048161069859377,
+      "n_stars": 8290,
+      "band": "fit",
+      "scarcity_predicted_observed_kms": 213.45107384168162,
+      "newtonian_predicted_observed_kms": 194.48842119660418
+    },
+    {
+      "R_kpc": 13.25,
+      "v_phi_kms": 212.4457036395062,
+      "statistical_error_kms": 0.24566014900881789,
+      "n_stars": 7017,
+      "band": "fit",
+      "scarcity_predicted_observed_kms": 211.56330093783552,
+      "newtonian_predicted_observed_kms": 191.32998069516663
+    },
+    {
+      "R_kpc": 13.75,
+      "v_phi_kms": 211.87981436402166,
+      "statistical_error_kms": 0.2767083078745525,
+      "n_stars": 5417,
+      "band": "fit",
+      "scarcity_predicted_observed_kms": 209.64604449140526,
+      "newtonian_predicted_observed_kms": 188.27556538784873
+    },
+    {
+      "R_kpc": 14.25,
+      "v_phi_kms": 212.43664665095912,
+      "statistical_error_kms": 0.26985840951775353,
+      "n_stars": 4680,
+      "band": "fit",
+      "scarcity_predicted_observed_kms": 207.71237906884693,
+      "newtonian_predicted_observed_kms": 185.32391989212408
+    },
+    {
+      "R_kpc": 14.75,
+      "v_phi_kms": 211.77144474694276,
+      "statistical_error_kms": 0.3524319505688091,
+      "n_stars": 2786,
+      "band": "fit",
+      "scarcity_predicted_observed_kms": 205.7731132991052,
+      "newtonian_predicted_observed_kms": 182.4731323689315
+    },
+    {
+      "R_kpc": 15.25,
+      "v_phi_kms": 208.89777377692218,
+      "statistical_error_kms": 0.4630452263142019,
+      "n_stars": 1620,
+      "band": "consistency",
+      "scarcity_predicted_observed_kms": 203.83712573754573,
+      "newtonian_predicted_observed_kms": 179.7207936809765
+    },
+    {
+      "R_kpc": 15.75,
+      "v_phi_kms": 207.50694662908626,
+      "statistical_error_kms": 0.5935101498835164,
+      "n_stars": 984,
+      "band": "consistency",
+      "scarcity_predicted_observed_kms": 201.91165586751637,
+      "newtonian_predicted_observed_kms": 177.06412811624108
+    },
+    {
+      "R_kpc": 16.25,
+      "v_phi_kms": 203.97417569013055,
+      "statistical_error_kms": 0.8829125021556943,
+      "n_stars": 554,
+      "band": "consistency",
+      "scarcity_predicted_observed_kms": 200.00255537471674,
+      "newtonian_predicted_observed_kms": 174.50010025583066
+    },
+    {
+      "R_kpc": 16.75,
+      "v_phi_kms": 202.2441339956689,
+      "statistical_error_kms": 1.2126976338700055,
+      "n_stars": 317,
+      "band": "consistency",
+      "scarcity_predicted_observed_kms": 198.11450444078642,
+      "newtonian_predicted_observed_kms": 172.0255018571237
+    },
+    {
+      "R_kpc": 17.25,
+      "v_phi_kms": 199.62711401579762,
+      "statistical_error_kms": 1.1374385813034715,
+      "n_stars": 207,
+      "band": "consistency",
+      "scarcity_predicted_observed_kms": 196.251197386866,
+      "newtonian_predicted_observed_kms": 169.63702202536263
+    },
+    {
+      "R_kpc": 17.75,
+      "v_phi_kms": 201.39486363457084,
+      "statistical_error_kms": 2.0573380332690854,
+      "n_stars": 90,
+      "band": "consistency",
+      "scarcity_predicted_observed_kms": 194.41550157778858,
+      "newtonian_predicted_observed_kms": 167.3313034411281
+    },
+    {
+      "R_kpc": 18.25,
+      "v_phi_kms": 194.07393184374982,
+      "statistical_error_kms": 2.3181490056515526,
+      "n_stars": 57,
+      "band": "consistency",
+      "scarcity_predicted_observed_kms": 192.60959308820782,
+      "newtonian_predicted_observed_kms": 165.10498698263885
+    },
+    {
+      "R_kpc": 18.75,
+      "v_phi_kms": 199.14378663054157,
+      "statistical_error_kms": 3.665284463942638,
+      "n_stars": 30,
+      "band": "consistency",
+      "scarcity_predicted_observed_kms": 190.83507224315895,
+      "newtonian_predicted_observed_kms": 162.95474671823266
+    }
+  ]
+}

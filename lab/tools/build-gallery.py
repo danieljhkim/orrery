@@ -41,6 +41,7 @@ def card(m):
     family_html = f'<span class="chip family">{html.escape(family)}</span>' if family else ""
     status = m.get("status", "active")
     status_html = f'<span class="status">{html.escape(status)}</span>' if status != "active" else ""
+    status_line = f"\n        {status_html}" if status_html else ""
     prov = m.get("provenance", {}).get("almanac")
     prov_html = f'<div class="prov">almanac: {html.escape(prov)}</div>' if prov else ""
     action = (
@@ -53,8 +54,7 @@ def card(m):
     <div class="card">
       <div class="head">
         <span class="kind {kind}">{KIND_LABEL.get(kind, kind)}</span>
-        <span class="date">{html.escape(m.get("created", ""))}</span>
-        {status_html}
+        <span class="date">{html.escape(m.get("created", ""))}</span>{status_line}
       </div>
       <h2>{title}</h2>
       <p>{summary}</p>
