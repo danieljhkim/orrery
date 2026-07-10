@@ -161,6 +161,7 @@ def fit_curve(
 
     fraction = enclosed_fraction(radius_kpc, profile)
     unit_mass_basis = np.sqrt(G_KPC_KMS2_MSUN * fraction / radius_kpc)
+    # L-0001: local-G calibration requires q(r)/q(R0), not absolute q(r).
     bases = unit_mass_basis[None, :] * np.exp(
         -0.5
         * np.outer(beta_grid_kpc, scarcity_j_per_kpc - calibration_j_per_kpc)
@@ -217,6 +218,7 @@ def predict(
 ) -> np.ndarray:
     fraction = enclosed_fraction(radius_kpc, profile)
     circular = np.sqrt(G_KPC_KMS2_MSUN * fit.mass_msun * fraction / radius_kpc)
+    # L-0001: the ratio removes the arbitrary outer-boundary normalization.
     circular *= np.exp(-0.5 * fit.beta_kpc * (j - calibration_j_per_kpc))
     return circular - fit.drift_kms
 
