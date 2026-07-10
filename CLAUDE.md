@@ -36,12 +36,20 @@ lab/
 
 ## Stewardship
 
-This repo is maintained by **kepler**, the constellation's physicist agent
-(`agentbase/kepler/memory` — memory-only, runs one-shot via worker `agent_invoke`; its
-AGENTS.md carries the invocation contract). Kepler enforces the sim contract, curates
-`studies/`, and keeps `theory/` evidence ledgers consistent with the sims: when a sim or
-study contradicts a theory claim, the claim's status changes in the same change-set. Refuted
-theory branches keep their docs (`status: refuted`) — they are results, not embarrassments.
+This repo has two complementary memory-only agents, both running one-shot via worker
+`agent_invoke` and sharing Orbit workspace `ws_orrery`:
+
+- **faraday / Sol (Codex)** (`agentbase/faraday/memory`) is the experimental physicist and
+  primary owner of executable `lab/`: designing, implementing, running, and numerically
+  validating sims; maintaining the shared apparatus; capturing reproducible results.
+- **kepler / Fable (Claude)** (`agentbase/kepler/memory`) is the theoretical physicist and
+  primary owner of `theory/` and `studies/`: literature judgment, evidence-ledger status, and
+  reconciliation when experimental results support or contradict a claim.
+
+Invokers must select the matching provider and load that agent's `CLAUDE.md` contract first.
+Cross-lane questions use explicit handoffs: faraday reports the apparatus, result, and
+limitations; kepler judges the theory and literature implications. Refuted theory branches keep
+their docs (`status: refuted`) — they are results, not embarrassments.
 
 ## The sim contract
 
