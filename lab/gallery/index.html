@@ -42,10 +42,10 @@
         <span class="date">2026-07-10</span>
       </div>
       <h2>Scarcity rotation-curve fit</h2>
-      <p>Scarcity beats the three-parameter NFW+baryons baseline and all profile variants in-band, but the 200-resample delta-AIC interval crosses zero; the standard-halo comparison is inconclusive.</p>
+      <p>A shared Jeans-style radial-drift nuisance reduces scarcity&#x27;s held-out mean residual from +4.86 to +0.47 km/s, but its dispersion normalization hits the bound and the bootstrap crosses zero; gravity-model differences remain.</p>
       <div class="chips"><span class="chip family">gravity-as-scarcity</span><span class="chip">gravity</span><span class="chip">galaxy-rotation</span><span class="chip">model-fitting</span><span class="chip">gaia</span></div>
       <div class="prov">almanac: 15-discussions/26-07/gravity-as-scarcity-of-space.md</div>
-      <div class="action"><code class="run">uv run lab/sims/scarcity-rotation-curve-fit/main.py</code> <a class="open" href="../sims/scarcity-rotation-curve-fit/main.py">source</a></div>
+      <div class="action"><code class="run">uv run lab/sims/scarcity-rotation-curve-fit/radial_drift.py</code> <a class="open" href="../sims/scarcity-rotation-curve-fit/radial_drift.py">source</a></div>
     </div>
 
     <div class="card">
@@ -93,8 +93,8 @@
         <span class="status">imported</span>
       </div>
       <h2>Solar system n-body simulator</h2>
-      <p>Interactive nine-body gravity plus a reproducible DOP853 export of the Newtonian planetary-system baseline on Astrolabe&#x27;s exact heliocentric ICRF epoch grid.</p>
-      <div class="chips"><span class="chip">gravity</span><span class="chip">n-body</span><span class="chip">orbital-mechanics</span></div>
+      <p>Interactive nine-body gravity, the ORB-10093 Newtonian export, and an untuned multiplicative-scarcity falsifier whose primary orientation exceeds the measured omission floor only for Uranus.</p>
+      <div class="chips"><span class="chip family">gravity-as-scarcity</span><span class="chip">gravity</span><span class="chip">n-body</span><span class="chip">orbital-mechanics</span></div>
       
       <div class="action"><a class="open" href="../sims/solar-system-nbody/index.html">open &#8599;</a></div>
     </div>

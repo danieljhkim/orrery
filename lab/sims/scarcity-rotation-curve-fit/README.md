@@ -1,6 +1,58 @@
 # Scarcity rotation-curve fit
 
-## Question
+## Current question: radial asymmetric drift (ORB-10083)
+
+Does a physically motivated radial asymmetric-drift nuisance remove the coherent outer residual,
+or does the selected gravity curve still carry it? The current catalog entry runs:
+
+```bash
+uv run lab/sims/scarcity-rotation-curve-fit/radial_drift.py
+```
+
+This preserves ORB-10082's constant-drift capture in `assets/results.json` and `assets/fit.png`,
+then writes `assets/radial-drift-results.json` and `assets/radial-drift-fit.png`. Both protocols use
+the same 5–15 kpc fit band, untouched 15–18.75 kpc band, seed 42, 200 bootstrap resamples, and 27
+mass-profile variants.
+
+The replacement nuisance is the axisymmetric radial Jeans surrogate
+
+```text
+v_c² - <v_phi>² = sigma_R(R)² [R/h_nu + 2R/h_sigma - 1/2]
+sigma_R(R) = sigma_R0 exp[-(R-R0)/h_sigma]
+```
+
+with fixed `R0=8.25 kpc`, tracer scale `h_nu=2.6 kpc`, and epicycle anisotropy
+`sigma_phi²/sigma_R²=1/2`. Each gravity model independently fits the same two nuisance parameters
+`sigma_R0` and `h_sigma` with identical bounds. These are a smooth physical surrogate, not a
+population measurement: the delivered mixed sample has no per-bin dispersions or tracer-density
+profile with which to fix them.
+
+### Radial-drift result
+
+| Metric (5–15 kpc) | Scarcity | NFW+baryons | Newtonian baryons |
+|---|---:|---:|---:|
+| Baryonic mass | 1.717e11 Msun | 1.664e10 Msun | 1.590e11 Msun |
+| Shape / halo | beta = 5.57 kpc | M200 = 6.595e11 Msun; c = 40.0 | none |
+| Drift parameters | sigma_R0 = 80.0 km/s; h_sigma = 16.09 kpc | 45.88 km/s; 30.0 kpc | 55.59 km/s; 5.17 kpc |
+| RMSE | 2.41 km/s | 3.73 km/s | 3.25 km/s |
+| chi-square / dof | 2018.4 / 16 | 4245.4 / 15 | 3420.9 / 17 |
+| Held-out RMSE | 2.29 km/s | 5.79 km/s | 7.66 km/s |
+| Held-out mean data − model | +0.47 km/s | −5.07 km/s | +7.32 km/s |
+
+For scarcity, the radial nuisance reduces the constant-drift held-out mean residual from
+`+4.86` to `+0.47 km/s` and RMSE from `5.26` to `2.29 km/s`; it is carrying most of that model's
+former coherent outer residual. It does not erase gravity-model dependence: Newtonian baryons
+still underpredict by `+7.32 km/s`, while NFW overpredicts by `−5.07 km/s` and is slightly worse
+than its constant-drift result. No gravity parameter was tuned outside the declared refit.
+
+The improvement is not a clean physical identification. Scarcity's `sigma_R0` sits at its
+`80 km/s` upper bound in the baseline and every bootstrap percentile, and its held-out mean
+bootstrap interval is `[-2.26,+3.95] km/s`. NFW also pins concentration and `h_sigma` to their
+upper bounds. All fits still have very large reduced chi-square against the statistical-only
+errors. The result therefore says a radial population nuisance can absorb scarcity's coherent
+outer residual, not that this particular drift profile has been measured.
+
+## Frozen constant-drift question (ORB-10082)
 
 Does scarcity remain preferred on Tycho's 5–15 kpc Gaia DR3 median-`v_phi` curve when compared
 with a standard NFW+baryons model whose baryonic scale, halo mass, and concentration are all
@@ -12,7 +64,7 @@ Newtonian baryons has two counted parameters, scarcity three, and NFW+baryons fo
 halo preference is called stable only when the baseline, profile sweep, and bootstrap interval
 agree.
 
-## Reproduce
+## Reproduce the frozen constant-drift baseline
 
 From the Orrery root, with Astrolabe's delivered parquet present in the sibling checkout:
 
@@ -20,7 +72,7 @@ From the Orrery root, with Astrolabe's delivered parquet present in the sibling 
 uv run lab/sims/scarcity-rotation-curve-fit/main.py
 ```
 
-The run is offline with respect to data. It reads
+That run is offline with respect to data. It reads
 `../astrolabe/data/processed/derived/mw_rotation_curve.parquet` and its JSON lineage sidecar,
 uses seed 42 for 200 bootstrap resamples, and rewrites `assets/results.json` plus
 `assets/fit.png` deterministically.

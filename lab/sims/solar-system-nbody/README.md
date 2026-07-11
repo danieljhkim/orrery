@@ -4,6 +4,54 @@ The browser entry remains the imported interactive nine-body canvas simulator. O
 an independent precision-export lane that follows Astrolabe's load-bearing baseline exchange
 contract.
 
+## Fitted scarcity-gradient falsifier (ORB-10097)
+
+From the Orrery root, with the same local ephemerides, baseline export, and Astrolabe
+`derived/<planet>_newtonian_residuals` datasets present:
+
+```bash
+uv run lab/sims/solar-system-nbody/integrate_scarcity.py
+```
+
+The experiment concurrently integrates pure Newtonian and multiplicative-scarcity systems on
+ORB-10093's exact initial conditions, frame, 366 epochs, and DOP853 tolerances. For each planet,
+the multiplicative reading scales the full heliocentric Newtonian acceleration by
+
+```text
+q(r_gal)/q(R0) = exp[(beta F(R0)/R0²) (r_gal-R0)]
+```
+
+at AU scale. It imports `beta=5.25 kpc`, `R0=8.25 kpc`, and the ORB-10077/10082 profile
+(`disk scale=2.6 kpc`, `bulge fraction=0.2`, `bulge scale=0.7 kpc`) unchanged. No parameter is
+fitted. The primary fixed ICRF axis is galactocentric outward, opposite the conventional Galactic
+center direction at RA `266.4051°`, Dec `−28.936175°`. Six cardinal ICRF axes and `R0=8.122 kpc`
+provide sensitivity checks. The local exponential drops terms below `1e-15` in `ln(q)` across
+Neptune's orbit.
+
+| Planet | Multiplicative RMS (AU) | Measured omission floor (AU) | Ratio | Primary result |
+|---|---:|---:|---:|---|
+| Mercury | 3.45e-8 | 1.56e-5 | 0.0022 | below |
+| Venus | 8.14e-9 | 3.54e-6 | 0.0023 | below |
+| Earth | 9.18e-9 | 2.49e-6 | 0.0037 | below |
+| Mars | 2.67e-8 | 8.40e-7 | 0.0318 | below |
+| Jupiter | 3.06e-8 | 1.84e-7 | 0.167 | below |
+| Saturn | 3.17e-8 | 4.25e-8 | 0.744 | below |
+| Uranus | 7.72e-9 | 4.08e-9 | 1.895 | **above** |
+| Neptune | 1.92e-9 | 1.75e-8 | 0.110 | below |
+
+Uranus is also above its maximum-residual floor (`2.84×`) in the primary orientation. Its RMS
+signature spans `2.71e-9–1.23e-8 AU` across orientations, so the above-floor outcome is
+orientation-dependent; every other planet remains below its RMS floor throughout the cardinal
+axis sweep. Changing `R0` to `8.122 kpc` raises signatures by about 2.5% without changing the
+primary classifications.
+
+The screened reading is the explicit zero control: `q=1` leaves the Newtonian equations
+unchanged and produces exactly zero scarcity-minus-Newtonian displacement. Halving the maximum
+step from two to one day changes any signature coordinate by at most `1.60e-12 AU`. The
+concurrent Newtonian trajectory agrees with the frozen ORB-10093 export within `4.47e-10 AU` per
+coordinate. The result tests the multiplicative interpretation only; choosing between that and
+local screening belongs to Kepler's theory reconciliation.
+
 ## Reproduce the baseline
 
 From the Orrery root, with Astrolabe's eight local `ephemeris/*_2016_2026` datasets present:

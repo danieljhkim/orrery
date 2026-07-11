@@ -1,0 +1,754 @@
+{
+  "task": "ORB-10097",
+  "source_tasks": [
+    "ORB-10093",
+    "ORB-10094",
+    "ORB-10096",
+    "ORB-10082",
+    "ORB-10077"
+  ],
+  "question": "Does the unchanged fitted scarcity gradient exceed the measured Newtonian-omission floor under the multiplicative solar-field reading?",
+  "protocol": {
+    "frame": "heliocentric ICRF; relative equations integrated directly",
+    "epochs": {
+      "timescale": "TDB",
+      "start_jd": 2457388.5,
+      "step_days": 10.0,
+      "count": 366
+    },
+    "integrator": {
+      "method": "DOP853",
+      "rtol": 1e-12,
+      "atol": 1e-14,
+      "max_step_days": 2.0
+    },
+    "initial_conditions": "identical ORB-10093 first-epoch Horizons states",
+    "comparison": "concurrently integrated multiplicative scarcity minus pure Newtonian"
+  },
+  "apparatus": {
+    "beta_kpc": 5.25,
+    "mass_profile": {
+      "disk_scale_kpc": 2.6,
+      "bulge_fraction": 0.2,
+      "bulge_scale_kpc": 0.7,
+      "F_at_R0_8.25": 0.8301419259913436
+    },
+    "R0_kpc": 8.25,
+    "multiplicative_equation": "a_helio = a_Newton,helio * exp[(beta F(R0)/R0^2)(r_gal-R0)]",
+    "parameter_policy": "Imported unchanged from ORB-10077/10082; no fit or retuning was performed.",
+    "primary_orientation": {
+      "definition": "Galactocentric outward axis, opposite the conventional ICRF Galactic-center direction",
+      "galactic_center_ra_deg": 266.4051,
+      "galactic_center_dec_deg": -28.936175,
+      "axis_icrf": [
+        0.05487395617553902,
+        0.8734371822248346,
+        0.48383503143198114
+      ]
+    },
+    "local_approximation_limit": "Second-order correction to ln(q) is below 1e-15 across the planetary system."
+  },
+  "primary_multiplicative_signature": {
+    "mercury": {
+      "rms_dr_au": 3.449425111970839e-08,
+      "max_dr_au": 8.15933097396135e-08,
+      "final_dr_au": 7.395059025556002e-08
+    },
+    "venus": {
+      "rms_dr_au": 8.135899142208836e-09,
+      "max_dr_au": 2.2073631656541767e-08,
+      "final_dr_au": 9.983191005724441e-09
+    },
+    "earth": {
+      "rms_dr_au": 9.182793623688369e-09,
+      "max_dr_au": 2.4097201383973725e-08,
+      "final_dr_au": 2.3862730735361123e-08
+    },
+    "mars": {
+      "rms_dr_au": 2.6741929449488495e-08,
+      "max_dr_au": 7.862742005638891e-08,
+      "final_dr_au": 7.862742005638891e-08
+    },
+    "jupiter": {
+      "rms_dr_au": 3.061992693263109e-08,
+      "max_dr_au": 5.356335351814414e-08,
+      "final_dr_au": 4.7497089752774344e-08
+    },
+    "saturn": {
+      "rms_dr_au": 3.165013383704644e-08,
+      "max_dr_au": 7.151276331704736e-08,
+      "final_dr_au": 7.151276331704736e-08
+    },
+    "uranus": {
+      "rms_dr_au": 7.721819492132204e-09,
+      "max_dr_au": 1.844207478654194e-08,
+      "final_dr_au": 1.844207478654194e-08
+    },
+    "neptune": {
+      "rms_dr_au": 1.920642910183452e-09,
+      "max_dr_au": 3.880249674374324e-09,
+      "final_dr_au": 3.880249674374324e-09
+    }
+  },
+  "measured_newtonian_omission_floors": {
+    "mercury": {
+      "dataset": "derived/mercury_newtonian_residuals",
+      "rms_dr_au": 1.5623024805267282e-05,
+      "max_dr_au": 3.524516928342056e-05
+    },
+    "venus": {
+      "dataset": "derived/venus_newtonian_residuals",
+      "rms_dr_au": 3.544886440308734e-06,
+      "max_dr_au": 6.117570744576066e-06
+    },
+    "earth": {
+      "dataset": "derived/earth_newtonian_residuals",
+      "rms_dr_au": 2.489045611360098e-06,
+      "max_dr_au": 4.277495587441361e-06
+    },
+    "mars": {
+      "dataset": "derived/mars_newtonian_residuals",
+      "rms_dr_au": 8.398708263070521e-07,
+      "max_dr_au": 1.645438039946203e-06
+    },
+    "jupiter": {
+      "dataset": "derived/jupiter_newtonian_residuals",
+      "rms_dr_au": 1.8381541149827567e-07,
+      "max_dr_au": 3.136751384737447e-07
+    },
+    "saturn": {
+      "dataset": "derived/saturn_newtonian_residuals",
+      "rms_dr_au": 4.252971125037071e-08,
+      "max_dr_au": 9.386743036193509e-08
+    },
+    "uranus": {
+      "dataset": "derived/uranus_newtonian_residuals",
+      "rms_dr_au": 4.075524247792095e-09,
+      "max_dr_au": 6.483656771955529e-09
+    },
+    "neptune": {
+      "dataset": "derived/neptune_newtonian_residuals",
+      "rms_dr_au": 1.7485420194885634e-08,
+      "max_dr_au": 3.642356311546413e-08
+    }
+  },
+  "comparison_with_floors": {
+    "mercury": {
+      "predicted_rms_dr_au": 3.449425111970839e-08,
+      "floor_rms_dr_au": 1.5623024805267282e-05,
+      "rms_ratio_to_floor": 0.0022079111791513443,
+      "rms_above_floor": false,
+      "predicted_max_dr_au": 8.15933097396135e-08,
+      "floor_max_dr_au": 3.524516928342056e-05,
+      "max_ratio_to_floor": 0.0023150210766045396,
+      "max_above_floor": false
+    },
+    "venus": {
+      "predicted_rms_dr_au": 8.135899142208836e-09,
+      "floor_rms_dr_au": 3.544886440308734e-06,
+      "rms_ratio_to_floor": 0.002295108539922723,
+      "rms_above_floor": false,
+      "predicted_max_dr_au": 2.2073631656541767e-08,
+      "floor_max_dr_au": 6.117570744576066e-06,
+      "max_ratio_to_floor": 0.003608234800735667,
+      "max_above_floor": false
+    },
+    "earth": {
+      "predicted_rms_dr_au": 9.182793623688369e-09,
+      "floor_rms_dr_au": 2.489045611360098e-06,
+      "rms_ratio_to_floor": 0.003689282985324878,
+      "rms_above_floor": false,
+      "predicted_max_dr_au": 2.4097201383973725e-08,
+      "floor_max_dr_au": 4.277495587441361e-06,
+      "max_ratio_to_floor": 0.005633483633442571,
+      "max_above_floor": false
+    },
+    "mars": {
+      "predicted_rms_dr_au": 2.6741929449488495e-08,
+      "floor_rms_dr_au": 8.398708263070521e-07,
+      "rms_ratio_to_floor": 0.031840526676076966,
+      "rms_above_floor": false,
+      "predicted_max_dr_au": 7.862742005638891e-08,
+      "floor_max_dr_au": 1.645438039946203e-06,
+      "max_ratio_to_floor": 0.047785099254761126,
+      "max_above_floor": false
+    },
+    "jupiter": {
+      "predicted_rms_dr_au": 3.061992693263109e-08,
+      "floor_rms_dr_au": 1.8381541149827567e-07,
+      "rms_ratio_to_floor": 0.16657975891710433,
+      "rms_above_floor": false,
+      "predicted_max_dr_au": 5.356335351814414e-08,
+      "floor_max_dr_au": 3.136751384737447e-07,
+      "max_ratio_to_floor": 0.17076059575128716,
+      "max_above_floor": false
+    },
+    "saturn": {
+      "predicted_rms_dr_au": 3.165013383704644e-08,
+      "floor_rms_dr_au": 4.252971125037071e-08,
+      "rms_ratio_to_floor": 0.7441887778340032,
+      "rms_above_floor": false,
+      "predicted_max_dr_au": 7.151276331704736e-08,
+      "floor_max_dr_au": 9.386743036193509e-08,
+      "max_ratio_to_floor": 0.7618485244701771,
+      "max_above_floor": false
+    },
+    "uranus": {
+      "predicted_rms_dr_au": 7.721819492132204e-09,
+      "floor_rms_dr_au": 4.075524247792095e-09,
+      "rms_ratio_to_floor": 1.8946812784430078,
+      "rms_above_floor": true,
+      "predicted_max_dr_au": 1.844207478654194e-08,
+      "floor_max_dr_au": 6.483656771955529e-09,
+      "max_ratio_to_floor": 2.8443940565008727,
+      "max_above_floor": true
+    },
+    "neptune": {
+      "predicted_rms_dr_au": 1.920642910183452e-09,
+      "floor_rms_dr_au": 1.7485420194885634e-08,
+      "rms_ratio_to_floor": 0.10984253674070853,
+      "rms_above_floor": false,
+      "predicted_max_dr_au": 3.880249674374324e-09,
+      "floor_max_dr_au": 3.642356311546413e-08,
+      "max_ratio_to_floor": 0.10653130398236384,
+      "max_above_floor": false
+    }
+  },
+  "screened_control": {
+    "q_ratio": 1.0,
+    "rms_dr_au": 0.0,
+    "max_dr_au": 0.0,
+    "statement": "Local screening leaves the ORB-10093 Newtonian equations unchanged, so the scarcity-minus-Newtonian signature is identically zero by construction."
+  },
+  "orientation_sensitivity": {
+    "runs": {
+      "galactic-outward": {
+        "axis_icrf": [
+          0.05487395617553902,
+          0.8734371822248346,
+          0.48383503143198114
+        ],
+        "per_planet": {
+          "mercury": {
+            "rms_dr_au": 3.449425111970839e-08,
+            "max_dr_au": 8.15933097396135e-08,
+            "final_dr_au": 7.395059025556002e-08
+          },
+          "venus": {
+            "rms_dr_au": 8.135899142208836e-09,
+            "max_dr_au": 2.2073631656541767e-08,
+            "final_dr_au": 9.983191005724441e-09
+          },
+          "earth": {
+            "rms_dr_au": 9.182793623688369e-09,
+            "max_dr_au": 2.4097201383973725e-08,
+            "final_dr_au": 2.3862730735361123e-08
+          },
+          "mars": {
+            "rms_dr_au": 2.6741929449488495e-08,
+            "max_dr_au": 7.862742005638891e-08,
+            "final_dr_au": 7.862742005638891e-08
+          },
+          "jupiter": {
+            "rms_dr_au": 3.061992693263109e-08,
+            "max_dr_au": 5.356335351814414e-08,
+            "final_dr_au": 4.7497089752774344e-08
+          },
+          "saturn": {
+            "rms_dr_au": 3.165013383704644e-08,
+            "max_dr_au": 7.151276331704736e-08,
+            "final_dr_au": 7.151276331704736e-08
+          },
+          "uranus": {
+            "rms_dr_au": 7.721819492132204e-09,
+            "max_dr_au": 1.844207478654194e-08,
+            "final_dr_au": 1.844207478654194e-08
+          },
+          "neptune": {
+            "rms_dr_au": 1.920642910183452e-09,
+            "max_dr_au": 3.880249674374324e-09,
+            "final_dr_au": 3.880249674374324e-09
+          }
+        },
+        "integrator": {
+          "function_evaluations": 25772,
+          "max_step_days": 2.0
+        }
+      },
+      "+icrf-x": {
+        "axis_icrf": [
+          1.0,
+          0.0,
+          0.0
+        ],
+        "per_planet": {
+          "mercury": {
+            "rms_dr_au": 2.1483488390848135e-07,
+            "max_dr_au": 5.745905327858397e-07,
+            "final_dr_au": 3.912162033821304e-07
+          },
+          "venus": {
+            "rms_dr_au": 7.914814584255685e-09,
+            "max_dr_au": 2.144173803827109e-08,
+            "final_dr_au": 1.0891288176190518e-08
+          },
+          "earth": {
+            "rms_dr_au": 1.1796267826485722e-08,
+            "max_dr_au": 3.3584248058022125e-08,
+            "final_dr_au": 1.571757481960788e-08
+          },
+          "mars": {
+            "rms_dr_au": 1.499031881028045e-08,
+            "max_dr_au": 3.942776090775844e-08,
+            "final_dr_au": 1.7796243286658208e-08
+          },
+          "jupiter": {
+            "rms_dr_au": 2.5486022065623597e-08,
+            "max_dr_au": 4.013957079875838e-08,
+            "final_dr_au": 2.479192216592778e-08
+          },
+          "saturn": {
+            "rms_dr_au": 4.963542288532464e-09,
+            "max_dr_au": 1.6011349158130224e-08,
+            "final_dr_au": 1.6011349158130224e-08
+          },
+          "uranus": {
+            "rms_dr_au": 1.229548710472742e-08,
+            "max_dr_au": 2.7305941972712216e-08,
+            "final_dr_au": 2.7305941972712216e-08
+          },
+          "neptune": {
+            "rms_dr_au": 8.880345050140489e-09,
+            "max_dr_au": 2.010344558676206e-08,
+            "final_dr_au": 2.010344558676206e-08
+          }
+        },
+        "integrator": {
+          "function_evaluations": 25772,
+          "max_step_days": 2.0
+        }
+      },
+      "-icrf-x": {
+        "axis_icrf": [
+          -1.0,
+          0.0,
+          0.0
+        ],
+        "per_planet": {
+          "mercury": {
+            "rms_dr_au": 2.1483428789001467e-07,
+            "max_dr_au": 5.74589084564561e-07,
+            "final_dr_au": 3.912151896421667e-07
+          },
+          "venus": {
+            "rms_dr_au": 7.91486348603182e-09,
+            "max_dr_au": 2.144212294832594e-08,
+            "final_dr_au": 1.089158901091897e-08
+          },
+          "earth": {
+            "rms_dr_au": 1.1796353498588637e-08,
+            "max_dr_au": 3.3584521372917097e-08,
+            "final_dr_au": 1.5717791645961776e-08
+          },
+          "mars": {
+            "rms_dr_au": 1.499030339509862e-08,
+            "max_dr_au": 3.942771135405922e-08,
+            "final_dr_au": 1.7796208657255645e-08
+          },
+          "jupiter": {
+            "rms_dr_au": 2.5486023423563475e-08,
+            "max_dr_au": 4.01395447421759e-08,
+            "final_dr_au": 2.479232606249109e-08
+          },
+          "saturn": {
+            "rms_dr_au": 4.963519709416864e-09,
+            "max_dr_au": 1.601127061259831e-08,
+            "final_dr_au": 1.601127061259831e-08
+          },
+          "uranus": {
+            "rms_dr_au": 1.2295484890867765e-08,
+            "max_dr_au": 2.730594777734419e-08,
+            "final_dr_au": 2.730594777734419e-08
+          },
+          "neptune": {
+            "rms_dr_au": 8.880367359301932e-09,
+            "max_dr_au": 2.0103472606027943e-08,
+            "final_dr_au": 2.0103472606027943e-08
+          }
+        },
+        "integrator": {
+          "function_evaluations": 25772,
+          "max_step_days": 2.0
+        }
+      },
+      "+icrf-y": {
+        "axis_icrf": [
+          0.0,
+          1.0,
+          0.0
+        ],
+        "per_planet": {
+          "mercury": {
+            "rms_dr_au": 3.135860437599666e-08,
+            "max_dr_au": 7.448059208140323e-08,
+            "final_dr_au": 6.696285917581089e-08
+          },
+          "venus": {
+            "rms_dr_au": 7.427484655310204e-09,
+            "max_dr_au": 2.011810827415343e-08,
+            "final_dr_au": 9.29073861556272e-09
+          },
+          "earth": {
+            "rms_dr_au": 8.374092781115155e-09,
+            "max_dr_au": 2.144380604530564e-08,
+            "final_dr_au": 2.1362931539825915e-08
+          },
+          "mars": {
+            "rms_dr_au": 2.4040019072880506e-08,
+            "max_dr_au": 7.121819862889866e-08,
+            "final_dr_au": 7.121819862889866e-08
+          },
+          "jupiter": {
+            "rms_dr_au": 2.7665998379634225e-08,
+            "max_dr_au": 4.8973458335883456e-08,
+            "final_dr_au": 4.4164282344476046e-08
+          },
+          "saturn": {
+            "rms_dr_au": 2.95971974948875e-08,
+            "max_dr_au": 6.70788416139062e-08,
+            "final_dr_au": 6.70788416139062e-08
+          },
+          "uranus": {
+            "rms_dr_au": 6.571824966570496e-09,
+            "max_dr_au": 1.578417143605705e-08,
+            "final_dr_au": 1.578417143605705e-08
+          },
+          "neptune": {
+            "rms_dr_au": 2.146149707403043e-09,
+            "max_dr_au": 4.424367993785408e-09,
+            "final_dr_au": 4.424367993785408e-09
+          }
+        },
+        "integrator": {
+          "function_evaluations": 25772,
+          "max_step_days": 2.0
+        }
+      },
+      "-icrf-y": {
+        "axis_icrf": [
+          0.0,
+          -1.0,
+          0.0
+        ],
+        "per_planet": {
+          "mercury": {
+            "rms_dr_au": 3.135812010975932e-08,
+            "max_dr_au": 7.447946108873643e-08,
+            "final_dr_au": 6.69620822401125e-08
+          },
+          "venus": {
+            "rms_dr_au": 7.427406237588304e-09,
+            "max_dr_au": 2.0117797489224446e-08,
+            "final_dr_au": 9.29107207244474e-09
+          },
+          "earth": {
+            "rms_dr_au": 8.374059105754533e-09,
+            "max_dr_au": 2.144347050841829e-08,
+            "final_dr_au": 2.136259258467053e-08
+          },
+          "mars": {
+            "rms_dr_au": 2.403986518466902e-08,
+            "max_dr_au": 7.121780102501356e-08,
+            "final_dr_au": 7.121780102501356e-08
+          },
+          "jupiter": {
+            "rms_dr_au": 2.7666027116747706e-08,
+            "max_dr_au": 4.897349400095197e-08,
+            "final_dr_au": 4.416428966706115e-08
+          },
+          "saturn": {
+            "rms_dr_au": 2.959716171447258e-08,
+            "max_dr_au": 6.70787649128684e-08,
+            "final_dr_au": 6.70787649128684e-08
+          },
+          "uranus": {
+            "rms_dr_au": 6.571855222995175e-09,
+            "max_dr_au": 1.57842143118055e-08,
+            "final_dr_au": 1.57842143118055e-08
+          },
+          "neptune": {
+            "rms_dr_au": 2.1460688343320584e-09,
+            "max_dr_au": 4.424239061842572e-09,
+            "final_dr_au": 4.424239061842572e-09
+          }
+        },
+        "integrator": {
+          "function_evaluations": 25772,
+          "max_step_days": 2.0
+        }
+      },
+      "+icrf-z": {
+        "axis_icrf": [
+          0.0,
+          0.0,
+          1.0
+        ],
+        "per_planet": {
+          "mercury": {
+            "rms_dr_au": 3.889923006121903e-08,
+            "max_dr_au": 9.934183582861903e-08,
+            "final_dr_au": 7.630471461032471e-08
+          },
+          "venus": {
+            "rms_dr_au": 3.30246764945512e-09,
+            "max_dr_au": 8.771702212057193e-09,
+            "final_dr_au": 4.623285590344481e-09
+          },
+          "earth": {
+            "rms_dr_au": 3.6302276269510612e-09,
+            "max_dr_au": 9.295298693419521e-09,
+            "final_dr_au": 9.260252573928922e-09
+          },
+          "mars": {
+            "rms_dr_au": 1.0769980843011233e-08,
+            "max_dr_au": 3.226961317448737e-08,
+            "final_dr_au": 3.226961317448737e-08
+          },
+          "jupiter": {
+            "rms_dr_au": 1.1469496139463832e-08,
+            "max_dr_au": 2.06902263302715e-08,
+            "final_dr_au": 1.90797298195371e-08
+          },
+          "saturn": {
+            "rms_dr_au": 1.2372907090064652e-08,
+            "max_dr_au": 2.8315250746641546e-08,
+            "final_dr_au": 2.8315250746641546e-08
+          },
+          "uranus": {
+            "rms_dr_au": 2.7055591578224585e-09,
+            "max_dr_au": 6.528789443550419e-09,
+            "final_dr_au": 6.528789443550419e-09
+          },
+          "neptune": {
+            "rms_dr_au": 1.0994014879130526e-09,
+            "max_dr_au": 2.3120030180037126e-09,
+            "final_dr_au": 2.3120030180037126e-09
+          }
+        },
+        "integrator": {
+          "function_evaluations": 25772,
+          "max_step_days": 2.0
+        }
+      },
+      "-icrf-z": {
+        "axis_icrf": [
+          0.0,
+          0.0,
+          -1.0
+        ],
+        "per_planet": {
+          "mercury": {
+            "rms_dr_au": 3.88989079094773e-08,
+            "max_dr_au": 9.934109580890282e-08,
+            "final_dr_au": 7.630418289577005e-08
+          },
+          "venus": {
+            "rms_dr_au": 3.3026413316683944e-09,
+            "max_dr_au": 8.77283751606731e-09,
+            "final_dr_au": 4.622121473179195e-09
+          },
+          "earth": {
+            "rms_dr_au": 3.6302819822509414e-09,
+            "max_dr_au": 9.295941245811807e-09,
+            "final_dr_au": 9.260897667420373e-09
+          },
+          "mars": {
+            "rms_dr_au": 1.0769818255103263e-08,
+            "max_dr_au": 3.226916327496124e-08,
+            "final_dr_au": 3.226916327496124e-08
+          },
+          "jupiter": {
+            "rms_dr_au": 1.1469704906133501e-08,
+            "max_dr_au": 2.0690644683922396e-08,
+            "final_dr_au": 1.9080221806437885e-08
+          },
+          "saturn": {
+            "rms_dr_au": 1.2372871753604252e-08,
+            "max_dr_au": 2.8315174756078793e-08,
+            "final_dr_au": 2.8315174756078793e-08
+          },
+          "uranus": {
+            "rms_dr_au": 2.7055082146689777e-09,
+            "max_dr_au": 6.528692158961864e-09,
+            "final_dr_au": 6.528692158961864e-09
+          },
+          "neptune": {
+            "rms_dr_au": 1.0994112617457532e-09,
+            "max_dr_au": 2.3120246178116734e-09,
+            "final_dr_au": 2.3120246178116734e-09
+          }
+        },
+        "integrator": {
+          "function_evaluations": 25772,
+          "max_step_days": 2.0
+        }
+      }
+    },
+    "per_planet_envelope": {
+      "mercury": {
+        "rms_min_au": 3.135812010975932e-08,
+        "rms_max_au": 2.1483488390848135e-07,
+        "max_min_au": 7.447946108873643e-08,
+        "max_max_au": 5.745905327858397e-07
+      },
+      "venus": {
+        "rms_min_au": 3.30246764945512e-09,
+        "rms_max_au": 8.135899142208836e-09,
+        "max_min_au": 8.771702212057193e-09,
+        "max_max_au": 2.2073631656541767e-08
+      },
+      "earth": {
+        "rms_min_au": 3.6302276269510612e-09,
+        "rms_max_au": 1.1796353498588637e-08,
+        "max_min_au": 9.295298693419521e-09,
+        "max_max_au": 3.3584521372917097e-08
+      },
+      "mars": {
+        "rms_min_au": 1.0769818255103263e-08,
+        "rms_max_au": 2.6741929449488495e-08,
+        "max_min_au": 3.226916327496124e-08,
+        "max_max_au": 7.862742005638891e-08
+      },
+      "jupiter": {
+        "rms_min_au": 1.1469496139463832e-08,
+        "rms_max_au": 3.061992693263109e-08,
+        "max_min_au": 2.06902263302715e-08,
+        "max_max_au": 5.356335351814414e-08
+      },
+      "saturn": {
+        "rms_min_au": 4.963519709416864e-09,
+        "rms_max_au": 3.165013383704644e-08,
+        "max_min_au": 1.601127061259831e-08,
+        "max_max_au": 7.151276331704736e-08
+      },
+      "uranus": {
+        "rms_min_au": 2.7055082146689777e-09,
+        "rms_max_au": 1.229548710472742e-08,
+        "max_min_au": 6.528692158961864e-09,
+        "max_max_au": 2.730594777734419e-08
+      },
+      "neptune": {
+        "rms_min_au": 1.0994014879130526e-09,
+        "rms_max_au": 8.880367359301932e-09,
+        "max_min_au": 2.3120030180037126e-09,
+        "max_max_au": 2.0103472606027943e-08
+      }
+    }
+  },
+  "R0_sensitivity": {
+    "R0_8.25_kpc": {
+      "mercury": {
+        "rms_dr_au": 3.449425111970839e-08,
+        "max_dr_au": 8.15933097396135e-08,
+        "final_dr_au": 7.395059025556002e-08
+      },
+      "venus": {
+        "rms_dr_au": 8.135899142208836e-09,
+        "max_dr_au": 2.2073631656541767e-08,
+        "final_dr_au": 9.983191005724441e-09
+      },
+      "earth": {
+        "rms_dr_au": 9.182793623688369e-09,
+        "max_dr_au": 2.4097201383973725e-08,
+        "final_dr_au": 2.3862730735361123e-08
+      },
+      "mars": {
+        "rms_dr_au": 2.6741929449488495e-08,
+        "max_dr_au": 7.862742005638891e-08,
+        "final_dr_au": 7.862742005638891e-08
+      },
+      "jupiter": {
+        "rms_dr_au": 3.061992693263109e-08,
+        "max_dr_au": 5.356335351814414e-08,
+        "final_dr_au": 4.7497089752774344e-08
+      },
+      "saturn": {
+        "rms_dr_au": 3.165013383704644e-08,
+        "max_dr_au": 7.151276331704736e-08,
+        "final_dr_au": 7.151276331704736e-08
+      },
+      "uranus": {
+        "rms_dr_au": 7.721819492132204e-09,
+        "max_dr_au": 1.844207478654194e-08,
+        "final_dr_au": 1.844207478654194e-08
+      },
+      "neptune": {
+        "rms_dr_au": 1.920642910183452e-09,
+        "max_dr_au": 3.880249674374324e-09,
+        "final_dr_au": 3.880249674374324e-09
+      }
+    },
+    "R0_8.122_kpc": {
+      "mercury": {
+        "rms_dr_au": 3.534373354629341e-08,
+        "max_dr_au": 8.360248422396949e-08,
+        "final_dr_au": 7.57717207388665e-08
+      },
+      "venus": {
+        "rms_dr_au": 8.336245387002163e-09,
+        "max_dr_au": 2.2616910717593536e-08,
+        "final_dr_au": 1.0229579926448936e-08
+      },
+      "earth": {
+        "rms_dr_au": 9.408956657581243e-09,
+        "max_dr_au": 2.4690434015176293e-08,
+        "final_dr_au": 2.4450189467996756e-08
+      },
+      "mars": {
+        "rms_dr_au": 2.7400433050556683e-08,
+        "max_dr_au": 8.056375974165685e-08,
+        "final_dr_au": 8.056375974165685e-08
+      },
+      "jupiter": {
+        "rms_dr_au": 3.1374065685973455e-08,
+        "max_dr_au": 5.488257116651698e-08,
+        "final_dr_au": 4.8666860894787034e-08
+      },
+      "saturn": {
+        "rms_dr_au": 3.242984866280006e-08,
+        "max_dr_au": 7.32745066784823e-08,
+        "final_dr_au": 7.32745066784823e-08
+      },
+      "uranus": {
+        "rms_dr_au": 7.911963256220703e-09,
+        "max_dr_au": 1.8896254714812736e-08,
+        "final_dr_au": 1.8896254714812736e-08
+      },
+      "neptune": {
+        "rms_dr_au": 1.967908898680867e-09,
+        "max_dr_au": 3.975750174852472e-09,
+        "final_dr_au": 3.975750174852472e-09
+      }
+    },
+    "integrator_8.122": {
+      "function_evaluations": 25772,
+      "max_step_days": 2.0
+    }
+  },
+  "numerical_checks": {
+    "concurrent_newtonian_vs_ORB_10093_export_max_coordinate_au": 4.466080005816053e-10,
+    "step_halving": {
+      "refined_max_step_days": 1.0,
+      "max_signature_coordinate_change_au": 1.5972362321647893e-12,
+      "refined_integrator": {
+        "function_evaluations": 44924,
+        "max_step_days": 1.0
+      }
+    }
+  },
+  "limitations": [
+    "The multiplicative rule is a deliberately tested interpretation, not a derived local field equation.",
+    "The fixed galactocentric axis neglects the Sun's Galactic motion over ten years, whose fractional directional change is negligible for this test.",
+    "The Newtonian-omission residual is an empirical precision floor for this apparatus, not a full observational covariance model."
+  ]
+}

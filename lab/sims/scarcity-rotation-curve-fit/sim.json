@@ -2,7 +2,7 @@
   "slug": "scarcity-rotation-curve-fit",
   "title": "Scarcity rotation-curve fit",
   "kind": "py",
-  "entry": "main.py",
+  "entry": "radial_drift.py",
   "status": "active",
   "created": "2026-07-10",
   "topics": [
@@ -12,13 +12,14 @@
     "gaia"
   ],
   "family": "gravity-as-scarcity",
-  "summary": "Scarcity beats the three-parameter NFW+baryons baseline and all profile variants in-band, but the 200-resample delta-AIC interval crosses zero; the standard-halo comparison is inconclusive.",
+  "summary": "A shared Jeans-style radial-drift nuisance reduces scarcity's held-out mean residual from +4.86 to +0.47 km/s, but its dispersion normalization hits the bound and the bootstrap crosses zero; gravity-model differences remain.",
   "seed": 42,
   "provenance": {
     "almanac": "15-discussions/26-07/gravity-as-scarcity-of-space.md",
     "orbit_tasks": [
       "ORB-10077",
       "ORB-10082",
+      "ORB-10083",
       "ORB-10075"
     ],
     "dataset": "astrolabe/data/processed/derived/mw_rotation_curve.parquet",

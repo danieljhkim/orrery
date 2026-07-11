@@ -1,0 +1,1706 @@
+{
+  "task": "ORB-10083",
+  "source_baseline_task": "ORB-10082",
+  "question": "Does a shared radial asymmetric-drift model remove the coherent outer underprediction, or does the gravity model still carry it?",
+  "protocol": {
+    "fit_range_kpc": [
+      5.0,
+      15.0
+    ],
+    "held_out_range_kpc": [
+      15.0,
+      18.75
+    ],
+    "seed": 42,
+    "bootstrap_resamples": 200,
+    "profile_variants": 27,
+    "parameter_counts": {
+      "scarcity": 4,
+      "newtonian-baryons": 3,
+      "nfw-baryons": 5
+    }
+  },
+  "radial_drift_model": {
+    "equation": "v_c^2-v_phi^2=sigma_R(R)^2[R/h_nu+2R/h_sigma-1/2]; sigma_R(R)=sigma_R0 exp[-(R-R0)/h_sigma]",
+    "fixed": {
+      "R0_kpc": 8.25,
+      "tracer_scale_kpc": 2.6,
+      "sigma_phi2_over_sigma_R2": 0.5
+    },
+    "fitted_bounds": {
+      "sigma_R0_kms": [
+        10.0,
+        80.0
+      ],
+      "dispersion_scale_kpc": [
+        3.0,
+        30.0
+      ]
+    },
+    "motivation": "Axisymmetric radial Jeans relation with exponential tracer density and radial-dispersion profiles; the same two nuisance parameters are fitted for every gravity model.",
+    "limitations": [
+      "The delivered mixed stellar population has no per-bin dispersion or tracer-density measurements, so h_nu and anisotropy are fixed surrogates rather than independently measured inputs.",
+      "Quoted velocity errors are statistical and do not define a complete correlated-systematics likelihood."
+    ]
+  },
+  "fits": {
+    "scarcity": {
+      "model": "scarcity",
+      "parameters": {
+        "beta_kpc": 5.566805387752077,
+        "sigma_r0_kms": 79.99999999999999,
+        "dispersion_scale_kpc": 16.089614764190436,
+        "mass_msun": 171653109962.76907
+      },
+      "parameter_count": 4,
+      "chi2": 2018.4237803143935,
+      "dof": 16,
+      "reduced_chi2": 126.1514862696496,
+      "rmse_kms": 2.407882070561354,
+      "mae_kms": 1.7735591159091968,
+      "aic": 2026.4237803143935,
+      "bic": 2030.4067094086095,
+      "predicted_observed_kms": [
+        217.3288173880572,
+        220.40009548135546,
+        222.60385415067174,
+        224.05776268399464,
+        224.87232050627026,
+        225.1489750470717,
+        224.97924162503216,
+        224.44450144303923,
+        223.61624400359557,
+        222.55658812478674,
+        221.31896540498258,
+        219.94888583813722,
+        218.48473095766784,
+        216.95853816516419,
+        215.39675283788836,
+        213.82093390737666,
+        212.24840494861155,
+        210.6928472008837,
+        209.16483392314763,
+        207.67230747422607
+      ],
+      "predicted_circular_kms": [
+        259.64117410418356,
+        264.1284908220848,
+        267.4912090408313,
+        269.8844872784282,
+        271.44683314482654,
+        272.30111497177256,
+        272.5556663705136,
+        272.305462430889,
+        271.6333278228191,
+        270.6111378453187,
+        269.3009809248254,
+        267.75625987915646,
+        266.0227173156838,
+        264.13937712218257,
+        262.13939905334286,
+        260.05084707992665,
+        257.89737469365866,
+        255.6988319942504,
+        253.47180034252554,
+        251.23006082526635
+      ],
+      "drift_kms": [
+        42.312356716126374,
+        43.72839534072935,
+        44.88735489015954,
+        45.82672459443356,
+        46.574512638556286,
+        47.15213992470086,
+        47.57642474548146,
+        47.86096098784978,
+        48.01708381922356,
+        48.05454972053195,
+        47.98201551984283,
+        47.807374041019244,
+        47.53798635801596,
+        47.18083895701838,
+        46.7426462154545,
+        46.22991317255,
+        45.64896974504711,
+        45.00598479336671,
+        44.306966419377915,
+        43.557753351040276
+      ],
+      "residual_kms": [
+        -6.189566362237457,
+        -2.6554123638640874,
+        -0.2885617161905998,
+        0.25883647504733176,
+        1.092562089819694,
+        1.956112186096675,
+        0.881795656509496,
+        -0.3991235020129409,
+        -1.846545200892649,
+        -1.8135075073207076,
+        -2.685830380216146,
+        -4.233142688468746,
+        -1.8858439709779304,
+        -0.07599319334903498,
+        -0.09108581055326681,
+        -0.36204736006638427,
+        0.19729869089465524,
+        1.1869671631379504,
+        3.2718127278114935,
+        4.099137272716689
+      ]
+    },
+    "newtonian-baryons": {
+      "model": "newtonian-baryons",
+      "parameters": {
+        "sigma_r0_kms": 55.59289170177803,
+        "dispersion_scale_kpc": 5.171717527695589,
+        "mass_msun": 158950779153.19528
+      },
+      "parameter_count": 3,
+      "chi2": 3420.946952229136,
+      "dof": 17,
+      "reduced_chi2": 201.23217366053743,
+      "rmse_kms": 3.2540544547782835,
+      "mae_kms": 2.461857897188389,
+      "aic": 3426.946952229136,
+      "bic": 3429.934149049798,
+      "predicted_observed_kms": [
+        218.3904628088253,
+        220.3944410848725,
+        222.123882103649,
+        223.4845776115516,
+        224.43481029909728,
+        224.96701513499255,
+        225.09511007304465,
+        224.84586853648244,
+        224.2531111984201,
+        223.35384278433474,
+        222.18572347795993,
+        220.78545341879249,
+        219.187780375227,
+        217.42493120923675,
+        215.526329761447,
+        213.5185062782985,
+        211.42513270795797,
+        209.2671383528969,
+        207.06287435523117,
+        204.828305245369
+      ],
+      "predicted_circular_kms": [
+        287.56459068923544,
+        283.8196222321795,
+        279.78478644880624,
+        275.548019043922,
+        271.1810055649422,
+        266.74184499399075,
+        262.2773021549519,
+        257.82470874940844,
+        253.41356412484032,
+        249.06688060986565,
+        244.80231251879647,
+        240.6331025292756,
+        236.5688741913398,
+        232.6162949332871,
+        228.77963011792679,
+        225.06120544769468,
+        221.46179226548742,
+        217.98092798576084,
+        214.6171819529708,
+        211.36837540240222
+      ],
+      "drift_kms": [
+        69.17412788041014,
+        63.42518114730697,
+        57.660904345157235,
+        52.06344143237041,
+        46.74619526584493,
+        41.7748298589982,
+        37.18219208190723,
+        32.978840212926,
+        29.16045292642022,
+        25.713037825530904,
+        22.616589040836544,
+        19.847649110483104,
+        17.38109381611281,
+        15.191363724050348,
+        13.253300356479798,
+        11.542699169396172,
+        10.036659557529447,
+        8.71378963286395,
+        7.554307597739637,
+        6.540070157033227
+      ],
+      "residual_kms": [
+        -7.251211783005573,
+        -2.6497579673811344,
+        0.19141033083212733,
+        0.8320215474903705,
+        1.530072296992671,
+        2.138072098175826,
+        0.7659272084970041,
+        -0.8004905954561536,
+        -2.483412395717181,
+        -2.61076216686871,
+        -3.5525884531934935,
+        -5.069710269124016,
+        -2.5888933885370875,
+        -0.5423862374215958,
+        -0.2206627341118974,
+        -0.05961973098823137,
+        1.0205709315482352,
+        2.612676011124762,
+        5.373772295727946,
+        6.943139501573768
+      ]
+    },
+    "nfw-baryons": {
+      "model": "nfw-baryons",
+      "parameters": {
+        "concentration": 39.999999672754825,
+        "sigma_r0_kms": 45.87939058522325,
+        "dispersion_scale_kpc": 29.999999999999996,
+        "baryonic_mass_msun": 16635587545.114145,
+        "halo_mass_msun": 659485821662.8527
+      },
+      "parameter_count": 5,
+      "chi2": 4245.4049818241265,
+      "dof": 15,
+      "reduced_chi2": 283.0269987882751,
+      "rmse_kms": 3.7268334389735025,
+      "mae_kms": 2.30820463090098,
+      "aic": 4255.4049818241265,
+      "bic": 4260.383643191896,
+      "predicted_observed_kms": [
+        224.29691526482299,
+        224.9590940519294,
+        225.22283865376062,
+        225.1744451310485,
+        224.881436278956,
+        224.3971222507221,
+        223.7638979451289,
+        223.01567378432347,
+        222.17969748250152,
+        221.27793888924552,
+        220.32815568888168,
+        219.3447222983806,
+        218.3392806180258,
+        217.32125511625438,
+        216.29826347736318,
+        215.27644607682112,
+        214.2607318248917,
+        213.25505374703795,
+        212.26252458931063,
+        211.28558043611608
+      ],
+      "predicted_circular_kms": [
+        234.76543846054358,
+        236.25376890775993,
+        237.28989904942438,
+        237.96351592445345,
+        238.34487849808824,
+        238.48958698825115,
+        238.44201853482912,
+        238.2378511376493,
+        237.90594890042743,
+        237.46979039648812,
+        236.94856424884276,
+        236.35801846068392,
+        235.71112499528698,
+        235.01860405038406,
+        234.28934063064497,
+        233.53071765667127,
+        232.74888384657748,
+        231.94897023809486,
+        231.1352659992234,
+        230.311361774096
+      ],
+      "drift_kms": [
+        10.468523195720593,
+        11.294674855830522,
+        12.06706039566376,
+        12.78907079340496,
+        13.463442219132247,
+        14.092464737529042,
+        14.678120589700228,
+        15.222177353325833,
+        15.726251417925909,
+        16.191851507242603,
+        16.620408559961078,
+        17.013296162303334,
+        17.37184437726117,
+        17.69734893412968,
+        17.991077153281793,
+        18.254271579850155,
+        18.488152021685778,
+        18.69391649105691,
+        18.872741409912777,
+        19.025781337979936
+      ],
+      "residual_kms": [
+        -13.157664239003253,
+        -7.214410934438035,
+        -2.9075462192794816,
+        -0.8578459720065155,
+        1.0834463171339621,
+        2.7079649824462706,
+        2.0971393364127664,
+        1.0297041567028202,
+        -0.4099986797986048,
+        -0.5348582717794841,
+        -1.6950206641152477,
+        -3.6289791487121192,
+        -1.7403936313359054,
+        -0.4387101444392272,
+        -0.9925964500280884,
+        -1.817559529510845,
+        -1.8150281853855006,
+        -1.375239383016293,
+        0.17412206164848953,
+        0.4858643108266847
+      ]
+    }
+  },
+  "held_out": {
+    "scarcity": {
+      "n": 8,
+      "chi2": 60.1527413045421,
+      "rmse_kms": 2.2906356061254076,
+      "mae_kms": 1.8945508827118793,
+      "mean_residual_kms": 0.47214577111966705
+    },
+    "newtonian-baryons": {
+      "n": 8,
+      "chi2": 471.92071846376825,
+      "rmse_kms": 7.664214723088565,
+      "mae_kms": 7.324186499781483,
+      "mean_residual_kms": 7.324186499781483
+    },
+    "nfw-baryons": {
+      "n": 8,
+      "chi2": 131.87389071604014,
+      "rmse_kms": 5.788536860473849,
+      "mae_kms": 5.070150268475373,
+      "mean_residual_kms": -5.070150268475373
+    }
+  },
+  "constant_vs_radial": {
+    "scarcity": {
+      "constant_drift_fit": {
+        "parameters": {
+          "mass_msun": 120364246135.36768,
+          "beta_kpc": 5.25,
+          "drift_kms": 3.0
+        },
+        "rmse_kms": 2.695770419097533,
+        "chi2": 2458.8278050288204,
+        "dof": 17
+      },
+      "radial_drift_fit": {
+        "parameters": {
+          "beta_kpc": 5.566805387752077,
+          "sigma_r0_kms": 79.99999999999999,
+          "dispersion_scale_kpc": 16.089614764190436,
+          "mass_msun": 171653109962.76907
+        },
+        "rmse_kms": 2.407882070561354,
+        "chi2": 2018.4237803143935,
+        "dof": 16
+      },
+      "constant_drift_held_out": {
+        "n": 8,
+        "chi2": 266.0075928455247,
+        "rmse_kms": 5.256333989133382,
+        "mae_kms": 4.860690062485141,
+        "mean_residual_kms": 4.860690062485141
+      },
+      "radial_drift_held_out": {
+        "n": 8,
+        "chi2": 60.1527413045421,
+        "rmse_kms": 2.2906356061254076,
+        "mae_kms": 1.8945508827118793,
+        "mean_residual_kms": 0.47214577111966705
+      },
+      "held_out_mean_residual_change_kms": -4.3885442913654735,
+      "absolute_held_out_mean_residual_shrank": true
+    },
+    "newtonian-baryons": {
+      "constant_drift_fit": {
+        "parameters": {
+          "mass_msun": 122389639502.91324,
+          "beta_kpc": 0.0,
+          "drift_kms": 3.0
+        },
+        "rmse_kms": 18.398157291014627,
+        "chi2": 102877.03369827801,
+        "dof": 18
+      },
+      "radial_drift_fit": {
+        "parameters": {
+          "sigma_r0_kms": 55.59289170177803,
+          "dispersion_scale_kpc": 5.171717527695589,
+          "mass_msun": 158950779153.19528
+        },
+        "rmse_kms": 3.2540544547782835,
+        "chi2": 3420.946952229136,
+        "dof": 17
+      },
+      "constant_drift_held_out": {
+        "n": 8,
+        "chi2": 9559.665506484804,
+        "rmse_kms": 31.161928583498693,
+        "mae_kms": 31.065517892366696,
+        "mean_residual_kms": 31.065517892366696
+      },
+      "radial_drift_held_out": {
+        "n": 8,
+        "chi2": 471.92071846376825,
+        "rmse_kms": 7.664214723088565,
+        "mae_kms": 7.324186499781483,
+        "mean_residual_kms": 7.324186499781483
+      },
+      "held_out_mean_residual_change_kms": -23.741331392585213,
+      "absolute_held_out_mean_residual_shrank": true
+    },
+    "nfw-baryons": {
+      "constant_drift_fit": {
+        "parameters": {
+          "mass_msun": 31355989847.943233,
+          "halo_mass_msun": 531438160554.1907,
+          "concentration": 37.29751389087177,
+          "drift_kms": 9.999999998821247
+        },
+        "rmse_kms": 3.663651900518577,
+        "chi2": 4120.240974109778,
+        "dof": 16
+      },
+      "radial_drift_fit": {
+        "parameters": {
+          "concentration": 39.999999672754825,
+          "sigma_r0_kms": 45.87939058522325,
+          "dispersion_scale_kpc": 29.999999999999996,
+          "baryonic_mass_msun": 16635587545.114145,
+          "halo_mass_msun": 659485821662.8527
+        },
+        "rmse_kms": 3.7268334389735025,
+        "chi2": 4245.4049818241265,
+        "dof": 15
+      },
+      "constant_drift_held_out": {
+        "n": 8,
+        "chi2": 95.33310762446095,
+        "rmse_kms": 4.992684518162405,
+        "mae_kms": 4.258347449669497,
+        "mean_residual_kms": -4.258347449669497
+      },
+      "radial_drift_held_out": {
+        "n": 8,
+        "chi2": 131.87389071604014,
+        "rmse_kms": 5.788536860473849,
+        "mae_kms": 5.070150268475373,
+        "mean_residual_kms": -5.070150268475373
+      },
+      "held_out_mean_residual_change_kms": -0.8118028188058766,
+      "absolute_held_out_mean_residual_shrank": false
+    }
+  },
+  "bootstrap_95_percent_intervals": {
+    "resamples": 200,
+    "intervals": {
+      "scarcity.beta_kpc": {
+        "p2_5": 3.863382290589544,
+        "median": 5.363859255583824,
+        "p97_5": 6.38334221198566
+      },
+      "scarcity.sigma_r0_kms": {
+        "p2_5": 79.99999999999999,
+        "median": 79.99999999999999,
+        "p97_5": 79.99999999999999
+      },
+      "scarcity.dispersion_scale_kpc": {
+        "p2_5": 11.814800163235743,
+        "median": 15.357447800283296,
+        "p97_5": 20.166939725402376
+      },
+      "scarcity.mass_msun": {
+        "p2_5": 169070210842.6974,
+        "median": 172113483348.54468,
+        "p97_5": 177098641801.21463
+      },
+      "scarcity.held_mean_residual_kms": {
+        "p2_5": -2.255224836005631,
+        "median": -0.11814323513590885,
+        "p97_5": 3.9495359715749196
+      },
+      "newtonian-baryons.sigma_r0_kms": {
+        "p2_5": 47.599638787503956,
+        "median": 58.269965387342324,
+        "p97_5": 73.43233522922382
+      },
+      "newtonian-baryons.dispersion_scale_kpc": {
+        "p2_5": 4.554384093319226,
+        "median": 5.373724064858701,
+        "p97_5": 6.625329106314101
+      },
+      "newtonian-baryons.mass_msun": {
+        "p2_5": 149997925950.42197,
+        "median": 161851082077.75787,
+        "p97_5": 180642451188.85547
+      },
+      "newtonian-baryons.held_mean_residual_kms": {
+        "p2_5": 1.6916765849665372,
+        "median": 6.238686625709503,
+        "p97_5": 11.347872974782417
+      },
+      "nfw-baryons.concentration": {
+        "p2_5": 1.5570271889397052,
+        "median": 39.99999990057735,
+        "p97_5": 39.99999999999999
+      },
+      "nfw-baryons.sigma_r0_kms": {
+        "p2_5": 10.000019192205203,
+        "median": 44.66835852894781,
+        "p97_5": 79.99999999999999
+      },
+      "nfw-baryons.dispersion_scale_kpc": {
+        "p2_5": 3.0000000000000004,
+        "median": 29.999999999999996,
+        "p97_5": 29.999999999999996
+      },
+      "nfw-baryons.baryonic_mass_msun": {
+        "p2_5": 9158068947.16813,
+        "median": 17507787091.23663,
+        "p97_5": 100071797846.60875
+      },
+      "nfw-baryons.halo_mass_msun": {
+        "p2_5": 460594167769.493,
+        "median": 670226115389.6086,
+        "p97_5": 29999999999994.637
+      },
+      "nfw-baryons.held_mean_residual_kms": {
+        "p2_5": -7.69756252058249,
+        "median": -4.985813074035875,
+        "p97_5": -2.9917981986071647
+      },
+      "delta_aic_scarcity_minus_nfw": {
+        "p2_5": -4582.976214359304,
+        "median": -1589.598035539472,
+        "p97_5": 351.88495991668583
+      }
+    }
+  },
+  "profile_sensitivity": {
+    "variants": [
+      {
+        "profile": {
+          "disk_scale_kpc": 2.2,
+          "bulge_fraction": 0.1,
+          "bulge_scale_kpc": 0.5
+        },
+        "scarcity": {
+          "parameters": {
+            "beta_kpc": 5.544230185991648,
+            "sigma_r0_kms": 79.99999999999999,
+            "dispersion_scale_kpc": 14.084918259344818,
+            "mass_msun": 162524692021.37076
+          },
+          "rmse_kms": 2.1460458461183154,
+          "chi2": 1656.0883172371482,
+          "aic": 1664.0883172371482
+        },
+        "newtonian-baryons": {
+          "parameters": {
+            "sigma_r0_kms": 61.97659900098241,
+            "dispersion_scale_kpc": 5.182047102188585,
+            "mass_msun": 157977702191.58615
+          },
+          "rmse_kms": 3.2200767412558,
+          "chi2": 3356.607879187741,
+          "aic": 3362.607879187741
+        },
+        "nfw-baryons": {
+          "parameters": {
+            "concentration": 39.99999999999948,
+            "sigma_r0_kms": 58.48023747153535,
+            "dispersion_scale_kpc": 29.999999999999996,
+            "baryonic_mass_msun": 10985790309.686823,
+            "halo_mass_msun": 794988093133.7334
+          },
+          "rmse_kms": 3.751587468261832,
+          "chi2": 4309.749578286778,
+          "aic": 4319.749578286778
+        },
+        "delta_aic_scarcity_minus_nfw": -2655.66126104963
+      },
+      {
+        "profile": {
+          "disk_scale_kpc": 2.2,
+          "bulge_fraction": 0.1,
+          "bulge_scale_kpc": 0.7
+        },
+        "scarcity": {
+          "parameters": {
+            "beta_kpc": 5.510718100029493,
+            "sigma_r0_kms": 79.99999999999999,
+            "dispersion_scale_kpc": 14.051122928962993,
+            "mass_msun": 163286351782.996
+          },
+          "rmse_kms": 2.140911582805422,
+          "chi2": 1649.2353012115411,
+          "aic": 1657.2353012115411
+        },
+        "newtonian-baryons": {
+          "parameters": {
+            "sigma_r0_kms": 62.003397989397804,
+            "dispersion_scale_kpc": 5.209087151898021,
+            "mass_msun": 158577712630.1109
+          },
+          "rmse_kms": 3.198351244324068,
+          "chi2": 3315.959975280166,
+          "aic": 3321.959975280166
+        },
+        "nfw-baryons": {
+          "parameters": {
+            "concentration": 39.99999999999071,
+            "sigma_r0_kms": 55.64765489614273,
+            "dispersion_scale_kpc": 29.999999999999996,
+            "baryonic_mass_msun": 11859492169.543236,
+            "halo_mass_msun": 763689888590.4281
+          },
+          "rmse_kms": 3.746101664827415,
+          "chi2": 4296.14742755624,
+          "aic": 4306.14742755624
+        },
+        "delta_aic_scarcity_minus_nfw": -2648.9121263446987
+      },
+      {
+        "profile": {
+          "disk_scale_kpc": 2.2,
+          "bulge_fraction": 0.1,
+          "bulge_scale_kpc": 1.0
+        },
+        "scarcity": {
+          "parameters": {
+            "beta_kpc": 5.471282469494093,
+            "sigma_r0_kms": 79.99999999999999,
+            "dispersion_scale_kpc": 14.01663515056462,
+            "mass_msun": 164334466925.19235
+          },
+          "rmse_kms": 2.1351329067039053,
+          "chi2": 1641.5070983445073,
+          "aic": 1649.5070983445073
+        },
+        "newtonian-baryons": {
+          "parameters": {
+            "sigma_r0_kms": 62.014791641080706,
+            "dispersion_scale_kpc": 5.243082414468355,
+            "mass_msun": 159394160545.50784
+          },
+          "rmse_kms": 3.171565161883576,
+          "chi2": 3266.165054571953,
+          "aic": 3272.165054571953
+        },
+        "nfw-baryons": {
+          "parameters": {
+            "concentration": 39.999999999998515,
+            "sigma_r0_kms": 51.68381999005672,
+            "dispersion_scale_kpc": 29.999999999999996,
+            "baryonic_mass_msun": 13068594305.23662,
+            "halo_mass_msun": 722891201910.9834
+          },
+          "rmse_kms": 3.7385675125460707,
+          "chi2": 4277.835893983728,
+          "aic": 4287.835893983728
+        },
+        "delta_aic_scarcity_minus_nfw": -2638.3287956392205
+      },
+      {
+        "profile": {
+          "disk_scale_kpc": 2.2,
+          "bulge_fraction": 0.2,
+          "bulge_scale_kpc": 0.5
+        },
+        "scarcity": {
+          "parameters": {
+            "beta_kpc": 5.96863018891021,
+            "sigma_r0_kms": 79.99999999999999,
+            "dispersion_scale_kpc": 14.819012985071623,
+            "mass_msun": 161693303034.13315
+          },
+          "rmse_kms": 2.168887458690769,
+          "chi2": 1687.9560417855841,
+          "aic": 1695.9560417855841
+        },
+        "newtonian-baryons": {
+          "parameters": {
+            "sigma_r0_kms": 60.644830077562986,
+            "dispersion_scale_kpc": 4.975980661160652,
+            "mass_msun": 156995239655.56534
+          },
+          "rmse_kms": 3.3335177362786057,
+          "chi2": 3574.7358294495707,
+          "aic": 3580.7358294495707
+        },
+        "nfw-baryons": {
+          "parameters": {
+            "concentration": 39.99999999999999,
+            "sigma_r0_kms": 73.27159829796754,
+            "dispersion_scale_kpc": 29.999999999999996,
+            "baryonic_mass_msun": 6609554265.282601,
+            "halo_mass_msun": 988484568440.7651
+          },
+          "rmse_kms": 3.778407594208442,
+          "chi2": 4382.8221987322595,
+          "aic": 4392.8221987322595
+        },
+        "delta_aic_scarcity_minus_nfw": -2696.8661569466753
+      },
+      {
+        "profile": {
+          "disk_scale_kpc": 2.2,
+          "bulge_fraction": 0.2,
+          "bulge_scale_kpc": 0.7
+        },
+        "scarcity": {
+          "parameters": {
+            "beta_kpc": 5.915596540024003,
+            "sigma_r0_kms": 79.99999999999999,
+            "dispersion_scale_kpc": 14.77575273384864,
+            "mass_msun": 163181958378.15262
+          },
+          "rmse_kms": 2.16199036291838,
+          "chi2": 1678.4992161641992,
+          "aic": 1686.4992161641992
+        },
+        "newtonian-baryons": {
+          "parameters": {
+            "sigma_r0_kms": 60.61020549630373,
+            "dispersion_scale_kpc": 5.019928559865122,
+            "mass_msun": 158097176352.5907
+          },
+          "rmse_kms": 3.2935754345754344,
+          "chi2": 3497.514675089414,
+          "aic": 3503.514675089414
+        },
+        "nfw-baryons": {
+          "parameters": {
+            "concentration": 39.99999999999999,
+            "sigma_r0_kms": 69.91086294270644,
+            "dispersion_scale_kpc": 29.999999999999996,
+            "baryonic_mass_msun": 7712212278.53219,
+            "halo_mass_msun": 939517730647.333
+          },
+          "rmse_kms": 3.772793354564889,
+          "chi2": 4366.365698519533,
+          "aic": 4376.365698519533
+        },
+        "delta_aic_scarcity_minus_nfw": -2689.8664823553336
+      },
+      {
+        "profile": {
+          "disk_scale_kpc": 2.2,
+          "bulge_fraction": 0.2,
+          "bulge_scale_kpc": 1.0
+        },
+        "scarcity": {
+          "parameters": {
+            "beta_kpc": 5.851715670054419,
+            "sigma_r0_kms": 79.99999999999999,
+            "dispersion_scale_kpc": 14.733812495848655,
+            "mass_msun": 165261649976.40625
+          },
+          "rmse_kms": 2.154054863556873,
+          "chi2": 1667.6002510645578,
+          "aic": 1675.6002510645578
+        },
+        "newtonian-baryons": {
+          "parameters": {
+            "sigma_r0_kms": 60.5292216103667,
+            "dispersion_scale_kpc": 5.076698202743155,
+            "mass_msun": 159628015508.73203
+          },
+          "rmse_kms": 3.243713748878511,
+          "chi2": 3402.3326804803114,
+          "aic": 3408.3326804803114
+        },
+        "nfw-baryons": {
+          "parameters": {
+            "concentration": 39.99999999999999,
+            "sigma_r0_kms": 65.09356406586168,
+            "dispersion_scale_kpc": 29.999999999999996,
+            "baryonic_mass_msun": 9323084710.443794,
+            "halo_mass_msun": 874159449932.4113
+          },
+          "rmse_kms": 3.763979357823187,
+          "chi2": 4342.148956273436,
+          "aic": 4352.148956273436
+        },
+        "delta_aic_scarcity_minus_nfw": -2676.5487052088783
+      },
+      {
+        "profile": {
+          "disk_scale_kpc": 2.2,
+          "bulge_fraction": 0.3,
+          "bulge_scale_kpc": 0.5
+        },
+        "scarcity": {
+          "parameters": {
+            "beta_kpc": 6.36545900776709,
+            "sigma_r0_kms": 79.99999999999999,
+            "dispersion_scale_kpc": 15.532122512440338,
+            "mass_msun": 160959765619.88818
+          },
+          "rmse_kms": 2.182581246911019,
+          "chi2": 1708.1704167352075,
+          "aic": 1716.1704167352075
+        },
+        "newtonian-baryons": {
+          "parameters": {
+            "sigma_r0_kms": 59.60007973113917,
+            "dispersion_scale_kpc": 4.798078711088529,
+            "mass_msun": 156349339688.38824
+          },
+          "rmse_kms": 3.4348154427043145,
+          "chi2": 3776.13393415379,
+          "aic": 3782.13393415379
+        },
+        "nfw-baryons": {
+          "parameters": {
+            "concentration": 39.99999999999999,
+            "sigma_r0_kms": 79.99999999999999,
+            "dispersion_scale_kpc": 29.999999999999996,
+            "baryonic_mass_msun": 4504190812.922064,
+            "halo_mass_msun": 1095683452807.5491
+          },
+          "rmse_kms": 3.78950966832101,
+          "chi2": 4426.738540957105,
+          "aic": 4436.738540957105
+        },
+        "delta_aic_scarcity_minus_nfw": -2720.568124221898
+      },
+      {
+        "profile": {
+          "disk_scale_kpc": 2.2,
+          "bulge_fraction": 0.3,
+          "bulge_scale_kpc": 0.7
+        },
+        "scarcity": {
+          "parameters": {
+            "beta_kpc": 6.304639003967549,
+            "sigma_r0_kms": 79.99999999999999,
+            "dispersion_scale_kpc": 15.50527432840776,
+            "mass_msun": 163148830525.58755
+          },
+          "rmse_kms": 2.1771121193845073,
+          "chi2": 1700.2859194255147,
+          "aic": 1708.2859194255147
+        },
+        "newtonian-baryons": {
+          "parameters": {
+            "sigma_r0_kms": 59.44740053928521,
+            "dispersion_scale_kpc": 4.85168633616067,
+            "mass_msun": 157897349142.02576
+          },
+          "rmse_kms": 3.379183065793417,
+          "chi2": 3665.441157002195,
+          "aic": 3671.441157002195
+        },
+        "nfw-baryons": {
+          "parameters": {
+            "concentration": 39.99999999999999,
+            "sigma_r0_kms": 79.64934479293554,
+            "dispersion_scale_kpc": 29.999999999999996,
+            "baryonic_mass_msun": 4773311151.700651,
+            "halo_mass_msun": 1088737027148.3278
+          },
+          "rmse_kms": 3.786921135444503,
+          "chi2": 4411.56363181201,
+          "aic": 4421.56363181201
+        },
+        "delta_aic_scarcity_minus_nfw": -2713.277712386495
+      },
+      {
+        "profile": {
+          "disk_scale_kpc": 2.2,
+          "bulge_fraction": 0.3,
+          "bulge_scale_kpc": 1.0
+        },
+        "scarcity": {
+          "parameters": {
+            "beta_kpc": 6.229676073178502,
+            "sigma_r0_kms": 79.99999999999999,
+            "dispersion_scale_kpc": 15.486241266252536,
+            "mass_msun": 166250646222.58865
+          },
+          "rmse_kms": 2.170659931644767,
+          "chi2": 1690.9439893706267,
+          "aic": 1698.9439893706267
+        },
+        "newtonian-baryons": {
+          "parameters": {
+            "sigma_r0_kms": 59.19962874103054,
+            "dispersion_scale_kpc": 4.922452476166308,
+            "mass_msun": 160081320061.437
+          },
+          "rmse_kms": 3.3090630630139883,
+          "chi2": 3528.3986611819123,
+          "aic": 3534.3986611819123
+        },
+        "nfw-baryons": {
+          "parameters": {
+            "concentration": 39.99999999999999,
+            "sigma_r0_kms": 74.51318058749652,
+            "dispersion_scale_kpc": 29.999999999999996,
+            "baryonic_mass_msun": 6511337283.708897,
+            "halo_mass_msun": 1006403107417.1162
+          },
+          "rmse_kms": 3.780120377887722,
+          "chi2": 4388.4673406471065,
+          "aic": 4398.4673406471065
+        },
+        "delta_aic_scarcity_minus_nfw": -2699.52335127648
+      },
+      {
+        "profile": {
+          "disk_scale_kpc": 2.6,
+          "bulge_fraction": 0.1,
+          "bulge_scale_kpc": 0.5
+        },
+        "scarcity": {
+          "parameters": {
+            "beta_kpc": 5.066042961441406,
+            "sigma_r0_kms": 79.99999999999999,
+            "dispersion_scale_kpc": 15.220802999453918,
+            "mass_msun": 172228852574.9407
+          },
+          "rmse_kms": 2.3892722850987194,
+          "chi2": 1989.783013347208,
+          "aic": 1997.783013347208
+        },
+        "newtonian-baryons": {
+          "parameters": {
+            "sigma_r0_kms": 56.892872836144846,
+            "dispersion_scale_kpc": 5.4402569374816085,
+            "mass_msun": 159415272358.59363
+          },
+          "rmse_kms": 3.1650980306348684,
+          "chi2": 3252.2236371528898,
+          "aic": 3258.2236371528898
+        },
+        "nfw-baryons": {
+          "parameters": {
+            "concentration": 30.84221507274926,
+            "sigma_r0_kms": 10.000001837980228,
+            "dispersion_scale_kpc": 29.999999999999996,
+            "baryonic_mass_msun": 38591970945.74445,
+            "halo_mass_msun": 483069819247.32166
+          },
+          "rmse_kms": 3.623458630513908,
+          "chi2": 4003.308237109001,
+          "aic": 4013.308237109001
+        },
+        "delta_aic_scarcity_minus_nfw": -2015.5252237617929
+      },
+      {
+        "profile": {
+          "disk_scale_kpc": 2.6,
+          "bulge_fraction": 0.1,
+          "bulge_scale_kpc": 0.7
+        },
+        "scarcity": {
+          "parameters": {
+            "beta_kpc": 5.007024295045472,
+            "sigma_r0_kms": 79.99999999999999,
+            "dispersion_scale_kpc": 15.135764811419838,
+            "mass_msun": 173138981490.34433
+          },
+          "rmse_kms": 2.3797368996762507,
+          "chi2": 1975.9054727552,
+          "aic": 1983.9054727552
+        },
+        "newtonian-baryons": {
+          "parameters": {
+            "sigma_r0_kms": 56.99226282746379,
+            "dispersion_scale_kpc": 5.485667171103031,
+            "mass_msun": 160123975918.2122
+          },
+          "rmse_kms": 3.141068821242326,
+          "chi2": 3207.9500470138914,
+          "aic": 3213.9500470138914
+        },
+        "nfw-baryons": {
+          "parameters": {
+            "concentration": 29.99660536819168,
+            "sigma_r0_kms": 10.000001459455465,
+            "dispersion_scale_kpc": 29.999999999999996,
+            "baryonic_mass_msun": 40407322116.96652,
+            "halo_mass_msun": 482967599480.25494
+          },
+          "rmse_kms": 3.6017459482316907,
+          "chi2": 3954.761259924163,
+          "aic": 3964.761259924163
+        },
+        "delta_aic_scarcity_minus_nfw": -1980.855787168963
+      },
+      {
+        "profile": {
+          "disk_scale_kpc": 2.6,
+          "bulge_fraction": 0.1,
+          "bulge_scale_kpc": 1.0
+        },
+        "scarcity": {
+          "parameters": {
+            "beta_kpc": 4.933199736757348,
+            "sigma_r0_kms": 79.99999999999999,
+            "dispersion_scale_kpc": 15.0360192179614,
+            "mass_msun": 174391317249.38712
+          },
+          "rmse_kms": 2.3685437381532033,
+          "chi2": 1959.6322350135972,
+          "aic": 1967.6322350135972
+        },
+        "newtonian-baryons": {
+          "parameters": {
+            "sigma_r0_kms": 57.100069491727915,
+            "dispersion_scale_kpc": 5.5443719788031,
+            "mass_msun": 161089972948.99902
+          },
+          "rmse_kms": 3.1112023881375603,
+          "chi2": 3153.3112160568708,
+          "aic": 3159.3112160568708
+        },
+        "nfw-baryons": {
+          "parameters": {
+            "concentration": 28.95974860302731,
+            "sigma_r0_kms": 10.000000796023341,
+            "dispersion_scale_kpc": 29.999999999999996,
+            "baryonic_mass_msun": 42732373572.47012,
+            "halo_mass_msun": 482783872725.1028
+          },
+          "rmse_kms": 3.5729329581619473,
+          "chi2": 3891.307366480538,
+          "aic": 3901.307366480538
+        },
+        "delta_aic_scarcity_minus_nfw": -1933.6751314669407
+      },
+      {
+        "profile": {
+          "disk_scale_kpc": 2.6,
+          "bulge_fraction": 0.2,
+          "bulge_scale_kpc": 0.5
+        },
+        "scarcity": {
+          "parameters": {
+            "beta_kpc": 5.658386258122961,
+            "sigma_r0_kms": 79.99999999999999,
+            "dispersion_scale_kpc": 16.215437896152,
+            "mass_msun": 169924263276.7248
+          },
+          "rmse_kms": 2.420877538737454,
+          "chi2": 2037.8428762181643,
+          "aic": 2045.8428762181643
+        },
+        "newtonian-baryons": {
+          "parameters": {
+            "sigma_r0_kms": 55.58209758441041,
+            "dispersion_scale_kpc": 5.1066751841460825,
+            "mass_msun": 157747262265.24234
+          },
+          "rmse_kms": 3.2963287855953496,
+          "chi2": 3501.809112240995,
+          "aic": 3507.809112240995
+        },
+        "nfw-baryons": {
+          "parameters": {
+            "concentration": 39.999999999736936,
+            "sigma_r0_kms": 53.941795377264185,
+            "dispersion_scale_kpc": 29.999999999999996,
+            "baryonic_mass_msun": 13947195923.546482,
+            "halo_mass_msun": 737181395880.4092
+          },
+          "rmse_kms": 3.742018643196872,
+          "chi2": 4281.942885801507,
+          "aic": 4291.942885801507
+        },
+        "delta_aic_scarcity_minus_nfw": -2246.100009583343
+      },
+      {
+        "profile": {
+          "disk_scale_kpc": 2.6,
+          "bulge_fraction": 0.2,
+          "bulge_scale_kpc": 0.7
+        },
+        "scarcity": {
+          "parameters": {
+            "beta_kpc": 5.566805387752077,
+            "sigma_r0_kms": 79.99999999999999,
+            "dispersion_scale_kpc": 16.089614764190436,
+            "mass_msun": 171653109962.76907
+          },
+          "rmse_kms": 2.407882070561354,
+          "chi2": 2018.4237803143935,
+          "aic": 2026.4237803143935
+        },
+        "newtonian-baryons": {
+          "parameters": {
+            "sigma_r0_kms": 55.59289170177803,
+            "dispersion_scale_kpc": 5.171717527695589,
+            "mass_msun": 158950779153.19528
+          },
+          "rmse_kms": 3.2540544547782835,
+          "chi2": 3420.946952229136,
+          "aic": 3426.946952229136
+        },
+        "nfw-baryons": {
+          "parameters": {
+            "concentration": 39.999999672754825,
+            "sigma_r0_kms": 45.87939058522325,
+            "dispersion_scale_kpc": 29.999999999999996,
+            "baryonic_mass_msun": 16635587545.114145,
+            "halo_mass_msun": 659485821662.8527
+          },
+          "rmse_kms": 3.7268334389735025,
+          "chi2": 4245.4049818241265,
+          "aic": 4255.4049818241265
+        },
+        "delta_aic_scarcity_minus_nfw": -2228.981201509733
+      },
+      {
+        "profile": {
+          "disk_scale_kpc": 2.6,
+          "bulge_fraction": 0.2,
+          "bulge_scale_kpc": 1.0
+        },
+        "scarcity": {
+          "parameters": {
+            "beta_kpc": 5.448950145431217,
+            "sigma_r0_kms": 79.99999999999999,
+            "dispersion_scale_kpc": 15.93958970492632,
+            "mass_msun": 174073083355.5854
+          },
+          "rmse_kms": 2.392135216243434,
+          "chi2": 1994.9690762013915,
+          "aic": 2002.9690762013915
+        },
+        "newtonian-baryons": {
+          "parameters": {
+            "sigma_r0_kms": 55.580575281903506,
+            "dispersion_scale_kpc": 5.25870835724139,
+            "mass_msun": 160634463903.68567
+          },
+          "rmse_kms": 3.200786681783391,
+          "chi2": 3320.42431791627,
+          "aic": 3326.42431791627
+        },
+        "nfw-baryons": {
+          "parameters": {
+            "concentration": 33.82974991379706,
+            "sigma_r0_kms": 10.000011033982464,
+            "dispersion_scale_kpc": 29.999999999999996,
+            "baryonic_mass_msun": 33793262307.45697,
+            "halo_mass_msun": 481333449754.99786
+          },
+          "rmse_kms": 3.687797871688818,
+          "chi2": 4154.46920751173,
+          "aic": 4164.46920751173
+        },
+        "delta_aic_scarcity_minus_nfw": -2161.5001313103385
+      },
+      {
+        "profile": {
+          "disk_scale_kpc": 2.6,
+          "bulge_fraction": 0.3,
+          "bulge_scale_kpc": 0.5
+        },
+        "scarcity": {
+          "parameters": {
+            "beta_kpc": 6.181214171573712,
+            "sigma_r0_kms": 79.99999999999999,
+            "dispersion_scale_kpc": 17.097985388030676,
+            "mass_msun": 167864155647.13168
+          },
+          "rmse_kms": 2.430756285219759,
+          "chi2": 2055.053704409174,
+          "aic": 2063.053704409174
+        },
+        "newtonian-baryons": {
+          "parameters": {
+            "sigma_r0_kms": 54.899839257176374,
+            "dispersion_scale_kpc": 4.853378467351618,
+            "mass_msun": 156764159875.10733
+          },
+          "rmse_kms": 3.4077095073468078,
+          "chi2": 3721.4681675348747,
+          "aic": 3727.4681675348747
+        },
+        "nfw-baryons": {
+          "parameters": {
+            "concentration": 39.99999999999999,
+            "sigma_r0_kms": 73.51014162572986,
+            "dispersion_scale_kpc": 29.999999999999996,
+            "baryonic_mass_msun": 7282965085.722985,
+            "halo_mass_msun": 987744774092.1637
+          },
+          "rmse_kms": 3.7788708385933476,
+          "chi2": 4381.796366447082,
+          "aic": 4391.796366447082
+        },
+        "delta_aic_scarcity_minus_nfw": -2328.742662037908
+      },
+      {
+        "profile": {
+          "disk_scale_kpc": 2.6,
+          "bulge_fraction": 0.3,
+          "bulge_scale_kpc": 0.7
+        },
+        "scarcity": {
+          "parameters": {
+            "beta_kpc": 6.076762075889837,
+            "sigma_r0_kms": 79.99999999999999,
+            "dispersion_scale_kpc": 16.976302570569356,
+            "mass_msun": 170344268632.32843
+          },
+          "rmse_kms": 2.41945197842569,
+          "chi2": 2037.5836360949145,
+          "aic": 2045.5836360949145
+        },
+        "newtonian-baryons": {
+          "parameters": {
+            "sigma_r0_kms": 54.743569298731956,
+            "dispersion_scale_kpc": 4.924849759618936,
+            "mass_msun": 158381675851.72137
+          },
+          "rmse_kms": 3.3504878617472,
+          "chi2": 3608.51637924431,
+          "aic": 3614.51637924431
+        },
+        "nfw-baryons": {
+          "parameters": {
+            "concentration": 39.99999999999999,
+            "sigma_r0_kms": 67.89821939057607,
+            "dispersion_scale_kpc": 29.999999999999996,
+            "baryonic_mass_msun": 9357024827.234123,
+            "halo_mass_msun": 906075285550.9629
+          },
+          "rmse_kms": 3.7690563845583105,
+          "chi2": 4353.130717194217,
+          "aic": 4363.130717194217
+        },
+        "delta_aic_scarcity_minus_nfw": -2317.547081099303
+      },
+      {
+        "profile": {
+          "disk_scale_kpc": 2.6,
+          "bulge_fraction": 0.3,
+          "bulge_scale_kpc": 1.0
+        },
+        "scarcity": {
+          "parameters": {
+            "beta_kpc": 5.938586660875831,
+            "sigma_r0_kms": 79.99999999999999,
+            "dispersion_scale_kpc": 16.828524635866568,
+            "mass_msun": 173869175178.0859
+          },
+          "rmse_kms": 2.4051319059893506,
+          "chi2": 2015.5461270013752,
+          "aic": 2023.5461270013752
+        },
+        "newtonian-baryons": {
+          "parameters": {
+            "sigma_r0_kms": 54.500496152328424,
+            "dispersion_scale_kpc": 5.022640180563543,
+            "mass_msun": 160679636227.9659
+          },
+          "rmse_kms": 3.2777661473682778,
+          "chi2": 3467.614724543083,
+          "aic": 3473.614724543083
+        },
+        "nfw-baryons": {
+          "parameters": {
+            "concentration": 39.99999999999999,
+            "sigma_r0_kms": 58.78031740105701,
+            "dispersion_scale_kpc": 29.999999999999996,
+            "baryonic_mass_msun": 12789729905.403158,
+            "halo_mass_msun": 789687531969.0414
+          },
+          "rmse_kms": 3.751135400547647,
+          "chi2": 4305.687140087505,
+          "aic": 4315.687140087505
+        },
+        "delta_aic_scarcity_minus_nfw": -2292.14101308613
+      },
+      {
+        "profile": {
+          "disk_scale_kpc": 3.0,
+          "bulge_fraction": 0.1,
+          "bulge_scale_kpc": 0.5
+        },
+        "scarcity": {
+          "parameters": {
+            "beta_kpc": 4.731572943523049,
+            "sigma_r0_kms": 79.99999999999999,
+            "dispersion_scale_kpc": 16.96782159492804,
+            "mass_msun": 183379697252.74228
+          },
+          "rmse_kms": 2.590883004827434,
+          "chi2": 2287.55497638081,
+          "aic": 2295.55497638081
+        },
+        "newtonian-baryons": {
+          "parameters": {
+            "sigma_r0_kms": 49.55814550316786,
+            "dispersion_scale_kpc": 5.518186616478072,
+            "mass_msun": 160145260045.66827
+          },
+          "rmse_kms": 3.1302250904525684,
+          "chi2": 3187.530626063034,
+          "aic": 3193.530626063034
+        },
+        "nfw-baryons": {
+          "parameters": {
+            "concentration": 25.3740939346105,
+            "sigma_r0_kms": 10.000000536211147,
+            "dispersion_scale_kpc": 29.999999999999996,
+            "baryonic_mass_msun": 56634547550.786896,
+            "halo_mass_msun": 446631100678.05786
+          },
+          "rmse_kms": 3.482655306492761,
+          "chi2": 3695.5608031153815,
+          "aic": 3705.5608031153815
+        },
+        "delta_aic_scarcity_minus_nfw": -1410.0058267345717
+      },
+      {
+        "profile": {
+          "disk_scale_kpc": 3.0,
+          "bulge_fraction": 0.1,
+          "bulge_scale_kpc": 0.7
+        },
+        "scarcity": {
+          "parameters": {
+            "beta_kpc": 4.644388491380513,
+            "sigma_r0_kms": 79.99999999999999,
+            "dispersion_scale_kpc": 16.808686479069735,
+            "mass_msun": 184467955422.9722
+          },
+          "rmse_kms": 2.5760233539751454,
+          "chi2": 2264.4651082883574,
+          "aic": 2272.4651082883574
+        },
+        "newtonian-baryons": {
+          "parameters": {
+            "sigma_r0_kms": 49.713426854349294,
+            "dispersion_scale_kpc": 5.588568449568027,
+            "mass_msun": 160935692760.17422
+          },
+          "rmse_kms": 3.1053836546500198,
+          "chi2": 3142.094115750775,
+          "aic": 3148.094115750775
+        },
+        "nfw-baryons": {
+          "parameters": {
+            "concentration": 24.45784869915073,
+            "sigma_r0_kms": 10.000000547343939,
+            "dispersion_scale_kpc": 29.999999999999996,
+            "baryonic_mass_msun": 59056569883.2775,
+            "halo_mass_msun": 445164449907.4907
+          },
+          "rmse_kms": 3.448617967079476,
+          "chi2": 3626.003432633321,
+          "aic": 3636.003432633321
+        },
+        "delta_aic_scarcity_minus_nfw": -1363.5383243449637
+      },
+      {
+        "profile": {
+          "disk_scale_kpc": 3.0,
+          "bulge_fraction": 0.1,
+          "bulge_scale_kpc": 1.0
+        },
+        "scarcity": {
+          "parameters": {
+            "beta_kpc": 4.532170191475981,
+            "sigma_r0_kms": 79.99999999999999,
+            "dispersion_scale_kpc": 16.61492409537738,
+            "mass_msun": 185967275638.54626
+          },
+          "rmse_kms": 2.558138762897102,
+          "chi2": 2236.7804290734384,
+          "aic": 2244.7804290734384
+        },
+        "newtonian-baryons": {
+          "parameters": {
+            "sigma_r0_kms": 49.904887175227344,
+            "dispersion_scale_kpc": 5.6823728716302035,
+            "mass_msun": 162026290461.23935
+          },
+          "rmse_kms": 3.0742127670837487,
+          "chi2": 3085.466702073884,
+          "aic": 3091.466702073884
+        },
+        "nfw-baryons": {
+          "parameters": {
+            "concentration": 23.328272326585036,
+            "sigma_r0_kms": 10.000000517969736,
+            "dispersion_scale_kpc": 29.999999999999996,
+            "baryonic_mass_msun": 62177860537.89521,
+            "halo_mass_msun": 443231020158.4213
+          },
+          "rmse_kms": 3.403634819828525,
+          "chi2": 3535.7969261906974,
+          "aic": 3545.7969261906974
+        },
+        "delta_aic_scarcity_minus_nfw": -1301.016497117259
+      },
+      {
+        "profile": {
+          "disk_scale_kpc": 3.0,
+          "bulge_fraction": 0.2,
+          "bulge_scale_kpc": 0.5
+        },
+        "scarcity": {
+          "parameters": {
+            "beta_kpc": 5.5185840973033295,
+            "sigma_r0_kms": 79.99999999999999,
+            "dispersion_scale_kpc": 18.373775314496232,
+            "mass_msun": 179187401242.47632
+          },
+          "rmse_kms": 2.638221338601292,
+          "chi2": 2364.7162633131734,
+          "aic": 2372.7162633131734
+        },
+        "newtonian-baryons": {
+          "parameters": {
+            "sigma_r0_kms": 48.758321404414446,
+            "dispersion_scale_kpc": 5.05180961791565,
+            "mass_msun": 158135894824.887
+          },
+          "rmse_kms": 3.2654602477004695,
+          "chi2": 3442.6521113334775,
+          "aic": 3448.6521113334775
+        },
+        "nfw-baryons": {
+          "parameters": {
+            "concentration": 33.69543287233655,
+            "sigma_r0_kms": 10.000024609078507,
+            "dispersion_scale_kpc": 29.999999999999996,
+            "baryonic_mass_msun": 37907344067.52953,
+            "halo_mass_msun": 460657479018.71075
+          },
+          "rmse_kms": 3.696543840744194,
+          "chi2": 4171.2191789790995,
+          "aic": 4181.2191789790995
+        },
+        "delta_aic_scarcity_minus_nfw": -1808.5029156659261
+      },
+      {
+        "profile": {
+          "disk_scale_kpc": 3.0,
+          "bulge_fraction": 0.2,
+          "bulge_scale_kpc": 0.7
+        },
+        "scarcity": {
+          "parameters": {
+            "beta_kpc": 5.387778757874073,
+            "sigma_r0_kms": 79.99999999999999,
+            "dispersion_scale_kpc": 18.13206553353751,
+            "mass_msun": 181191610727.46265
+          },
+          "rmse_kms": 2.6185223146668544,
+          "chi2": 2333.139975854446,
+          "aic": 2341.139975854446
+        },
+        "newtonian-baryons": {
+          "parameters": {
+            "sigma_r0_kms": 48.7355893516742,
+            "dispersion_scale_kpc": 5.136044086476369,
+            "mass_msun": 159365431693.25027
+          },
+          "rmse_kms": 3.2235870139356035,
+          "chi2": 3363.270186917884,
+          "aic": 3369.270186917884
+        },
+        "nfw-baryons": {
+          "parameters": {
+            "concentration": 31.562341422300623,
+            "sigma_r0_kms": 10.00000371088596,
+            "dispersion_scale_kpc": 29.999999999999996,
+            "baryonic_mass_msun": 42720586791.89436,
+            "halo_mass_msun": 456891414003.80444
+          },
+          "rmse_kms": 3.6555139879224114,
+          "chi2": 4074.6644926839413,
+          "aic": 4084.6644926839413
+        },
+        "delta_aic_scarcity_minus_nfw": -1743.524516829495
+      },
+      {
+        "profile": {
+          "disk_scale_kpc": 3.0,
+          "bulge_fraction": 0.2,
+          "bulge_scale_kpc": 1.0
+        },
+        "scarcity": {
+          "parameters": {
+            "beta_kpc": 5.214189942445805,
+            "sigma_r0_kms": 79.99999999999999,
+            "dispersion_scale_kpc": 17.831578803052697,
+            "mass_msun": 184005301182.55136
+          },
+          "rmse_kms": 2.5939670433868187,
+          "chi2": 2294.046996501855,
+          "aic": 2302.046996501855
+        },
+        "newtonian-baryons": {
+          "parameters": {
+            "sigma_r0_kms": 48.692553934469885,
+            "dispersion_scale_kpc": 5.252726757652468,
+            "mass_msun": 161105864197.75812
+          },
+          "rmse_kms": 3.170368611316568,
+          "chi2": 3263.703142692806,
+          "aic": 3269.703142692806
+        },
+        "nfw-baryons": {
+          "parameters": {
+            "concentration": 29.013873564298116,
+            "sigma_r0_kms": 10.000001185044692,
+            "dispersion_scale_kpc": 29.999999999999996,
+            "baryonic_mass_msun": 48910063252.57087,
+            "halo_mass_msun": 451932030281.80084
+          },
+          "rmse_kms": 3.5949406315390884,
+          "chi2": 3937.917702932204,
+          "aic": 3947.917702932204
+        },
+        "delta_aic_scarcity_minus_nfw": -1645.870706430349
+      },
+      {
+        "profile": {
+          "disk_scale_kpc": 3.0,
+          "bulge_fraction": 0.3,
+          "bulge_scale_kpc": 0.5
+        },
+        "scarcity": {
+          "parameters": {
+            "beta_kpc": 6.172323238310295,
+            "sigma_r0_kms": 79.99999999999999,
+            "dispersion_scale_kpc": 19.494207138786965,
+            "mass_msun": 175494116961.97467
+          },
+          "rmse_kms": 2.6465629854994135,
+          "chi2": 2382.0508075155967,
+          "aic": 2390.0508075155967
+        },
+        "newtonian-baryons": {
+          "parameters": {
+            "sigma_r0_kms": 48.95796166646004,
+            "dispersion_scale_kpc": 4.755054864326969,
+            "mass_msun": 157119034606.5973
+          },
+          "rmse_kms": 3.376165303753701,
+          "chi2": 3658.6428642462097,
+          "aic": 3664.6428642462097
+        },
+        "nfw-baryons": {
+          "parameters": {
+            "concentration": 39.99999999999997,
+            "sigma_r0_kms": 68.80862108019575,
+            "dispersion_scale_kpc": 29.999999999999996,
+            "baryonic_mass_msun": 10011215652.513811,
+            "halo_mass_msun": 913001670139.8859
+          },
+          "rmse_kms": 3.770218083889357,
+          "chi2": 4354.654343468927,
+          "aic": 4364.654343468927
+        },
+        "delta_aic_scarcity_minus_nfw": -1974.6035359533307
+      },
+      {
+        "profile": {
+          "disk_scale_kpc": 3.0,
+          "bulge_fraction": 0.3,
+          "bulge_scale_kpc": 0.7
+        },
+        "scarcity": {
+          "parameters": {
+            "beta_kpc": 6.026662670488238,
+            "sigma_r0_kms": 79.99999999999999,
+            "dispersion_scale_kpc": 19.24745024927959,
+            "mass_msun": 178295939190.4513
+          },
+          "rmse_kms": 2.6296196453612404,
+          "chi2": 2354.048402391886,
+          "aic": 2362.048402391886
+        },
+        "newtonian-baryons": {
+          "parameters": {
+            "sigma_r0_kms": 48.6962225628736,
+            "dispersion_scale_kpc": 4.836845256674198,
+            "mass_msun": 158724146888.60385
+          },
+          "rmse_kms": 3.320393331978061,
+          "chi2": 3549.6018272532133,
+          "aic": 3555.6018272532133
+        },
+        "nfw-baryons": {
+          "parameters": {
+            "concentration": 39.999999999999964,
+            "sigma_r0_kms": 61.362617528833454,
+            "dispersion_scale_kpc": 29.999999999999996,
+            "baryonic_mass_msun": 13122487749.601795,
+            "halo_mass_msun": 813294750895.798
+          },
+          "rmse_kms": 3.7552488733108023,
+          "chi2": 4314.278985702202,
+          "aic": 4324.278985702202
+        },
+        "delta_aic_scarcity_minus_nfw": -1962.2305833103155
+      },
+      {
+        "profile": {
+          "disk_scale_kpc": 3.0,
+          "bulge_fraction": 0.3,
+          "bulge_scale_kpc": 1.0
+        },
+        "scarcity": {
+          "parameters": {
+            "beta_kpc": 5.827754569761994,
+            "sigma_r0_kms": 79.99999999999999,
+            "dispersion_scale_kpc": 18.931206207995103,
+            "mass_msun": 182292712303.9477
+          },
+          "rmse_kms": 2.6074356474266183,
+          "chi2": 2317.6845212310345,
+          "aic": 2325.6845212310345
+        },
+        "newtonian-baryons": {
+          "parameters": {
+            "sigma_r0_kms": 48.31651722192742,
+            "dispersion_scale_kpc": 4.95218288377421,
+            "mass_msun": 161020782564.65997
+          },
+          "rmse_kms": 3.2491154066184533,
+          "chi2": 3412.779877489149,
+          "aic": 3418.779877489149
+        },
+        "nfw-baryons": {
+          "parameters": {
+            "concentration": 39.999999933152495,
+            "sigma_r0_kms": 47.71600482750057,
+            "dispersion_scale_kpc": 29.999999999999996,
+            "baryonic_mass_msun": 18724494656.2677,
+            "halo_mass_msun": 664237368192.5723
+          },
+          "rmse_kms": 3.7273817190668943,
+          "chi2": 4245.348110854303,
+          "aic": 4255.348110854303
+        },
+        "delta_aic_scarcity_minus_nfw": -1929.6635896232683
+      }
+    ]
+  },
+  "interpretation": {
+    "scarcity_coherent_underprediction_shrank": true,
+    "statement": "The radial nuisance carries most of scarcity's former coherent held-out residual, reducing its mean from +4.86 to +0.47 km/s. Gravity-model dependence remains: Newtonian baryons still underpredicts and NFW overpredicts. The scarcity dispersion normalization is bound-limited, so this is nuisance absorption rather than a measured drift profile."
+  }
+}
