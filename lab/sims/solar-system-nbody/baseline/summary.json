@@ -1,0 +1,107 @@
+{
+  "task": "ORB-10093",
+  "question": "How far does the untuned Newtonian nine-body baseline drift from matched Horizons ephemerides?",
+  "frame": "heliocentric ICRF (inertial integration; instantaneous Sun state subtracted at output)",
+  "epochs": {
+    "timescale": "TDB",
+    "start_jd": 2457388.5,
+    "step_days": 10.0,
+    "count": 366
+  },
+  "integrator": {
+    "method": "DOP853",
+    "rtol": 1e-12,
+    "atol": 1e-14,
+    "max_step_days": 2.0,
+    "function_evaluations": 25652,
+    "max_relative_energy_drift": 7.27938557305255e-14,
+    "convergence": {
+      "refined_max_step_days": 1.0,
+      "max_position_shift_au": 2.23256360620816e-09,
+      "refined_function_evaluations": 44924
+    }
+  },
+  "gm_source": "JPL DE440 astrodynamic parameters (https://ssd.jpl.nasa.gov/astro_par.html)",
+  "gm_km3_s2": {
+    "sun": 132712440041.27942,
+    "mercury": 22031.868551,
+    "venus": 324858.592,
+    "earth": 403503.23562500003,
+    "mars": 42828.375816,
+    "jupiter": 126712764.1,
+    "saturn": 37940584.8418,
+    "uranus": 5794556.4,
+    "neptune": 6836527.10058
+  },
+  "initial_conditions": "first epoch of Astrolabe ephemeris/<target>_2016_2026, heliocentric ICRF",
+  "omissions": [
+    "relativistic corrections",
+    "asteroids",
+    "solar oblateness and mass loss",
+    "individually resolved moons"
+  ],
+  "residuals_baseline_minus_horizons": {
+    "mercury": {
+      "n_epochs": 366,
+      "rms_dr_au": 1.5623024805267282e-05,
+      "max_dr_au": 3.524516928342056e-05,
+      "max_dr_epoch_jd_tdb": 2460998.5
+    },
+    "venus": {
+      "n_epochs": 366,
+      "rms_dr_au": 3.544886440308734e-06,
+      "max_dr_au": 6.117570744576066e-06,
+      "max_dr_epoch_jd_tdb": 2460958.5
+    },
+    "earth": {
+      "n_epochs": 366,
+      "rms_dr_au": 2.489045611360098e-06,
+      "max_dr_au": 4.277495587441361e-06,
+      "max_dr_epoch_jd_tdb": 2460938.5
+    },
+    "mars": {
+      "n_epochs": 366,
+      "rms_dr_au": 8.398708263070521e-07,
+      "max_dr_au": 1.645438039946203e-06,
+      "max_dr_epoch_jd_tdb": 2461038.5
+    },
+    "jupiter": {
+      "n_epochs": 366,
+      "rms_dr_au": 1.8381541149827567e-07,
+      "max_dr_au": 3.136751384737447e-07,
+      "max_dr_epoch_jd_tdb": 2461018.5
+    },
+    "saturn": {
+      "n_epochs": 366,
+      "rms_dr_au": 4.252971125037071e-08,
+      "max_dr_au": 9.386743036193509e-08,
+      "max_dr_epoch_jd_tdb": 2461038.5
+    },
+    "uranus": {
+      "n_epochs": 366,
+      "rms_dr_au": 4.075524247792095e-09,
+      "max_dr_au": 6.483656771955529e-09,
+      "max_dr_epoch_jd_tdb": 2461038.5
+    },
+    "neptune": {
+      "n_epochs": 366,
+      "rms_dr_au": 1.7485420194885634e-08,
+      "max_dr_au": 3.642356311546413e-08,
+      "max_dr_epoch_jd_tdb": 2461038.5
+    }
+  },
+  "output": {
+    "path": "baseline/newtonian_2016_2026.parquet",
+    "rows": 2928,
+    "targets": [
+      "mercury",
+      "venus",
+      "earth",
+      "mars",
+      "jupiter",
+      "saturn",
+      "uranus",
+      "neptune"
+    ]
+  }
+}

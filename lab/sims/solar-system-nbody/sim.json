@@ -10,8 +10,15 @@
     "n-body",
     "orbital-mechanics"
   ],
-  "summary": "All 9 bodies feel each other's gravity \u2014 nothing on rails. Leapfrog (kick-drift-kick) in AU / years / solar masses; drag to rotate, scroll to zoom.",
+  "summary": "Interactive nine-body gravity plus a reproducible DOP853 export of the Newtonian planetary-system baseline on Astrolabe's exact heliocentric ICRF epoch grid.",
+  "baseline": {
+    "entry": "export_baseline.py",
+    "output": "baseline/newtonian_2016_2026.parquet",
+    "frame": "heliocentric ICRF",
+    "epochs": "JD 2457388.5 + 10*k TDB, k=0..365"
+  },
   "provenance": {
-    "imported_from": "almanac/40-outputs/gravity/solar-system-simulator.html"
+    "imported_from": "almanac/40-outputs/gravity/solar-system-simulator.html",
+    "orbit_tasks": ["ORB-10093", "ORB-10076"]
   }
 }
