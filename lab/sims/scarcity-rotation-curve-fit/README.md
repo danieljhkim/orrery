@@ -2,13 +2,15 @@
 
 ## Question
 
-Does one radial scarcity normalization improve the 5–15 kpc shape of Tycho's Gaia DR3
-median-`v_phi` curve over the nested Newtonian-baryons control, when both fits use the same
-3–10 km/s asymmetric-drift nuisance?
+Does scarcity remain preferred on Tycho's 5–15 kpc Gaia DR3 median-`v_phi` curve when compared
+with a standard NFW+baryons model whose baryonic scale, halo mass, and concentration are all
+free, after AIC penalizes each model's actual parameter count?
 
-The protocol was declared before the fit: use 5–15 kpc for fitting, hold 15–18.75 kpc out for
-consistency, and call the relative result decisive only if `|delta AIC| >= 10` with the same sign
-across all 27 mass-profile variants.
+The protocol keeps ORB-10077's 5–15 kpc fit band, untouched 15–18.75 kpc consistency band,
+seed 42, 200-resample bootstrap, 27 profile variants, and common 3–10 km/s drift nuisance.
+Newtonian baryons has two counted parameters, scarcity three, and NFW+baryons four. A standard-
+halo preference is called stable only when the baseline, profile sweep, and bootstrap interval
+agree.
 
 ## Reproduce
 
@@ -40,23 +42,32 @@ The `q(r)/q(R0)` ratio carries forward the original demo's local calibration of 
 constant. `beta = 0` is exactly the Newtonian control. Each model fits one common baryonic mass
 scale and the same bounded drift nuisance; scarcity alone adds non-negative `beta`.
 
+The NFW model adds a spherical halo with free `M200` and concentration `c`, where `R200`
+encloses 200 times the critical density for `H0 = 70 km/s/Mpc`. Its baryonic mass scale remains
+free. Bounds are 1e9–3e11 Msun for baryons, 1e10–3e13 Msun for `M200`, `1 <= c <= 40`, and the
+same 3–10 km/s drift used by every model.
+
 ## Result
 
-| Metric (5–15 kpc) | Scarcity | Newtonian baryons |
-|---|---:|---:|
-| Mass | 1.204e11 Msun | 1.224e11 Msun |
-| Scarcity beta | 5.25 kpc | 0 (nested control) |
-| Drift nuisance | 3.0 km/s | 3.0 km/s |
-| RMSE | 2.70 km/s | 18.40 km/s |
-| chi-square / dof | 2458.8 / 17 | 102877.0 / 18 |
-| AIC | 2464.8 | 102881.0 |
+| Metric (5–15 kpc) | Scarcity | NFW+baryons | Newtonian baryons |
+|---|---:|---:|---:|
+| Baryonic mass | 1.204e11 Msun | 3.136e10 Msun | 1.224e11 Msun |
+| Shape / halo | beta = 5.25 kpc | M200 = 5.314e11 Msun; c = 37.30 | none |
+| Drift nuisance | 3.0 km/s | 10.0 km/s | 3.0 km/s |
+| RMSE | 2.70 km/s | 3.66 km/s | 18.40 km/s |
+| chi-square / dof | 2458.8 / 17 | 4120.2 / 16 | 102877.0 / 18 |
+| AIC | 2464.8 | 4128.2 | 102881.0 |
 
-`delta AIC = AIC_scarcity - AIC_Newtonian = -100416.2`; the 200-resample bootstrap interval is
-[-134303, -59098]. Across the 27 mass-profile variants it ranges from -158602 to -51749, so the
-relative preference is decisive and profile-stable under the predeclared rule.
+For the standard-halo test, `delta AIC = AIC_scarcity - AIC_NFW = -1663.4`; all 27 profile
+variants also prefer scarcity, spanning -2293.1 to -847.1. However, the 200-resample bootstrap
+interval is **[-4129.3, +1102.2]**, which crosses zero. The honest verdict is therefore
+**inconclusive**, not a scarcity win. NFW's drift is pinned at its 10 km/s upper bound and its
+high concentration is weakly identified over this short radial band.
 
-The held-out 15–18.75 kpc band has scarcity RMSE 5.26 km/s versus 31.16 km/s for Newtonian
-baryons. Scarcity underpredicts the held-out points by 4.86 km/s on average.
+The untouched 15–18.75 kpc band has NFW RMSE 4.99 km/s versus scarcity's 5.26 km/s and the
+nested control's 31.16 km/s. NFW overpredicts by 4.26 km/s on average; scarcity underpredicts by
+4.86 km/s. The held-out comparison slightly favors NFW even though the baseline in-band AIC
+favors scarcity.
 
 ## What the apparatus does not establish
 
@@ -65,6 +76,9 @@ baryons. Scarcity underpredicts the held-out points by 4.86 km/s on average.
   systematics, but the failure must not be hidden behind the 2.70 km/s RMSE.
 - The drift nuisance lands on its 3 km/s lower bound and is weakly identified by bootstrap. A
   constant drift term is only a controlled bias treatment, not a physical population model.
+- NFW's drift lands on the opposite 10 km/s bound in every bootstrap percentile, while its
+  concentration clusters near the high end of the allowed range. The fit does not cleanly
+  identify a conventional halo over 5–15 kpc.
 - The disk force is a spherical surrogate, not an exact thin-disk potential. The fitted mass is
   therefore an apparatus parameter until checked against an independently constrained baryonic
   model.

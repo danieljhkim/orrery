@@ -1,11 +1,10 @@
-"""Fit the gravity-as-scarcity distributed-mass apparatus to a Milky Way curve.
+"""Compare scarcity with NFW+baryons on the Gaia DR3 rotation curve.
 
 Question
 --------
-Does the continuum form of the imported scarcity lattice improve the 5--15 kpc
-shape of Tycho's Gaia DR3 median-v_phi curve relative to its nested Newtonian
-baryons control, after both receive the same 3--10 km/s asymmetric-drift
-nuisance term?
+Does scarcity remain preferred on Tycho's 5--15 kpc Gaia DR3 median-v_phi curve
+when compared with a standard three-physical-parameter NFW+baryons model and
+penalized for each model's actual parameter count?
 
 The apparatus uses the imported spherical enclosed-mass surrogate for an
 exponential disk plus Hernquist bulge.  In real units its circular speed is
@@ -22,7 +21,9 @@ relativity or an exact thin-disk potential.
 Protocol declared before seeing the fit
 ---------------------------------------
 Fit 5--15 kpc only.  Hold 15--18.75 kpc out as a consistency band.  Apply the
-same additive drift nuisance to both models.  Call the relative result decisive
+same additive drift nuisance to every model.  NFW fits baryonic mass, M200, and
+concentration, so it has four counted parameters including drift versus
+scarcity's three.  Call the relative result decisive
 only when |delta AIC| >= 10 and its sign survives the mass-profile sweep; raw
 chi-square, RMSE, bootstrap intervals, lattice convergence, and all limitations
 remain visible even then.
@@ -45,6 +46,7 @@ matplotlib.use("Agg")
 import matplotlib.pyplot as plt
 import numpy as np
 import pyarrow.parquet as pq
+from scipy.optimize import least_squares
 
 from orrery import rng
 
@@ -56,6 +58,10 @@ CONSISTENCY_MAX_KPC = 18.75
 DRIFT_MIN_KMS = 3.0
 DRIFT_MAX_KMS = 10.0
 CALIBRATION_RADIUS_KPC = 8.25
+H0_KMS_MPC = 70.0
+NFW_BARYONIC_MASS_BOUNDS_MSUN = (1.0e9, 3.0e11)
+NFW_HALO_MASS_BOUNDS_MSUN = (1.0e10, 3.0e13)
+NFW_CONCENTRATION_BOUNDS = (1.0, 40.0)
 
 
 @dataclass(frozen=True)
@@ -94,6 +100,32 @@ class Fit:
         return out
 
 
+@dataclass
+class NfwFit:
+    model: str
+    mass_msun: float
+    halo_mass_msun: float
+    concentration: float
+    drift_kms: float
+    virial_radius_kpc: float
+    chi2: float
+    dof: int
+    reduced_chi2: float
+    rmse_kms: float
+    mae_kms: float
+    aic: float
+    bic: float
+    predicted_observed_kms: np.ndarray
+    predicted_circular_kms: np.ndarray
+    residual_kms: np.ndarray
+
+    def serializable(self) -> dict:
+        out = asdict(self)
+        for key in ("predicted_observed_kms", "predicted_circular_kms", "residual_kms"):
+            out[key] = [float(x) for x in out[key]]
+        return out
+
+
 def default_data_path() -> Path:
     codebases = Path(__file__).resolve().parents[4]
     return (
@@ -109,6 +141,100 @@ def enclosed_fraction(radius_kpc: np.ndarray, profile: Profile) -> np.ndarray:
     x = r / profile.disk_scale_kpc
     disk = (1.0 - profile.bulge_fraction) * (1.0 - (1.0 + x) * np.exp(-x))
     return bulge + disk
+
+
+def critical_density_msun_kpc3() -> float:
+    h0_kms_kpc = H0_KMS_MPC / 1000.0
+    return 3.0 * h0_kms_kpc**2 / (8.0 * np.pi * G_KPC_KMS2_MSUN)
+
+
+def nfw_enclosed_mass(
+    radius_kpc: np.ndarray, halo_mass_msun: float, concentration: float
+) -> tuple[np.ndarray, float]:
+    """NFW M(<r) for R200 enclosing 200 times the critical density."""
+    r200 = (
+        3.0 * halo_mass_msun
+        / (4.0 * np.pi * 200.0 * critical_density_msun_kpc3())
+    ) ** (1.0 / 3.0)
+    x = concentration * np.asarray(radius_kpc, dtype=float) / r200
+    norm = np.log1p(concentration) - concentration / (1.0 + concentration)
+    enclosed = halo_mass_msun * (np.log1p(x) - x / (1.0 + x)) / norm
+    return enclosed, float(r200)
+
+
+def nfw_prediction(
+    radius_kpc: np.ndarray,
+    profile: Profile,
+    mass_msun: float,
+    halo_mass_msun: float,
+    concentration: float,
+    drift_kms: float,
+) -> tuple[np.ndarray, np.ndarray, float]:
+    fraction = enclosed_fraction(radius_kpc, profile)
+    halo_enclosed, r200 = nfw_enclosed_mass(radius_kpc, halo_mass_msun, concentration)
+    circular = np.sqrt(
+        G_KPC_KMS2_MSUN * (mass_msun * fraction + halo_enclosed) / radius_kpc
+    )
+    return circular - drift_kms, circular, r200
+
+
+def fit_nfw_curve(
+    radius_kpc: np.ndarray,
+    observed_kms: np.ndarray,
+    error_kms: np.ndarray,
+    profile: Profile,
+) -> NfwFit:
+    """Fit free baryonic mass, NFW M200/concentration, and common drift."""
+    lower = np.array([
+        np.log10(NFW_BARYONIC_MASS_BOUNDS_MSUN[0]),
+        np.log10(NFW_HALO_MASS_BOUNDS_MSUN[0]),
+        NFW_CONCENTRATION_BOUNDS[0],
+        DRIFT_MIN_KMS,
+    ])
+    upper = np.array([
+        np.log10(NFW_BARYONIC_MASS_BOUNDS_MSUN[1]),
+        np.log10(NFW_HALO_MASS_BOUNDS_MSUN[1]),
+        NFW_CONCENTRATION_BOUNDS[1],
+        DRIFT_MAX_KMS,
+    ])
+
+    def weighted_residual(parameters: np.ndarray) -> np.ndarray:
+        predicted, _, _ = nfw_prediction(
+            radius_kpc, profile, 10.0 ** parameters[0], 10.0 ** parameters[1],
+            parameters[2], parameters[3]
+        )
+        return (observed_kms - predicted) / error_kms
+
+    starts = ((11.0, 12.0, 8.0, 3.0), (10.7, 12.2, 12.0, 5.0), (11.2, 11.7, 18.0, 8.0))
+    candidates = [
+        least_squares(
+            weighted_residual, np.asarray(start), bounds=(lower, upper),
+            xtol=1e-11, ftol=1e-11, gtol=1e-11, max_nfev=3000
+        )
+        for start in starts
+    ]
+    result = min(candidates, key=lambda candidate: float(np.sum(candidate.fun**2)))
+    mass_msun = float(10.0 ** result.x[0])
+    halo_mass_msun = float(10.0 ** result.x[1])
+    concentration = float(result.x[2])
+    drift_kms = float(result.x[3])
+    predicted, circular, r200 = nfw_prediction(
+        radius_kpc, profile, mass_msun, halo_mass_msun, concentration, drift_kms
+    )
+    residual = observed_kms - predicted
+    chi2 = float(np.sum(np.square(residual / error_kms)))
+    parameters = 4
+    dof = len(radius_kpc) - parameters
+    return NfwFit(
+        model="nfw-baryons", mass_msun=mass_msun, halo_mass_msun=halo_mass_msun,
+        concentration=concentration, drift_kms=drift_kms, virial_radius_kpc=r200,
+        chi2=chi2, dof=dof, reduced_chi2=chi2 / dof,
+        rmse_kms=float(np.sqrt(np.mean(residual**2))),
+        mae_kms=float(np.mean(np.abs(residual))), aic=chi2 + 2 * parameters,
+        bic=chi2 + parameters * np.log(len(radius_kpc)),
+        predicted_observed_kms=predicted, predicted_circular_kms=circular,
+        residual_kms=residual,
+    )
 
 
 def scarcity_integral(
@@ -250,7 +376,13 @@ def bootstrap(
     j: np.ndarray,
     calibration_j_per_kpc: float,
 ) -> dict:
-    values = {"mass_msun": [], "beta_kpc": [], "drift_kms": [], "delta_aic": []}
+    values = {
+        "scarcity_mass_msun": [], "scarcity_beta_kpc": [],
+        "scarcity_drift_kms": [], "nfw_baryonic_mass_msun": [],
+        "nfw_halo_mass_msun": [], "nfw_concentration": [],
+        "nfw_drift_kms": [], "delta_aic_scarcity_minus_newtonian": [],
+        "delta_aic_scarcity_minus_nfw": [],
+    }
     for _ in range(count):
         indices = generator.integers(0, len(radius), len(radius))
         scarcity = fit_curve(
@@ -263,10 +395,16 @@ def bootstrap(
             calibration_j_per_kpc,
             model="newtonian-baryons",
         )
-        values["mass_msun"].append(scarcity.mass_msun)
-        values["beta_kpc"].append(scarcity.beta_kpc)
-        values["drift_kms"].append(scarcity.drift_kms)
-        values["delta_aic"].append(scarcity.aic - newton.aic)
+        nfw = fit_nfw_curve(radius[indices], velocity[indices], error[indices], profile)
+        values["scarcity_mass_msun"].append(scarcity.mass_msun)
+        values["scarcity_beta_kpc"].append(scarcity.beta_kpc)
+        values["scarcity_drift_kms"].append(scarcity.drift_kms)
+        values["nfw_baryonic_mass_msun"].append(nfw.mass_msun)
+        values["nfw_halo_mass_msun"].append(nfw.halo_mass_msun)
+        values["nfw_concentration"].append(nfw.concentration)
+        values["nfw_drift_kms"].append(nfw.drift_kms)
+        values["delta_aic_scarcity_minus_newtonian"].append(scarcity.aic - newton.aic)
+        values["delta_aic_scarcity_minus_nfw"].append(scarcity.aic - nfw.aic)
     return {"resamples": count, **{key: percentile_interval(value) for key, value in values.items()}}
 
 
@@ -289,6 +427,7 @@ def profile_sweep(
                     radius, velocity, error, profile, j, j_cal,
                     model="newtonian-baryons",
                 )
+                nfw = fit_nfw_curve(radius, velocity, error, profile)
                 rows.append(
                     {
                         "profile": asdict(profile),
@@ -299,7 +438,13 @@ def profile_sweep(
                         "newtonian_mass_msun": newton.mass_msun,
                         "newtonian_drift_kms": newton.drift_kms,
                         "newtonian_rmse_kms": newton.rmse_kms,
+                        "nfw_baryonic_mass_msun": nfw.mass_msun,
+                        "nfw_halo_mass_msun": nfw.halo_mass_msun,
+                        "nfw_concentration": nfw.concentration,
+                        "nfw_drift_kms": nfw.drift_kms,
+                        "nfw_rmse_kms": nfw.rmse_kms,
                         "delta_aic_scarcity_minus_newtonian": scarcity.aic - newton.aic,
+                        "delta_aic_scarcity_minus_nfw": scarcity.aic - nfw.aic,
                     }
                 )
     return rows
@@ -362,6 +507,7 @@ def make_plot(
     consistency_mask: np.ndarray,
     scarcity_prediction: np.ndarray,
     newton_prediction: np.ndarray,
+    nfw_prediction_values: np.ndarray,
 ) -> None:
     fig, (ax, residual_ax) = plt.subplots(
         2, 1, figsize=(9, 7), sharex=True, gridspec_kw={"height_ratios": [3, 1]}
@@ -371,6 +517,7 @@ def make_plot(
     ax.errorbar(radius, velocity, yerr=error, fmt="o", ms=4, color="#20242c", label="Gaia DR3 median $v_\\phi$")
     ax.plot(radius, scarcity_prediction, color="#b7791f", lw=2.2, label="scarcity")
     ax.plot(radius, newton_prediction, color="#4a5568", lw=2, ls="--", label="Newtonian baryons")
+    ax.plot(radius, nfw_prediction_values, color="#2f855a", lw=2, ls="-.", label="NFW+baryons")
     ax.set_ylabel("observed-frame velocity (km/s)")
     ax.legend(ncol=2, fontsize=9)
     ax.grid(alpha=0.2)
@@ -378,12 +525,14 @@ def make_plot(
     residual_ax.axhline(0, color="#718096", lw=1)
     residual_ax.plot(radius[fit_mask], (velocity - scarcity_prediction)[fit_mask], "o", color="#b7791f")
     residual_ax.plot(radius[fit_mask], (velocity - newton_prediction)[fit_mask], "s", ms=4, color="#4a5568")
+    residual_ax.plot(radius[fit_mask], (velocity - nfw_prediction_values)[fit_mask], "^", ms=4, color="#2f855a")
     residual_ax.plot(radius[consistency_mask], (velocity - scarcity_prediction)[consistency_mask], "o", mfc="none", color="#b7791f")
     residual_ax.plot(radius[consistency_mask], (velocity - newton_prediction)[consistency_mask], "s", ms=4, mfc="none", color="#4a5568")
+    residual_ax.plot(radius[consistency_mask], (velocity - nfw_prediction_values)[consistency_mask], "^", ms=4, mfc="none", color="#2f855a")
     residual_ax.set_xlabel("Galactocentric radius (kpc)")
     residual_ax.set_ylabel("data − model")
     residual_ax.grid(alpha=0.2)
-    fig.suptitle("ORB-10077: predeclared fit and held-out consistency band")
+    fig.suptitle("ORB-10082: scarcity versus NFW+baryons")
     fig.tight_layout()
     fig.savefig(path, dpi=180)
     plt.close(fig)
@@ -423,8 +572,13 @@ def main() -> None:
     newton = fit_curve(
         fit_r, fit_v, fit_e, profile, fit_j, j_cal, model="newtonian-baryons"
     )
+    nfw = fit_nfw_curve(fit_r, fit_v, fit_e, profile)
     scarcity_all = predict(radius, profile, j_all, j_cal, scarcity)
     newton_all = predict(radius, profile, j_all, j_cal, newton)
+    nfw_all, _, _ = nfw_prediction(
+        radius, profile, nfw.mass_msun, nfw.halo_mass_msun,
+        nfw.concentration, nfw.drift_kms
+    )
 
     sensitivity = profile_sweep(fit_r, fit_v, fit_e)
     convergence = convergence_checks(fit_r, fit_v, fit_e, profile, scarcity)
@@ -432,9 +586,24 @@ def main() -> None:
         rng(args.seed), args.bootstrap, fit_r, fit_v, fit_e, profile, fit_j, j_cal
     )
     delta_aic = scarcity.aic - newton.aic
+    delta_aic_nfw = scarcity.aic - nfw.aic
     sweep_deltas = np.array(
         [row["delta_aic_scarcity_minus_newtonian"] for row in sensitivity]
     )
+    nfw_sweep_deltas = np.array(
+        [row["delta_aic_scarcity_minus_nfw"] for row in sensitivity]
+    )
+    nfw_profile_sign_stable = bool(
+        np.all(nfw_sweep_deltas < 0) or np.all(nfw_sweep_deltas > 0)
+    )
+    nfw_bootstrap_delta = boot["delta_aic_scarcity_minus_nfw"]
+    nfw_bootstrap_sign_stable = bool(
+        nfw_bootstrap_delta["p97_5"] < 0 or nfw_bootstrap_delta["p2_5"] > 0
+    )
+    if abs(delta_aic_nfw) >= 10.0 and nfw_profile_sign_stable and nfw_bootstrap_sign_stable:
+        nfw_verdict = "scarcity-preferred" if delta_aic_nfw < 0 else "nfw-preferred"
+    else:
+        nfw_verdict = "inconclusive"
     sign_stable = bool(np.all(sweep_deltas < 0) or np.all(sweep_deltas > 0))
     decisive = bool(abs(delta_aic) >= 10.0 and sign_stable)
     needs_outer_followup = not decisive
@@ -462,13 +631,14 @@ def main() -> None:
                 "band": "fit" if fit_mask[index] else "consistency" if consistency_mask[index] else "excluded",
                 "scarcity_predicted_observed_kms": float(scarcity_all[index]),
                 "newtonian_predicted_observed_kms": float(newton_all[index]),
+                "nfw_predicted_observed_kms": float(nfw_all[index]),
             }
         )
 
     results = {
-        "task": "ORB-10077",
+        "task": "ORB-10082",
         "source_task": "ORB-10075",
-        "question": "Does one scarcity shape normalization improve on the nested Newtonian-baryons control for the 5–15 kpc Gaia DR3 curve?",
+        "question": "Does scarcity remain preferred to a three-physical-parameter NFW+baryons model after AIC penalizes each model's actual parameter count?",
         "protocol": {
             "fit_range_kpc": [FIT_MIN_KPC, FIT_MAX_KPC],
             "consistency_range_kpc": [FIT_MAX_KPC, CONSISTENCY_MAX_KPC],
@@ -476,6 +646,9 @@ def main() -> None:
             "decision_rule": "Relative comparison decisive only if |delta AIC| >= 10 and sign is stable over all 27 profile variants.",
             "seed": args.seed,
             "bootstrap_resamples": args.bootstrap,
+            "parameter_counts_including_drift": {
+                "newtonian_baryons": 2, "scarcity": 3, "nfw_baryons": 4
+            },
         },
         "apparatus": {
             "profile": asdict(profile),
@@ -483,10 +656,18 @@ def main() -> None:
             "radial_step_kpc": 0.01,
             "local_g_calibration_radius_kpc": CALIBRATION_RADIUS_KPC,
             "equation": "v_S^2 = G_local M F(r)/r * q(r)/q(R0), where q(r)=exp[-beta integral_r^Rmax F(u)/u^2 du]",
+            "nfw_definition": "M(<r)=M200*f(c*r/R200)/f(c), with R200 enclosing 200 times critical density for H0=70 km/s/Mpc",
+            "nfw_bounds": {
+                "baryonic_mass_msun": list(NFW_BARYONIC_MASS_BOUNDS_MSUN),
+                "halo_mass_msun": list(NFW_HALO_MASS_BOUNDS_MSUN),
+                "concentration": list(NFW_CONCENTRATION_BOUNDS),
+                "drift_kms": [DRIFT_MIN_KMS, DRIFT_MAX_KMS],
+            },
             "limitations": [
                 "The exponential disk is represented by a spherical enclosed-mass surrogate, not an exact thin-disk potential.",
                 "The scarcity equation is a phenomenological continuum mapping of the imported lattice toy.",
                 "The parquet uncertainties are statistical errors on median v_phi and omit dominant distance, selection, and radially varying asymmetric-drift systematics.",
+                "The short fit band can weakly identify NFW mass and concentration; bounds and bootstrap intervals are reported explicitly.",
             ],
         },
         "data": {
@@ -498,8 +679,11 @@ def main() -> None:
         "fits": {
             "scarcity": scarcity.serializable(),
             "newtonian_baryons": newton.serializable(),
+            "nfw_baryons": nfw.serializable(),
             "delta_aic_scarcity_minus_newtonian": delta_aic,
             "delta_bic_scarcity_minus_newtonian": scarcity.bic - newton.bic,
+            "delta_aic_scarcity_minus_nfw": delta_aic_nfw,
+            "delta_bic_scarcity_minus_nfw": scarcity.bic - nfw.bic,
         },
         "held_out_consistency": {
             "scarcity": band_metrics(
@@ -508,6 +692,9 @@ def main() -> None:
             "newtonian_baryons": band_metrics(
                 velocity[consistency_mask], error[consistency_mask], newton_all[consistency_mask]
             ),
+            "nfw_baryons": band_metrics(
+                velocity[consistency_mask], error[consistency_mask], nfw_all[consistency_mask]
+            ),
         },
         "bootstrap_95_percent_intervals": boot,
         "profile_sensitivity": {
@@ -515,6 +702,18 @@ def main() -> None:
             "delta_aic_min": float(np.min(sweep_deltas)),
             "delta_aic_max": float(np.max(sweep_deltas)),
             "preference_sign_stable": sign_stable,
+            "delta_aic_scarcity_minus_nfw_min": float(np.min(nfw_sweep_deltas)),
+            "delta_aic_scarcity_minus_nfw_max": float(np.max(nfw_sweep_deltas)),
+            "scarcity_vs_nfw_preference_sign_stable": bool(
+                np.all(nfw_sweep_deltas < 0) or np.all(nfw_sweep_deltas > 0)
+            ),
+        },
+        "nfw_comparison_verdict": {
+            "verdict": nfw_verdict,
+            "baseline_delta_aic_scarcity_minus_nfw": delta_aic_nfw,
+            "profile_sign_stable": nfw_profile_sign_stable,
+            "bootstrap_95_interval_excludes_zero": nfw_bootstrap_sign_stable,
+            "interpretation": "Inconclusive because the 200-resample bootstrap interval crosses zero, despite baseline and profile-variant preference for scarcity." if nfw_verdict == "inconclusive" else "Preference is baseline-, profile-, and bootstrap-stable under the predeclared rule.",
         },
         "lattice_convergence": convergence,
         "outer_followup": {
@@ -537,6 +736,7 @@ def main() -> None:
         consistency_mask,
         scarcity_all,
         newton_all,
+        nfw_all,
     )
 
     preference = "scarcity" if delta_aic < 0 else "newtonian baryons"
@@ -550,8 +750,23 @@ def main() -> None:
         f"newtonian: mass={newton.mass_msun:.3e} Msun, drift={newton.drift_kms:.2f} km/s, "
         f"RMSE={newton.rmse_kms:.2f} km/s, chi2/dof={newton.chi2:.1f}/{newton.dof}"
     )
+    print(
+        f"NFW+baryons: baryonic mass={nfw.mass_msun:.3e} Msun, "
+        f"M200={nfw.halo_mass_msun:.3e} Msun, c={nfw.concentration:.2f}, "
+        f"drift={nfw.drift_kms:.2f} km/s, RMSE={nfw.rmse_kms:.2f} km/s, "
+        f"chi2/dof={nfw.chi2:.1f}/{nfw.dof}"
+    )
     print(f"delta AIC (scarcity - Newtonian) = {delta_aic:.1f}; prefers {preference}")
     print(f"profile-sweep delta AIC range = [{np.min(sweep_deltas):.1f}, {np.max(sweep_deltas):.1f}]")
+    print(
+        f"delta AIC (scarcity - NFW) = {delta_aic_nfw:.1f}; "
+        f"profile range = [{np.min(nfw_sweep_deltas):.1f}, {np.max(nfw_sweep_deltas):.1f}]"
+    )
+    print(
+        "bootstrap delta AIC 95% interval = "
+        f"[{nfw_bootstrap_delta['p2_5']:.1f}, {nfw_bootstrap_delta['p97_5']:.1f}]; "
+        f"verdict={nfw_verdict}"
+    )
     print(f"20–25 kpc follow-up needed: {needs_outer_followup}")
     print(f"wrote {results_path}")
     print(f"wrote {plot_path}")
