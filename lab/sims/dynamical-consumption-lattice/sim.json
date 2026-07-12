@@ -1,0 +1,25 @@
+{
+  "slug": "dynamical-consumption-lattice",
+  "title": "Dynamical-consumption lattice flow",
+  "kind": "py",
+  "entry": "main.py",
+  "status": "active",
+  "created": "2026-07-12",
+  "topics": [
+    "gravity",
+    "gravity-as-scarcity",
+    "radial-flow",
+    "counting-lattice",
+    "steady-state"
+  ],
+  "family": "gravity-as-scarcity",
+  "summary": "A radial counting lattice measures how central-only and equal-per-shell destruction rules select different steady inflow and dilution profiles.",
+  "seed": 42,
+  "provenance": {
+    "almanac": "15-discussions/26-07/gravity-as-scarcity-of-space.md",
+    "orbit_tasks": [
+      "ORB-10162"
+    ],
+    "theory_context": "../../principia/theory/gravity-as-scarcity.md"
+  }
+}

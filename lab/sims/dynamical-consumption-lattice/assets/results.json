@@ -1,0 +1,168 @@
+{
+  "apparatus": {
+    "diffusivity": 10000.0,
+    "fit_radial_decades": 1.6989700043360187,
+    "fit_radius_range": [
+      10.0,
+      500.0
+    ],
+    "radius_range": [
+      1.0,
+      1001.0
+    ],
+    "reservoir_density": 1.0,
+    "shell_width": 1.0,
+    "shells": 1000,
+    "steady_tolerance": 1e-09
+  },
+  "rules": {
+    "central-only": {
+      "candidate_comparison": {
+        "equal-per-shell-budget": {
+          "candidate_exponent": -1.0,
+          "log_rmse": 0.8311716092127314
+        },
+        "flux-conserving": {
+          "candidate_exponent": -2.0,
+          "log_rmse": 0.0006041293379789378
+        },
+        "free-fall": {
+          "candidate_exponent": -0.5,
+          "log_rmse": 1.246499350033445
+        }
+      },
+      "comoving_dilution_measurements": {
+        "at_fit_max": 0.0,
+        "at_fit_min": 0.0,
+        "inner": 0.8218924826305983,
+        "maximum": 0.8218924826305983
+      },
+      "comoving_dilution_vs_static_inverse_r": {
+        "amplitude": 0.0,
+        "r_squared": null,
+        "relative_rmse": 0.0
+      },
+      "flow_fit": {
+        "ci95_high": -2.0005877101584058,
+        "ci95_low": -2.0006547510813113,
+        "exponent": -2.0006212306198585,
+        "intercept": 6.2192494930825974,
+        "radial_decades": 1.6989700043360187,
+        "samples": 491,
+        "standard_error": 1.710227625141429e-05
+      },
+      "rule": "central-only",
+      "rule_definition": "all destruction occurs in the innermost cell",
+      "sigma_identity": {
+        "c_lattice": 10000.0,
+        "definition": "c = nearest-neighbour hop rate D/dr^2 times hop length dr",
+        "median_sigma_flow_over_standing_sigma": 2.0257945810144547e-09,
+        "passes_factor_two_shape_and_normalization": false,
+        "rms_log10_ratio": 8.423241134993827
+      },
+      "sink_fit": null,
+      "sink_localization": "innermost shell only",
+      "standing_deficit_measurements": {
+        "at_fit_max": 4.999986860954042e-05,
+        "at_fit_min": 0.004713074951901763,
+        "inner": 0.03222894989676384
+      },
+      "standing_deficit_vs_static_inverse_r": {
+        "amplitude": 0.050034984507888486,
+        "r_squared": 0.9999999174782175,
+        "relative_rmse": 3.595939969026731e-05
+      },
+      "steady_state": {
+        "elapsed_time": 150.0,
+        "inner_density": 0.9677710501032362,
+        "last_step_change_over_max_deficit": 8.495808109519644e-10,
+        "max_shell_balance_over_total_sink": 9.379403524474797e-09,
+        "outer_density": 0.9999999750250448,
+        "outer_diffusion_time": 100.0,
+        "reached": true,
+        "steps": 75,
+        "tolerance": 1e-09
+      },
+      "total_consumption_rate": 6289.468492486766
+    },
+    "equal-per-shell": {
+      "candidate_comparison": {
+        "equal-per-shell-budget": {
+          "candidate_exponent": -1.0,
+          "log_rmse": 0.00802750359330109
+        },
+        "flux-conserving": {
+          "candidate_exponent": -2.0,
+          "log_rmse": 0.8352190645634494
+        },
+        "free-fall": {
+          "candidate_exponent": -0.5,
+          "log_rmse": 0.4108438444151206
+        }
+      },
+      "comoving_dilution_measurements": {
+        "at_fit_max": 0.5009996930786527,
+        "at_fit_min": 0.9909809198454268,
+        "inner": 0.9998114866684839,
+        "maximum": 0.9998114866684839
+      },
+      "comoving_dilution_vs_static_inverse_r": {
+        "amplitude": 33.80081992289215,
+        "r_squared": -17.29508082596567,
+        "relative_rmse": 1.2372993800730976
+      },
+      "flow_fit": {
+        "ci95_high": -0.9938310820403699,
+        "ci95_low": -0.9952443169619235,
+        "exponent": -0.9945376995011467,
+        "intercept": 4.256462269652659,
+        "radial_decades": 1.6989700043360187,
+        "samples": 491,
+        "standard_error": 0.0003605191126412496
+      },
+      "rule": "equal-per-shell",
+      "rule_definition": "the same absolute mean point budget is destroyed in every equal-width shell",
+      "sigma_identity": {
+        "c_lattice": 10000.0,
+        "definition": "c = nearest-neighbour hop rate D/dr^2 times hop length dr",
+        "median_sigma_flow_over_standing_sigma": 4.127418628758665e-08,
+        "passes_factor_two_shape_and_normalization": false,
+        "rms_log10_ratio": 7.212743714694979
+      },
+      "sink_fit": {
+        "ci95_high": 0.0007905159615036171,
+        "ci95_low": -0.00021945854228472544,
+        "exponent": 0.0002855287096094458,
+        "intercept": 6.811548126011961,
+        "radial_decades": 1.677346193492063,
+        "samples": 490,
+        "standard_error": 0.0002576465570888629
+      },
+      "sink_localization": "distributed",
+      "standing_deficit_measurements": {
+        "at_fit_max": 0.005009208867341908,
+        "at_fit_min": 0.03229840172893372,
+        "inner": 0.042279943749549576
+      },
+      "standing_deficit_vs_static_inverse_r": {
+        "amplitude": 0.7576807538690269,
+        "r_squared": -0.8379269038748851,
+        "relative_rmse": 0.2933098692638145
+      },
+      "steady_state": {
+        "elapsed_time": 196.0,
+        "inner_density": 0.9577200562504504,
+        "last_step_change_over_max_deficit": 8.820639134100882e-10,
+        "max_shell_balance_over_total_sink": 7.864767749439128e-11,
+        "outer_density": 0.999996388629349,
+        "outer_diffusion_time": 100.0,
+        "reached": true,
+        "steps": 98,
+        "tolerance": 1e-09
+      },
+      "total_consumption_rate": 909452.6449240051
+    }
+  },
+  "schema_version": 1,
+  "seed": 42
+}
