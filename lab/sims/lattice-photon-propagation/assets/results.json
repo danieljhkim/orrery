@@ -1,0 +1,89 @@
+{
+  "apparatus": {
+    "deficit_at_core": 0.12,
+    "domain_half_width_core_radii": 15.0,
+    "impact_core_radii": 3.0,
+    "index_profile": "n=1-0.12 inside the core; n=1-0.12*(core/r)^2 outside",
+    "primary_core_radius_hops": 32,
+    "ray_integrator": "symmetric kick-drift-kick; each drift is one local neighbour spacing",
+    "resolution_core_radius_hops": [
+      16,
+      64
+    ]
+  },
+  "microscopic_rule": "n(r) is local linear point density; one adjacent-point hop per tick has physical length 1/n(r), and the Huygens normal is advanced in full local hops.",
+  "primary": {
+    "core_radius_hops": 32,
+    "deflection_degrees": 2.3252120070790467,
+    "deflection_radians": 0.04058260533043506,
+    "deflection_sign": "away",
+    "exit_transverse_shift_core_radii": 0.6115183844154113,
+    "exit_transverse_shift_hops": 19.56858830129316,
+    "impact_core_radii": 3.0,
+    "transit_anomaly_per_core_radius": -0.09628464150403104,
+    "transit_anomaly_ticks": -3.0811085281289934,
+    "transit_sign": "advance",
+    "transit_ticks": 956.918891471871,
+    "undepleted_baseline_ticks": 960.0
+  },
+  "question": "Does literal one-hop-per-tick propagation on a static depleted lattice deflect toward or away and produce delay or advance?",
+  "radial_law": {
+    "candidates": {
+      "inverse_r": {
+        "amplitude_at_core": 0.04116284489549663,
+        "power": 1.0,
+        "relative_rmse": 0.42251497263129184
+      },
+      "inverse_r_squared": {
+        "amplitude_at_core": 0.11999999999999998,
+        "power": 2.0,
+        "relative_rmse": 3.849146822720674e-15
+      }
+    },
+    "fit_range_core_radii": [
+      2.0,
+      12.0
+    ],
+    "fitted_amplitude_at_core": 0.1199999999999992,
+    "fitted_power": 1.999999999999997,
+    "relative_rmse": 6.171491948920837e-15
+  },
+  "resolution_checks": [
+    {
+      "core_radius_hops": 16,
+      "deflection_degrees": 2.325214641700422,
+      "deflection_radians": 0.0405826513132526,
+      "deflection_sign": "away",
+      "exit_transverse_shift_core_radii": 0.6115180505182192,
+      "exit_transverse_shift_hops": 9.784288808291507,
+      "impact_core_radii": 3.0,
+      "transit_anomaly_per_core_radius": -0.09628476874834746,
+      "transit_anomaly_ticks": -1.5405562999735594,
+      "transit_sign": "advance",
+      "transit_ticks": 478.45944370002644,
+      "undepleted_baseline_ticks": 480.0
+    },
+    {
+      "core_radius_hops": 64,
+      "deflection_degrees": 2.3252111312998696,
+      "deflection_radians": 0.040582590045204904,
+      "deflection_sign": "away",
+      "exit_transverse_shift_core_radii": 0.6115186809329871,
+      "exit_transverse_shift_hops": 39.137195579711175,
+      "impact_core_radii": 3.0,
+      "transit_anomaly_per_core_radius": -0.09628456105418337,
+      "transit_anomaly_ticks": -6.162211907467736,
+      "transit_sign": "advance",
+      "transit_ticks": 1913.8377880925323,
+      "undepleted_baseline_ticks": 1920.0
+    }
+  ],
+  "schema_version": 1,
+  "verdict": {
+    "deflection": "away from the depleted well",
+    "discrete_check": "the signs persist when the core spans 16, 32, and 64 far-field hops",
+    "radial_law": "effective-index perturbation follows 1/r^2, not 1/r",
+    "scope": "static density depletion only; a flowing-lattice/acoustic-metric completion is a different propagation rule",
+    "transit_time": "advance relative to the undepleted one-hop lattice"
+  }
+}

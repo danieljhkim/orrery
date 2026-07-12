@@ -1,0 +1,26 @@
+{
+  "slug": "lattice-photon-propagation",
+  "title": "Lattice photon propagation",
+  "kind": "py",
+  "entry": "main.py",
+  "status": "active",
+  "created": "2026-07-12",
+  "topics": [
+    "gravity",
+    "gravity-as-scarcity",
+    "counting-lattice",
+    "photon-sector",
+    "ray-tracing"
+  ],
+  "family": "gravity-as-scarcity",
+  "summary": "Full-hop ray propagation on a centrally depleted counting lattice measures the sign, radial law, and transit-time anomaly of the literal static-lattice photon rule.",
+  "provenance": {
+    "almanac": "15-discussions/26-07/gravity-as-scarcity-of-space.md",
+    "orbit_tasks": [
+      "ORB-10158",
+      "ORB-10156"
+    ],
+    "theory_context": "../../principia/theory/gravity-as-scarcity.md",
+    "study_context": "../../principia/studies/scalar-gravity-ppn-constraints.md"
+  }
+}
