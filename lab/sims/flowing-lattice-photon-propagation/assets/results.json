@@ -1,0 +1,209 @@
+{
+  "apparatus": {
+    "domain_half_width": 400.0,
+    "group_velocity": "dx/dt=v+c_local*k/|k|",
+    "impact_parameter": 20.0,
+    "primary_flow": "inward |v|=sqrt(r_s/r), imposed GP surrogate",
+    "ray_hamiltonian": "H=v(x).k+c_local(x)|k|",
+    "schwarzschild_radius": 1.0,
+    "secondary_normalization": "same speed as primary at the impact radius; measured exponents transplanted from ORB-10162",
+    "standing_deficit": "n(r)=1-A(r_s/r)^2 and c_local=1/n(r)"
+  },
+  "contaminant_sweep": [
+    {
+      "combined_deflection_radians": -0.11395127272064244,
+      "combined_deflection_uncertainty_radians": 3.3029134982598407e-15,
+      "combined_transit_anomaly": 9.371095521306756,
+      "combined_transit_uncertainty": 6.821210263296962e-13,
+      "flow_drag_to_index_gradient_ratio": 7256.223478981504,
+      "flow_only_deflection_radians": -0.11397318369775716,
+      "index_only_deflection_radians": 1.570695610849001e-05,
+      "index_only_deflection_uncertainty_radians": 6.776263578034403e-20,
+      "nonlinear_interaction_radians": 6.204021006232442e-06,
+      "standing_deficit_amplitude_at_r_s": 0.002
+    },
+    {
+      "combined_deflection_radians": -0.11391840760145207,
+      "combined_deflection_uncertainty_radians": 2.4841240175987878e-15,
+      "combined_transit_anomaly": 9.368968665575153,
+      "combined_transit_uncertainty": 9.094947017729282e-13,
+      "flow_drag_to_index_gradient_ratio": 2902.5382638429896,
+      "flow_only_deflection_radians": -0.11397318369775716,
+      "index_only_deflection_radians": 3.92667290962275e-05,
+      "index_only_deflection_uncertainty_radians": 1.0164395367051604e-19,
+      "nonlinear_interaction_radians": 1.550936720886778e-05,
+      "standing_deficit_amplitude_at_r_s": 0.005
+    },
+    {
+      "combined_deflection_radians": -0.11386363599304912,
+      "combined_deflection_uncertainty_radians": 3.316791286067655e-15,
+      "combined_transit_anomaly": 9.365425131966163,
+      "combined_transit_uncertainty": 4.547473508864641e-13,
+      "flow_drag_to_index_gradient_ratio": 1451.309858365948,
+      "flow_only_deflection_radians": -0.11397318369775716,
+      "index_only_deflection_radians": 7.853125439806584e-05,
+      "index_only_deflection_uncertainty_radians": 3.9302328752599536e-19,
+      "nonlinear_interaction_radians": 3.101645030997758e-05,
+      "standing_deficit_amplitude_at_r_s": 0.01
+    },
+    {
+      "combined_deflection_radians": -0.1137541062371352,
+      "combined_deflection_uncertainty_radians": 3.2890357104520263e-15,
+      "combined_transit_anomaly": 9.35834266065433,
+      "combined_transit_uncertainty": 7.958078640513122e-13,
+      "flow_drag_to_index_gradient_ratio": 725.6956548196102,
+      "flow_only_deflection_radians": -0.11397318369775716,
+      "index_only_deflection_radians": 0.0001570536945354703,
+      "index_only_deflection_uncertainty_radians": 3.2526065174565133e-19,
+      "nonlinear_interaction_radians": 6.20237660864989e-05,
+      "standing_deficit_amplitude_at_r_s": 0.02
+    },
+    {
+      "combined_deflection_radians": -0.11353510054925138,
+      "combined_deflection_uncertainty_radians": 3.858025010572419e-15,
+      "combined_transit_anomaly": 9.3441960908292,
+      "combined_transit_uncertainty": 9.094947017729282e-13,
+      "flow_drag_to_index_gradient_ratio": 362.88855143111016,
+      "flow_only_deflection_radians": -0.11397318369775716,
+      "index_only_deflection_radians": 0.0003140721393614798,
+      "index_only_deflection_uncertainty_radians": 1.4094628242311558e-18,
+      "nonlinear_interaction_radians": 0.0001240110091443031,
+      "standing_deficit_amplitude_at_r_s": 0.04
+    },
+    {
+      "combined_deflection_radians": -0.11309730431228972,
+      "combined_deflection_uncertainty_radians": 3.594347042223944e-15,
+      "combined_transit_anomaly": 9.315976355914131,
+      "combined_transit_uncertainty": 2.2737367544323206e-13,
+      "flow_drag_to_index_gradient_ratio": 181.4849965073364,
+      "flow_only_deflection_radians": -0.11397318369775716,
+      "index_only_deflection_radians": 0.000628003338519225,
+      "index_only_deflection_uncertainty_radians": 9.75781955236954e-19,
+      "nonlinear_interaction_radians": 0.00024787604694822066,
+      "standing_deficit_amplitude_at_r_s": 0.08
+    },
+    {
+      "combined_deflection_radians": -0.11265979462848077,
+      "combined_deflection_uncertainty_radians": 3.4833247397614286e-15,
+      "combined_transit_anomaly": 9.287854329625247,
+      "combined_transit_uncertainty": 2.2737367544323206e-13,
+      "flow_drag_to_index_gradient_ratio": 121.01714199684051,
+      "flow_only_deflection_radians": -0.11397318369775716,
+      "index_only_deflection_radians": 0.0009417937146518694,
+      "index_only_deflection_uncertainty_radians": 6.071532165918825e-18,
+      "nonlinear_interaction_radians": 0.00037159535462451894,
+      "standing_deficit_amplitude_at_r_s": 0.12
+    }
+  ],
+  "flow_arms": {
+    "imposed-gp-surrogate": {
+      "convergence_deflections": [
+        -0.11397318369775394,
+        -0.1139731836977572,
+        -0.11397318369775716
+      ],
+      "convergence_max_steps": [
+        1.6,
+        0.8,
+        0.4
+      ],
+      "convergence_transit_times": [
+        809.3725137316666,
+        809.3725137316666,
+        809.372513731667
+      ],
+      "deflection_degrees": -6.530182403550723,
+      "deflection_numerical_uncertainty_radians": 3.219646771412954e-15,
+      "deflection_over_gamma_one_expectation": 1.1397318369775715,
+      "deflection_radians": -0.11397318369775716,
+      "deflection_sign": "toward",
+      "delay_over_gamma_one_expectation": 1.2701590870313288,
+      "finest_rhs_evaluations": 24305,
+      "flat_transit_time": 800.0,
+      "profile_exponent": 0.5,
+      "profile_exponent_uncertainty": 0.0,
+      "profile_origin": "controlled v proportional to r^-1/2 surrogate",
+      "transit_anomaly": 9.372513731667027,
+      "transit_numerical_uncertainty": 4.547473508864641e-13,
+      "transit_sign": "delay",
+      "transit_time": 809.372513731667
+    },
+    "measured-central-only": {
+      "convergence_deflections": [
+        -0.18265985310500538,
+        -0.18265985310500923,
+        -0.18265985310500968
+      ],
+      "convergence_max_steps": [
+        1.6,
+        0.8,
+        0.4
+      ],
+      "convergence_transit_times": [
+        807.8026633954805,
+        807.8026633954803,
+        807.8026633954802
+      ],
+      "deflection_degrees": -10.46563866939664,
+      "deflection_numerical_uncertainty_radians": 4.3021142204224816e-15,
+      "deflection_over_gamma_one_expectation": 1.8265985310500967,
+      "deflection_radians": -0.18265985310500968,
+      "deflection_sign": "toward",
+      "delay_over_gamma_one_expectation": 1.0574136350775063,
+      "finest_rhs_evaluations": 24257,
+      "flat_transit_time": 800.0,
+      "profile_exponent": 2.00062,
+      "profile_exponent_uncertainty": 2e-05,
+      "profile_origin": "ORB-10162 central-only measured profile",
+      "transit_anomaly": 7.802663395480181,
+      "transit_numerical_uncertainty": 3.410605131648481e-13,
+      "transit_sign": "delay",
+      "transit_time": 807.8026633954802
+    },
+    "measured-equal-per-shell": {
+      "convergence_deflections": [
+        -0.13593517820698683,
+        -0.13593517820699097,
+        -0.1359351782069918
+      ],
+      "convergence_max_steps": [
+        1.6,
+        0.8,
+        0.4
+      ],
+      "convergence_transit_times": [
+        806.1484960524707,
+        806.1484960524715,
+        806.1484960524707
+      ],
+      "deflection_degrees": -7.788511998619356,
+      "deflection_numerical_uncertainty_radians": 4.9682480351975755e-15,
+      "deflection_over_gamma_one_expectation": 1.359351782069918,
+      "deflection_radians": -0.1359351782069918,
+      "deflection_sign": "toward",
+      "delay_over_gamma_one_expectation": 0.8332415781089375,
+      "finest_rhs_evaluations": 24209,
+      "flat_transit_time": 800.0,
+      "profile_exponent": 0.99454,
+      "profile_exponent_uncertainty": 0.00036,
+      "profile_origin": "ORB-10162 equal-per-shell measured profile",
+      "transit_anomaly": 6.148496052470705,
+      "transit_numerical_uncertainty": 7.958078640513122e-13,
+      "transit_sign": "delay",
+      "transit_time": 806.1484960524707
+    }
+  },
+  "gamma_one_expectation": {
+    "deflection_radians_leading_order": 0.1,
+    "formula": "alpha=(1+gamma) r_s/b with gamma=1; delay=r_s ln((r1+r2+R)/(r1+r2-R))",
+    "transit_delay_leading_order": 7.379007737977826
+  },
+  "measurement_summary": {
+    "primary_deflection": "toward",
+    "primary_transit": "delay",
+    "scope": "apparatus measurements only; theory-ledger judgment belongs to kepler"
+  },
+  "question": "Does a constant-comoving-speed ray advected by inward lattice flow recover toward-deflection and delay, and how strongly does the static deficit contaminate it?",
+  "schema_version": 1,
+  "surrogate_status": "ORB-10162 measured natural central-only and equal-per-shell rules near r^-2 and r^-1, not r^-1/2; the primary is a controlled conditional surrogate."
+}
