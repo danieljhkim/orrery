@@ -1,0 +1,28 @@
+{
+  "slug": "two-substance-defect-gravity",
+  "title": "Two-substance defect gravity bridge",
+  "kind": "py",
+  "entry": "main.py",
+  "status": "active",
+  "created": "2026-07-12",
+  "topics": [
+    "two-substance-vacuum",
+    "vortex-defects",
+    "gravity-as-scarcity",
+    "far-field",
+    "moving-wake",
+    "equivalence-principle"
+  ],
+  "family": "two-substance-vortex-vacuum",
+  "summary": "A conserved two-substance defect lattice tests its stationary scarcity monopole, forced moving wake, and independent void-volume versus winding-energy source candidates.",
+  "provenance": {
+    "almanac": "15-discussions/26-07/two-substance-vortex-vacuum.md",
+    "orbit_tasks": [
+      "ORB-10160",
+      "ORB-10164"
+    ],
+    "theory_context": "../../principia/theory/two-substance-vortex-vacuum.md",
+    "parent_theory": "../../principia/theory/gravity-as-scarcity.md",
+    "companion_sim": "../two-substance-vortex-lattice/"
+  }
+}

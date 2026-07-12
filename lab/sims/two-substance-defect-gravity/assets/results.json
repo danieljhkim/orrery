@@ -1,0 +1,337 @@
+{
+  "conclusions": {
+    "far_field": "The compensated void has zero monopole and no resolved far field; it is neither 1/r nor 1/r^2. The uncompensated control is 1/r.",
+    "model_boundary": "The defect trajectory and relaxation target are imposed, and the flow-energy measure is diagnostic. A nonconserving sink or explicit energy-to-scarcity equation would be new microphysics, not a measured consequence of this lattice.",
+    "wake": "A forced moving equilibrium core produces a lagging depletion and replenishment-flow wake whose pattern velocity tracks the imposed core.",
+    "which_quantity_gravitates": "Neither is selected. Core size controls the compact density response and winding changes flow energy independently, but conservation leaves the far monopole zero and the lattice defines no gravity-source coupling."
+  },
+  "moving_defect_wake": {
+    "apparatus": {
+      "boundary": "periodic; trajectory remains more than 50 cells from boundary",
+      "core_sigma_cells": 2.8,
+      "diffusivity_cells2_per_time": 0.35,
+      "dimensions": 2,
+      "motion": "externally translated compensated equilibrium profile",
+      "relaxation_time": 2.5,
+      "size": [
+        161,
+        161
+      ]
+    },
+    "runs": {
+      "speed_0.15": {
+        "behind_to_ahead_positive_depletion_ratio": 1.6080730289108707,
+        "duration": 70.0,
+        "imposed_core_velocity": 0.15,
+        "maximum_absolute_transverse_centroid_cells": 7.277499243211068e-17,
+        "measured_pattern_velocity": 0.14999854377038618,
+        "net_signed_deficit_error": -1.2212453270876722e-15,
+        "pattern_to_core_velocity_ratio": 0.9999902918025746,
+        "samples": 140,
+        "settled_lag_sd_cells": 0.0006217987496025391,
+        "settled_mean_lag_cells": 0.2960825610674324,
+        "time_step": 0.1
+      },
+      "speed_0.30": {
+        "behind_to_ahead_positive_depletion_ratio": 2.210485266159999,
+        "duration": 70.0,
+        "imposed_core_velocity": 0.3,
+        "maximum_absolute_transverse_centroid_cells": 7.249594166888848e-17,
+        "measured_pattern_velocity": 0.29999920701632843,
+        "net_signed_deficit_error": 0.0,
+        "pattern_to_core_velocity_ratio": 0.9999973567210948,
+        "samples": 140,
+        "settled_lag_sd_cells": 0.0006445065727416792,
+        "settled_mean_lag_cells": 0.5857144377986176,
+        "time_step": 0.1
+      },
+      "speed_0.45": {
+        "behind_to_ahead_positive_depletion_ratio": 3.900925004463322,
+        "duration": 70.0,
+        "imposed_core_velocity": 0.45,
+        "maximum_absolute_transverse_centroid_cells": 6.559304077001607e-17,
+        "measured_pattern_velocity": 0.44999874272483414,
+        "net_signed_deficit_error": -8.881784197001252e-16,
+        "pattern_to_core_velocity_ratio": 0.9999972060551869,
+        "samples": 140,
+        "settled_lag_sd_cells": 0.001036948187376092,
+        "settled_mean_lag_cells": 0.864111571295121,
+        "time_step": 0.1
+      }
+    },
+    "time_step_convergence": {
+      "coarse_time_step": 0.1,
+      "mean_lag_relative_change": 0.023364339451543238,
+      "pattern_velocity_relative_change": 5.042739822644668e-07,
+      "refined_time_step": 0.05
+    }
+  },
+  "schema_version": 1,
+  "source_sweep": {
+    "compact_response_predictors": {
+      "flow_energy_r_squared": 0.00031950333684827026,
+      "maximum_winding_spread_at_fixed_core": 0.0,
+      "void_volume_r_squared": 0.9925175065016933
+    },
+    "design": {
+      "core_sigma_cells": [
+        1.8,
+        2.4,
+        3.0,
+        3.6
+      ],
+      "factorial_configurations": 16,
+      "flow_energy_definition": "regularized sum of individual-phase |grad theta|^2/2; diagnostic only",
+      "windings": [
+        0,
+        1,
+        2,
+        3
+      ]
+    },
+    "external_coupling_controls": {
+      "energy_sourced_poisson_amplitude_definition": "flow energy diagnostic",
+      "status": "alternative postulates; the present lattice contains no equation that chooses between them",
+      "void_sourced_poisson_amplitude_definition": "positive void volume"
+    },
+    "far_field_predictors": {
+      "flow_energy_r_squared": null,
+      "interpretation": "undefined/irrelevant when the conserved far monopole is zero; neither predictor is selected",
+      "void_volume_r_squared": null
+    },
+    "rows": [
+      {
+        "compact_potential_amplitude": 17.05028957848322,
+        "core_sigma": 1.8,
+        "far_monopole_amplitude": 1.3489209749195652e-14,
+        "flow_energy_diagnostic": 0.0,
+        "net_signed_deficit": 1.3489209749195652e-14,
+        "outer_fit_tail_amplitude": 2.4021730533893634e-11,
+        "positive_void_volume": 51.886955277810316,
+        "winding": 0
+      },
+      {
+        "compact_potential_amplitude": 17.05028957848322,
+        "core_sigma": 1.8,
+        "far_monopole_amplitude": 1.3489209749195652e-14,
+        "flow_energy_diagnostic": 354.78757951647674,
+        "net_signed_deficit": 1.3489209749195652e-14,
+        "outer_fit_tail_amplitude": 2.4021730533893634e-11,
+        "positive_void_volume": 51.886955277810316,
+        "winding": 1
+      },
+      {
+        "compact_potential_amplitude": 17.05028957848322,
+        "core_sigma": 1.8,
+        "far_monopole_amplitude": 1.3489209749195652e-14,
+        "flow_energy_diagnostic": 1419.150318065907,
+        "net_signed_deficit": 1.3489209749195652e-14,
+        "outer_fit_tail_amplitude": 2.4021730533893634e-11,
+        "positive_void_volume": 51.886955277810316,
+        "winding": 2
+      },
+      {
+        "compact_potential_amplitude": 17.05028957848322,
+        "core_sigma": 1.8,
+        "far_monopole_amplitude": 1.3489209749195652e-14,
+        "flow_energy_diagnostic": 3193.0882156482908,
+        "net_signed_deficit": 1.3489209749195652e-14,
+        "outer_fit_tail_amplitude": 2.4021730533893634e-11,
+        "positive_void_volume": 51.886955277810316,
+        "winding": 3
+      },
+      {
+        "compact_potential_amplitude": 31.5553373926963,
+        "core_sigma": 2.4,
+        "far_monopole_amplitude": 2.0039525594484076e-14,
+        "flow_energy_diagnostic": 0.0,
+        "net_signed_deficit": -2.0039525594484076e-14,
+        "outer_fit_tail_amplitude": 1.698129566573978e-06,
+        "positive_void_volume": 122.88339950739679,
+        "winding": 0
+      },
+      {
+        "compact_potential_amplitude": 31.5553373926963,
+        "core_sigma": 2.4,
+        "far_monopole_amplitude": 2.0039525594484076e-14,
+        "flow_energy_diagnostic": 349.136795237098,
+        "net_signed_deficit": -2.0039525594484076e-14,
+        "outer_fit_tail_amplitude": 1.698129566573978e-06,
+        "positive_void_volume": 122.88339950739679,
+        "winding": 1
+      },
+      {
+        "compact_potential_amplitude": 31.5553373926963,
+        "core_sigma": 2.4,
+        "far_monopole_amplitude": 2.0039525594484076e-14,
+        "flow_energy_diagnostic": 1396.547180948392,
+        "net_signed_deficit": -2.0039525594484076e-14,
+        "outer_fit_tail_amplitude": 1.698129566573978e-06,
+        "positive_void_volume": 122.88339950739679,
+        "winding": 2
+      },
+      {
+        "compact_potential_amplitude": 31.5553373926963,
+        "core_sigma": 2.4,
+        "far_monopole_amplitude": 2.0039525594484076e-14,
+        "flow_energy_diagnostic": 3142.2311571338814,
+        "net_signed_deficit": -2.0039525594484076e-14,
+        "outer_fit_tail_amplitude": 1.698129566573978e-06,
+        "positive_void_volume": 122.88339950739679,
+        "winding": 3
+      },
+      {
+        "compact_potential_amplitude": 50.50055298492616,
+        "core_sigma": 3.0,
+        "far_monopole_amplitude": 3.774758283725532e-15,
+        "flow_energy_diagnostic": 0.0,
+        "net_signed_deficit": -3.774758283725532e-15,
+        "outer_fit_tail_amplitude": 0.00041868694066530925,
+        "positive_void_volume": 239.99221277261438,
+        "winding": 0
+      },
+      {
+        "compact_potential_amplitude": 50.50055298492616,
+        "core_sigma": 3.0,
+        "far_monopole_amplitude": 3.774758283725532e-15,
+        "flow_energy_diagnostic": 343.5633732662418,
+        "net_signed_deficit": -3.774758283725532e-15,
+        "outer_fit_tail_amplitude": 0.00041868694066530925,
+        "positive_void_volume": 239.99221277261438,
+        "winding": 1
+      },
+      {
+        "compact_potential_amplitude": 50.50055298492616,
+        "core_sigma": 3.0,
+        "far_monopole_amplitude": 3.774758283725532e-15,
+        "flow_energy_diagnostic": 1374.2534930649672,
+        "net_signed_deficit": -3.774758283725532e-15,
+        "outer_fit_tail_amplitude": 0.00041868694066530925,
+        "positive_void_volume": 239.99221277261438,
+        "winding": 2
+      },
+      {
+        "compact_potential_amplitude": 50.50055298492616,
+        "core_sigma": 3.0,
+        "far_monopole_amplitude": 3.774758283725532e-15,
+        "flow_energy_diagnostic": 3092.0703593961757,
+        "net_signed_deficit": -3.774758283725532e-15,
+        "outer_fit_tail_amplitude": 0.00041868694066530925,
+        "positive_void_volume": 239.99221277261438,
+        "winding": 3
+      },
+      {
+        "compact_potential_amplitude": 73.85788785205025,
+        "core_sigma": 3.6,
+        "far_monopole_amplitude": 5.3290705182007514e-14,
+        "flow_energy_diagnostic": 0.0,
+        "net_signed_deficit": -5.3290705182007514e-14,
+        "outer_fit_tail_amplitude": 0.010439568939180452,
+        "positive_void_volume": 414.8372923497982,
+        "winding": 0
+      },
+      {
+        "compact_potential_amplitude": 73.85788785205025,
+        "core_sigma": 3.6,
+        "far_monopole_amplitude": 5.3290705182007514e-14,
+        "flow_energy_diagnostic": 338.06705163529455,
+        "net_signed_deficit": -5.3290705182007514e-14,
+        "outer_fit_tail_amplitude": 0.010439568939180452,
+        "positive_void_volume": 414.8372923497982,
+        "winding": 1
+      },
+      {
+        "compact_potential_amplitude": 73.85788785205025,
+        "core_sigma": 3.6,
+        "far_monopole_amplitude": 5.3290705182007514e-14,
+        "flow_energy_diagnostic": 1352.2682065411782,
+        "net_signed_deficit": -5.3290705182007514e-14,
+        "outer_fit_tail_amplitude": 0.010439568939180452,
+        "positive_void_volume": 414.8372923497982,
+        "winding": 2
+      },
+      {
+        "compact_potential_amplitude": 73.85788785205025,
+        "core_sigma": 3.6,
+        "far_monopole_amplitude": 5.3290705182007514e-14,
+        "flow_energy_diagnostic": 3042.603464717651,
+        "net_signed_deficit": -5.3290705182007514e-14,
+        "outer_fit_tail_amplitude": 0.010439568939180452,
+        "positive_void_volume": 414.8372923497982,
+        "winding": 3
+      }
+    ]
+  },
+  "stationary_far_field": {
+    "compensated_core": {
+      "far_max_absolute_potential": 1.698129566573978e-06,
+      "inverse_r2_fit": {
+        "amplitude": 0.0006978891810984953,
+        "relative_rmse": 0.3014866089628151,
+        "rmse": 5.119633246058836e-07
+      },
+      "inverse_r_fit": {
+        "amplitude": 1.6625065154553926e-05,
+        "relative_rmse": 0.3139739919161675,
+        "rmse": 5.331685188081032e-07
+      },
+      "negative_halo_volume": 122.8833995073968,
+      "positive_void_volume": 122.88339950739679
+    },
+    "conservation": {
+      "A_total_error": 0.0,
+      "B_total_error": 0.0,
+      "minimum_A_density": 0.15333333333396043,
+      "minimum_B_density": 0.15333333333396043,
+      "net_deficit_over_positive_void_volume": -1.6307756519445756e-16,
+      "net_signed_deficit": -2.0039525594484076e-14
+    },
+    "far_signal_fraction_of_uncompensated_control": 3.9539180522666674e-07,
+    "lattice": {
+      "base_density_per_substance": 0.5,
+      "boundary": "open cube; spherical-shell estimator fixed to zero outside",
+      "core_sigma_cells": 2.4,
+      "dimensions": 3,
+      "fit_radius_cells": [
+        36.0,
+        44.0
+      ],
+      "halo_sigma_cells": 7.199999999999999,
+      "size": [
+        97,
+        97,
+        97
+      ]
+    },
+    "uncompensated_control": {
+      "far_max_absolute_potential": 4.294802128234522,
+      "inverse_r2_fit": {
+        "amplitude": 6188.432665637861,
+        "relative_rmse": 0.05240999087606266,
+        "rmse": 0.22509054035526582
+      },
+      "inverse_r_fit": {
+        "amplitude": 156.76027768056002,
+        "relative_rmse": 2.131677624181467e-16,
+        "rmse": 9.155133597044475e-16
+      },
+      "net_deficit": 156.76027768056002
+    }
+  },
+  "testable_question": "Does the conserved two-substance defect lattice itself generate a 1/r scarcity far field, a velocity-tracking wake, and a unique void- or flow-energy gravitational charge?",
+  "validation": {
+    "all_passed": true,
+    "checks": {
+      "A density conserved": true,
+      "B density conserved": true,
+      "compensated far field suppressed": true,
+      "compensated monopole cancelled": true,
+      "inverse radius beats inverse square in control": true,
+      "uncompensated control resolves inverse radius": true,
+      "wake lags moving core": true,
+      "wake time-step convergence": true,
+      "wake tracks imposed velocity": true,
+      "winding leaves compact scarcity unchanged": true
+    }
+  }
+}
