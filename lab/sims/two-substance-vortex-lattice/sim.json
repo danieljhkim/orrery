@@ -1,0 +1,26 @@
+{
+  "slug": "two-substance-vortex-lattice",
+  "title": "Two-substance lattice vortex defects",
+  "kind": "py",
+  "entry": "main.py",
+  "status": "active",
+  "created": "2026-07-12",
+  "topics": [
+    "two-substance-vacuum",
+    "vortex-defects",
+    "quantized-circulation",
+    "interaction-sign",
+    "lattice"
+  ],
+  "family": "two-substance-vortex-vacuum",
+  "summary": "A 2-D conserved-density lattice measures the sign, force law, short-range correction, and neutral balanced state of two-substance circulation defects.",
+  "seed": 42,
+  "provenance": {
+    "almanac": "15-discussions/26-07/two-substance-vortex-vacuum.md",
+    "orbit_tasks": [
+      "ORB-10160",
+      "ORB-10163"
+    ],
+    "theory_context": "../../principia/theory/two-substance-vortex-vacuum.md"
+  }
+}
