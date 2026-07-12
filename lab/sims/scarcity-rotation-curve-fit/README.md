@@ -1,9 +1,41 @@
 # Scarcity rotation-curve fit
 
-## Current question: radial asymmetric drift (ORB-10083)
+## Current question: Yukawa shape control (ORB-10167)
+
+Can the frozen 5–15 kpc constant-drift protocol distinguish scarcity's 1/r-tail
+saturation from the exponential saturation of the canonical Sanders-form Yukawa
+force? The current catalog entry runs:
+
+```bash
+uv run lab/sims/scarcity-rotation-curve-fit/main.py
+```
+
+The Yukawa competitor applies the point-source force factor
+`1 + alpha (1 + r/xi) exp(-r/xi)` to the same spherical baryonic surrogate and
+fits `(M, alpha, xi, drift)`. The baseline lands at `alpha = -0.679` and
+`xi = 4.64 kpc`, close to the analytic `(-0.68, 5.25 kpc)` expectation. Its
+fit RMSE is `2.91 km/s` versus scarcity's `2.70 km/s`; the held-out RMSE values
+are `5.52` and `5.26 km/s`, respectively, and both have positive mean residuals
+(`+5.11` and `+4.86 km/s`).
+
+The point estimate prefers scarcity, with
+`delta AIC = AIC_scarcity - AIC_Yukawa = -369.6`, and all 27 profile variants
+do too (`[-479.7, -138.9]`). The 200-resample bootstrap interval is
+`[-503.9, +1051.9]`, however, so the declared verdict is **shape-degenerate**:
+this band does not robustly choose exponential saturation over a 1/r tail.
+
+The potential as requested has three free physical parameters `(M, alpha, xi)`,
+not the same two as scarcity's `(M, beta)`. With the shared drift, AIC therefore
+counts four Yukawa parameters versus three scarcity parameters. Hiding the mass
+normalization or fixing it from the scarcity fit would make the apparent
+equal-complexity comparison data-dependent. The other principal limitation is
+that this is a point-source multiplier on a spherical enclosed-mass surrogate,
+not a Yukawa convolution of a thin disk.
+
+## Radial asymmetric drift (ORB-10083)
 
 Does a physically motivated radial asymmetric-drift nuisance remove the coherent outer residual,
-or does the selected gravity curve still carry it? The current catalog entry runs:
+or does the selected gravity curve still carry it? That extension runs:
 
 ```bash
 uv run lab/sims/scarcity-rotation-curve-fit/radial_drift.py

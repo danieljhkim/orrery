@@ -1,10 +1,9 @@
-"""Compare scarcity with NFW+baryons on the Gaia DR3 rotation curve.
+"""Compare scarcity, Yukawa, and NFW+baryons on the Gaia DR3 curve.
 
 Question
 --------
-Does scarcity remain preferred on Tycho's 5--15 kpc Gaia DR3 median-v_phi curve
-when compared with a standard three-physical-parameter NFW+baryons model and
-penalized for each model's actual parameter count?
+Can the 5--15 kpc Gaia DR3 median-v_phi curve distinguish scarcity's 1/r-tail
+saturation from the exponential saturation of a Sanders-form Yukawa force?
 
 The apparatus uses the imported spherical enclosed-mass surrogate for an
 exponential disk plus Hernquist bulge.  In real units its circular speed is
@@ -23,7 +22,7 @@ Protocol declared before seeing the fit
 Fit 5--15 kpc only.  Hold 15--18.75 kpc out as a consistency band.  Apply the
 same additive drift nuisance to every model.  NFW fits baryonic mass, M200, and
 concentration, so it has four counted parameters including drift versus
-scarcity's three.  Call the relative result decisive
+scarcity's three and Yukawa's four.  Call the relative result decisive
 only when |delta AIC| >= 10 and its sign survives the mass-profile sweep; raw
 chi-square, RMSE, bootstrap intervals, lattice convergence, and all limitations
 remain visible even then.
@@ -62,6 +61,8 @@ H0_KMS_MPC = 70.0
 NFW_BARYONIC_MASS_BOUNDS_MSUN = (1.0e9, 3.0e11)
 NFW_HALO_MASS_BOUNDS_MSUN = (1.0e10, 3.0e13)
 NFW_CONCENTRATION_BOUNDS = (1.0, 40.0)
+YUKAWA_ALPHA_BOUNDS = (-0.99, 4.0)
+YUKAWA_RANGE_BOUNDS_KPC = (0.1, 100.0)
 
 
 @dataclass(frozen=True)
@@ -126,12 +127,36 @@ class NfwFit:
         return out
 
 
+@dataclass
+class YukawaFit:
+    model: str
+    mass_msun: float
+    alpha: float
+    xi_kpc: float
+    drift_kms: float
+    chi2: float
+    dof: int
+    reduced_chi2: float
+    rmse_kms: float
+    mae_kms: float
+    aic: float
+    bic: float
+    predicted_observed_kms: np.ndarray
+    predicted_circular_kms: np.ndarray
+    residual_kms: np.ndarray
+
+    def serializable(self) -> dict:
+        out = asdict(self)
+        for key in ("predicted_observed_kms", "predicted_circular_kms", "residual_kms"):
+            out[key] = [float(x) for x in out[key]]
+        return out
+
+
 def default_data_path() -> Path:
-    codebases = Path(__file__).resolve().parents[4]
-    return (
-        codebases
-        / "astrolabe/data/processed/derived/mw_rotation_curve.parquet"
-    )
+    for parent in Path(__file__).resolve().parents:
+        if parent.name == "orrery":
+            return parent.parent / "astrolabe/data/processed/derived/mw_rotation_curve.parquet"
+    raise RuntimeError("could not locate the orrery checkout containing this simulation")
 
 
 def enclosed_fraction(radius_kpc: np.ndarray, profile: Profile) -> np.ndarray:
@@ -176,6 +201,82 @@ def nfw_prediction(
         G_KPC_KMS2_MSUN * (mass_msun * fraction + halo_enclosed) / radius_kpc
     )
     return circular - drift_kms, circular, r200
+
+
+def yukawa_force_factor(radius_kpc: np.ndarray, alpha: float, xi_kpc: float) -> np.ndarray:
+    """Point-source force factor implied by V=-G_inf M(1+alpha exp(-r/xi))/r."""
+    x = np.asarray(radius_kpc, dtype=float) / xi_kpc
+    return 1.0 + alpha * (1.0 + x) * np.exp(-x)
+
+
+def yukawa_prediction(
+    radius_kpc: np.ndarray,
+    profile: Profile,
+    mass_msun: float,
+    alpha: float,
+    xi_kpc: float,
+    drift_kms: float,
+) -> tuple[np.ndarray, np.ndarray]:
+    factor = yukawa_force_factor(radius_kpc, alpha, xi_kpc)
+    circular = np.sqrt(
+        G_KPC_KMS2_MSUN * mass_msun * enclosed_fraction(radius_kpc, profile)
+        * factor / radius_kpc
+    )
+    return circular - drift_kms, circular
+
+
+def fit_yukawa_curve(
+    radius_kpc: np.ndarray,
+    observed_kms: np.ndarray,
+    error_kms: np.ndarray,
+    profile: Profile,
+) -> YukawaFit:
+    """Fit G_inf M, Sanders strength/range, and the common constant drift."""
+    lower = np.array([9.0, YUKAWA_ALPHA_BOUNDS[0], np.log10(YUKAWA_RANGE_BOUNDS_KPC[0]), DRIFT_MIN_KMS])
+    upper = np.array([12.5, YUKAWA_ALPHA_BOUNDS[1], np.log10(YUKAWA_RANGE_BOUNDS_KPC[1]), DRIFT_MAX_KMS])
+
+    def weighted_residual(parameters: np.ndarray) -> np.ndarray:
+        predicted, _ = yukawa_prediction(
+            radius_kpc, profile, 10.0 ** parameters[0], parameters[1],
+            10.0 ** parameters[2], parameters[3]
+        )
+        return (observed_kms - predicted) / error_kms
+
+    starts = (
+        (11.08, -0.68, np.log10(5.25), 3.0),
+        (11.0, -0.4, np.log10(10.0), 5.0),
+        (11.2, -0.9, np.log10(2.0), 8.0),
+        (11.0, 0.2, np.log10(5.0), 5.0),
+    )
+    candidates = [
+        least_squares(
+            weighted_residual, np.asarray(start), bounds=(lower, upper),
+            xtol=1e-11, ftol=1e-11, gtol=1e-11, max_nfev=4000
+        )
+        for start in starts
+    ]
+    result = min(candidates, key=lambda candidate: float(np.sum(candidate.fun**2)))
+    mass_msun = float(10.0 ** result.x[0])
+    alpha = float(result.x[1])
+    xi_kpc = float(10.0 ** result.x[2])
+    drift_kms = float(result.x[3])
+    predicted, circular = yukawa_prediction(
+        radius_kpc, profile, mass_msun, alpha, xi_kpc, drift_kms
+    )
+    residual = observed_kms - predicted
+    chi2 = float(np.sum(np.square(residual / error_kms)))
+    # L-0006: count the fitted mass normalization; it is not fixed independently.
+    parameters = 4
+    dof = len(radius_kpc) - parameters
+    return YukawaFit(
+        model="yukawa-baryons", mass_msun=mass_msun, alpha=alpha, xi_kpc=xi_kpc,
+        drift_kms=drift_kms, chi2=chi2, dof=dof, reduced_chi2=chi2 / dof,
+        rmse_kms=float(np.sqrt(np.mean(residual**2))),
+        mae_kms=float(np.mean(np.abs(residual))), aic=chi2 + 2 * parameters,
+        bic=chi2 + parameters * np.log(len(radius_kpc)),
+        predicted_observed_kms=predicted, predicted_circular_kms=circular,
+        residual_kms=residual,
+    )
 
 
 def fit_nfw_curve(
@@ -381,7 +482,9 @@ def bootstrap(
         "scarcity_drift_kms": [], "nfw_baryonic_mass_msun": [],
         "nfw_halo_mass_msun": [], "nfw_concentration": [],
         "nfw_drift_kms": [], "delta_aic_scarcity_minus_newtonian": [],
-        "delta_aic_scarcity_minus_nfw": [],
+        "delta_aic_scarcity_minus_nfw": [], "yukawa_mass_msun": [],
+        "yukawa_alpha": [], "yukawa_xi_kpc": [], "yukawa_drift_kms": [],
+        "delta_aic_scarcity_minus_yukawa": [],
     }
     for _ in range(count):
         indices = generator.integers(0, len(radius), len(radius))
@@ -396,6 +499,9 @@ def bootstrap(
             model="newtonian-baryons",
         )
         nfw = fit_nfw_curve(radius[indices], velocity[indices], error[indices], profile)
+        yukawa = fit_yukawa_curve(
+            radius[indices], velocity[indices], error[indices], profile
+        )
         values["scarcity_mass_msun"].append(scarcity.mass_msun)
         values["scarcity_beta_kpc"].append(scarcity.beta_kpc)
         values["scarcity_drift_kms"].append(scarcity.drift_kms)
@@ -403,8 +509,13 @@ def bootstrap(
         values["nfw_halo_mass_msun"].append(nfw.halo_mass_msun)
         values["nfw_concentration"].append(nfw.concentration)
         values["nfw_drift_kms"].append(nfw.drift_kms)
+        values["yukawa_mass_msun"].append(yukawa.mass_msun)
+        values["yukawa_alpha"].append(yukawa.alpha)
+        values["yukawa_xi_kpc"].append(yukawa.xi_kpc)
+        values["yukawa_drift_kms"].append(yukawa.drift_kms)
         values["delta_aic_scarcity_minus_newtonian"].append(scarcity.aic - newton.aic)
         values["delta_aic_scarcity_minus_nfw"].append(scarcity.aic - nfw.aic)
+        values["delta_aic_scarcity_minus_yukawa"].append(scarcity.aic - yukawa.aic)
     return {"resamples": count, **{key: percentile_interval(value) for key, value in values.items()}}
 
 
@@ -428,6 +539,7 @@ def profile_sweep(
                     model="newtonian-baryons",
                 )
                 nfw = fit_nfw_curve(radius, velocity, error, profile)
+                yukawa = fit_yukawa_curve(radius, velocity, error, profile)
                 rows.append(
                     {
                         "profile": asdict(profile),
@@ -443,8 +555,14 @@ def profile_sweep(
                         "nfw_concentration": nfw.concentration,
                         "nfw_drift_kms": nfw.drift_kms,
                         "nfw_rmse_kms": nfw.rmse_kms,
+                        "yukawa_mass_msun": yukawa.mass_msun,
+                        "yukawa_alpha": yukawa.alpha,
+                        "yukawa_xi_kpc": yukawa.xi_kpc,
+                        "yukawa_drift_kms": yukawa.drift_kms,
+                        "yukawa_rmse_kms": yukawa.rmse_kms,
                         "delta_aic_scarcity_minus_newtonian": scarcity.aic - newton.aic,
                         "delta_aic_scarcity_minus_nfw": scarcity.aic - nfw.aic,
+                        "delta_aic_scarcity_minus_yukawa": scarcity.aic - yukawa.aic,
                     }
                 )
     return rows
@@ -508,6 +626,7 @@ def make_plot(
     scarcity_prediction: np.ndarray,
     newton_prediction: np.ndarray,
     nfw_prediction_values: np.ndarray,
+    yukawa_prediction_values: np.ndarray,
 ) -> None:
     fig, (ax, residual_ax) = plt.subplots(
         2, 1, figsize=(9, 7), sharex=True, gridspec_kw={"height_ratios": [3, 1]}
@@ -518,6 +637,7 @@ def make_plot(
     ax.plot(radius, scarcity_prediction, color="#b7791f", lw=2.2, label="scarcity")
     ax.plot(radius, newton_prediction, color="#4a5568", lw=2, ls="--", label="Newtonian baryons")
     ax.plot(radius, nfw_prediction_values, color="#2f855a", lw=2, ls="-.", label="NFW+baryons")
+    ax.plot(radius, yukawa_prediction_values, color="#805ad5", lw=2, ls=":", label="Yukawa baryons")
     ax.set_ylabel("observed-frame velocity (km/s)")
     ax.legend(ncol=2, fontsize=9)
     ax.grid(alpha=0.2)
@@ -526,13 +646,15 @@ def make_plot(
     residual_ax.plot(radius[fit_mask], (velocity - scarcity_prediction)[fit_mask], "o", color="#b7791f")
     residual_ax.plot(radius[fit_mask], (velocity - newton_prediction)[fit_mask], "s", ms=4, color="#4a5568")
     residual_ax.plot(radius[fit_mask], (velocity - nfw_prediction_values)[fit_mask], "^", ms=4, color="#2f855a")
+    residual_ax.plot(radius[fit_mask], (velocity - yukawa_prediction_values)[fit_mask], "d", ms=4, color="#805ad5")
     residual_ax.plot(radius[consistency_mask], (velocity - scarcity_prediction)[consistency_mask], "o", mfc="none", color="#b7791f")
     residual_ax.plot(radius[consistency_mask], (velocity - newton_prediction)[consistency_mask], "s", ms=4, mfc="none", color="#4a5568")
     residual_ax.plot(radius[consistency_mask], (velocity - nfw_prediction_values)[consistency_mask], "^", ms=4, mfc="none", color="#2f855a")
+    residual_ax.plot(radius[consistency_mask], (velocity - yukawa_prediction_values)[consistency_mask], "d", ms=4, mfc="none", color="#805ad5")
     residual_ax.set_xlabel("Galactocentric radius (kpc)")
     residual_ax.set_ylabel("data − model")
     residual_ax.grid(alpha=0.2)
-    fig.suptitle("ORB-10082: scarcity versus NFW+baryons")
+    fig.suptitle("ORB-10167: scarcity versus Yukawa saturation")
     fig.tight_layout()
     fig.savefig(path, dpi=180)
     plt.close(fig)
@@ -573,11 +695,16 @@ def main() -> None:
         fit_r, fit_v, fit_e, profile, fit_j, j_cal, model="newtonian-baryons"
     )
     nfw = fit_nfw_curve(fit_r, fit_v, fit_e, profile)
+    yukawa = fit_yukawa_curve(fit_r, fit_v, fit_e, profile)
     scarcity_all = predict(radius, profile, j_all, j_cal, scarcity)
     newton_all = predict(radius, profile, j_all, j_cal, newton)
     nfw_all, _, _ = nfw_prediction(
         radius, profile, nfw.mass_msun, nfw.halo_mass_msun,
         nfw.concentration, nfw.drift_kms
+    )
+    yukawa_all, _ = yukawa_prediction(
+        radius, profile, yukawa.mass_msun, yukawa.alpha, yukawa.xi_kpc,
+        yukawa.drift_kms
     )
 
     sensitivity = profile_sweep(fit_r, fit_v, fit_e)
@@ -587,12 +714,34 @@ def main() -> None:
     )
     delta_aic = scarcity.aic - newton.aic
     delta_aic_nfw = scarcity.aic - nfw.aic
+    delta_aic_yukawa = scarcity.aic - yukawa.aic
     sweep_deltas = np.array(
         [row["delta_aic_scarcity_minus_newtonian"] for row in sensitivity]
     )
     nfw_sweep_deltas = np.array(
         [row["delta_aic_scarcity_minus_nfw"] for row in sensitivity]
     )
+    yukawa_sweep_deltas = np.array(
+        [row["delta_aic_scarcity_minus_yukawa"] for row in sensitivity]
+    )
+    yukawa_profile_sign_stable = bool(
+        np.all(yukawa_sweep_deltas < 0) or np.all(yukawa_sweep_deltas > 0)
+    )
+    yukawa_bootstrap_delta = boot["delta_aic_scarcity_minus_yukawa"]
+    yukawa_bootstrap_sign_stable = bool(
+        yukawa_bootstrap_delta["p97_5"] < 0
+        or yukawa_bootstrap_delta["p2_5"] > 0
+    )
+    if (
+        abs(delta_aic_yukawa) >= 10.0
+        and yukawa_profile_sign_stable
+        and yukawa_bootstrap_sign_stable
+    ):
+        yukawa_verdict = (
+            "scarcity-preferred" if delta_aic_yukawa < 0 else "yukawa-preferred"
+        )
+    else:
+        yukawa_verdict = "shape-degenerate"
     nfw_profile_sign_stable = bool(
         np.all(nfw_sweep_deltas < 0) or np.all(nfw_sweep_deltas > 0)
     )
@@ -632,22 +781,24 @@ def main() -> None:
                 "scarcity_predicted_observed_kms": float(scarcity_all[index]),
                 "newtonian_predicted_observed_kms": float(newton_all[index]),
                 "nfw_predicted_observed_kms": float(nfw_all[index]),
+                "yukawa_predicted_observed_kms": float(yukawa_all[index]),
             }
         )
 
     results = {
-        "task": "ORB-10082",
-        "source_task": "ORB-10075",
-        "question": "Does scarcity remain preferred to a three-physical-parameter NFW+baryons model after AIC penalizes each model's actual parameter count?",
+        "task": "ORB-10167",
+        "source_task": "ORB-10082",
+        "question": "Can the Gaia band distinguish Yukawa exponential saturation from scarcity's 1/r-tail saturation?",
         "protocol": {
             "fit_range_kpc": [FIT_MIN_KPC, FIT_MAX_KPC],
             "consistency_range_kpc": [FIT_MAX_KPC, CONSISTENCY_MAX_KPC],
             "asymmetric_drift_nuisance_kms": [DRIFT_MIN_KMS, DRIFT_MAX_KMS],
-            "decision_rule": "Relative comparison decisive only if |delta AIC| >= 10 and sign is stable over all 27 profile variants.",
+            "decision_rule": "Relative comparison decisive only if |delta AIC| >= 10, all 27 profile variants agree in sign, and the 200-resample bootstrap interval excludes zero.",
             "seed": args.seed,
             "bootstrap_resamples": args.bootstrap,
             "parameter_counts_including_drift": {
-                "newtonian_baryons": 2, "scarcity": 3, "nfw_baryons": 4
+                "newtonian_baryons": 2, "scarcity": 3, "nfw_baryons": 4,
+                "yukawa_baryons": 4
             },
         },
         "apparatus": {
@@ -663,11 +814,19 @@ def main() -> None:
                 "concentration": list(NFW_CONCENTRATION_BOUNDS),
                 "drift_kms": [DRIFT_MIN_KMS, DRIFT_MAX_KMS],
             },
+            "yukawa_definition": "V=-G_inf M/r [1+alpha exp(-r/xi)]; force factor=1+alpha(1+r/xi)exp(-r/xi)",
+            "yukawa_bounds": {
+                "alpha": list(YUKAWA_ALPHA_BOUNDS),
+                "xi_kpc": list(YUKAWA_RANGE_BOUNDS_KPC),
+                "drift_kms": [DRIFT_MIN_KMS, DRIFT_MAX_KMS],
+            },
             "limitations": [
                 "The exponential disk is represented by a spherical enclosed-mass surrogate, not an exact thin-disk potential.",
                 "The scarcity equation is a phenomenological continuum mapping of the imported lattice toy.",
                 "The parquet uncertainties are statistical errors on median v_phi and omit dominant distance, selection, and radially varying asymmetric-drift systematics.",
                 "The short fit band can weakly identify NFW mass and concentration; bounds and bootstrap intervals are reported explicitly.",
+                "The Yukawa factor is applied to the spherical enclosed-mass surrogate as a point-source kernel, not convolved with a thin disk.",
+                "A free Yukawa strength and range require one more fitted parameter than scarcity once both models also fit baryonic amplitude and drift; AIC counts that parameter rather than claiming equal complexity.",
             ],
         },
         "data": {
@@ -680,10 +839,13 @@ def main() -> None:
             "scarcity": scarcity.serializable(),
             "newtonian_baryons": newton.serializable(),
             "nfw_baryons": nfw.serializable(),
+            "yukawa_baryons": yukawa.serializable(),
             "delta_aic_scarcity_minus_newtonian": delta_aic,
             "delta_bic_scarcity_minus_newtonian": scarcity.bic - newton.bic,
             "delta_aic_scarcity_minus_nfw": delta_aic_nfw,
             "delta_bic_scarcity_minus_nfw": scarcity.bic - nfw.bic,
+            "delta_aic_scarcity_minus_yukawa": delta_aic_yukawa,
+            "delta_bic_scarcity_minus_yukawa": scarcity.bic - yukawa.bic,
         },
         "held_out_consistency": {
             "scarcity": band_metrics(
@@ -694,6 +856,9 @@ def main() -> None:
             ),
             "nfw_baryons": band_metrics(
                 velocity[consistency_mask], error[consistency_mask], nfw_all[consistency_mask]
+            ),
+            "yukawa_baryons": band_metrics(
+                velocity[consistency_mask], error[consistency_mask], yukawa_all[consistency_mask]
             ),
         },
         "bootstrap_95_percent_intervals": boot,
@@ -707,6 +872,9 @@ def main() -> None:
             "scarcity_vs_nfw_preference_sign_stable": bool(
                 np.all(nfw_sweep_deltas < 0) or np.all(nfw_sweep_deltas > 0)
             ),
+            "delta_aic_scarcity_minus_yukawa_min": float(np.min(yukawa_sweep_deltas)),
+            "delta_aic_scarcity_minus_yukawa_max": float(np.max(yukawa_sweep_deltas)),
+            "scarcity_vs_yukawa_preference_sign_stable": yukawa_profile_sign_stable,
         },
         "nfw_comparison_verdict": {
             "verdict": nfw_verdict,
@@ -714,6 +882,17 @@ def main() -> None:
             "profile_sign_stable": nfw_profile_sign_stable,
             "bootstrap_95_interval_excludes_zero": nfw_bootstrap_sign_stable,
             "interpretation": "Inconclusive because the 200-resample bootstrap interval crosses zero, despite baseline and profile-variant preference for scarcity." if nfw_verdict == "inconclusive" else "Preference is baseline-, profile-, and bootstrap-stable under the predeclared rule.",
+        },
+        "yukawa_comparison_verdict": {
+            "verdict": yukawa_verdict,
+            "baseline_delta_aic_scarcity_minus_yukawa": delta_aic_yukawa,
+            "profile_sign_stable": yukawa_profile_sign_stable,
+            "bootstrap_95_interval_excludes_zero": yukawa_bootstrap_sign_stable,
+            "interpretation": (
+                "The band distinguishes the functional forms under the predeclared baseline/profile/bootstrap rule."
+                if yukawa_verdict != "shape-degenerate"
+                else "The band does not robustly distinguish exponential from 1/r-tail saturation across baseline, profile variants, and bootstrap resamples."
+            ),
         },
         "lattice_convergence": convergence,
         "outer_followup": {
@@ -737,6 +916,7 @@ def main() -> None:
         scarcity_all,
         newton_all,
         nfw_all,
+        yukawa_all,
     )
 
     preference = "scarcity" if delta_aic < 0 else "newtonian baryons"
@@ -756,6 +936,12 @@ def main() -> None:
         f"drift={nfw.drift_kms:.2f} km/s, RMSE={nfw.rmse_kms:.2f} km/s, "
         f"chi2/dof={nfw.chi2:.1f}/{nfw.dof}"
     )
+    print(
+        f"Yukawa+baryons: mass={yukawa.mass_msun:.3e} Msun, "
+        f"alpha={yukawa.alpha:.3f}, xi={yukawa.xi_kpc:.3f} kpc, "
+        f"drift={yukawa.drift_kms:.2f} km/s, RMSE={yukawa.rmse_kms:.2f} km/s, "
+        f"chi2/dof={yukawa.chi2:.1f}/{yukawa.dof}"
+    )
     print(f"delta AIC (scarcity - Newtonian) = {delta_aic:.1f}; prefers {preference}")
     print(f"profile-sweep delta AIC range = [{np.min(sweep_deltas):.1f}, {np.max(sweep_deltas):.1f}]")
     print(
@@ -766,6 +952,12 @@ def main() -> None:
         "bootstrap delta AIC 95% interval = "
         f"[{nfw_bootstrap_delta['p2_5']:.1f}, {nfw_bootstrap_delta['p97_5']:.1f}]; "
         f"verdict={nfw_verdict}"
+    )
+    print(
+        f"delta AIC (scarcity - Yukawa) = {delta_aic_yukawa:.1f}; "
+        f"profile range = [{np.min(yukawa_sweep_deltas):.1f}, {np.max(yukawa_sweep_deltas):.1f}]; "
+        f"bootstrap 95% = [{yukawa_bootstrap_delta['p2_5']:.1f}, "
+        f"{yukawa_bootstrap_delta['p97_5']:.1f}]; verdict={yukawa_verdict}"
     )
     print(f"20–25 kpc follow-up needed: {needs_outer_followup}")
     print(f"wrote {results_path}")

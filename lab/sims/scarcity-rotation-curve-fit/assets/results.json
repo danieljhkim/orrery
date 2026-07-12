@@ -1,7 +1,7 @@
 {
-  "task": "ORB-10082",
-  "source_task": "ORB-10075",
-  "question": "Does scarcity remain preferred to a three-physical-parameter NFW+baryons model after AIC penalizes each model's actual parameter count?",
+  "task": "ORB-10167",
+  "source_task": "ORB-10082",
+  "question": "Can the Gaia band distinguish Yukawa exponential saturation from scarcity's 1/r-tail saturation?",
   "protocol": {
     "fit_range_kpc": [
       5.0,
@@ -15,13 +15,14 @@
       3.0,
       10.0
     ],
-    "decision_rule": "Relative comparison decisive only if |delta AIC| >= 10 and sign is stable over all 27 profile variants.",
+    "decision_rule": "Relative comparison decisive only if |delta AIC| >= 10, all 27 profile variants agree in sign, and the 200-resample bootstrap interval excludes zero.",
     "seed": 42,
     "bootstrap_resamples": 200,
     "parameter_counts_including_drift": {
       "newtonian_baryons": 2,
       "scarcity": 3,
-      "nfw_baryons": 4
+      "nfw_baryons": 4,
+      "yukawa_baryons": 4
     }
   },
   "apparatus": {
@@ -53,15 +54,32 @@
         10.0
       ]
     },
+    "yukawa_definition": "V=-G_inf M/r [1+alpha exp(-r/xi)]; force factor=1+alpha(1+r/xi)exp(-r/xi)",
+    "yukawa_bounds": {
+      "alpha": [
+        -0.99,
+        4.0
+      ],
+      "xi_kpc": [
+        0.1,
+        100.0
+      ],
+      "drift_kms": [
+        3.0,
+        10.0
+      ]
+    },
     "limitations": [
       "The exponential disk is represented by a spherical enclosed-mass surrogate, not an exact thin-disk potential.",
       "The scarcity equation is a phenomenological continuum mapping of the imported lattice toy.",
       "The parquet uncertainties are statistical errors on median v_phi and omit dominant distance, selection, and radially varying asymmetric-drift systematics.",
-      "The short fit band can weakly identify NFW mass and concentration; bounds and bootstrap intervals are reported explicitly."
+      "The short fit band can weakly identify NFW mass and concentration; bounds and bootstrap intervals are reported explicitly.",
+      "The Yukawa factor is applied to the spherical enclosed-mass surrogate as a point-source kernel, not convolved with a thin disk.",
+      "A free Yukawa strength and range require one more fitted parameter than scarcity once both models also fit baryonic amplitude and drift; AIC counts that parameter rather than claiming equal complexity."
     ]
   },
   "data": {
-    "path": "/Users/daniel/workspace/constellation/codebases/astrolabe/data/processed/derived/mw_rotation_curve.parquet",
+    "path": "/home/daniel/workspace/constellation/codebases/astrolabe/data/processed/derived/mw_rotation_curve.parquet",
     "lineage_sidecar": {
       "name": "mw_rotation_curve",
       "kind": "derived",
@@ -115,82 +133,82 @@
   "fits": {
     "scarcity": {
       "model": "scarcity",
-      "mass_msun": 120364246135.36768,
+      "mass_msun": 120364246135.36772,
       "beta_kpc": 5.25,
-      "alpha_kpc_per_msun": 4.3617603803172464e-11,
+      "alpha_kpc_per_msun": 4.361760380317245e-11,
       "drift_kms": 3.0,
-      "chi2": 2458.8278050288204,
+      "chi2": 2458.8278050288136,
       "dof": 17,
-      "reduced_chi2": 144.63692970757768,
-      "rmse_kms": 2.695770419097533,
-      "mae_kms": 2.0327833959760797,
-      "aic": 2464.8278050288204,
-      "bic": 2467.8150018494825,
+      "reduced_chi2": 144.63692970757728,
+      "rmse_kms": 2.6957704190975296,
+      "mae_kms": 2.0327833959760766,
+      "aic": 2464.8278050288136,
+      "bic": 2467.8150018494757,
       "predicted_observed_kms": [
-        216.16498834077044,
-        219.56935713585565,
+        216.16498834077046,
+        219.5693571358557,
         222.05728485713084,
-        223.75882826792872,
-        224.78942342547734,
+        223.75882826792878,
+        224.7894234254774,
         225.25095263554036,
-        225.23283624853084,
-        224.8131419921887,
-        224.05968750660426,
-        223.03111091434718,
-        221.77788913740198,
+        225.2328362485309,
+        224.81314199218872,
+        224.0596875066043,
+        223.0311109143472,
+        221.777889137402,
         220.34328985047142,
         218.7642486772554,
-        217.07216790291915,
-        215.29363650776176,
+        217.0721679029192,
+        215.2936365077618,
         213.45107384168165,
         211.56330093783555,
-        209.64604449140526,
-        207.71237906884696,
-        205.7731132991052
+        209.6460444914053,
+        207.71237906884699,
+        205.77311329910526
       ],
       "predicted_circular_kms": [
-        219.16498834077044,
-        222.56935713585565,
+        219.16498834077046,
+        222.5693571358557,
         225.05728485713084,
-        226.75882826792872,
-        227.78942342547734,
+        226.75882826792878,
+        227.7894234254774,
         228.25095263554036,
-        228.23283624853084,
-        227.8131419921887,
-        227.05968750660426,
-        226.03111091434718,
-        224.77788913740198,
+        228.2328362485309,
+        227.81314199218872,
+        227.0596875066043,
+        226.0311109143472,
+        224.777889137402,
         223.34328985047142,
         221.7642486772554,
-        220.07216790291915,
-        218.29363650776176,
+        220.0721679029192,
+        218.2936365077618,
         216.45107384168165,
         214.56330093783555,
-        212.64604449140526,
-        210.71237906884696,
-        208.7731132991052
+        212.6460444914053,
+        210.71237906884699,
+        208.77311329910526
       ],
       "residual_kms": [
-        -5.025737314950703,
-        -1.8246740183642771,
+        -5.025737314950732,
+        -1.824674018364334,
         0.25800757735029833,
-        0.5577708911132504,
-        1.175459170612612,
+        0.5577708911131936,
+        1.1754591706125552,
         1.8541345976280184,
-        0.6282010330108108,
-        -0.767764051162402,
-        -2.2899887039013436,
-        -2.2880302968811463,
-        -3.144754112635553,
+        0.6282010330107539,
+        -0.7677640511624304,
+        -2.289988703901372,
+        -2.2880302968811748,
+        -3.1447541126355816,
         -4.627546700802952,
         -2.165361690565504,
-        -0.18962293110399742,
-        0.012030519573329457,
+        -0.18962293110405426,
+        0.012030519573301035,
         0.007812705628623462,
         0.8824027016706566,
-        2.233769872616392,
-        4.724267582112162,
-        5.998331447837558
+        2.2337698726163637,
+        4.724267582112134,
+        5.998331447837501
       ]
     },
     "newtonian_baryons": {
@@ -275,97 +293,179 @@
     },
     "nfw_baryons": {
       "model": "nfw-baryons",
-      "mass_msun": 31355989847.943233,
-      "halo_mass_msun": 531438160554.1907,
-      "concentration": 37.29751389087177,
-      "drift_kms": 9.999999998821247,
-      "virial_radius_kpc": 167.08559272300025,
-      "chi2": 4120.240974109778,
+      "mass_msun": 31355883842.08614,
+      "halo_mass_msun": 531438049699.8728,
+      "concentration": 37.29758012855666,
+      "drift_kms": 9.999999999288752,
+      "virial_radius_kpc": 167.08558110536717,
+      "chi2": 4120.240974099213,
       "dof": 16,
-      "reduced_chi2": 257.51506088186113,
-      "rmse_kms": 3.663651900518577,
-      "mae_kms": 2.305530877941,
-      "aic": 4128.240974109778,
-      "bic": 4132.223903203994,
+      "reduced_chi2": 257.51506088120084,
+      "rmse_kms": 3.663651955048873,
+      "mae_kms": 2.3055308960859207,
+      "aic": 4128.240974099213,
+      "bic": 4132.22390319343,
       "predicted_observed_kms": [
-        224.04851707497005,
-        224.7757424399028,
-        225.0993602386136,
-        225.10431070015454,
-        224.85743059614194,
-        224.41168802017947,
-        223.80929575901828,
-        223.08404239071265,
-        222.26306418260546,
-        221.3682089728297,
-        220.41709712035657,
-        219.42395417113414,
-        218.40026927870755,
-        217.355319152384,
-        216.29658723694047,
-        215.23010059536574,
-        214.16070168876135,
-        213.09226834175675,
-        212.02789225391385,
-        210.97002419730836
+        224.0485173647097,
+        224.7757426870764,
+        225.09936042749118,
+        225.10431083581318,
+        224.85743069132872,
+        224.41168808814678,
+        223.8092958099107,
+        223.08404243004247,
+        222.2630642109249,
+        221.36820898605677,
+        220.41709711042387,
+        219.42395412676387,
+        218.40026918619748,
+        217.35531899634105,
+        216.29658700093006,
+        215.23010026246544,
+        214.16070124201693,
+        213.0922677645477,
+        212.02789153023636,
+        210.9700233119869
       ],
       "predicted_circular_kms": [
-        234.0485170737913,
-        234.77574243872405,
-        235.09936023743484,
-        235.10431069897578,
-        234.85743059496318,
-        234.4116880190007,
-        233.80929575783952,
-        233.0840423895339,
-        232.2630641814267,
-        231.36820897165094,
-        230.4170971191778,
-        229.42395416995538,
-        228.4002692775288,
-        227.35531915120524,
-        226.2965872357617,
-        225.23010059418698,
-        224.1607016875826,
-        223.092268340578,
-        222.02789225273509,
-        220.9700241961296
+        234.04851736399846,
+        234.77574268636513,
+        235.09936042677992,
+        235.10431083510193,
+        234.85743069061746,
+        234.41168808743552,
+        233.80929580919945,
+        233.08404242933122,
+        232.26306421021366,
+        231.36820898534552,
+        230.4170971097126,
+        229.42395412605262,
+        228.40026918548622,
+        227.3553189956298,
+        226.2965870002188,
+        225.2301002617542,
+        224.16070124130567,
+        223.09226776383645,
+        222.0278915295251,
+        220.97002331127564
       ],
       "residual_kms": [
-        -12.909266049150318,
-        -7.031059322411437,
-        -2.7840678041324622,
-        -0.7877115411125715,
-        1.1074519999480117,
-        2.6933992129889077,
-        2.051741522523372,
-        0.9613355503136347,
-        -0.49336537990254214,
-        -0.6251283553636711,
-        -1.783962095590141,
-        -3.7082110214656723,
-        -1.8013822920176494,
-        -0.4727741805688481,
-        -0.9909202096053775,
-        -1.7712140480554694,
-        -1.7149980492551435,
-        -1.2124539777350947,
-        0.4087543970452714,
-        0.8014205496344005
+        -12.909266338889978,
+        -7.031059569585011,
+        -2.7840679930100407,
+        -0.7877116767712096,
+        1.1074519047612341,
+        2.6933991450216013,
+        2.0517414716309474,
+        0.9613355109838153,
+        -0.49336540822199026,
+        -0.6251283685907367,
+        -1.7839620856574356,
+        -3.708210977095405,
+        -1.8013821995075716,
+        -0.4727740245259042,
+        -0.9909199735949699,
+        -1.7712137151551701,
+        -1.7149976025107208,
+        -1.2124534005260443,
+        0.4087551207227591,
+        0.8014214349558699
+      ]
+    },
+    "yukawa_baryons": {
+      "model": "yukawa-baryons",
+      "mass_msun": 176297658534.33072,
+      "alpha": -0.6791703662713436,
+      "xi_kpc": 4.641644351363742,
+      "drift_kms": 3.0000000000000004,
+      "chi2": 2826.427888451695,
+      "dof": 16,
+      "reduced_chi2": 176.65174302823092,
+      "rmse_kms": 2.91143649306475,
+      "mae_kms": 2.1968033399454767,
+      "aic": 2834.427888451695,
+      "bic": 2838.410817545911,
+      "predicted_observed_kms": [
+        218.09146152357383,
+        220.57108380693668,
+        222.44756816323212,
+        223.7714401970118,
+        224.59545922404382,
+        224.97238822952664,
+        224.953421923265,
+        224.58713651103955,
+        223.91883943667946,
+        222.99021776586886,
+        221.83920404151795,
+        220.49999617067354,
+        219.0031826603066,
+        217.37593642471867,
+        215.64224980237518,
+        213.82319076091125,
+        211.93716592876646,
+        210.00018041193815,
+        208.02608761918358,
+        206.02682475988757
+      ],
+      "predicted_circular_kms": [
+        221.09146152357383,
+        223.57108380693668,
+        225.44756816323212,
+        226.7714401970118,
+        227.59545922404382,
+        227.97238822952664,
+        227.953421923265,
+        227.58713651103955,
+        226.91883943667946,
+        225.99021776586886,
+        224.83920404151795,
+        223.49999617067354,
+        222.0031826603066,
+        220.37593642471867,
+        218.64224980237518,
+        216.82319076091125,
+        214.93716592876646,
+        213.00018041193815,
+        211.02608761918358,
+        209.02682475988757
+      ],
+      "residual_kms": [
+        -6.952210497754095,
+        -2.8264006894453075,
+        -0.13227572875098303,
+        0.5451589620301718,
+        1.3694233720461284,
+        2.132699003641733,
+        0.9076153582766437,
+        -0.5417585700132577,
+        -2.1491406339765433,
+        -2.247137148402828,
+        -3.2060690167515133,
+        -4.784253021005071,
+        -2.4042956736167014,
+        -0.4933914529035235,
+        -0.3365827750400854,
+        -0.364304213600974,
+        0.5085377107397449,
+        1.879633952083509,
+        4.410559031775534,
+        5.744619987055188
       ]
     },
     "delta_aic_scarcity_minus_newtonian": -100416.2058932492,
     "delta_bic_scarcity_minus_newtonian": -100415.21016097565,
-    "delta_aic_scarcity_minus_nfw": -1663.4131690809577,
-    "delta_bic_scarcity_minus_nfw": -1664.4089013545117
+    "delta_aic_scarcity_minus_nfw": -1663.4131690703998,
+    "delta_bic_scarcity_minus_nfw": -1664.4089013439539,
+    "delta_aic_scarcity_minus_yukawa": -369.6000834228812,
+    "delta_bic_scarcity_minus_yukawa": -370.59581569643524
   },
   "held_out_consistency": {
     "scarcity": {
       "n": 8,
-      "chi2": 266.0075928455247,
-      "rmse_kms": 5.256333989133382,
-      "mae_kms": 4.860690062485141,
-      "mean_residual_kms": 4.860690062485141
+      "chi2": 266.0075928455209,
+      "rmse_kms": 5.256333989133355,
+      "mae_kms": 4.860690062485109,
+      "mean_residual_kms": 4.860690062485109
     },
     "newtonian_baryons": {
       "n": 8,
@@ -376,18 +476,25 @@
     },
     "nfw_baryons": {
       "n": 8,
-      "chi2": 95.33310762446095,
-      "rmse_kms": 4.992684518162405,
-      "mae_kms": 4.258347449669497,
-      "mean_residual_kms": -4.258347449669497
+      "chi2": 95.33303138412772,
+      "rmse_kms": 4.992682820172972,
+      "mae_kms": 4.258345653333208,
+      "mean_residual_kms": -4.258345653333208
+    },
+    "yukawa_baryons": {
+      "n": 8,
+      "chi2": 260.90664097631594,
+      "rmse_kms": 5.5151084758042845,
+      "mae_kms": 5.109521372870788,
+      "mean_residual_kms": 5.109521372870788
     }
   },
   "bootstrap_95_percent_intervals": {
     "resamples": 200,
     "scarcity_mass_msun": {
       "p2_5": 119255917480.48589,
-      "median": 120401183152.00021,
-      "p97_5": 128469722168.37556
+      "median": 120401183152.00017,
+      "p97_5": 128469722168.37552
     },
     "scarcity_beta_kpc": {
       "p2_5": 4.95,
@@ -400,34 +507,59 @@
       "p97_5": 10.0
     },
     "nfw_baryonic_mass_msun": {
-      "p2_5": 21870356115.16679,
-      "median": 30925381778.743473,
-      "p97_5": 52770030002.09069
+      "p2_5": 21870525503.362667,
+      "median": 30925301436.75097,
+      "p97_5": 52769655032.73366
     },
     "nfw_halo_mass_msun": {
-      "p2_5": 488592061762.6137,
-      "median": 533640582306.6758,
-      "p97_5": 586595046632.3411
+      "p2_5": 488591962935.177,
+      "median": 533640648046.9126,
+      "p97_5": 586595161605.2168
     },
     "nfw_concentration": {
-      "p2_5": 28.305320694548886,
-      "median": 37.23937997161024,
-      "p97_5": 38.780279143145805
+      "p2_5": 28.305549098419114,
+      "median": 37.239334555042554,
+      "p97_5": 38.780173923559936
     },
     "nfw_drift_kms": {
-      "p2_5": 9.999999996289041,
-      "median": 9.999999999638497,
-      "p97_5": 9.999999999999998
+      "p2_5": 9.999999996893584,
+      "median": 9.99999999975472,
+      "p97_5": 9.999999999999561
     },
     "delta_aic_scarcity_minus_newtonian": {
-      "p2_5": -134303.42035301638,
-      "median": -95491.8503019558,
-      "p97_5": -59098.224101956555
+      "p2_5": -134303.4203530164,
+      "median": -95491.85030195577,
+      "p97_5": -59098.22410195653
     },
     "delta_aic_scarcity_minus_nfw": {
-      "p2_5": -4129.336337937132,
-      "median": -982.3809818907768,
-      "p97_5": 1102.1748588729959
+      "p2_5": -4129.336337924996,
+      "median": -982.3809818886805,
+      "p97_5": 1102.174858871435
+    },
+    "yukawa_mass_msun": {
+      "p2_5": 160754824766.66275,
+      "median": 182334340020.9051,
+      "p97_5": 297426506145.7403
+    },
+    "yukawa_alpha": {
+      "p2_5": -0.790005280049425,
+      "median": -0.6752698060791509,
+      "p97_5": -0.6286131145205758
+    },
+    "yukawa_xi_kpc": {
+      "p2_5": 3.4940626433480317,
+      "median": 5.07891798790167,
+      "p97_5": 11.198853964369254
+    },
+    "yukawa_drift_kms": {
+      "p2_5": 3.0000000000000004,
+      "median": 3.0000000000000004,
+      "p97_5": 9.999999999999998
+    },
+    "delta_aic_scarcity_minus_yukawa": {
+      "p2_5": -503.8818153375118,
+      "median": -132.96710129485916,
+      "p97_5": 1051.8866697187034
     }
   },
   "profile_sensitivity": {
@@ -438,20 +570,26 @@
           "bulge_fraction": 0.1,
           "bulge_scale_kpc": 0.5
         },
-        "scarcity_mass_msun": 112746663423.9705,
+        "scarcity_mass_msun": 112746663423.97046,
         "scarcity_beta_kpc": 5.800000000000001,
         "scarcity_drift_kms": 3.0,
-        "scarcity_rmse_kms": 2.666132590436264,
+        "scarcity_rmse_kms": 2.666132590436262,
         "newtonian_mass_msun": 114636902152.97261,
         "newtonian_drift_kms": 3.0,
         "newtonian_rmse_kms": 21.212064107325478,
-        "nfw_baryonic_mass_msun": 22913631569.987865,
-        "nfw_halo_mass_msun": 548199787603.142,
-        "nfw_concentration": 39.999999999999524,
-        "nfw_drift_kms": 9.999999999999977,
-        "nfw_rmse_kms": 3.7051023082628523,
-        "delta_aic_scarcity_minus_newtonian": -136737.5111178226,
-        "delta_aic_scarcity_minus_nfw": -1778.7099585799415
+        "nfw_baryonic_mass_msun": 22913631657.41609,
+        "nfw_halo_mass_msun": 548199786891.7691,
+        "nfw_concentration": 39.99999999999999,
+        "nfw_drift_kms": 9.999999999999998,
+        "nfw_rmse_kms": 3.7051023154424074,
+        "yukawa_mass_msun": 180629275933.9448,
+        "yukawa_alpha": -0.7373837387679896,
+        "yukawa_xi_kpc": 5.045404060268283,
+        "yukawa_drift_kms": 3.0000000000000004,
+        "yukawa_rmse_kms": 2.78687197889405,
+        "delta_aic_scarcity_minus_newtonian": -136737.51111782264,
+        "delta_aic_scarcity_minus_nfw": -1778.7099585799751,
+        "delta_aic_scarcity_minus_yukawa": -165.26642909535394
       },
       {
         "profile": {
@@ -462,17 +600,23 @@
         "scarcity_mass_msun": 113267683818.13289,
         "scarcity_beta_kpc": 5.75,
         "scarcity_drift_kms": 3.0,
-        "scarcity_rmse_kms": 2.6973407248318106,
+        "scarcity_rmse_kms": 2.697340724831817,
         "newtonian_mass_msun": 115154894534.99411,
         "newtonian_drift_kms": 3.0,
         "newtonian_rmse_kms": 21.04142789627828,
-        "nfw_baryonic_mass_msun": 23157521265.66832,
-        "nfw_halo_mass_msun": 547027096236.33435,
-        "nfw_concentration": 39.99999999999999,
+        "nfw_baryonic_mass_msun": 23157521255.316174,
+        "nfw_halo_mass_msun": 547027096314.2203,
+        "nfw_concentration": 39.999999999999986,
         "nfw_drift_kms": 9.999999999999998,
-        "nfw_rmse_kms": 3.694689138126671,
-        "delta_aic_scarcity_minus_newtonian": -134504.92257838798,
-        "delta_aic_scarcity_minus_nfw": -1754.2580577828849
+        "nfw_rmse_kms": 3.6946891370237895,
+        "yukawa_mass_msun": 181241681702.94464,
+        "yukawa_alpha": -0.7326743364896836,
+        "yukawa_xi_kpc": 5.069052695555667,
+        "yukawa_drift_kms": 3.0000000000000004,
+        "yukawa_rmse_kms": 2.779722974272969,
+        "delta_aic_scarcity_minus_newtonian": -134504.922578388,
+        "delta_aic_scarcity_minus_nfw": -1754.2580577828926,
+        "delta_aic_scarcity_minus_yukawa": -153.5747517188065
       },
       {
         "profile": {
@@ -483,17 +627,23 @@
         "scarcity_mass_msun": 113954631628.82582,
         "scarcity_beta_kpc": 5.75,
         "scarcity_drift_kms": 3.0,
-        "scarcity_rmse_kms": 2.6668376351887986,
+        "scarcity_rmse_kms": 2.666837635188792,
         "newtonian_mass_msun": 115874779371.6287,
         "newtonian_drift_kms": 3.0,
         "newtonian_rmse_kms": 20.820085434777024,
-        "nfw_baryonic_mass_msun": 24504497495.627155,
-        "nfw_halo_mass_msun": 546936697500.3374,
-        "nfw_concentration": 39.28897680096283,
-        "nfw_drift_kms": 9.999999999979194,
-        "nfw_rmse_kms": 3.681779245608918,
+        "nfw_baryonic_mass_msun": 24504497317.186157,
+        "nfw_halo_mass_msun": 546936697851.5378,
+        "nfw_concentration": 39.28897688140562,
+        "nfw_drift_kms": 9.999999999981581,
+        "nfw_rmse_kms": 3.6817792407707746,
+        "yukawa_mass_msun": 182063646973.2075,
+        "yukawa_alpha": -0.7266457777852312,
+        "yukawa_xi_kpc": 5.097587339197842,
+        "yukawa_drift_kms": 3.0000000000000004,
+        "yukawa_rmse_kms": 2.771044384413283,
         "delta_aic_scarcity_minus_newtonian": -131627.09427372736,
-        "delta_aic_scarcity_minus_nfw": -1722.7160204184447
+        "delta_aic_scarcity_minus_nfw": -1722.7160204184042,
+        "delta_aic_scarcity_minus_yukawa": -138.8994052626599
       },
       {
         "profile": {
@@ -501,20 +651,26 @@
           "bulge_fraction": 0.2,
           "bulge_scale_kpc": 0.5
         },
-        "scarcity_mass_msun": 112649666747.84785,
+        "scarcity_mass_msun": 112649666747.84789,
         "scarcity_beta_kpc": 6.0,
         "scarcity_drift_kms": 3.0,
-        "scarcity_rmse_kms": 2.6213122566510547,
+        "scarcity_rmse_kms": 2.6213122566510445,
         "newtonian_mass_msun": 114500080687.76282,
         "newtonian_drift_kms": 3.0,
         "newtonian_rmse_kms": 22.020396808401575,
-        "nfw_baryonic_mass_msun": 22202374708.006622,
-        "nfw_halo_mass_msun": 553952142358.2037,
+        "nfw_baryonic_mass_msun": 22202374702.97552,
+        "nfw_halo_mass_msun": 553952142404.0133,
         "nfw_concentration": 39.99999999999999,
         "nfw_drift_kms": 9.999999999999998,
-        "nfw_rmse_kms": 3.7759932915841503,
-        "delta_aic_scarcity_minus_newtonian": -147471.5984500557,
-        "delta_aic_scarcity_minus_nfw": -2047.8514182683848
+        "nfw_rmse_kms": 3.7759932913692933,
+        "yukawa_mass_msun": 178736485426.1815,
+        "yukawa_alpha": -0.7667350407457654,
+        "yukawa_xi_kpc": 4.780345096161116,
+        "yukawa_drift_kms": 3.0000000000000004,
+        "yukawa_rmse_kms": 2.8186443560307195,
+        "delta_aic_scarcity_minus_newtonian": -147471.59845005567,
+        "delta_aic_scarcity_minus_nfw": -2047.851418268378,
+        "delta_aic_scarcity_minus_yukawa": -315.945577210653
       },
       {
         "profile": {
@@ -525,17 +681,23 @@
         "scarcity_mass_msun": 113665204353.55138,
         "scarcity_beta_kpc": 5.95,
         "scarcity_drift_kms": 3.0,
-        "scarcity_rmse_kms": 2.6308773661844427,
+        "scarcity_rmse_kms": 2.6308773661844476,
         "newtonian_mass_msun": 115538861244.14793,
         "newtonian_drift_kms": 3.0,
         "newtonian_rmse_kms": 21.684838182365002,
-        "nfw_baryonic_mass_msun": 22667663869.23469,
-        "nfw_halo_mass_msun": 551745856694.8755,
+        "nfw_baryonic_mass_msun": 22667663884.46137,
+        "nfw_halo_mass_msun": 551745856555.6923,
         "nfw_concentration": 39.99999999999999,
         "nfw_drift_kms": 9.999999999999998,
-        "nfw_rmse_kms": 3.7569744692231772,
+        "nfw_rmse_kms": 3.7569744697683953,
+        "yukawa_mass_msun": 179762205741.8541,
+        "yukawa_alpha": -0.7575533426088499,
+        "yukawa_xi_kpc": 4.810174737116873,
+        "yukawa_drift_kms": 3.0000000000000004,
+        "yukawa_rmse_kms": 2.8076060539548564,
         "delta_aic_scarcity_minus_newtonian": -142927.75964704485,
-        "delta_aic_scarcity_minus_nfw": -2002.68022188743
+        "delta_aic_scarcity_minus_nfw": -2002.6802218874586,
+        "delta_aic_scarcity_minus_yukawa": -298.585689699421
       },
       {
         "profile": {
@@ -546,17 +708,23 @@
         "scarcity_mass_msun": 115086294671.88899,
         "scarcity_beta_kpc": 5.9,
         "scarcity_drift_kms": 3.0,
-        "scarcity_rmse_kms": 2.626809514270372,
+        "scarcity_rmse_kms": 2.6268095142703887,
         "newtonian_mass_msun": 116998000797.25145,
         "newtonian_drift_kms": 3.0,
         "newtonian_rmse_kms": 21.24547934326185,
-        "nfw_baryonic_mass_msun": 23310924054.24971,
-        "nfw_halo_mass_msun": 548803520939.5974,
+        "nfw_baryonic_mass_msun": 23310924048.809326,
+        "nfw_halo_mass_msun": 548803520981.57825,
         "nfw_concentration": 39.99999999999999,
-        "nfw_drift_kms": 9.999999999999998,
-        "nfw_rmse_kms": 3.7326988154056275,
-        "delta_aic_scarcity_minus_newtonian": -137069.25592833184,
-        "delta_aic_scarcity_minus_nfw": -1946.5574545612549
+        "nfw_drift_kms": 9.999999999999973,
+        "nfw_rmse_kms": 3.7326988149043285,
+        "yukawa_mass_msun": 181184798021.84067,
+        "yukawa_alpha": -0.7456078361215533,
+        "yukawa_xi_kpc": 4.8472379828090615,
+        "yukawa_drift_kms": 3.0000000000000004,
+        "yukawa_rmse_kms": 2.793743168205066,
+        "delta_aic_scarcity_minus_newtonian": -137069.2559283318,
+        "delta_aic_scarcity_minus_nfw": -1946.557454561233,
+        "delta_aic_scarcity_minus_yukawa": -277.9863712442707
       },
       {
         "profile": {
@@ -564,20 +732,26 @@
           "bulge_fraction": 0.3,
           "bulge_scale_kpc": 0.5
         },
-        "scarcity_mass_msun": 112558056622.91307,
+        "scarcity_mass_msun": 112558056622.9131,
         "scarcity_beta_kpc": 6.2,
         "scarcity_drift_kms": 3.0,
-        "scarcity_rmse_kms": 2.5875443882474887,
+        "scarcity_rmse_kms": 2.5875443882474936,
         "newtonian_mass_msun": 114361993416.34798,
         "newtonian_drift_kms": 3.0,
         "newtonian_rmse_kms": 22.82934227602237,
-        "nfw_baryonic_mass_msun": 21524257916.01242,
-        "nfw_halo_mass_msun": 559460224379.7339,
+        "nfw_baryonic_mass_msun": 21524257961.28408,
+        "nfw_halo_mass_msun": 559460223991.389,
         "nfw_concentration": 39.99999999999999,
         "nfw_drift_kms": 9.999999999999998,
-        "nfw_rmse_kms": 3.842959524352482,
-        "delta_aic_scarcity_minus_newtonian": -158601.6676783663,
-        "delta_aic_scarcity_minus_nfw": -2293.1413034441653
+        "nfw_rmse_kms": 3.8429595275278334,
+        "yukawa_mass_msun": 177544104378.7435,
+        "yukawa_alpha": -0.7970129028755198,
+        "yukawa_xi_kpc": 4.571231457528977,
+        "yukawa_drift_kms": 3.0000000000000004,
+        "yukawa_rmse_kms": 2.838827598023951,
+        "delta_aic_scarcity_minus_newtonian": -158601.66767836627,
+        "delta_aic_scarcity_minus_nfw": -2293.141303444171,
+        "delta_aic_scarcity_minus_yukawa": -427.70496598896943
       },
       {
         "profile": {
@@ -588,17 +762,23 @@
         "scarcity_mass_msun": 114070878225.02072,
         "scarcity_beta_kpc": 6.15,
         "scarcity_drift_kms": 3.0,
-        "scarcity_rmse_kms": 2.577477672972805,
+        "scarcity_rmse_kms": 2.577477672972795,
         "newtonian_mass_msun": 115924332185.22209,
         "newtonian_drift_kms": 3.0,
         "newtonian_rmse_kms": 22.33493696900683,
-        "nfw_baryonic_mass_msun": 22190077966.58726,
-        "nfw_halo_mass_msun": 556349785761.6611,
+        "nfw_baryonic_mass_msun": 22190077899.87827,
+        "nfw_halo_mass_msun": 556349786303.5676,
         "nfw_concentration": 39.99999999999999,
-        "nfw_drift_kms": 9.999999999999998,
-        "nfw_rmse_kms": 3.816959101164146,
-        "delta_aic_scarcity_minus_newtonian": -151678.66703977078,
-        "delta_aic_scarcity_minus_nfw": -2231.035441476875
+        "nfw_drift_kms": 9.999999999999986,
+        "nfw_rmse_kms": 3.8169590956546453,
+        "yukawa_mass_msun": 178876516701.29956,
+        "yukawa_alpha": -0.78391734558486,
+        "yukawa_xi_kpc": 4.596929842097636,
+        "yukawa_drift_kms": 3.0000000000000004,
+        "yukawa_rmse_kms": 2.8263644335270226,
+        "delta_aic_scarcity_minus_newtonian": -151678.6670397708,
+        "delta_aic_scarcity_minus_nfw": -2231.035441476868,
+        "delta_aic_scarcity_minus_yukawa": -409.70744284943976
       },
       {
         "profile": {
@@ -609,17 +789,23 @@
         "scarcity_mass_msun": 116216363612.76488,
         "scarcity_beta_kpc": 6.1000000000000005,
         "scarcity_drift_kms": 3.0,
-        "scarcity_rmse_kms": 2.5475011149523854,
+        "scarcity_rmse_kms": 2.5475011149523867,
         "newtonian_mass_msun": 118142681757.90392,
         "newtonian_drift_kms": 3.0,
         "newtonian_rmse_kms": 21.68140831138484,
-        "nfw_baryonic_mass_msun": 23131430220.558655,
-        "nfw_halo_mass_msun": 552119137414.148,
+        "nfw_baryonic_mass_msun": 23131430179.195877,
+        "nfw_halo_mass_msun": 552119137744.5554,
         "nfw_concentration": 39.99999999999999,
         "nfw_drift_kms": 9.999999999999998,
-        "nfw_rmse_kms": 3.78319944672003,
+        "nfw_rmse_kms": 3.783199443506678,
+        "yukawa_mass_msun": 180771276847.4354,
+        "yukawa_alpha": -0.7665369924373541,
+        "yukawa_xi_kpc": 4.629442607431467,
+        "yukawa_drift_kms": 3.0000000000000004,
+        "yukawa_rmse_kms": 2.810134120519381,
         "delta_aic_scarcity_minus_newtonian": -142736.90738054542,
-        "delta_aic_scarcity_minus_nfw": -2150.39342417894
+        "delta_aic_scarcity_minus_nfw": -2150.393424178932,
+        "delta_aic_scarcity_minus_yukawa": -385.45856371176615
       },
       {
         "profile": {
@@ -630,17 +816,23 @@
         "scarcity_mass_msun": 120238266914.8658,
         "scarcity_beta_kpc": 5.0,
         "scarcity_drift_kms": 3.0,
-        "scarcity_rmse_kms": 2.707428155993271,
+        "scarcity_rmse_kms": 2.707428155993279,
         "newtonian_mass_msun": 122270141251.30302,
         "newtonian_drift_kms": 3.0,
         "newtonian_rmse_kms": 17.48760302045801,
-        "nfw_baryonic_mass_msun": 41639391659.25061,
-        "nfw_halo_mass_msun": 532651301920.5142,
-        "nfw_concentration": 31.798191252062153,
-        "nfw_drift_kms": 9.999999998676453,
-        "nfw_rmse_kms": 3.558684237813214,
-        "delta_aic_scarcity_minus_newtonian": -90320.72047608827,
-        "delta_aic_scarcity_minus_nfw": -1351.5273271295596
+        "nfw_baryonic_mass_msun": 41639580743.1967,
+        "nfw_halo_mass_msun": 532651614375.65955,
+        "nfw_concentration": 31.79808057980554,
+        "nfw_drift_kms": 9.99999999901622,
+        "nfw_rmse_kms": 3.5586844065636085,
+        "yukawa_mass_msun": 177778909371.39468,
+        "yukawa_alpha": -0.6426120857916556,
+        "yukawa_xi_kpc": 4.985187225700541,
+        "yukawa_drift_kms": 3.0000000000000004,
+        "yukawa_rmse_kms": 2.8841863122333367,
+        "delta_aic_scarcity_minus_newtonian": -90320.72047608829,
+        "delta_aic_scarcity_minus_nfw": -1351.5273271378182,
+        "delta_aic_scarcity_minus_yukawa": -248.39668933391022
       },
       {
         "profile": {
@@ -651,17 +843,23 @@
         "scarcity_mass_msun": 120828495884.64523,
         "scarcity_beta_kpc": 4.95,
         "scarcity_drift_kms": 3.0,
-        "scarcity_rmse_kms": 2.7231845746372185,
-        "newtonian_mass_msun": 122857729403.66107,
+        "scarcity_rmse_kms": 2.723184574637217,
+        "newtonian_mass_msun": 122857729403.66103,
         "newtonian_drift_kms": 3.0,
-        "newtonian_rmse_kms": 17.288606118402992,
-        "nfw_baryonic_mass_msun": 43616194273.791046,
-        "nfw_halo_mass_msun": 532686652258.85864,
-        "nfw_concentration": 30.92213813117079,
-        "nfw_drift_kms": 9.999999998621838,
-        "nfw_rmse_kms": 3.5364418547976557,
-        "delta_aic_scarcity_minus_newtonian": -88196.38664866365,
-        "delta_aic_scarcity_minus_nfw": -1304.4003166878033
+        "newtonian_rmse_kms": 17.288606118403,
+        "nfw_baryonic_mass_msun": 43616214571.76524,
+        "nfw_halo_mass_msun": 532686708248.37555,
+        "nfw_concentration": 30.922125430987634,
+        "nfw_drift_kms": 9.999999999105638,
+        "nfw_rmse_kms": 3.536441768039463,
+        "yukawa_mass_msun": 178617998398.1572,
+        "yukawa_alpha": -0.6360053680681221,
+        "yukawa_xi_kpc": 5.035924639375546,
+        "yukawa_drift_kms": 3.0000000000000004,
+        "yukawa_rmse_kms": 2.8735128477096343,
+        "delta_aic_scarcity_minus_newtonian": -88196.38664866364,
+        "delta_aic_scarcity_minus_nfw": -1304.400316681416,
+        "delta_aic_scarcity_minus_yukawa": -230.565020503298
       },
       {
         "profile": {
@@ -669,20 +867,26 @@
           "bulge_fraction": 0.1,
           "bulge_scale_kpc": 1.0
         },
-        "scarcity_mass_msun": 121640444450.0693,
+        "scarcity_mass_msun": 121640444450.06926,
         "scarcity_beta_kpc": 4.9,
         "scarcity_drift_kms": 3.0,
-        "scarcity_rmse_kms": 2.7276491224938337,
+        "scarcity_rmse_kms": 2.7276491224938404,
         "newtonian_mass_msun": 123675012733.69904,
         "newtonian_drift_kms": 3.0,
         "newtonian_rmse_kms": 17.028800048603195,
-        "nfw_baryonic_mass_msun": 46147968789.31164,
-        "nfw_halo_mass_msun": 532681327425.1399,
-        "nfw_concentration": 29.847782901128838,
-        "nfw_drift_kms": 9.999999999228992,
-        "nfw_rmse_kms": 3.506936880030328,
+        "nfw_baryonic_mass_msun": 46148138229.53879,
+        "nfw_halo_mass_msun": 532681706738.28125,
+        "nfw_concentration": 29.847684541872997,
+        "nfw_drift_kms": 9.999999996310766,
+        "nfw_rmse_kms": 3.506936820623087,
+        "yukawa_mass_msun": 179755691332.42136,
+        "yukawa_alpha": -0.6275231554845763,
+        "yukawa_xi_kpc": 5.101697483151307,
+        "yukawa_drift_kms": 3.0000000000000004,
+        "yukawa_rmse_kms": 2.8602658990990317,
         "delta_aic_scarcity_minus_newtonian": -85450.69582400634,
-        "delta_aic_scarcity_minus_nfw": -1241.4176304481566
+        "delta_aic_scarcity_minus_nfw": -1241.4176304761668,
+        "delta_aic_scarcity_minus_yukawa": -207.14031198376824
       },
       {
         "profile": {
@@ -690,20 +894,26 @@
           "bulge_fraction": 0.2,
           "bulge_scale_kpc": 0.5
         },
-        "scarcity_mass_msun": 119228567075.7237,
+        "scarcity_mass_msun": 119228567075.72372,
         "scarcity_beta_kpc": 5.300000000000001,
         "scarcity_drift_kms": 3.0,
-        "scarcity_rmse_kms": 2.7163567231780417,
+        "scarcity_rmse_kms": 2.716356723178052,
         "newtonian_mass_msun": 121227723329.84122,
         "newtonian_drift_kms": 3.0,
         "newtonian_rmse_kms": 18.78350070349764,
-        "nfw_baryonic_mass_msun": 27426885948.758186,
-        "nfw_halo_mass_msun": 532265398890.1191,
-        "nfw_concentration": 39.309415113395396,
-        "nfw_drift_kms": 9.99999999977941,
-        "nfw_rmse_kms": 3.689676238699452,
+        "nfw_baryonic_mass_msun": 27426707772.96511,
+        "nfw_halo_mass_msun": 532265266783.1669,
+        "nfw_concentration": 39.30952811774308,
+        "nfw_drift_kms": 9.999999999936186,
+        "nfw_rmse_kms": 3.689676191522533,
+        "yukawa_mass_msun": 175071477207.19852,
+        "yukawa_alpha": -0.6921289019441375,
+        "yukawa_xi_kpc": 4.585862828094089,
+        "yukawa_drift_kms": 3.0000000000000004,
+        "yukawa_rmse_kms": 2.926597070426349,
         "delta_aic_scarcity_minus_newtonian": -104820.33557691412,
-        "delta_aic_scarcity_minus_nfw": -1721.7199600235713
+        "delta_aic_scarcity_minus_nfw": -1721.719960019635,
+        "delta_aic_scarcity_minus_yukawa": -391.2034392071482
       },
       {
         "profile": {
@@ -711,20 +921,26 @@
           "bulge_fraction": 0.2,
           "bulge_scale_kpc": 0.7
         },
-        "scarcity_mass_msun": 120364246135.36768,
+        "scarcity_mass_msun": 120364246135.36772,
         "scarcity_beta_kpc": 5.25,
         "scarcity_drift_kms": 3.0,
-        "scarcity_rmse_kms": 2.695770419097533,
+        "scarcity_rmse_kms": 2.6957704190975296,
         "newtonian_mass_msun": 122389639502.91324,
         "newtonian_drift_kms": 3.0,
         "newtonian_rmse_kms": 18.398157291014627,
-        "nfw_baryonic_mass_msun": 31355989847.943233,
-        "nfw_halo_mass_msun": 531438160554.1907,
-        "nfw_concentration": 37.29751389087177,
-        "nfw_drift_kms": 9.999999998821247,
-        "nfw_rmse_kms": 3.663651900518577,
+        "nfw_baryonic_mass_msun": 31355883842.08614,
+        "nfw_halo_mass_msun": 531438049699.8728,
+        "nfw_concentration": 37.29758012855666,
+        "nfw_drift_kms": 9.999999999288752,
+        "nfw_rmse_kms": 3.663651955048873,
+        "yukawa_mass_msun": 176297658534.33072,
+        "yukawa_alpha": -0.6791703662713436,
+        "yukawa_xi_kpc": 4.641644351363742,
+        "yukawa_drift_kms": 3.0000000000000004,
+        "yukawa_rmse_kms": 2.91143649306475,
         "delta_aic_scarcity_minus_newtonian": -100416.2058932492,
-        "delta_aic_scarcity_minus_nfw": -1663.4131690809577
+        "delta_aic_scarcity_minus_nfw": -1663.4131690703998,
+        "delta_aic_scarcity_minus_yukawa": -369.6000834228812
       },
       {
         "profile": {
@@ -735,17 +951,23 @@
         "scarcity_mass_msun": 121955557916.26599,
         "scarcity_beta_kpc": 5.2,
         "scarcity_drift_kms": 3.0,
-        "scarcity_rmse_kms": 2.6536573249831723,
+        "scarcity_rmse_kms": 2.653657324983167,
         "newtonian_mass_msun": 124023885312.72308,
         "newtonian_drift_kms": 3.0,
         "newtonian_rmse_kms": 17.8903673554338,
-        "nfw_baryonic_mass_msun": 36408927013.88419,
-        "nfw_halo_mass_msun": 530320135094.3,
-        "nfw_concentration": 34.88734912114691,
-        "nfw_drift_kms": 9.999999999012566,
-        "nfw_rmse_kms": 3.6245206510828525,
-        "delta_aic_scarcity_minus_newtonian": -94733.62180409259,
-        "delta_aic_scarcity_minus_nfw": -1573.758503852032
+        "nfw_baryonic_mass_msun": 36408922981.15211,
+        "nfw_halo_mass_msun": 530320117997.3247,
+        "nfw_concentration": 34.88735226563543,
+        "nfw_drift_kms": 9.99999999839445,
+        "nfw_rmse_kms": 3.6245207246867768,
+        "yukawa_mass_msun": 178025032555.8831,
+        "yukawa_alpha": -0.6622240265726197,
+        "yukawa_xi_kpc": 4.7172544860257615,
+        "yukawa_drift_kms": 3.0000000000000004,
+        "yukawa_rmse_kms": 2.8919099832381105,
+        "delta_aic_scarcity_minus_newtonian": -94733.6218040926,
+        "delta_aic_scarcity_minus_nfw": -1573.7585038594602,
+        "delta_aic_scarcity_minus_yukawa": -337.1506897014483
       },
       {
         "profile": {
@@ -756,17 +978,23 @@
         "scarcity_mass_msun": 118215638286.95311,
         "scarcity_beta_kpc": 5.65,
         "scarcity_drift_kms": 3.0,
-        "scarcity_rmse_kms": 2.6610288131424253,
+        "scarcity_rmse_kms": 2.6610288131424134,
         "newtonian_mass_msun": 120198748706.59413,
         "newtonian_drift_kms": 3.0,
         "newtonian_rmse_kms": 20.06228872099143,
-        "nfw_baryonic_mass_msun": 24843171201.362015,
-        "nfw_halo_mass_msun": 541610533431.39264,
+        "nfw_baryonic_mass_msun": 24843171097.226105,
+        "nfw_halo_mass_msun": 541610534241.9119,
         "nfw_concentration": 39.99999999999999,
         "nfw_drift_kms": 9.999999999999998,
-        "nfw_rmse_kms": 3.7805886989827093,
-        "delta_aic_scarcity_minus_newtonian": -120164.17982164348,
-        "delta_aic_scarcity_minus_nfw": -1996.2917185891297
+        "nfw_rmse_kms": 3.780588691299882,
+        "yukawa_mass_msun": 173809474152.684,
+        "yukawa_alpha": -0.7416423750706137,
+        "yukawa_xi_kpc": 4.329622330394245,
+        "yukawa_drift_kms": 3.0000000000000004,
+        "yukawa_rmse_kms": 2.94647387055469,
+        "delta_aic_scarcity_minus_newtonian": -120164.17982164351,
+        "delta_aic_scarcity_minus_nfw": -1996.291718589151,
+        "delta_aic_scarcity_minus_yukawa": -479.65537665185
       },
       {
         "profile": {
@@ -774,20 +1002,26 @@
           "bulge_fraction": 0.3,
           "bulge_scale_kpc": 0.7
         },
-        "scarcity_mass_msun": 119912966142.93616,
+        "scarcity_mass_msun": 119912966142.93608,
         "scarcity_beta_kpc": 5.550000000000001,
         "scarcity_drift_kms": 3.0,
-        "scarcity_rmse_kms": 2.6745827470565753,
+        "scarcity_rmse_kms": 2.6745827470566175,
         "newtonian_mass_msun": 121921918311.1108,
         "newtonian_drift_kms": 3.0,
-        "newtonian_rmse_kms": 19.503714489015678,
-        "nfw_baryonic_mass_msun": 25730404304.90307,
-        "nfw_halo_mass_msun": 537446205035.94617,
+        "newtonian_rmse_kms": 19.50371448901568,
+        "nfw_baryonic_mass_msun": 25730404292.23436,
+        "nfw_halo_mass_msun": 537446205138.1393,
         "nfw_concentration": 39.99999999999999,
         "nfw_drift_kms": 9.999999999999998,
-        "nfw_rmse_kms": 3.748637347261733,
-        "delta_aic_scarcity_minus_newtonian": -113353.20200957647,
-        "delta_aic_scarcity_minus_nfw": -1923.3177837795974
+        "nfw_rmse_kms": 3.748637346592786,
+        "yukawa_mass_msun": 175279994182.27002,
+        "yukawa_alpha": -0.7236636260551859,
+        "yukawa_xi_kpc": 4.374106876133939,
+        "yukawa_drift_kms": 3.0000000000000004,
+        "yukawa_rmse_kms": 2.930593241662978,
+        "delta_aic_scarcity_minus_newtonian": -113353.20200957645,
+        "delta_aic_scarcity_minus_nfw": -1923.3177837794974,
+        "delta_aic_scarcity_minus_yukawa": -456.5875653199073
       },
       {
         "profile": {
@@ -798,17 +1032,23 @@
         "scarcity_mass_msun": 122312385296.95413,
         "scarcity_beta_kpc": 5.45,
         "scarcity_drift_kms": 3.0,
-        "scarcity_rmse_kms": 2.650513387774138,
+        "scarcity_rmse_kms": 2.650513387774147,
         "newtonian_mass_msun": 124372692085.62692,
         "newtonian_drift_kms": 3.0,
         "newtonian_rmse_kms": 18.760687166621853,
-        "nfw_baryonic_mass_msun": 26998805800.275448,
-        "nfw_halo_mass_msun": 531693723462.88367,
-        "nfw_concentration": 39.99999999999805,
+        "nfw_baryonic_mass_msun": 26998805781.59905,
+        "nfw_halo_mass_msun": 531693723611.6903,
+        "nfw_concentration": 39.99999999999395,
         "nfw_drift_kms": 9.999999999999998,
-        "nfw_rmse_kms": 3.70649531289126,
+        "nfw_rmse_kms": 3.706495312026647,
+        "yukawa_mass_msun": 177400594724.1625,
+        "yukawa_alpha": -0.699583145023602,
+        "yukawa_xi_kpc": 4.436433598211576,
+        "yukawa_drift_kms": 3.0000000000000004,
+        "yukawa_rmse_kms": 2.9093640673747627,
         "delta_aic_scarcity_minus_newtonian": -104574.01903886854,
-        "delta_aic_scarcity_minus_nfw": -1829.9556375761408
+        "delta_aic_scarcity_minus_nfw": -1829.9556375761222,
+        "delta_aic_scarcity_minus_yukawa": -427.2813522780093
       },
       {
         "profile": {
@@ -819,17 +1059,23 @@
         "scarcity_mass_msun": 129090210916.11203,
         "scarcity_beta_kpc": 4.2,
         "scarcity_drift_kms": 3.0,
-        "scarcity_rmse_kms": 2.7502590316441404,
+        "scarcity_rmse_kms": 2.7502590316441418,
         "newtonian_mass_msun": 131104562959.66241,
         "newtonian_drift_kms": 3.0,
         "newtonian_rmse_kms": 14.111605445003088,
-        "nfw_baryonic_mass_msun": 61123591538.3678,
-        "nfw_halo_mass_msun": 493619832685.3945,
-        "nfw_concentration": 26.19201253031169,
-        "nfw_drift_kms": 9.99999999700699,
-        "nfw_rmse_kms": 3.4166052058119623,
-        "delta_aic_scarcity_minus_newtonian": -56194.51586057153,
-        "delta_aic_scarcity_minus_nfw": -991.8244726768753
+        "nfw_baryonic_mass_msun": 61123505171.14584,
+        "nfw_halo_mass_msun": 493619702696.7694,
+        "nfw_concentration": 26.192056111009872,
+        "nfw_drift_kms": 9.999999995535237,
+        "nfw_rmse_kms": 3.4166050719747174,
+        "yukawa_mass_msun": 174088362762.9227,
+        "yukawa_alpha": -0.5468402332241895,
+        "yukawa_xi_kpc": 4.690485304285319,
+        "yukawa_drift_kms": 3.0000000000000004,
+        "yukawa_rmse_kms": 2.9526645829019866,
+        "delta_aic_scarcity_minus_newtonian": -56194.51586057154,
+        "delta_aic_scarcity_minus_nfw": -991.8244726891899,
+        "delta_aic_scarcity_minus_yukawa": -304.7876149812919
       },
       {
         "profile": {
@@ -840,17 +1086,23 @@
         "scarcity_mass_msun": 129767398008.78297,
         "scarcity_beta_kpc": 4.15,
         "scarcity_drift_kms": 3.0,
-        "scarcity_rmse_kms": 2.743420068661962,
+        "scarcity_rmse_kms": 2.7434200686619548,
         "newtonian_mass_msun": 131778255357.71541,
         "newtonian_drift_kms": 3.0,
         "newtonian_rmse_kms": 13.88192579324723,
-        "nfw_baryonic_mass_msun": 63769394832.64283,
-        "nfw_halo_mass_msun": 492227376927.9007,
-        "nfw_concentration": 25.23813110896442,
-        "nfw_drift_kms": 9.99999999431476,
-        "nfw_rmse_kms": 3.38195419279755,
-        "delta_aic_scarcity_minus_newtonian": -54253.937542381915,
-        "delta_aic_scarcity_minus_nfw": -929.8191772780251
+        "nfw_baryonic_mass_msun": 63769312622.519226,
+        "nfw_halo_mass_msun": 492227206799.7751,
+        "nfw_concentration": 25.23817335367141,
+        "nfw_drift_kms": 9.999999997414909,
+        "nfw_rmse_kms": 3.3819541987941384,
+        "yukawa_mass_msun": 175118165542.81,
+        "yukawa_alpha": -0.5373655259488316,
+        "yukawa_xi_kpc": 4.775913488746491,
+        "yukawa_drift_kms": 3.0000000000000004,
+        "yukawa_rmse_kms": 2.9388938090424594,
+        "delta_aic_scarcity_minus_newtonian": -54253.93754238191,
+        "delta_aic_scarcity_minus_nfw": -929.8191772430041,
+        "delta_aic_scarcity_minus_yukawa": -286.26907166044884
       },
       {
         "profile": {
@@ -865,13 +1117,19 @@
         "newtonian_mass_msun": 132716156493.95949,
         "newtonian_drift_kms": 3.0,
         "newtonian_rmse_kms": 13.580658288594341,
-        "nfw_baryonic_mass_msun": 67179990019.61397,
-        "nfw_halo_mass_msun": 490409770890.22095,
-        "nfw_concentration": 24.06126847931344,
-        "nfw_drift_kms": 9.99999999575603,
-        "nfw_rmse_kms": 3.3362048110163736,
-        "delta_aic_scarcity_minus_newtonian": -51748.73667264759,
-        "delta_aic_scarcity_minus_nfw": -847.0524324702405
+        "nfw_baryonic_mass_msun": 67179985344.06918,
+        "nfw_halo_mass_msun": 490409765996.7736,
+        "nfw_concentration": 24.061270619223205,
+        "nfw_drift_kms": 9.999999999993666,
+        "nfw_rmse_kms": 3.3362047813335316,
+        "yukawa_mass_msun": 176557294487.38843,
+        "yukawa_alpha": -0.5252933230448231,
+        "yukawa_xi_kpc": 4.893445688651262,
+        "yukawa_drift_kms": 3.0000000000000004,
+        "yukawa_rmse_kms": 2.9214229996478633,
+        "delta_aic_scarcity_minus_newtonian": -51748.73667264758,
+        "delta_aic_scarcity_minus_nfw": -847.0524324228168,
+        "delta_aic_scarcity_minus_yukawa": -260.52506161761494
       },
       {
         "profile": {
@@ -882,17 +1140,23 @@
         "scarcity_mass_msun": 126821756094.68019,
         "scarcity_beta_kpc": 4.7,
         "scarcity_drift_kms": 3.0,
-        "scarcity_rmse_kms": 2.749866144959809,
+        "scarcity_rmse_kms": 2.7498661449598343,
         "newtonian_mass_msun": 128894237644.18962,
         "newtonian_drift_kms": 3.0,
         "newtonian_rmse_kms": 15.911495824704012,
-        "nfw_baryonic_mass_msun": 40721468789.11807,
-        "nfw_halo_mass_msun": 507741124415.7952,
-        "nfw_concentration": 34.81398055158552,
-        "nfw_drift_kms": 9.999999999036245,
-        "nfw_rmse_kms": 3.6343894117707642,
-        "delta_aic_scarcity_minus_newtonian": -72725.32433168057,
-        "delta_aic_scarcity_minus_nfw": -1464.3989680667032
+        "nfw_baryonic_mass_msun": 40721513990.63196,
+        "nfw_halo_mass_msun": 507741164429.32086,
+        "nfw_concentration": 34.81395441861175,
+        "nfw_drift_kms": 9.99999999987055,
+        "nfw_rmse_kms": 3.6343892856208178,
+        "yukawa_mass_msun": 171107311386.55237,
+        "yukawa_alpha": -0.6271766576993195,
+        "yukawa_xi_kpc": 4.175907673494563,
+        "yukawa_drift_kms": 3.0000000000000004,
+        "yukawa_rmse_kms": 3.002198195867108,
+        "delta_aic_scarcity_minus_newtonian": -72725.32433168053,
+        "delta_aic_scarcity_minus_nfw": -1464.3989680568661,
+        "delta_aic_scarcity_minus_yukawa": -403.4509664174325
       },
       {
         "profile": {
@@ -900,20 +1164,26 @@
           "bulge_fraction": 0.2,
           "bulge_scale_kpc": 0.7
         },
-        "scarcity_mass_msun": 128136099380.7601,
+        "scarcity_mass_msun": 128136099380.76015,
         "scarcity_beta_kpc": 4.6000000000000005,
         "scarcity_drift_kms": 3.0,
-        "scarcity_rmse_kms": 2.7496731730079675,
+        "scarcity_rmse_kms": 2.7496731730079835,
         "newtonian_mass_msun": 130205159237.63524,
         "newtonian_drift_kms": 3.0,
         "newtonian_rmse_kms": 15.473343307605587,
-        "nfw_baryonic_mass_msun": 45961477076.15631,
-        "nfw_halo_mass_msun": 503865405231.0506,
-        "nfw_concentration": 32.60381930818183,
-        "nfw_drift_kms": 9.999999999115436,
-        "nfw_rmse_kms": 3.592525743323739,
-        "delta_aic_scarcity_minus_newtonian": -68553.56945620157,
-        "delta_aic_scarcity_minus_nfw": -1386.1095131651891
+        "nfw_baryonic_mass_msun": 45961563433.285095,
+        "nfw_halo_mass_msun": 503865468507.0962,
+        "nfw_concentration": 32.60377263605266,
+        "nfw_drift_kms": 9.999999999980583,
+        "nfw_rmse_kms": 3.592525716030917,
+        "yukawa_mass_msun": 172392482512.41333,
+        "yukawa_alpha": -0.6087897099623948,
+        "yukawa_xi_kpc": 4.249678576409675,
+        "yukawa_drift_kms": 3.0000000000000004,
+        "yukawa_rmse_kms": 2.9845182090912283,
+        "delta_aic_scarcity_minus_newtonian": -68553.56945620156,
+        "delta_aic_scarcity_minus_nfw": -1386.1095131543711,
+        "delta_aic_scarcity_minus_yukawa": -387.92568479976626
       },
       {
         "profile": {
@@ -924,17 +1194,23 @@
         "scarcity_mass_msun": 129968800781.44066,
         "scarcity_beta_kpc": 4.5,
         "scarcity_drift_kms": 3.0,
-        "scarcity_rmse_kms": 2.7133009735140545,
+        "scarcity_rmse_kms": 2.7133009735140377,
         "newtonian_mass_msun": 132051674203.45018,
         "newtonian_drift_kms": 3.0,
         "newtonian_rmse_kms": 14.893108226831702,
-        "nfw_baryonic_mass_msun": 52700315798.416405,
-        "nfw_halo_mass_msun": 498786596818.7686,
-        "nfw_concentration": 29.96241292829496,
-        "nfw_drift_kms": 9.9999999985957,
-        "nfw_rmse_kms": 3.5307367899488353,
+        "nfw_baryonic_mass_msun": 52700346694.262436,
+        "nfw_halo_mass_msun": 498786631319.5273,
+        "nfw_concentration": 29.96239664665705,
+        "nfw_drift_kms": 9.999999997914706,
+        "nfw_rmse_kms": 3.530736773342567,
+        "yukawa_mass_msun": 174248097216.52744,
+        "yukawa_alpha": -0.5846456352617506,
+        "yukawa_xi_kpc": 4.356284412186514,
+        "yukawa_drift_kms": 3.0000000000000004,
+        "yukawa_rmse_kms": 2.9611766773024284,
         "delta_aic_scarcity_minus_newtonian": -63193.64666523201,
-        "delta_aic_scarcity_minus_nfw": -1267.6227703382292
+        "delta_aic_scarcity_minus_nfw": -1267.622770345963,
+        "delta_aic_scarcity_minus_yukawa": -361.6888448977684
       },
       {
         "profile": {
@@ -945,17 +1221,23 @@
         "scarcity_mass_msun": 125173227582.53395,
         "scarcity_beta_kpc": 5.15,
         "scarcity_drift_kms": 3.45,
-        "scarcity_rmse_kms": 2.7745068067852476,
+        "scarcity_rmse_kms": 2.7745068067852587,
         "newtonian_mass_msun": 126748893942.71606,
         "newtonian_drift_kms": 3.0,
         "newtonian_rmse_kms": 17.659978299475576,
-        "nfw_baryonic_mass_msun": 28571060893.587727,
-        "nfw_halo_mass_msun": 523758988957.38385,
+        "nfw_baryonic_mass_msun": 28571060937.97461,
+        "nfw_halo_mass_msun": 523758988635.8696,
         "nfw_concentration": 39.99999999999999,
         "nfw_drift_kms": 9.999999999999998,
-        "nfw_rmse_kms": 3.7549919353814842,
-        "delta_aic_scarcity_minus_newtonian": -90783.96401488854,
-        "delta_aic_scarcity_minus_nfw": -1759.4896726148713
+        "nfw_rmse_kms": 3.754991938356233,
+        "yukawa_mass_msun": 170242745956.4938,
+        "yukawa_alpha": -0.7023396144682885,
+        "yukawa_xi_kpc": 3.929341036929247,
+        "yukawa_drift_kms": 3.0000000000000004,
+        "yukawa_rmse_kms": 3.0178572670187167,
+        "delta_aic_scarcity_minus_newtonian": -90783.96401488852,
+        "delta_aic_scarcity_minus_nfw": -1759.4896726148695,
+        "delta_aic_scarcity_minus_yukawa": -434.41080467238726
       },
       {
         "profile": {
@@ -966,17 +1248,23 @@
         "scarcity_mass_msun": 127516745776.53427,
         "scarcity_beta_kpc": 5.050000000000001,
         "scarcity_drift_kms": 3.85,
-        "scarcity_rmse_kms": 2.7426789852606563,
+        "scarcity_rmse_kms": 2.7426789852606634,
         "newtonian_mass_msun": 128662434433.98935,
         "newtonian_drift_kms": 3.0,
         "newtonian_rmse_kms": 17.035086030109163,
-        "nfw_baryonic_mass_msun": 29750720573.438477,
-        "nfw_halo_mass_msun": 518279933336.87134,
-        "nfw_concentration": 39.999999999998884,
+        "nfw_baryonic_mass_msun": 29750720516.97934,
+        "nfw_halo_mass_msun": 518279933742.9737,
+        "nfw_concentration": 39.99999999999999,
         "nfw_drift_kms": 9.999999999999998,
-        "nfw_rmse_kms": 3.717433742586327,
-        "delta_aic_scarcity_minus_newtonian": -84168.18099553128,
-        "delta_aic_scarcity_minus_nfw": -1689.1499963336096
+        "nfw_rmse_kms": 3.717433739156756,
+        "yukawa_mass_msun": 171704729699.93555,
+        "yukawa_alpha": -0.6781773328172905,
+        "yukawa_xi_kpc": 3.9791603177726507,
+        "yukawa_drift_kms": 3.0000000000000004,
+        "yukawa_rmse_kms": 3.000701247464804,
+        "delta_aic_scarcity_minus_newtonian": -84168.18099553126,
+        "delta_aic_scarcity_minus_nfw": -1689.1499963335941,
+        "delta_aic_scarcity_minus_yukawa": -423.66526922030243
       },
       {
         "profile": {
@@ -984,35 +1272,51 @@
           "bulge_fraction": 0.3,
           "bulge_scale_kpc": 1.0
         },
-        "scarcity_mass_msun": 129290126339.62413,
+        "scarcity_mass_msun": 129290126339.62408,
         "scarcity_beta_kpc": 4.8500000000000005,
         "scarcity_drift_kms": 3.0,
-        "scarcity_rmse_kms": 2.7661629513591035,
+        "scarcity_rmse_kms": 2.7661629513591084,
         "newtonian_mass_msun": 131388973286.2675,
         "newtonian_drift_kms": 3.0,
         "newtonian_rmse_kms": 16.199558863782435,
-        "nfw_baryonic_mass_msun": 37192790040.82741,
-        "nfw_halo_mass_msun": 510400150728.7184,
-        "nfw_concentration": 36.88538082944321,
-        "nfw_drift_kms": 9.999999998563545,
-        "nfw_rmse_kms": 3.6655862014247202,
-        "delta_aic_scarcity_minus_newtonian": -75679.85009819394,
-        "delta_aic_scarcity_minus_nfw": -1585.2474995551447
+        "nfw_baryonic_mass_msun": 37192677490.612,
+        "nfw_halo_mass_msun": 510400147243.09827,
+        "nfw_concentration": 36.88544075840286,
+        "nfw_drift_kms": 9.999999999450877,
+        "nfw_rmse_kms": 3.6655860588706344,
+        "yukawa_mass_msun": 173845004739.2898,
+        "yukawa_alpha": -0.6454757648290671,
+        "yukawa_xi_kpc": 4.053496276594336,
+        "yukawa_drift_kms": 3.0000000000000004,
+        "yukawa_rmse_kms": 2.977183121402605,
+        "delta_aic_scarcity_minus_newtonian": -75679.85009819393,
+        "delta_aic_scarcity_minus_nfw": -1585.2474995483562,
+        "delta_aic_scarcity_minus_yukawa": -404.55650323117015
       }
     ],
-    "delta_aic_min": -158601.6676783663,
-    "delta_aic_max": -51748.73667264759,
+    "delta_aic_min": -158601.66767836627,
+    "delta_aic_max": -51748.73667264758,
     "preference_sign_stable": true,
-    "delta_aic_scarcity_minus_nfw_min": -2293.1413034441653,
-    "delta_aic_scarcity_minus_nfw_max": -847.0524324702405,
-    "scarcity_vs_nfw_preference_sign_stable": true
+    "delta_aic_scarcity_minus_nfw_min": -2293.141303444171,
+    "delta_aic_scarcity_minus_nfw_max": -847.0524324228168,
+    "scarcity_vs_nfw_preference_sign_stable": true,
+    "delta_aic_scarcity_minus_yukawa_min": -479.65537665185,
+    "delta_aic_scarcity_minus_yukawa_max": -138.8994052626599,
+    "scarcity_vs_yukawa_preference_sign_stable": true
   },
   "nfw_comparison_verdict": {
     "verdict": "inconclusive",
-    "baseline_delta_aic_scarcity_minus_nfw": -1663.4131690809577,
+    "baseline_delta_aic_scarcity_minus_nfw": -1663.4131690703998,
     "profile_sign_stable": true,
     "bootstrap_95_interval_excludes_zero": false,
     "interpretation": "Inconclusive because the 200-resample bootstrap interval crosses zero, despite baseline and profile-variant preference for scarcity."
+  },
+  "yukawa_comparison_verdict": {
+    "verdict": "shape-degenerate",
+    "baseline_delta_aic_scarcity_minus_yukawa": -369.6000834228812,
+    "profile_sign_stable": true,
+    "bootstrap_95_interval_excludes_zero": false,
+    "interpretation": "The band does not robustly distinguish exponential from 1/r-tail saturation across baseline, profile variants, and bootstrap resamples."
   },
   "lattice_convergence": [
     {
@@ -1021,8 +1325,8 @@
       "mass_msun": 120364240797.46918,
       "beta_kpc": 5.25,
       "drift_kms": 3.0,
-      "rmse_kms": 2.695748497511681,
-      "max_prediction_shift_vs_baseline_kms": 0.0001439154782474361
+      "rmse_kms": 2.695748497511683,
+      "max_prediction_shift_vs_baseline_kms": 0.00014391547833270124
     },
     {
       "outer_radius_kpc": 50.0,
@@ -1030,17 +1334,17 @@
       "mass_msun": 120364246135.36772,
       "beta_kpc": 5.25,
       "drift_kms": 3.0,
-      "rmse_kms": 2.6957704190975242,
+      "rmse_kms": 2.695770419097532,
       "max_prediction_shift_vs_baseline_kms": 5.684341886080802e-14
     },
     {
       "outer_radius_kpc": 50.0,
       "step_kpc": 0.005,
-      "mass_msun": 120364246580.19223,
+      "mass_msun": 120364246580.19218,
       "beta_kpc": 5.25,
       "drift_kms": 3.0,
-      "rmse_kms": 2.695772245943333,
-      "max_prediction_shift_vs_baseline_kms": 1.1992890904366504e-05
+      "rmse_kms": 2.6957722459433127,
+      "max_prediction_shift_vs_baseline_kms": 1.1992890875944795e-05
     },
     {
       "outer_radius_kpc": 100.0,
@@ -1048,26 +1352,26 @@
       "mass_msun": 120364240797.46918,
       "beta_kpc": 5.25,
       "drift_kms": 3.0,
-      "rmse_kms": 2.695748497511673,
-      "max_prediction_shift_vs_baseline_kms": 0.0001439154782474361
+      "rmse_kms": 2.6957484975116843,
+      "max_prediction_shift_vs_baseline_kms": 0.00014391547830427953
     },
     {
       "outer_radius_kpc": 100.0,
       "step_kpc": 0.01,
-      "mass_msun": 120364246135.36768,
+      "mass_msun": 120364246135.36772,
       "beta_kpc": 5.25,
       "drift_kms": 3.0,
-      "rmse_kms": 2.695770419097533,
+      "rmse_kms": 2.6957704190975296,
       "max_prediction_shift_vs_baseline_kms": 0.0
     },
     {
       "outer_radius_kpc": 100.0,
       "step_kpc": 0.005,
-      "mass_msun": 120364246580.19223,
+      "mass_msun": 120364246580.19215,
       "beta_kpc": 5.25,
       "drift_kms": 3.0,
-      "rmse_kms": 2.695772245943336,
-      "max_prediction_shift_vs_baseline_kms": 1.1992890847523086e-05
+      "rmse_kms": 2.6957722459433056,
+      "max_prediction_shift_vs_baseline_kms": 1.1992890762257957e-05
     },
     {
       "outer_radius_kpc": 200.0,
@@ -1075,8 +1379,8 @@
       "mass_msun": 120364240797.46918,
       "beta_kpc": 5.25,
       "drift_kms": 3.0,
-      "rmse_kms": 2.695748497511668,
-      "max_prediction_shift_vs_baseline_kms": 0.00014391547827585782
+      "rmse_kms": 2.6957484975116857,
+      "max_prediction_shift_vs_baseline_kms": 0.00014391547830427953
     },
     {
       "outer_radius_kpc": 200.0,
@@ -1084,17 +1388,17 @@
       "mass_msun": 120364246135.36768,
       "beta_kpc": 5.25,
       "drift_kms": 3.0,
-      "rmse_kms": 2.695770419097533,
-      "max_prediction_shift_vs_baseline_kms": 2.842170943040401e-14
+      "rmse_kms": 2.69577041909754,
+      "max_prediction_shift_vs_baseline_kms": 5.684341886080802e-14
     },
     {
       "outer_radius_kpc": 200.0,
       "step_kpc": 0.005,
-      "mass_msun": 120364246580.19223,
+      "mass_msun": 120364246580.19218,
       "beta_kpc": 5.25,
       "drift_kms": 3.0,
-      "rmse_kms": 2.6957722459433326,
-      "max_prediction_shift_vs_baseline_kms": 1.1992890875944795e-05
+      "rmse_kms": 2.6957722459432953,
+      "max_prediction_shift_vs_baseline_kms": 1.1992890819101376e-05
     }
   ],
   "outer_followup": {
@@ -1110,7 +1414,8 @@
       "band": "excluded",
       "scarcity_predicted_observed_kms": 206.00680444043175,
       "newtonian_predicted_observed_kms": 254.74652055642713,
-      "nfw_predicted_observed_kms": 220.91508356494774
+      "nfw_predicted_observed_kms": 220.91508367667416,
+      "yukawa_predicted_observed_kms": 211.1508276463867
     },
     {
       "R_kpc": 4.75,
@@ -1118,9 +1423,10 @@
       "statistical_error_kms": 0.3714389904710658,
       "n_stars": 13984,
       "band": "excluded",
-      "scarcity_predicted_observed_kms": 211.69840818195019,
+      "scarcity_predicted_observed_kms": 211.69840818195024,
       "newtonian_predicted_observed_kms": 252.2719866697108,
-      "nfw_predicted_observed_kms": 222.80874970096716
+      "nfw_predicted_observed_kms": 222.80874997357458,
+      "yukawa_predicted_observed_kms": 214.96342737879905
     },
     {
       "R_kpc": 5.25,
@@ -1128,9 +1434,10 @@
       "statistical_error_kms": 0.33242362331420006,
       "n_stars": 13945,
       "band": "fit",
-      "scarcity_predicted_observed_kms": 216.16498834077044,
+      "scarcity_predicted_observed_kms": 216.1649883407705,
       "newtonian_predicted_observed_kms": 249.33436786360429,
-      "nfw_predicted_observed_kms": 224.04851707497005
+      "nfw_predicted_observed_kms": 224.0485173647097,
+      "yukawa_predicted_observed_kms": 218.09146152357383
     },
     {
       "R_kpc": 5.75,
@@ -1138,9 +1445,10 @@
       "statistical_error_kms": 0.27288976404186943,
       "n_stars": 16317,
       "band": "fit",
-      "scarcity_predicted_observed_kms": 219.56935713585568,
+      "scarcity_predicted_observed_kms": 219.5693571358557,
       "newtonian_predicted_observed_kms": 246.04820441067218,
-      "nfw_predicted_observed_kms": 224.7757424399028
+      "nfw_predicted_observed_kms": 224.7757426870764,
+      "yukawa_predicted_observed_kms": 220.57108380693668
     },
     {
       "R_kpc": 6.25,
@@ -1150,7 +1458,8 @@
       "band": "fit",
       "scarcity_predicted_observed_kms": 222.05728485713084,
       "newtonian_predicted_observed_kms": 242.50768596787398,
-      "nfw_predicted_observed_kms": 225.0993602386136
+      "nfw_predicted_observed_kms": 225.09936042749118,
+      "yukawa_predicted_observed_kms": 222.44756816323212
     },
     {
       "R_kpc": 6.75,
@@ -1158,9 +1467,10 @@
       "statistical_error_kms": 0.16824468852442231,
       "n_stars": 27477,
       "band": "fit",
-      "scarcity_predicted_observed_kms": 223.7588282679287,
+      "scarcity_predicted_observed_kms": 223.75882826792875,
       "newtonian_predicted_observed_kms": 238.78997502740597,
-      "nfw_predicted_observed_kms": 225.10431070015454
+      "nfw_predicted_observed_kms": 225.10431083581318,
+      "yukawa_predicted_observed_kms": 223.7714401970118
     },
     {
       "R_kpc": 7.25,
@@ -1168,9 +1478,10 @@
       "statistical_error_kms": 0.13203455064915215,
       "n_stars": 39053,
       "band": "fit",
-      "scarcity_predicted_observed_kms": 224.78942342547734,
+      "scarcity_predicted_observed_kms": 224.78942342547737,
       "newtonian_predicted_observed_kms": 234.95797476955417,
-      "nfw_predicted_observed_kms": 224.85743059614194
+      "nfw_predicted_observed_kms": 224.85743069132872,
+      "yukawa_predicted_observed_kms": 224.59545922404382
     },
     {
       "R_kpc": 7.75,
@@ -1180,7 +1491,8 @@
       "band": "fit",
       "scarcity_predicted_observed_kms": 225.25095263554036,
       "newtonian_predicted_observed_kms": 231.06266633178268,
-      "nfw_predicted_observed_kms": 224.41168802017947
+      "nfw_predicted_observed_kms": 224.41168808814678,
+      "yukawa_predicted_observed_kms": 224.97238822952664
     },
     {
       "R_kpc": 8.25,
@@ -1188,9 +1500,10 @@
       "statistical_error_kms": 0.10259758076869893,
       "n_stars": 46600,
       "band": "fit",
-      "scarcity_predicted_observed_kms": 225.23283624853084,
+      "scarcity_predicted_observed_kms": 225.23283624853087,
       "newtonian_predicted_observed_kms": 227.1450852680338,
-      "nfw_predicted_observed_kms": 223.80929575901828
+      "nfw_predicted_observed_kms": 223.8092958099107,
+      "yukawa_predicted_observed_kms": 224.953421923265
     },
     {
       "R_kpc": 8.75,
@@ -1198,9 +1511,10 @@
       "statistical_error_kms": 0.11413742325645583,
       "n_stars": 32182,
       "band": "fit",
-      "scarcity_predicted_observed_kms": 224.8131419921887,
+      "scarcity_predicted_observed_kms": 224.81314199218872,
       "newtonian_predicted_observed_kms": 223.23798968422577,
-      "nfw_predicted_observed_kms": 223.08404239071265
+      "nfw_predicted_observed_kms": 223.08404243004247,
+      "yukawa_predicted_observed_kms": 224.58713651103955
     },
     {
       "R_kpc": 9.25,
@@ -1208,9 +1522,10 @@
       "statistical_error_kms": 0.1660969898970931,
       "n_stars": 16525,
       "band": "fit",
-      "scarcity_predicted_observed_kms": 224.05968750660426,
+      "scarcity_predicted_observed_kms": 224.05968750660432,
       "newtonian_predicted_observed_kms": 219.36726489252774,
-      "nfw_predicted_observed_kms": 222.26306418260546
+      "nfw_predicted_observed_kms": 222.2630642109249,
+      "yukawa_predicted_observed_kms": 223.91883943667946
     },
     {
       "R_kpc": 9.75,
@@ -1218,9 +1533,10 @@
       "statistical_error_kms": 0.2223753454305263,
       "n_stars": 9341,
       "band": "fit",
-      "scarcity_predicted_observed_kms": 223.03111091434718,
+      "scarcity_predicted_observed_kms": 223.0311109143472,
       "newtonian_predicted_observed_kms": 215.55310392637597,
-      "nfw_predicted_observed_kms": 221.3682089728297
+      "nfw_predicted_observed_kms": 221.36820898605677,
+      "yukawa_predicted_observed_kms": 222.99021776586886
     },
     {
       "R_kpc": 10.25,
@@ -1228,9 +1544,10 @@
       "statistical_error_kms": 0.22158631444691854,
       "n_stars": 7953,
       "band": "fit",
-      "scarcity_predicted_observed_kms": 221.77788913740196,
+      "scarcity_predicted_observed_kms": 221.777889137402,
       "newtonian_predicted_observed_kms": 211.81099822799342,
-      "nfw_predicted_observed_kms": 220.41709712035657
+      "nfw_predicted_observed_kms": 220.41709711042387,
+      "yukawa_predicted_observed_kms": 221.83920404151795
     },
     {
       "R_kpc": 10.75,
@@ -1238,9 +1555,10 @@
       "statistical_error_kms": 0.2213831972953126,
       "n_stars": 9528,
       "band": "fit",
-      "scarcity_predicted_observed_kms": 220.3432898504714,
+      "scarcity_predicted_observed_kms": 220.34328985047136,
       "newtonian_predicted_observed_kms": 208.15256808304804,
-      "nfw_predicted_observed_kms": 219.42395417113414
+      "nfw_predicted_observed_kms": 219.42395412676387,
+      "yukawa_predicted_observed_kms": 220.49999617067354
     },
     {
       "R_kpc": 11.25,
@@ -1248,9 +1566,10 @@
       "statistical_error_kms": 0.21615951625278182,
       "n_stars": 10889,
       "band": "fit",
-      "scarcity_predicted_observed_kms": 218.7642486772554,
+      "scarcity_predicted_observed_kms": 218.76424867725538,
       "newtonian_predicted_observed_kms": 204.58625803754367,
-      "nfw_predicted_observed_kms": 218.40026927870755
+      "nfw_predicted_observed_kms": 218.40026918619748,
+      "yukawa_predicted_observed_kms": 219.0031826603066
     },
     {
       "R_kpc": 11.75,
@@ -1258,9 +1577,10 @@
       "statistical_error_kms": 0.20417254427689982,
       "n_stars": 11567,
       "band": "fit",
-      "scarcity_predicted_observed_kms": 217.07216790291915,
+      "scarcity_predicted_observed_kms": 217.07216790291918,
       "newtonian_predicted_observed_kms": 201.11791867725935,
-      "nfw_predicted_observed_kms": 217.355319152384
+      "nfw_predicted_observed_kms": 217.35531899634105,
+      "yukawa_predicted_observed_kms": 217.37593642471867
     },
     {
       "R_kpc": 12.25,
@@ -1268,9 +1588,10 @@
       "statistical_error_kms": 0.21419112793947953,
       "n_stars": 10142,
       "band": "fit",
-      "scarcity_predicted_observed_kms": 215.2936365077618,
+      "scarcity_predicted_observed_kms": 215.29363650776182,
       "newtonian_predicted_observed_kms": 197.7512928052489,
-      "nfw_predicted_observed_kms": 216.29658723694047
+      "nfw_predicted_observed_kms": 216.29658700093006,
+      "yukawa_predicted_observed_kms": 215.64224980237518
     },
     {
       "R_kpc": 12.75,
@@ -1278,9 +1599,10 @@
       "statistical_error_kms": 0.23048161069859377,
       "n_stars": 8290,
       "band": "fit",
-      "scarcity_predicted_observed_kms": 213.45107384168162,
+      "scarcity_predicted_observed_kms": 213.4510738416816,
       "newtonian_predicted_observed_kms": 194.48842119660418,
-      "nfw_predicted_observed_kms": 215.23010059536574
+      "nfw_predicted_observed_kms": 215.23010026246544,
+      "yukawa_predicted_observed_kms": 213.82319076091125
     },
     {
       "R_kpc": 13.25,
@@ -1288,9 +1610,10 @@
       "statistical_error_kms": 0.24566014900881789,
       "n_stars": 7017,
       "band": "fit",
-      "scarcity_predicted_observed_kms": 211.56330093783552,
+      "scarcity_predicted_observed_kms": 211.5633009378355,
       "newtonian_predicted_observed_kms": 191.32998069516663,
-      "nfw_predicted_observed_kms": 214.16070168876135
+      "nfw_predicted_observed_kms": 214.16070124201693,
+      "yukawa_predicted_observed_kms": 211.93716592876646
     },
     {
       "R_kpc": 13.75,
@@ -1298,9 +1621,10 @@
       "statistical_error_kms": 0.2767083078745525,
       "n_stars": 5417,
       "band": "fit",
-      "scarcity_predicted_observed_kms": 209.64604449140526,
+      "scarcity_predicted_observed_kms": 209.64604449140532,
       "newtonian_predicted_observed_kms": 188.27556538784873,
-      "nfw_predicted_observed_kms": 213.09226834175675
+      "nfw_predicted_observed_kms": 213.0922677645477,
+      "yukawa_predicted_observed_kms": 210.00018041193815
     },
     {
       "R_kpc": 14.25,
@@ -1308,9 +1632,10 @@
       "statistical_error_kms": 0.26985840951775353,
       "n_stars": 4680,
       "band": "fit",
-      "scarcity_predicted_observed_kms": 207.71237906884693,
+      "scarcity_predicted_observed_kms": 207.71237906884699,
       "newtonian_predicted_observed_kms": 185.32391989212408,
-      "nfw_predicted_observed_kms": 212.02789225391385
+      "nfw_predicted_observed_kms": 212.02789153023636,
+      "yukawa_predicted_observed_kms": 208.02608761918358
     },
     {
       "R_kpc": 14.75,
@@ -1318,9 +1643,10 @@
       "statistical_error_kms": 0.3524319505688091,
       "n_stars": 2786,
       "band": "fit",
-      "scarcity_predicted_observed_kms": 205.7731132991052,
+      "scarcity_predicted_observed_kms": 205.77311329910526,
       "newtonian_predicted_observed_kms": 182.4731323689315,
-      "nfw_predicted_observed_kms": 210.97002419730836
+      "nfw_predicted_observed_kms": 210.9700233119869,
+      "yukawa_predicted_observed_kms": 206.02682475988757
     },
     {
       "R_kpc": 15.25,
@@ -1328,9 +1654,10 @@
       "statistical_error_kms": 0.4630452263142019,
       "n_stars": 1620,
       "band": "consistency",
-      "scarcity_predicted_observed_kms": 203.83712573754573,
+      "scarcity_predicted_observed_kms": 203.83712573754576,
       "newtonian_predicted_observed_kms": 179.7207936809765,
-      "nfw_predicted_observed_kms": 209.92059233923567
+      "nfw_predicted_observed_kms": 209.92059127807312,
+      "yukawa_predicted_observed_kms": 204.01263148085596
     },
     {
       "R_kpc": 15.75,
@@ -1338,9 +1665,10 @@
       "statistical_error_kms": 0.5935101498835164,
       "n_stars": 984,
       "band": "consistency",
-      "scarcity_predicted_observed_kms": 201.91165586751637,
+      "scarcity_predicted_observed_kms": 201.91165586751643,
       "newtonian_predicted_observed_kms": 177.06412811624108,
-      "nfw_predicted_observed_kms": 208.88109881329763
+      "nfw_predicted_observed_kms": 208.8810975631751,
+      "yukawa_predicted_observed_kms": 201.9922504182611
     },
     {
       "R_kpc": 16.25,
@@ -1348,9 +1676,10 @@
       "statistical_error_kms": 0.8829125021556943,
       "n_stars": 554,
       "band": "consistency",
-      "scarcity_predicted_observed_kms": 200.00255537471674,
+      "scarcity_predicted_observed_kms": 200.00255537471676,
       "newtonian_predicted_observed_kms": 174.50010025583066,
-      "nfw_predicted_observed_kms": 207.85269863615272
+      "nfw_predicted_observed_kms": 207.85269718508692,
+      "yukawa_predicted_observed_kms": 199.97310937439713
     },
     {
       "R_kpc": 16.75,
@@ -1358,9 +1687,10 @@
       "statistical_error_kms": 1.2126976338700055,
       "n_stars": 317,
       "band": "consistency",
-      "scarcity_predicted_observed_kms": 198.11450444078642,
+      "scarcity_predicted_observed_kms": 198.11450444078648,
       "newtonian_predicted_observed_kms": 172.0255018571237,
-      "nfw_predicted_observed_kms": 206.83626426124349
+      "nfw_predicted_observed_kms": 206.83626259841134,
+      "yukawa_predicted_observed_kms": 197.96148547632143
     },
     {
       "R_kpc": 17.25,
@@ -1370,7 +1700,8 @@
       "band": "consistency",
       "scarcity_predicted_observed_kms": 196.251197386866,
       "newtonian_predicted_observed_kms": 169.63702202536263,
-      "nfw_predicted_observed_kms": 205.83243842355077
+      "nfw_predicted_observed_kms": 205.83243653928693,
+      "yukawa_predicted_observed_kms": 195.96265210545727
     },
     {
       "R_kpc": 17.75,
@@ -1380,7 +1711,8 @@
       "band": "consistency",
       "scarcity_predicted_observed_kms": 194.41550157778858,
       "newtonian_predicted_observed_kms": 167.3313034411281,
-      "nfw_predicted_observed_kms": 204.84167742264438
+      "nfw_predicted_observed_kms": 204.84167530841881,
+      "yukawa_predicted_observed_kms": 193.98100965864134
     },
     {
       "R_kpc": 18.25,
@@ -1388,9 +1720,10 @@
       "statistical_error_kms": 2.3181490056515526,
       "n_stars": 57,
       "band": "consistency",
-      "scarcity_predicted_observed_kms": 192.60959308820782,
+      "scarcity_predicted_observed_kms": 192.60959308820787,
       "newtonian_predicted_observed_kms": 165.10498698263885,
-      "nfw_predicted_observed_kms": 203.8642865862566
+      "nfw_predicted_observed_kms": 203.86428423463678,
+      "yukawa_predicted_observed_kms": 192.02020135432025
     },
     {
       "R_kpc": 18.75,
@@ -1398,9 +1731,10 @@
       "statistical_error_kms": 3.665284463942638,
       "n_stars": 30,
       "band": "consistency",
-      "scarcity_predicted_observed_kms": 190.83507224315895,
+      "scarcity_predicted_observed_kms": 190.83507224315898,
       "newtonian_predicted_observed_kms": 162.95474671823266,
-      "nfw_predicted_observed_kms": 202.90044933144245
+      "nfw_predicted_observed_kms": 202.9004467360444,
+      "yukawa_predicted_observed_kms": 190.08321536524696
     }
   ]
 }
