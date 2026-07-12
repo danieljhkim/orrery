@@ -1,0 +1,196 @@
+{
+  "apparatus": {
+    "ambient_depletions": [
+      0.0,
+      0.01,
+      0.03,
+      0.1,
+      0.2,
+      0.4,
+      0.6,
+      0.8,
+      0.9,
+      0.96,
+      0.985,
+      0.995
+    ],
+    "background_source": "uniform disk of radius 0.31 times lattice width",
+    "boundary": "zero exposure (full reservoir) on outermost cells",
+    "cell_capacity": 50000,
+    "compact_peak_exposure": 0.1,
+    "compact_source": "one central lattice cell",
+    "primary_size": 129,
+    "replicates": 32
+  },
+  "microscopic_rule": "Each cell has a finite set of anonymous occupied slots; background hits act first and compact-source hits can clear only surviving slots.",
+  "primary": {
+    "candidate_comparison": {
+      "fitted-headroom-power": {
+        "log_rmse_through_90_percent": 0.0030826466042751717
+      },
+      "independence": {
+        "log_rmse_through_90_percent": 1.0740363046602777
+      },
+      "multiplicative-enhancement": {
+        "log_rmse_through_90_percent": 2.0770652791489526
+      },
+      "screening-headroom": {
+        "log_rmse_through_90_percent": 0.07106765828640653
+      }
+    },
+    "fit_radius_cells": [
+      4,
+      18
+    ],
+    "fitted_modulation": {
+      "alpha": 1.0707862091828242,
+      "fit_depletion_range": [
+        0.01,
+        0.9
+      ],
+      "form": "A(D) = (1-D)^alpha, constrained to A(0)=1"
+    },
+    "size": 129,
+    "sweep": [
+      {
+        "ambient_depletion": 0.0,
+        "ambient_headroom": 1.0,
+        "delivered_compact_sink_fraction": 1.0,
+        "expected_field_amplitude": 1.0,
+        "field_over_headroom": 1.0,
+        "measured_field_amplitude": 0.9974112602137901,
+        "measured_standard_error": 0.0014522703314264784,
+        "measurement_z_from_expectation": -1.7825467684567495
+      },
+      {
+        "ambient_depletion": 0.01,
+        "ambient_headroom": 0.99,
+        "delivered_compact_sink_fraction": 0.9933926834411728,
+        "expected_field_amplitude": 0.9893956717494555,
+        "field_over_headroom": 0.9993895674236924,
+        "measured_field_amplitude": 0.9894049135812233,
+        "measured_standard_error": 0.0014449428448674577,
+        "measurement_z_from_expectation": 0.006395984312173042
+      },
+      {
+        "ambient_depletion": 0.03,
+        "ambient_headroom": 0.97,
+        "delivered_compact_sink_fraction": 0.9801320387958807,
+        "expected_field_amplitude": 0.9682038851486663,
+        "field_over_headroom": 0.9981483352048106,
+        "measured_field_amplitude": 0.970653509084304,
+        "measured_standard_error": 0.0018173501052851596,
+        "measurement_z_from_expectation": 1.3479097552606003
+      },
+      {
+        "ambient_depletion": 0.1,
+        "ambient_headroom": 0.9,
+        "delivered_compact_sink_fraction": 0.9332121219713474,
+        "expected_field_amplitude": 0.8942165828792158,
+        "field_over_headroom": 0.9935739809769064,
+        "measured_field_amplitude": 0.8932725954512601,
+        "measured_standard_error": 0.0014399555949250898,
+        "measurement_z_from_expectation": -0.6555670405966644
+      },
+      {
+        "ambient_depletion": 0.2,
+        "ambient_headroom": 0.8,
+        "delivered_compact_sink_fraction": 0.8646697541390626,
+        "expected_field_amplitude": 0.7890559952856202,
+        "field_over_headroom": 0.9863199941070252,
+        "measured_field_amplitude": 0.7876939143510452,
+        "measured_standard_error": 0.0015204386864501667,
+        "measurement_z_from_expectation": -0.8958473279544898
+      },
+      {
+        "ambient_depletion": 0.4,
+        "ambient_headroom": 0.6,
+        "delivered_compact_sink_fraction": 0.7209072245999454,
+        "expected_field_amplitude": 0.5809710895445436,
+        "field_over_headroom": 0.968285149240906,
+        "measured_field_amplitude": 0.5817912783702248,
+        "measured_standard_error": 0.001270831474680975,
+        "measurement_z_from_expectation": 0.6453954297025437
+      },
+      {
+        "ambient_depletion": 0.6,
+        "ambient_headroom": 0.4,
+        "delivered_compact_sink_fraction": 0.5641804650469522,
+        "expected_field_amplitude": 0.3768328791767308,
+        "field_over_headroom": 0.942082197941827,
+        "measured_field_amplitude": 0.3776985204531792,
+        "measured_standard_error": 0.0010466282216060284,
+        "measurement_z_from_expectation": 0.8270761848176466
+      },
+      {
+        "ambient_depletion": 0.8,
+        "ambient_headroom": 0.19999999999999996,
+        "delivered_compact_sink_fraction": 0.38283155689584925,
+        "expected_field_amplitude": 0.17901326180634375,
+        "field_over_headroom": 0.8950663090317189,
+        "measured_field_amplitude": 0.17725577354762856,
+        "measured_standard_error": 0.0007609785327716513,
+        "measurement_z_from_expectation": -2.309510955997708
+      },
+      {
+        "ambient_depletion": 0.9,
+        "ambient_headroom": 0.09999999999999998,
+        "delivered_compact_sink_fraction": 0.2703696499812733,
+        "expected_field_amplitude": 0.0845080672540119,
+        "field_over_headroom": 0.8450806725401192,
+        "measured_field_amplitude": 0.0852004708955114,
+        "measured_standard_error": 0.0006145300561886281,
+        "measurement_z_from_expectation": 1.126720547720402
+      },
+      {
+        "ambient_depletion": 0.96,
+        "ambient_headroom": 0.040000000000000036,
+        "delivered_compact_sink_fraction": 0.18110596163152892,
+        "expected_field_amplitude": 0.0309637497539471,
+        "field_over_headroom": 0.7740937438486768,
+        "measured_field_amplitude": 0.030766599292507517,
+        "measured_standard_error": 0.0003365264141847481,
+        "measurement_z_from_expectation": -0.5858394857865505
+      },
+      {
+        "ambient_depletion": 0.985,
+        "ambient_headroom": 0.015000000000000013,
+        "delivered_compact_sink_fraction": 0.12608425563339826,
+        "expected_field_amplitude": 0.010370529733101168,
+        "field_over_headroom": 0.6913686488734107,
+        "measured_field_amplitude": 0.010016164410734583,
+        "measured_standard_error": 0.00023231940903947968,
+        "measurement_z_from_expectation": -1.5253367070435582
+      },
+      {
+        "ambient_depletion": 0.995,
+        "ambient_headroom": 0.0050000000000000044,
+        "delivered_compact_sink_fraction": 0.08990939718916294,
+        "expected_field_amplitude": 0.002947937931700396,
+        "field_over_headroom": 0.5895875863400787,
+        "measured_field_amplitude": 0.0029017731143126425,
+        "measured_standard_error": 0.00010449758099819266,
+        "measurement_z_from_expectation": -0.44177881388997764
+      }
+    ]
+  },
+  "question": "Does ambient depletion enhance, leave unchanged, or screen an embedded compact source's stored-scarcity gradient?",
+  "resolution_checks": [
+    {
+      "alpha": 1.072500951604002,
+      "max_absolute_amplitude_difference_from_primary": 0.00044364629855425664,
+      "size": 97
+    },
+    {
+      "alpha": 1.0699852851259712,
+      "max_absolute_amplitude_difference_from_primary": 0.00020552464716444563,
+      "size": 161
+    }
+  ],
+  "schema_version": 1,
+  "seed": 42,
+  "verdict": {
+    "apparatus_level": "screening, followed by saturation; no multiplicative enhancement",
+    "scope": "This verdict follows from anonymous fixed-coupling depletion attempts on a shared finite count. A microscopic rule that changes attempt rate with occupancy would be a different model."
+  }
+}
