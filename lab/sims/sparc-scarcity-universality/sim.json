@@ -1,0 +1,23 @@
+{
+  "slug": "sparc-scarcity-universality",
+  "title": "SPARC scarcity universality test",
+  "kind": "py",
+  "entry": "main.py",
+  "status": "active",
+  "created": "2026-07-12",
+  "topics": [
+    "gravity",
+    "galaxy-rotation",
+    "model-fitting",
+    "sparc",
+    "radial-acceleration-relation"
+  ],
+  "family": "gravity-as-scarcity",
+  "summary": "Across 149 SPARC galaxies beta_i tracks disk scale (rho=0.343, p=1.86e-5), the per-galaxy model wins by 51,723 AIC, and the predeclared fixed-length kill condition is met.",
+  "provenance": {
+    "almanac": "15-discussions/26-07/gravity-as-scarcity-of-space.md",
+    "orbit_tasks": ["ORB-10169", "ORB-10168", "ORB-10077"],
+    "dataset": "astrolabe/data/processed/catalog/sparc_{galaxies,rotcurves}.parquet",
+    "extends": "scarcity-rotation-curve-fit"
+  }
+}

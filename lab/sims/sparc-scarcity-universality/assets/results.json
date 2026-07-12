@@ -1,0 +1,4865 @@
+{
+  "task": "ORB-10169",
+  "protocol": {
+    "sample_cuts": {
+      "quality_max": 2,
+      "inclination_min_deg": 30,
+      "min_points": 5
+    },
+    "mass_to_light": {
+      "disk": 0.5,
+      "bulge": 0.7
+    },
+    "nuisance_policy": "one positive baryonic normalization per galaxy; no drift term",
+    "scarcity_equation": "v=sqrt(A)*v_bar*exp[-beta*integral(F/u^2 du)/2]",
+    "parameter_counts": {
+      "global_beta": 150,
+      "per_galaxy_beta": 298,
+      "mond_global_a0": 150
+    },
+    "kill_condition": "positive beta_i--disk-scale Spearman correlation with p<0.01 and rejection of constant beta_i at p<0.01"
+  },
+  "sample": {
+    "galaxies": 149,
+    "points": 3150
+  },
+  "global_beta_scarcity": {
+    "beta_kpc": 5.526156811086363,
+    "milky_way_beta_kpc": 5.25,
+    "chi2": 106319.29931008998,
+    "parameters": 150,
+    "dof": 3000,
+    "aic": 106619.29931008998
+  },
+  "per_galaxy_beta_scarcity": {
+    "chi2": 54300.28952168604,
+    "parameters": 298,
+    "dof": 2852,
+    "aic": 54896.28952168604,
+    "beta_kpc": {
+      "median": 3.071619272194052,
+      "p16": 3.737685985848593e-07,
+      "p84": 8.0787764353297,
+      "min": 3.737685985848593e-07,
+      "max": 21.305867409473382
+    },
+    "constant_heterogeneity": {
+      "inverse_variance_beta_kpc": 5.211837015814386,
+      "chi2": 48361.70899000155,
+      "dof": 121,
+      "p_value": 0.0
+    }
+  },
+  "aic_comparison": {
+    "delta_aic_global_minus_per_galaxy": 51723.009788403935
+  },
+  "correlations": {
+    "beta_i_vs_disk_scale": {
+      "n": 149,
+      "spearman_rho": 0.3429420333287499,
+      "p_value": 1.8567302279357266e-05
+    },
+    "beta_i_vs_characteristic_acceleration": {
+      "n": 149,
+      "spearman_rho": 0.40071981160869513,
+      "p_value": 4.104100055185545e-07
+    },
+    "global_residual_strength_vs_disk_scale": {
+      "n": 149,
+      "spearman_rho": -0.3482609535816131,
+      "p_value": 1.3471142855619846e-05
+    },
+    "global_residual_strength_vs_characteristic_acceleration": {
+      "n": 149,
+      "spearman_rho": -0.2521168148013786,
+      "p_value": 0.0019233172796940983
+    }
+  },
+  "mond_control": {
+    "a0_ms2": 1.4060003523168438e-10,
+    "chi2": 28898.454649549276,
+    "parameters": 150,
+    "dof": 3000,
+    "aic": 29198.454649549276
+  },
+  "verdict": {
+    "fixed_length_kill_condition_met": true,
+    "statement": "fixed-beta scarcity is refuted by the predeclared size-tracking kill condition"
+  },
+  "galaxies": [
+    {
+      "source_id": "CamB",
+      "n_points": 9,
+      "r_disk_kpc": 0.47,
+      "characteristic_gbar_ms2": 5.0153888545088644e-12,
+      "global_scarcity": {
+        "normalization": 3.523811006107457,
+        "chi2": 36.91532695048467,
+        "rmse_kms": 3.037899230985315,
+        "mean_residual_kms": 1.7122436985985534,
+        "median_log10_velocity_ratio": 0.18241852989597626,
+        "median_abs_log10_velocity_ratio": 0.18241852989597626
+      },
+      "per_galaxy_scarcity": {
+        "beta_kpc": 2.6319043799801185,
+        "beta_sigma_kpc": 0.42361722521519607,
+        "normalization": 2.28886464689716,
+        "chi2": 1.2653041575218285,
+        "rmse_kms": 0.5624286971523209,
+        "mean_residual_kms": 0.09500980531663912,
+        "median_log10_velocity_ratio": 0.014233900460478245,
+        "median_abs_log10_velocity_ratio": 0.02282111510982991
+      },
+      "mond_control": {
+        "normalization": 0.036393806880159835,
+        "chi2": 30.359474805238662,
+        "rmse_kms": 2.754971633485482,
+        "mean_residual_kms": -0.5244787327301744,
+        "median_log10_velocity_ratio": -0.06258904118426475,
+        "median_abs_log10_velocity_ratio": 0.10834662315688001
+      }
+    },
+    {
+      "source_id": "D564-8",
+      "n_points": 6,
+      "r_disk_kpc": 0.61,
+      "characteristic_gbar_ms2": 1.5411206863645179e-12,
+      "global_scarcity": {
+        "normalization": 11.68757401195393,
+        "chi2": 31.483264489772353,
+        "rmse_kms": 3.834495906930955,
+        "mean_residual_kms": 0.9104359323454458,
+        "median_log10_velocity_ratio": 0.05351528443927029,
+        "median_abs_log10_velocity_ratio": 0.09049713055900285
+      },
+      "per_galaxy_scarcity": {
+        "beta_kpc": 2.3310863361512935,
+        "beta_sigma_kpc": 0.5143777029491857,
+        "normalization": 7.995149013129412,
+        "chi2": 0.1928630908063842,
+        "rmse_kms": 0.30334378620691527,
+        "mean_residual_kms": -0.024620994187776486,
+        "median_log10_velocity_ratio": -0.0008679869340960164,
+        "median_abs_log10_velocity_ratio": 0.0041307127928077525
+      },
+      "mond_control": {
+        "normalization": 0.2510535948245095,
+        "chi2": 7.903082498526413,
+        "rmse_kms": 1.888193746298011,
+        "mean_residual_kms": 0.040553452188716164,
+        "median_log10_velocity_ratio": 0.011508586767595147,
+        "median_abs_log10_velocity_ratio": 0.03641645081710629
+      }
+    },
+    {
+      "source_id": "D631-7",
+      "n_points": 16,
+      "r_disk_kpc": 0.7,
+      "characteristic_gbar_ms2": 4.657991856116737e-12,
+      "global_scarcity": {
+        "normalization": 8.431740470542914,
+        "chi2": 15.330585725582974,
+        "rmse_kms": 2.736944301681508,
+        "mean_residual_kms": 1.2369442579470884,
+        "median_log10_velocity_ratio": 0.010846302105450664,
+        "median_abs_log10_velocity_ratio": 0.020591048607029774
+      },
+      "per_galaxy_scarcity": {
+        "beta_kpc": 5.967583936333781,
+        "beta_sigma_kpc": 0.3139007218371036,
+        "normalization": 8.909785494914585,
+        "chi2": 13.308986707992412,
+        "rmse_kms": 2.311998925767774,
+        "mean_residual_kms": 1.142507120486711,
+        "median_log10_velocity_ratio": 0.01911375995862988,
+        "median_abs_log10_velocity_ratio": 0.02013819909159431
+      },
+      "mond_control": {
+        "normalization": 0.41708808671920905,
+        "chi2": 182.22770866047733,
+        "rmse_kms": 8.427970495116398,
+        "mean_residual_kms": 1.5784463520572949,
+        "median_log10_velocity_ratio": 0.017160288561954815,
+        "median_abs_log10_velocity_ratio": 0.08845271896538887
+      }
+    },
+    {
+      "source_id": "DDO064",
+      "n_points": 14,
+      "r_disk_kpc": 0.69,
+      "characteristic_gbar_ms2": 6.450358375033209e-12,
+      "global_scarcity": {
+        "normalization": 8.085983724448871,
+        "chi2": 39.805825969039766,
+        "rmse_kms": 9.842065349408776,
+        "mean_residual_kms": 1.7982505549419854,
+        "median_log10_velocity_ratio": 0.12044780431546326,
+        "median_abs_log10_velocity_ratio": 0.13792091056903322
+      },
+      "per_galaxy_scarcity": {
+        "beta_kpc": 3.737685985848593e-07,
+        "beta_sigma_kpc": null,
+        "normalization": 4.098804233793225,
+        "chi2": 5.4290940237848035,
+        "rmse_kms": 3.0972523459495807,
+        "mean_residual_kms": 0.5964665177922593,
+        "median_log10_velocity_ratio": 0.011507672277332716,
+        "median_abs_log10_velocity_ratio": 0.027329566241307425
+      },
+      "mond_control": {
+        "normalization": 0.731302437821451,
+        "chi2": 3.7634035675544655,
+        "rmse_kms": 2.699170943500996,
+        "mean_residual_kms": -0.21339925078959318,
+        "median_log10_velocity_ratio": -0.006484600499116525,
+        "median_abs_log10_velocity_ratio": 0.03140086056366093
+      }
+    },
+    {
+      "source_id": "DDO154",
+      "n_points": 12,
+      "r_disk_kpc": 0.37,
+      "characteristic_gbar_ms2": 3.2810499654990334e-12,
+      "global_scarcity": {
+        "normalization": 10.535705277195879,
+        "chi2": 1194.3616360890974,
+        "rmse_kms": 4.56700413200646,
+        "mean_residual_kms": 0.4566547372932496,
+        "median_log10_velocity_ratio": 0.02175555167366376,
+        "median_abs_log10_velocity_ratio": 0.05504572854111385
+      },
+      "per_galaxy_scarcity": {
+        "beta_kpc": 2.1817834158923164,
+        "beta_sigma_kpc": 0.09771819601166977,
+        "normalization": 7.541784512834345,
+        "chi2": 96.1707484931061,
+        "rmse_kms": 1.7492147560546987,
+        "mean_residual_kms": -0.2321957247755503,
+        "median_log10_velocity_ratio": 0.003284063197558572,
+        "median_abs_log10_velocity_ratio": 0.010299075915683424
+      },
+      "mond_control": {
+        "normalization": 0.6765996292303621,
+        "chi2": 100.40199726064073,
+        "rmse_kms": 2.6170210548848303,
+        "mean_residual_kms": -1.334218684885221,
+        "median_log10_velocity_ratio": -0.002643561151645439,
+        "median_abs_log10_velocity_ratio": 0.007005192000709577
+      }
+    },
+    {
+      "source_id": "DDO161",
+      "n_points": 31,
+      "r_disk_kpc": 1.22,
+      "characteristic_gbar_ms2": 5.456740567845898e-12,
+      "global_scarcity": {
+        "normalization": 4.370353981920957,
+        "chi2": 89.33185020463432,
+        "rmse_kms": 3.026641920909325,
+        "mean_residual_kms": -1.4499174049838917,
+        "median_log10_velocity_ratio": -0.011208754163857831,
+        "median_abs_log10_velocity_ratio": 0.017563987567532968
+      },
+      "per_galaxy_scarcity": {
+        "beta_kpc": 7.582469193564601,
+        "beta_sigma_kpc": 0.3131699440101938,
+        "normalization": 4.648597859743859,
+        "chi2": 44.36470512530516,
+        "rmse_kms": 2.147040845972342,
+        "mean_residual_kms": 0.04943891136277149,
+        "median_log10_velocity_ratio": 0.0006857587798982972,
+        "median_abs_log10_velocity_ratio": 0.013529077323684236
+      },
+      "mond_control": {
+        "normalization": 0.31914940882101267,
+        "chi2": 59.42301401706253,
+        "rmse_kms": 3.6928936359210427,
+        "mean_residual_kms": -2.245979587649827,
+        "median_log10_velocity_ratio": -0.012597942941558955,
+        "median_abs_log10_velocity_ratio": 0.012597942941558955
+      }
+    },
+    {
+      "source_id": "DDO168",
+      "n_points": 10,
+      "r_disk_kpc": 1.02,
+      "characteristic_gbar_ms2": 9.240040538266622e-12,
+      "global_scarcity": {
+        "normalization": 7.13744975400532,
+        "chi2": 79.8412133180462,
+        "rmse_kms": 6.50692643096274,
+        "mean_residual_kms": -1.410811355145752,
+        "median_log10_velocity_ratio": 0.017467777674191224,
+        "median_abs_log10_velocity_ratio": 0.03358466935094677
+      },
+      "per_galaxy_scarcity": {
+        "beta_kpc": 3.6997178659429735,
+        "beta_sigma_kpc": 0.2550230065280816,
+        "normalization": 5.600600161063228,
+        "chi2": 30.312986230572047,
+        "rmse_kms": 3.3913600782004227,
+        "mean_residual_kms": -0.9502830037643998,
+        "median_log10_velocity_ratio": -0.0029358974374602415,
+        "median_abs_log10_velocity_ratio": 0.027596103852866323
+      },
+      "mond_control": {
+        "normalization": 0.5259940863657377,
+        "chi2": 120.16120764897552,
+        "rmse_kms": 5.251129492986709,
+        "mean_residual_kms": -0.16472517987880905,
+        "median_log10_velocity_ratio": 0.004802939945693524,
+        "median_abs_log10_velocity_ratio": 0.045355031649540176
+      }
+    },
+    {
+      "source_id": "DDO170",
+      "n_points": 8,
+      "r_disk_kpc": 1.95,
+      "characteristic_gbar_ms2": 3.873791885668273e-12,
+      "global_scarcity": {
+        "normalization": 5.237191960453861,
+        "chi2": 113.11164431626074,
+        "rmse_kms": 4.54334458399641,
+        "mean_residual_kms": 0.7634941380602345,
+        "median_log10_velocity_ratio": 0.006801272660553001,
+        "median_abs_log10_velocity_ratio": 0.034873613576055895
+      },
+      "per_galaxy_scarcity": {
+        "beta_kpc": 1.7094598811856072,
+        "beta_sigma_kpc": 0.4877592068914949,
+        "normalization": 4.538853421316624,
+        "chi2": 53.41195627850253,
+        "rmse_kms": 2.9008699229395223,
+        "mean_residual_kms": -0.2130515520623888,
+        "median_log10_velocity_ratio": -0.009273447606045124,
+        "median_abs_log10_velocity_ratio": 0.02501143105562105
+      },
+      "mond_control": {
+        "normalization": 0.3666882223234855,
+        "chi2": 37.135172069424925,
+        "rmse_kms": 2.5478583113664524,
+        "mean_residual_kms": -0.17348627121690718,
+        "median_log10_velocity_ratio": -0.004424956976111056,
+        "median_abs_log10_velocity_ratio": 0.02183298994198519
+      }
+    },
+    {
+      "source_id": "ESO079-G014",
+      "n_points": 15,
+      "r_disk_kpc": 5.08,
+      "characteristic_gbar_ms2": 2.7385771566110388e-11,
+      "global_scarcity": {
+        "normalization": 3.395367897929818,
+        "chi2": 63.006434887208016,
+        "rmse_kms": 11.186886848342244,
+        "mean_residual_kms": 2.907280790664679,
+        "median_log10_velocity_ratio": 0.006952531104712828,
+        "median_abs_log10_velocity_ratio": 0.04239608711932374
+      },
+      "per_galaxy_scarcity": {
+        "beta_kpc": 3.8177256378353093,
+        "beta_sigma_kpc": 0.7020179139833369,
+        "normalization": 3.3072863901081493,
+        "chi2": 57.201577813297085,
+        "rmse_kms": 10.704251533111194,
+        "mean_residual_kms": 0.7052538959489866,
+        "median_log10_velocity_ratio": 0.004710204775202263,
+        "median_abs_log10_velocity_ratio": 0.020705190011283386
+      },
+      "mond_control": {
+        "normalization": 1.052579844489269,
+        "chi2": 45.50037107192116,
+        "rmse_kms": 9.753817599973134,
+        "mean_residual_kms": -1.4613525012116406,
+        "median_log10_velocity_ratio": -0.0021989350151385262,
+        "median_abs_log10_velocity_ratio": 0.01325506807101534
+      }
+    },
+    {
+      "source_id": "ESO116-G012",
+      "n_points": 15,
+      "r_disk_kpc": 1.51,
+      "characteristic_gbar_ms2": 1.9459719434127788e-11,
+      "global_scarcity": {
+        "normalization": 5.902820452506808,
+        "chi2": 32.768376868887366,
+        "rmse_kms": 4.262219755737997,
+        "mean_residual_kms": 1.611441393258003,
+        "median_log10_velocity_ratio": 0.008798372375288454,
+        "median_abs_log10_velocity_ratio": 0.011951571199613091
+      },
+      "per_galaxy_scarcity": {
+        "beta_kpc": 4.242424510833503,
+        "beta_sigma_kpc": 0.2968135879781494,
+        "normalization": 5.528243307896386,
+        "chi2": 14.912689113387913,
+        "rmse_kms": 2.7986688173629046,
+        "mean_residual_kms": 0.19564801852879418,
+        "median_log10_velocity_ratio": 0.004227869885880904,
+        "median_abs_log10_velocity_ratio": 0.011485192803352173
+      },
+      "mond_control": {
+        "normalization": 1.2350405858384192,
+        "chi2": 39.73147856356292,
+        "rmse_kms": 4.781843150628394,
+        "mean_residual_kms": -1.2983001632573192,
+        "median_log10_velocity_ratio": -0.004544768852675149,
+        "median_abs_log10_velocity_ratio": 0.015145611687849756
+      }
+    },
+    {
+      "source_id": "ESO444-G084",
+      "n_points": 7,
+      "r_disk_kpc": 0.46,
+      "characteristic_gbar_ms2": 6.929801980493937e-12,
+      "global_scarcity": {
+        "normalization": 21.63342902731739,
+        "chi2": 224.54853161585118,
+        "rmse_kms": 13.315594227493456,
+        "mean_residual_kms": 6.3954156829205795,
+        "median_log10_velocity_ratio": 0.09416412797096403,
+        "median_abs_log10_velocity_ratio": 0.09416412797096403
+      },
+      "per_galaxy_scarcity": {
+        "beta_kpc": 2.041893190581361,
+        "beta_sigma_kpc": 0.22037647835307664,
+        "normalization": 12.412752422486639,
+        "chi2": 17.650522046184186,
+        "rmse_kms": 4.440889971379475,
+        "mean_residual_kms": 2.205367733322718,
+        "median_log10_velocity_ratio": 0.033284658344631,
+        "median_abs_log10_velocity_ratio": 0.033284658344631
+      },
+      "mond_control": {
+        "normalization": 1.9022183985903913,
+        "chi2": 16.38798507915949,
+        "rmse_kms": 3.250534235728336,
+        "mean_residual_kms": -0.05757505091815318,
+        "median_log10_velocity_ratio": -0.009880215045189064,
+        "median_abs_log10_velocity_ratio": 0.02853363900860992
+      }
+    },
+    {
+      "source_id": "ESO563-G021",
+      "n_points": 30,
+      "r_disk_kpc": 5.45,
+      "characteristic_gbar_ms2": 7.269110473963743e-11,
+      "global_scarcity": {
+        "normalization": 3.4092816108031916,
+        "chi2": 503.3789081269634,
+        "rmse_kms": 28.882439518353333,
+        "mean_residual_kms": -5.588415349140642,
+        "median_log10_velocity_ratio": -0.008196982876455006,
+        "median_abs_log10_velocity_ratio": 0.02753637985242976
+      },
+      "per_galaxy_scarcity": {
+        "beta_kpc": 7.752283190939362,
+        "beta_sigma_kpc": 0.356069840508838,
+        "normalization": 3.754320047444203,
+        "chi2": 464.60392895176335,
+        "rmse_kms": 27.353770344574063,
+        "mean_residual_kms": -9.341236567198106,
+        "median_log10_velocity_ratio": -0.01563755402502287,
+        "median_abs_log10_velocity_ratio": 0.0353683994420683
+      },
+      "mond_control": {
+        "normalization": 1.5015312561997596,
+        "chi2": 480.5607363183122,
+        "rmse_kms": 23.683006358350234,
+        "mean_residual_kms": -7.698535949667373,
+        "median_log10_velocity_ratio": -0.0067661802592329364,
+        "median_abs_log10_velocity_ratio": 0.013984023421650069
+      }
+    },
+    {
+      "source_id": "F565-V2",
+      "n_points": 7,
+      "r_disk_kpc": 2.17,
+      "characteristic_gbar_ms2": 3.3947673060044994e-12,
+      "global_scarcity": {
+        "normalization": 8.844471828937225,
+        "chi2": 5.35783652691874,
+        "rmse_kms": 5.867461621272344,
+        "mean_residual_kms": 1.9251458069672454,
+        "median_log10_velocity_ratio": 0.01999901744817217,
+        "median_abs_log10_velocity_ratio": 0.02116668474302836
+      },
+      "per_galaxy_scarcity": {
+        "beta_kpc": 3.737685985848593e-07,
+        "beta_sigma_kpc": null,
+        "normalization": 7.797265058592711,
+        "chi2": 1.5372354766655778,
+        "rmse_kms": 3.832300153886679,
+        "mean_residual_kms": -0.6522146866299207,
+        "median_log10_velocity_ratio": -0.005753163564887918,
+        "median_abs_log10_velocity_ratio": 0.013673777691005608
+      },
+      "mond_control": {
+        "normalization": 1.2402396295796725,
+        "chi2": 1.6274736897382789,
+        "rmse_kms": 4.18885592235158,
+        "mean_residual_kms": -0.9732772588689228,
+        "median_log10_velocity_ratio": -0.004988419226124371,
+        "median_abs_log10_velocity_ratio": 0.014445066812108456
+      }
+    },
+    {
+      "source_id": "F568-3",
+      "n_points": 18,
+      "r_disk_kpc": 4.99,
+      "characteristic_gbar_ms2": 7.1918298739986886e-12,
+      "global_scarcity": {
+        "normalization": 5.532037156134417,
+        "chi2": 35.50617515342994,
+        "rmse_kms": 8.780067194530611,
+        "mean_residual_kms": 1.9352725081321844,
+        "median_log10_velocity_ratio": -0.007254480649544585,
+        "median_abs_log10_velocity_ratio": 0.05340451094936044
+      },
+      "per_galaxy_scarcity": {
+        "beta_kpc": 5.094515780513096,
+        "beta_sigma_kpc": 1.9650251019691591,
+        "normalization": 5.427058293402921,
+        "chi2": 35.45781209338605,
+        "rmse_kms": 8.608151269021045,
+        "mean_residual_kms": 2.042318468469117,
+        "median_log10_velocity_ratio": -0.004713187721015283,
+        "median_abs_log10_velocity_ratio": 0.05248755244863787
+      },
+      "mond_control": {
+        "normalization": 0.7465570451173682,
+        "chi2": 46.3558505169324,
+        "rmse_kms": 8.865826438981836,
+        "mean_residual_kms": 3.2020046330534595,
+        "median_log10_velocity_ratio": 0.01244283916553032,
+        "median_abs_log10_velocity_ratio": 0.059300954302515765
+      }
+    },
+    {
+      "source_id": "F568-V1",
+      "n_points": 15,
+      "r_disk_kpc": 2.85,
+      "characteristic_gbar_ms2": 6.1324809461179e-12,
+      "global_scarcity": {
+        "normalization": 12.798988873482825,
+        "chi2": 23.33452541926762,
+        "rmse_kms": 15.806852342017848,
+        "mean_residual_kms": -6.0923410703349,
+        "median_log10_velocity_ratio": -0.00671345367474738,
+        "median_abs_log10_velocity_ratio": 0.035204273628698164
+      },
+      "per_galaxy_scarcity": {
+        "beta_kpc": 3.737685985848593e-07,
+        "beta_sigma_kpc": null,
+        "normalization": 9.55334490800542,
+        "chi2": 8.85591394839139,
+        "rmse_kms": 10.643896977258443,
+        "mean_residual_kms": -5.190182445493158,
+        "median_log10_velocity_ratio": -0.022033895272597148,
+        "median_abs_log10_velocity_ratio": 0.027394000451294774
+      },
+      "mond_control": {
+        "normalization": 2.924043030362423,
+        "chi2": 17.96396562600747,
+        "rmse_kms": 14.396600021094219,
+        "mean_residual_kms": -6.196202369865179,
+        "median_log10_velocity_ratio": -0.00987331386759894,
+        "median_abs_log10_velocity_ratio": 0.033102523856402145
+      }
+    },
+    {
+      "source_id": "F571-8",
+      "n_points": 13,
+      "r_disk_kpc": 3.56,
+      "characteristic_gbar_ms2": 2.925300533948482e-11,
+      "global_scarcity": {
+        "normalization": 7.005142876878892,
+        "chi2": 214.4899300573691,
+        "rmse_kms": 20.788704461184302,
+        "mean_residual_kms": -3.6946549851996076,
+        "median_log10_velocity_ratio": -0.02968433399188115,
+        "median_abs_log10_velocity_ratio": 0.06182188868380909
+      },
+      "per_galaxy_scarcity": {
+        "beta_kpc": 8.789984253485336,
+        "beta_sigma_kpc": 0.3438557014905804,
+        "normalization": 9.864742417264235,
+        "chi2": 90.44575634721885,
+        "rmse_kms": 12.928394969001372,
+        "mean_residual_kms": 0.23709931001468149,
+        "median_log10_velocity_ratio": -0.009766105790490547,
+        "median_abs_log10_velocity_ratio": 0.0486925636707994
+      },
+      "mond_control": {
+        "normalization": 0.886231789115539,
+        "chi2": 512.0689274853174,
+        "rmse_kms": 27.519559757703135,
+        "mean_residual_kms": -1.5044566433419608,
+        "median_log10_velocity_ratio": 0.0005580235995954604,
+        "median_abs_log10_velocity_ratio": 0.11827918244400218
+      }
+    },
+    {
+      "source_id": "F571-V1",
+      "n_points": 7,
+      "r_disk_kpc": 2.47,
+      "characteristic_gbar_ms2": 4.957769983253679e-12,
+      "global_scarcity": {
+        "normalization": 6.015524131458306,
+        "chi2": 1.539975564260265,
+        "rmse_kms": 3.147634758558156,
+        "mean_residual_kms": 0.4557684300994162,
+        "median_log10_velocity_ratio": -0.0023099077103416383,
+        "median_abs_log10_velocity_ratio": 0.013977603274353562
+      },
+      "per_galaxy_scarcity": {
+        "beta_kpc": 3.5235819876155237,
+        "beta_sigma_kpc": 2.56641669267251,
+        "normalization": 5.685571554010796,
+        "chi2": 0.9463907159368034,
+        "rmse_kms": 2.7692519652579732,
+        "mean_residual_kms": -0.4735542944654694,
+        "median_log10_velocity_ratio": -0.009676182618025053,
+        "median_abs_log10_velocity_ratio": 0.010845478428981616
+      },
+      "mond_control": {
+        "normalization": 0.678090052763602,
+        "chi2": 1.0788499162982639,
+        "rmse_kms": 3.30318226096739,
+        "mean_residual_kms": -0.6807374789918056,
+        "median_log10_velocity_ratio": -0.007060935488743394,
+        "median_abs_log10_velocity_ratio": 0.007831143622266544
+      }
+    },
+    {
+      "source_id": "F574-1",
+      "n_points": 14,
+      "r_disk_kpc": 4.46,
+      "characteristic_gbar_ms2": 6.269120203328014e-12,
+      "global_scarcity": {
+        "normalization": 6.372015622981528,
+        "chi2": 54.02669594890874,
+        "rmse_kms": 9.42932765958949,
+        "mean_residual_kms": 1.1445450166220412,
+        "median_log10_velocity_ratio": 0.011670293577333844,
+        "median_abs_log10_velocity_ratio": 0.04498002687338236
+      },
+      "per_galaxy_scarcity": {
+        "beta_kpc": 3.737685985848593e-07,
+        "beta_sigma_kpc": null,
+        "normalization": 5.441719643913336,
+        "chi2": 29.83431771207551,
+        "rmse_kms": 6.730148609353118,
+        "mean_residual_kms": -0.2882469890361991,
+        "median_log10_velocity_ratio": 0.01122052022518113,
+        "median_abs_log10_velocity_ratio": 0.026765697190300492
+      },
+      "mond_control": {
+        "normalization": 1.0891553649926686,
+        "chi2": 33.36926176615678,
+        "rmse_kms": 7.3658967723840485,
+        "mean_residual_kms": 0.37003414784653393,
+        "median_log10_velocity_ratio": 0.006350280739272352,
+        "median_abs_log10_velocity_ratio": 0.036150160720678386
+      }
+    },
+    {
+      "source_id": "F583-1",
+      "n_points": 25,
+      "r_disk_kpc": 2.36,
+      "characteristic_gbar_ms2": 2.8162164975483593e-12,
+      "global_scarcity": {
+        "normalization": 9.441315327684793,
+        "chi2": 152.25621113913172,
+        "rmse_kms": 14.694400082851171,
+        "mean_residual_kms": 0.2693867159890769,
+        "median_log10_velocity_ratio": 0.055478584644504975,
+        "median_abs_log10_velocity_ratio": 0.09474729142346058
+      },
+      "per_galaxy_scarcity": {
+        "beta_kpc": 3.737685985848593e-07,
+        "beta_sigma_kpc": null,
+        "normalization": 8.004312339847639,
+        "chi2": 101.70080550533433,
+        "rmse_kms": 12.04279235953669,
+        "mean_residual_kms": -0.6708252292174411,
+        "median_log10_velocity_ratio": 0.04219293309920088,
+        "median_abs_log10_velocity_ratio": 0.07514243354316312
+      },
+      "mond_control": {
+        "normalization": 1.1859103606054124,
+        "chi2": 73.1697731056427,
+        "rmse_kms": 10.305475277487263,
+        "mean_residual_kms": -0.8579634138561886,
+        "median_log10_velocity_ratio": 0.024998246490931367,
+        "median_abs_log10_velocity_ratio": 0.05903645456934947
+      }
+    },
+    {
+      "source_id": "F583-4",
+      "n_points": 12,
+      "r_disk_kpc": 1.93,
+      "characteristic_gbar_ms2": 5.614592011147965e-12,
+      "global_scarcity": {
+        "normalization": 5.615324489557653,
+        "chi2": 11.498357154615256,
+        "rmse_kms": 4.960938484908554,
+        "mean_residual_kms": 1.9264397674569746,
+        "median_log10_velocity_ratio": 0.009170020883330132,
+        "median_abs_log10_velocity_ratio": 0.015580535949604258
+      },
+      "per_galaxy_scarcity": {
+        "beta_kpc": 1.6388792967097443,
+        "beta_sigma_kpc": 1.1957642401838315,
+        "normalization": 4.750297104450268,
+        "chi2": 2.420847614643508,
+        "rmse_kms": 2.2258765286087385,
+        "mean_residual_kms": 0.2449665460590511,
+        "median_log10_velocity_ratio": 0.0022687840945936066,
+        "median_abs_log10_velocity_ratio": 0.017706141259137637
+      },
+      "mond_control": {
+        "normalization": 0.6302173982694291,
+        "chi2": 1.2486595672033978,
+        "rmse_kms": 1.501412041960137,
+        "mean_residual_kms": 0.04305889660027814,
+        "median_log10_velocity_ratio": -0.00367198473123572,
+        "median_abs_log10_velocity_ratio": 0.009031547515363728
+      }
+    },
+    {
+      "source_id": "IC2574",
+      "n_points": 34,
+      "r_disk_kpc": 2.78,
+      "characteristic_gbar_ms2": 3.0355058565152157e-12,
+      "global_scarcity": {
+        "normalization": 4.734818497961425,
+        "chi2": 111.56463223557613,
+        "rmse_kms": 2.6664489269119,
+        "mean_residual_kms": 0.5745721820665232,
+        "median_log10_velocity_ratio": -0.0005676346498537372,
+        "median_abs_log10_velocity_ratio": 0.014560217005715907
+      },
+      "per_galaxy_scarcity": {
+        "beta_kpc": 7.713015738020325,
+        "beta_sigma_kpc": 0.519774650453459,
+        "normalization": 5.175666042525227,
+        "chi2": 93.70439604559641,
+        "rmse_kms": 3.111754048722033,
+        "mean_residual_kms": 0.19385765792505,
+        "median_log10_velocity_ratio": -0.0019147380346778028,
+        "median_abs_log10_velocity_ratio": 0.018052349650740002
+      },
+      "mond_control": {
+        "normalization": 0.2707854106773061,
+        "chi2": 712.4092782931071,
+        "rmse_kms": 4.348157841842332,
+        "mean_residual_kms": 1.7398687673432376,
+        "median_log10_velocity_ratio": 0.015630100881348755,
+        "median_abs_log10_velocity_ratio": 0.02970150570149288
+      }
+    },
+    {
+      "source_id": "IC4202",
+      "n_points": 32,
+      "r_disk_kpc": 4.78,
+      "characteristic_gbar_ms2": 8.13696186104749e-11,
+      "global_scarcity": {
+        "normalization": 2.286096770776144,
+        "chi2": 1036.0158147956467,
+        "rmse_kms": 24.154930298475062,
+        "mean_residual_kms": -1.7751711811711397,
+        "median_log10_velocity_ratio": 0.0036014055462055853,
+        "median_abs_log10_velocity_ratio": 0.016880683332336787
+      },
+      "per_galaxy_scarcity": {
+        "beta_kpc": 8.950916745719967,
+        "beta_sigma_kpc": 0.22970477863762234,
+        "normalization": 2.7609009025105404,
+        "chi2": 807.8196014892994,
+        "rmse_kms": 21.738756614653155,
+        "mean_residual_kms": -7.470026963516675,
+        "median_log10_velocity_ratio": -0.016855254818456032,
+        "median_abs_log10_velocity_ratio": 0.02646036994194266
+      },
+      "mond_control": {
+        "normalization": 0.8938280943883689,
+        "chi2": 1172.1598322346365,
+        "rmse_kms": 25.34243212660805,
+        "mean_residual_kms": -1.1404047938489041,
+        "median_log10_velocity_ratio": 0.009898457302389325,
+        "median_abs_log10_velocity_ratio": 0.013140791894267492
+      }
+    },
+    {
+      "source_id": "KK98-251",
+      "n_points": 15,
+      "r_disk_kpc": 1.34,
+      "characteristic_gbar_ms2": 4.682928686778792e-12,
+      "global_scarcity": {
+        "normalization": 4.976285958726237,
+        "chi2": 86.98774658772834,
+        "rmse_kms": 4.816298622738651,
+        "mean_residual_kms": 2.133698754972306,
+        "median_log10_velocity_ratio": 0.09720625472289501,
+        "median_abs_log10_velocity_ratio": 0.1046662848072585
+      },
+      "per_galaxy_scarcity": {
+        "beta_kpc": 1.0781007568016128,
+        "beta_sigma_kpc": 0.46858736743259566,
+        "normalization": 3.078052740186434,
+        "chi2": 2.0038470060842366,
+        "rmse_kms": 0.7309987699185705,
+        "mean_residual_kms": 0.07876475196254304,
+        "median_log10_velocity_ratio": 0.0019052835327992399,
+        "median_abs_log10_velocity_ratio": 0.018325049088532223
+      },
+      "mond_control": {
+        "normalization": 0.21581586873969874,
+        "chi2": 14.408050694145034,
+        "rmse_kms": 1.9601394980388536,
+        "mean_residual_kms": -0.6018804594602227,
+        "median_log10_velocity_ratio": -0.03750280126130964,
+        "median_abs_log10_velocity_ratio": 0.040753213085610154
+      }
+    },
+    {
+      "source_id": "NGC0024",
+      "n_points": 29,
+      "r_disk_kpc": 1.34,
+      "characteristic_gbar_ms2": 3.6819738347892726e-11,
+      "global_scarcity": {
+        "normalization": 10.01344453167205,
+        "chi2": 466.1013593569311,
+        "rmse_kms": 28.39223609791038,
+        "mean_residual_kms": 23.4673149142766,
+        "median_log10_velocity_ratio": 0.17114647738267283,
+        "median_abs_log10_velocity_ratio": 0.17114647738267283
+      },
+      "per_galaxy_scarcity": {
+        "beta_kpc": 1.7961299473797046,
+        "beta_sigma_kpc": 0.161926343536167,
+        "normalization": 7.3237284518881856,
+        "chi2": 67.87113258565546,
+        "rmse_kms": 7.183613371487809,
+        "mean_residual_kms": 0.12177706747897357,
+        "median_log10_velocity_ratio": -0.014466274366033666,
+        "median_abs_log10_velocity_ratio": 0.026691871680762803
+      },
+      "mond_control": {
+        "normalization": 1.8219312015166316,
+        "chi2": 32.44753078851409,
+        "rmse_kms": 6.307506510587763,
+        "mean_residual_kms": 3.1860835457199577,
+        "median_log10_velocity_ratio": 0.01968576009427209,
+        "median_abs_log10_velocity_ratio": 0.024767295165292302
+      }
+    },
+    {
+      "source_id": "NGC0055",
+      "n_points": 21,
+      "r_disk_kpc": 6.11,
+      "characteristic_gbar_ms2": 1.0371158811523906e-11,
+      "global_scarcity": {
+        "normalization": 3.5009991099950355,
+        "chi2": 14.260654987666342,
+        "rmse_kms": 1.7739382278634364,
+        "mean_residual_kms": -0.5689660160775021,
+        "median_log10_velocity_ratio": -0.003022864037838933,
+        "median_abs_log10_velocity_ratio": 0.006690917548554735
+      },
+      "per_galaxy_scarcity": {
+        "beta_kpc": 6.181892691338112,
+        "beta_sigma_kpc": 0.5003446295872601,
+        "normalization": 3.641792816496632,
+        "chi2": 12.547634437751615,
+        "rmse_kms": 2.1533395932625026,
+        "mean_residual_kms": -0.9437767524462151,
+        "median_log10_velocity_ratio": -0.009512399347433675,
+        "median_abs_log10_velocity_ratio": 0.010824516714369297
+      },
+      "mond_control": {
+        "normalization": 0.40865762128452726,
+        "chi2": 53.78830993122552,
+        "rmse_kms": 3.30956103671836,
+        "mean_residual_kms": -0.18716059518548162,
+        "median_log10_velocity_ratio": 0.0016480230910901486,
+        "median_abs_log10_velocity_ratio": 0.010992663634818578
+      }
+    },
+    {
+      "source_id": "NGC0100",
+      "n_points": 21,
+      "r_disk_kpc": 1.66,
+      "characteristic_gbar_ms2": 1.00412528153103e-11,
+      "global_scarcity": {
+        "normalization": 5.9937140566351,
+        "chi2": 3.072942287762788,
+        "rmse_kms": 2.239222882665149,
+        "mean_residual_kms": 0.31517783423991946,
+        "median_log10_velocity_ratio": -0.001156386766630372,
+        "median_abs_log10_velocity_ratio": 0.012789961408732016
+      },
+      "per_galaxy_scarcity": {
+        "beta_kpc": 5.762067184321037,
+        "beta_sigma_kpc": 0.5327359115980999,
+        "normalization": 6.1098849043340575,
+        "chi2": 2.876133323968285,
+        "rmse_kms": 2.0502600447383865,
+        "mean_residual_kms": 0.250136552053025,
+        "median_log10_velocity_ratio": -0.0006879584592494244,
+        "median_abs_log10_velocity_ratio": 0.013386791020007857
+      },
+      "mond_control": {
+        "normalization": 0.7561719799694444,
+        "chi2": 29.693977588180886,
+        "rmse_kms": 5.913916218545933,
+        "mean_residual_kms": 0.2840081095737163,
+        "median_log10_velocity_ratio": 0.009819127575177037,
+        "median_abs_log10_velocity_ratio": 0.03348716749642876
+      }
+    },
+    {
+      "source_id": "NGC0247",
+      "n_points": 26,
+      "r_disk_kpc": 3.74,
+      "characteristic_gbar_ms2": 8.463811823092067e-12,
+      "global_scarcity": {
+        "normalization": 6.0691221063067085,
+        "chi2": 368.0141644193798,
+        "rmse_kms": 12.528632502903523,
+        "mean_residual_kms": -7.6472085679795985,
+        "median_log10_velocity_ratio": -0.04440932243388178,
+        "median_abs_log10_velocity_ratio": 0.053969668051415856
+      },
+      "per_galaxy_scarcity": {
+        "beta_kpc": 3.737685985848593e-07,
+        "beta_sigma_kpc": null,
+        "normalization": 4.276334305658335,
+        "chi2": 86.18066904427859,
+        "rmse_kms": 4.642487269068917,
+        "mean_residual_kms": -1.4285767854199054,
+        "median_log10_velocity_ratio": -0.0187861533096286,
+        "median_abs_log10_velocity_ratio": 0.02255834131903015
+      },
+      "mond_control": {
+        "normalization": 0.9119998549819819,
+        "chi2": 110.48792172269323,
+        "rmse_kms": 6.098015718757022,
+        "mean_residual_kms": -3.659989488628914,
+        "median_log10_velocity_ratio": -0.024869924651002188,
+        "median_abs_log10_velocity_ratio": 0.028527969893659445
+      }
+    },
+    {
+      "source_id": "NGC0289",
+      "n_points": 28,
+      "r_disk_kpc": 6.74,
+      "characteristic_gbar_ms2": 9.34775616657443e-12,
+      "global_scarcity": {
+        "normalization": 3.513984299240743,
+        "chi2": 175.60389620025666,
+        "rmse_kms": 25.515371863873355,
+        "mean_residual_kms": -2.7972299479232907,
+        "median_log10_velocity_ratio": 0.021795324463052,
+        "median_abs_log10_velocity_ratio": 0.04040412458010786
+      },
+      "per_galaxy_scarcity": {
+        "beta_kpc": 14.588428633380175,
+        "beta_sigma_kpc": 0.83900018979618,
+        "normalization": 4.345429022683709,
+        "chi2": 44.81884586192247,
+        "rmse_kms": 22.248418823243004,
+        "mean_residual_kms": 7.158956010941105,
+        "median_log10_velocity_ratio": 0.0070897195138787325,
+        "median_abs_log10_velocity_ratio": 0.009776750976798879
+      },
+      "mond_control": {
+        "normalization": 0.6329239997000567,
+        "chi2": 129.558897495586,
+        "rmse_kms": 17.537172399394862,
+        "mean_residual_kms": 0.9888604253586502,
+        "median_log10_velocity_ratio": -0.0033908017872215654,
+        "median_abs_log10_velocity_ratio": 0.027722404961074462
+      }
+    },
+    {
+      "source_id": "NGC0300",
+      "n_points": 25,
+      "r_disk_kpc": 1.75,
+      "characteristic_gbar_ms2": 7.757837725496724e-12,
+      "global_scarcity": {
+        "normalization": 7.397317270957121,
+        "chi2": 34.782543250528434,
+        "rmse_kms": 6.000858062609648,
+        "mean_residual_kms": -0.18191387004729478,
+        "median_log10_velocity_ratio": 0.0006501251012989436,
+        "median_abs_log10_velocity_ratio": 0.017852180802008406
+      },
+      "per_galaxy_scarcity": {
+        "beta_kpc": 4.496868470506713,
+        "beta_sigma_kpc": 0.31020761243878775,
+        "normalization": 6.99177776523385,
+        "chi2": 24.110160527304537,
+        "rmse_kms": 5.346378840589746,
+        "mean_residual_kms": -0.6569812918567177,
+        "median_log10_velocity_ratio": 0.00023304490756605544,
+        "median_abs_log10_velocity_ratio": 0.015259540433986312
+      },
+      "mond_control": {
+        "normalization": 1.0712298380838843,
+        "chi2": 23.336711138202123,
+        "rmse_kms": 3.9646583302750136,
+        "mean_residual_kms": -0.5871645496297438,
+        "median_log10_velocity_ratio": -0.0039022726649609266,
+        "median_abs_log10_velocity_ratio": 0.01252044781527864
+      }
+    },
+    {
+      "source_id": "NGC0801",
+      "n_points": 13,
+      "r_disk_kpc": 8.72,
+      "characteristic_gbar_ms2": 5.7055584031180125e-11,
+      "global_scarcity": {
+        "normalization": 2.151347186461656,
+        "chi2": 188.6014363870642,
+        "rmse_kms": 17.614967613595066,
+        "mean_residual_kms": 3.6277236317656354,
+        "median_log10_velocity_ratio": -0.008438473752315684,
+        "median_abs_log10_velocity_ratio": 0.031012736899562375
+      },
+      "per_galaxy_scarcity": {
+        "beta_kpc": 5.139777970018962,
+        "beta_sigma_kpc": 0.31481795910931537,
+        "normalization": 2.1277993746112,
+        "chi2": 187.11341696410938,
+        "rmse_kms": 17.241212692879653,
+        "mean_residual_kms": 2.7707068166504687,
+        "median_log10_velocity_ratio": -0.006766034347291736,
+        "median_abs_log10_velocity_ratio": 0.032360124314171304
+      },
+      "mond_control": {
+        "normalization": 0.5613390108144878,
+        "chi2": 395.0499878744989,
+        "rmse_kms": 30.962544371222005,
+        "mean_residual_kms": 11.380121753797082,
+        "median_log10_velocity_ratio": 0.01941782194135767,
+        "median_abs_log10_velocity_ratio": 0.03289939367435164
+      }
+    },
+    {
+      "source_id": "NGC0891",
+      "n_points": 18,
+      "r_disk_kpc": 2.55,
+      "characteristic_gbar_ms2": 1.3130557655134107e-10,
+      "global_scarcity": {
+        "normalization": 1.8402935083069578,
+        "chi2": 149.3974541053819,
+        "rmse_kms": 32.0595011522507,
+        "mean_residual_kms": 8.393498911619988,
+        "median_log10_velocity_ratio": 0.0029770907248287365,
+        "median_abs_log10_velocity_ratio": 0.008652960004620923
+      },
+      "per_galaxy_scarcity": {
+        "beta_kpc": 5.408631841193055,
+        "beta_sigma_kpc": 0.17673825784160035,
+        "normalization": 1.8304624001527987,
+        "chi2": 148.95753543435447,
+        "rmse_kms": 31.528952568261424,
+        "mean_residual_kms": 8.013559930752232,
+        "median_log10_velocity_ratio": 0.002560966319503024,
+        "median_abs_log10_velocity_ratio": 0.009431133255493041
+      },
+      "mond_control": {
+        "normalization": 0.7329484160595109,
+        "chi2": 124.23580496892144,
+        "rmse_kms": 16.68790691961648,
+        "mean_residual_kms": -3.5230643291170134,
+        "median_log10_velocity_ratio": 0.0025660507419719113,
+        "median_abs_log10_velocity_ratio": 0.010768725435234685
+      }
+    },
+    {
+      "source_id": "NGC1003",
+      "n_points": 36,
+      "r_disk_kpc": 1.61,
+      "characteristic_gbar_ms2": 4.273555056942915e-12,
+      "global_scarcity": {
+        "normalization": 5.5957839739953315,
+        "chi2": 1576.8402475065432,
+        "rmse_kms": 17.936042155332757,
+        "mean_residual_kms": 1.4128111136134964,
+        "median_log10_velocity_ratio": -0.0024297288612040047,
+        "median_abs_log10_velocity_ratio": 0.0655128021557493
+      },
+      "per_galaxy_scarcity": {
+        "beta_kpc": 18.733481473244954,
+        "beta_sigma_kpc": 0.42970197493572526,
+        "normalization": 7.723067448434898,
+        "chi2": 439.96513868049595,
+        "rmse_kms": 9.342103792099534,
+        "mean_residual_kms": 4.390104374255524,
+        "median_log10_velocity_ratio": 0.022156147758409794,
+        "median_abs_log10_velocity_ratio": 0.030855202077125946
+      },
+      "mond_control": {
+        "normalization": 0.6865188610850349,
+        "chi2": 161.4362344914636,
+        "rmse_kms": 5.725916064647106,
+        "mean_residual_kms": 0.9669533528978155,
+        "median_log10_velocity_ratio": 0.002697147711482254,
+        "median_abs_log10_velocity_ratio": 0.021668109563819673
+      }
+    },
+    {
+      "source_id": "NGC1090",
+      "n_points": 24,
+      "r_disk_kpc": 3.53,
+      "characteristic_gbar_ms2": 2.8059904600570875e-11,
+      "global_scarcity": {
+        "normalization": 2.7951722694470615,
+        "chi2": 166.52452657750231,
+        "rmse_kms": 8.95759141512658,
+        "mean_residual_kms": -1.941982358734372,
+        "median_log10_velocity_ratio": -0.005185246292150819,
+        "median_abs_log10_velocity_ratio": 0.019093855674474868
+      },
+      "per_galaxy_scarcity": {
+        "beta_kpc": 8.06504569474409,
+        "beta_sigma_kpc": 0.37485323972130385,
+        "normalization": 2.9309392638336837,
+        "chi2": 117.06156228678695,
+        "rmse_kms": 8.982892090513328,
+        "mean_residual_kms": 1.5425518749274818,
+        "median_log10_velocity_ratio": 0.006832911192422098,
+        "median_abs_log10_velocity_ratio": 0.011243206648227418
+      },
+      "mond_control": {
+        "normalization": 0.5926950295797282,
+        "chi2": 104.56205547098716,
+        "rmse_kms": 11.535793104924144,
+        "mean_residual_kms": 3.43502562140468,
+        "median_log10_velocity_ratio": 0.0016571278140229367,
+        "median_abs_log10_velocity_ratio": 0.016747497383705737
+      }
+    },
+    {
+      "source_id": "NGC2403",
+      "n_points": 73,
+      "r_disk_kpc": 1.39,
+      "characteristic_gbar_ms2": 4.879938134019389e-11,
+      "global_scarcity": {
+        "normalization": 5.094873746234803,
+        "chi2": 2141.9038707539457,
+        "rmse_kms": 9.091343104969019,
+        "mean_residual_kms": 3.90699921333977,
+        "median_log10_velocity_ratio": 0.0043151395054270986,
+        "median_abs_log10_velocity_ratio": 0.0254615287186473
+      },
+      "per_galaxy_scarcity": {
+        "beta_kpc": 5.051634335802511,
+        "beta_sigma_kpc": 0.03841545447808284,
+        "normalization": 4.922683721805797,
+        "chi2": 1992.11599123922,
+        "rmse_kms": 9.324507256381885,
+        "mean_residual_kms": 3.1081513356416095,
+        "median_log10_velocity_ratio": 0.004993876262178531,
+        "median_abs_log10_velocity_ratio": 0.03271219394472871
+      },
+      "mond_control": {
+        "normalization": 1.0752203506236944,
+        "chi2": 958.5354291372317,
+        "rmse_kms": 4.727044682372608,
+        "mean_residual_kms": -1.6791053229102308,
+        "median_log10_velocity_ratio": -0.0012218084399228054,
+        "median_abs_log10_velocity_ratio": 0.008709078078296644
+      }
+    },
+    {
+      "source_id": "NGC2683",
+      "n_points": 11,
+      "r_disk_kpc": 2.18,
+      "characteristic_gbar_ms2": 2.2224672526946495e-11,
+      "global_scarcity": {
+        "normalization": 3.135627341239276,
+        "chi2": 30.54590329625451,
+        "rmse_kms": 16.389126224086503,
+        "mean_residual_kms": 5.680293863765681,
+        "median_log10_velocity_ratio": 0.003360024511577594,
+        "median_abs_log10_velocity_ratio": 0.024708058530853554
+      },
+      "per_galaxy_scarcity": {
+        "beta_kpc": 4.842018815294235,
+        "beta_sigma_kpc": 0.48909534438180785,
+        "normalization": 2.972199325244123,
+        "chi2": 28.613784713644005,
+        "rmse_kms": 16.06112167089051,
+        "mean_residual_kms": 6.840677581454471,
+        "median_log10_velocity_ratio": 0.012246773907190915,
+        "median_abs_log10_velocity_ratio": 0.03244917392758902
+      },
+      "mond_control": {
+        "normalization": 0.9077360142759532,
+        "chi2": 26.268462581905407,
+        "rmse_kms": 15.17907275556521,
+        "mean_residual_kms": -7.912960263440593,
+        "median_log10_velocity_ratio": -0.03118189253729262,
+        "median_abs_log10_velocity_ratio": 0.03118189253729262
+      }
+    },
+    {
+      "source_id": "NGC2841",
+      "n_points": 50,
+      "r_disk_kpc": 3.64,
+      "characteristic_gbar_ms2": 9.794051603080727e-11,
+      "global_scarcity": {
+        "normalization": 4.408147518797383,
+        "chi2": 2093.7123743254765,
+        "rmse_kms": 41.553822427063665,
+        "mean_residual_kms": -13.585307431569085,
+        "median_log10_velocity_ratio": -0.04501940656441584,
+        "median_abs_log10_velocity_ratio": 0.05335745288538648
+      },
+      "per_galaxy_scarcity": {
+        "beta_kpc": 11.424634624124051,
+        "beta_sigma_kpc": 0.1780211315658953,
+        "normalization": 5.3174452523691995,
+        "chi2": 844.8050899957818,
+        "rmse_kms": 24.622195366751225,
+        "mean_residual_kms": 3.952157798233139,
+        "median_log10_velocity_ratio": 0.002728515573593158,
+        "median_abs_log10_velocity_ratio": 0.033236710451844675
+      },
+      "mond_control": {
+        "normalization": 1.591974300626015,
+        "chi2": 88.82301787945316,
+        "rmse_kms": 6.808584773831529,
+        "mean_residual_kms": 1.1849066916196205,
+        "median_log10_velocity_ratio": 0.0038307391673824843,
+        "median_abs_log10_velocity_ratio": 0.005517782107855033
+      }
+    },
+    {
+      "source_id": "NGC2903",
+      "n_points": 34,
+      "r_disk_kpc": 2.33,
+      "characteristic_gbar_ms2": 7.719389346502336e-11,
+      "global_scarcity": {
+        "normalization": 2.8617682112570857,
+        "chi2": 1168.1323136796043,
+        "rmse_kms": 29.93403266199288,
+        "mean_residual_kms": 18.464672180137427,
+        "median_log10_velocity_ratio": 0.037522717647832576,
+        "median_abs_log10_velocity_ratio": 0.04056272875430593
+      },
+      "per_galaxy_scarcity": {
+        "beta_kpc": 4.767600023243698,
+        "beta_sigma_kpc": 0.07656101375428491,
+        "normalization": 2.704660938493888,
+        "chi2": 1074.3649949635237,
+        "rmse_kms": 26.117718812784883,
+        "mean_residual_kms": 15.659742013057018,
+        "median_log10_velocity_ratio": 0.034697906289565275,
+        "median_abs_log10_velocity_ratio": 0.044325663587614784
+      },
+      "mond_control": {
+        "normalization": 0.9077116291295375,
+        "chi2": 381.11223300450575,
+        "rmse_kms": 22.765339319443093,
+        "mean_residual_kms": -7.366166121710741,
+        "median_log10_velocity_ratio": 0.0010671720608776277,
+        "median_abs_log10_velocity_ratio": 0.008178573143731048
+      }
+    },
+    {
+      "source_id": "NGC2915",
+      "n_points": 30,
+      "r_disk_kpc": 0.55,
+      "characteristic_gbar_ms2": 3.3185184446751894e-12,
+      "global_scarcity": {
+        "normalization": 15.694939274372445,
+        "chi2": 27.17242452712057,
+        "rmse_kms": 8.468763618357935,
+        "mean_residual_kms": -0.6650251708445084,
+        "median_log10_velocity_ratio": -0.0075645365948516785,
+        "median_abs_log10_velocity_ratio": 0.02906965201645137
+      },
+      "per_galaxy_scarcity": {
+        "beta_kpc": 5.662993383930423,
+        "beta_sigma_kpc": 0.5115645341156393,
+        "normalization": 15.802783310783605,
+        "chi2": 27.09997862537106,
+        "rmse_kms": 8.298449641454907,
+        "mean_residual_kms": -0.47750305517828967,
+        "median_log10_velocity_ratio": -0.008213428326000116,
+        "median_abs_log10_velocity_ratio": 0.02936754455002474
+      },
+      "mond_control": {
+        "normalization": 2.1850641012460876,
+        "chi2": 57.244068319291955,
+        "rmse_kms": 14.162250336090274,
+        "mean_residual_kms": -2.0253173395694604,
+        "median_log10_velocity_ratio": -0.0001914731225508157,
+        "median_abs_log10_velocity_ratio": 0.030110872096824524
+      }
+    },
+    {
+      "source_id": "NGC2955",
+      "n_points": 24,
+      "r_disk_kpc": 18.76,
+      "characteristic_gbar_ms2": 2.0826125319706465e-10,
+      "global_scarcity": {
+        "normalization": 1.9201627236764123,
+        "chi2": 335.4105349266536,
+        "rmse_kms": 20.464561893275306,
+        "mean_residual_kms": -0.8960808951402898,
+        "median_log10_velocity_ratio": -0.001283359256588788,
+        "median_abs_log10_velocity_ratio": 0.011027423541582704
+      },
+      "per_galaxy_scarcity": {
+        "beta_kpc": 2.1011840205306096,
+        "beta_sigma_kpc": 0.29006740577949913,
+        "normalization": 1.414566669822428,
+        "chi2": 196.0463500148709,
+        "rmse_kms": 23.515602872959384,
+        "mean_residual_kms": 9.918851235123428,
+        "median_log10_velocity_ratio": 0.02085056040796278,
+        "median_abs_log10_velocity_ratio": 0.03400639528793223
+      },
+      "mond_control": {
+        "normalization": 0.825497210496877,
+        "chi2": 138.64070367734928,
+        "rmse_kms": 16.328781790444413,
+        "mean_residual_kms": -4.223865841699429,
+        "median_log10_velocity_ratio": -0.008966502613379274,
+        "median_abs_log10_velocity_ratio": 0.02020849545541905
+      }
+    },
+    {
+      "source_id": "NGC2976",
+      "n_points": 27,
+      "r_disk_kpc": 1.01,
+      "characteristic_gbar_ms2": 4.7062561545695046e-11,
+      "global_scarcity": {
+        "normalization": 4.873256359949988,
+        "chi2": 579.210619594824,
+        "rmse_kms": 16.4865538949441,
+        "mean_residual_kms": 2.8341105912019318,
+        "median_log10_velocity_ratio": 0.1141549926767414,
+        "median_abs_log10_velocity_ratio": 0.13263772407591498
+      },
+      "per_galaxy_scarcity": {
+        "beta_kpc": 0.2957352432869784,
+        "beta_sigma_kpc": 0.22403246348546674,
+        "normalization": 1.8779099263810566,
+        "chi2": 13.631785842316551,
+        "rmse_kms": 2.6045368989608586,
+        "mean_residual_kms": -0.4723655691619839,
+        "median_log10_velocity_ratio": -0.006540350032582488,
+        "median_abs_log10_velocity_ratio": 0.01805644646423948
+      },
+      "mond_control": {
+        "normalization": 0.7086788943842244,
+        "chi2": 38.22750176491,
+        "rmse_kms": 4.111349267499757,
+        "mean_residual_kms": -0.7013417598797366,
+        "median_log10_velocity_ratio": -0.006412801652983092,
+        "median_abs_log10_velocity_ratio": 0.025019617477835602
+      }
+    },
+    {
+      "source_id": "NGC2998",
+      "n_points": 13,
+      "r_disk_kpc": 6.2,
+      "characteristic_gbar_ms2": 6.15821479015829e-11,
+      "global_scarcity": {
+        "normalization": 2.931951801610596,
+        "chi2": 106.81050991582158,
+        "rmse_kms": 26.61586005494955,
+        "mean_residual_kms": 11.356329891507622,
+        "median_log10_velocity_ratio": 0.023531834191488042,
+        "median_abs_log10_velocity_ratio": 0.03935718147083612
+      },
+      "per_galaxy_scarcity": {
+        "beta_kpc": 9.00300640002273,
+        "beta_sigma_kpc": 0.7838644700433602,
+        "normalization": 3.077496923399167,
+        "chi2": 85.70254709337566,
+        "rmse_kms": 34.58864867301318,
+        "mean_residual_kms": 19.989520091841523,
+        "median_log10_velocity_ratio": 0.013011433801608838,
+        "median_abs_log10_velocity_ratio": 0.017371814285033843
+      },
+      "mond_control": {
+        "normalization": 0.7482055954863914,
+        "chi2": 78.3657844108733,
+        "rmse_kms": 31.128072543192012,
+        "mean_residual_kms": 19.912518598903944,
+        "median_log10_velocity_ratio": 0.023082977267378988,
+        "median_abs_log10_velocity_ratio": 0.02664285651842503
+      }
+    },
+    {
+      "source_id": "NGC3109",
+      "n_points": 25,
+      "r_disk_kpc": 1.56,
+      "characteristic_gbar_ms2": 2.819943011447514e-12,
+      "global_scarcity": {
+        "normalization": 11.509110023953324,
+        "chi2": 36.4338825975961,
+        "rmse_kms": 2.3491820490042743,
+        "mean_residual_kms": 0.0552465316022343,
+        "median_log10_velocity_ratio": 0.0067372503412066135,
+        "median_abs_log10_velocity_ratio": 0.017338510376204284
+      },
+      "per_galaxy_scarcity": {
+        "beta_kpc": 3.935502196511643,
+        "beta_sigma_kpc": 0.3621912953458032,
+        "normalization": 10.342450063499202,
+        "chi2": 17.845461737606957,
+        "rmse_kms": 1.1679090309506548,
+        "mean_residual_kms": -0.055175047998557505,
+        "median_log10_velocity_ratio": -0.0025291240818071147,
+        "median_abs_log10_velocity_ratio": 0.00889548210302593
+      },
+      "mond_control": {
+        "normalization": 0.9808629930028995,
+        "chi2": 125.57928021110489,
+        "rmse_kms": 4.146063074954613,
+        "mean_residual_kms": 1.0192930955606527,
+        "median_log10_velocity_ratio": 0.013246339970235325,
+        "median_abs_log10_velocity_ratio": 0.038015611258327656
+      }
+    },
+    {
+      "source_id": "NGC3198",
+      "n_points": 43,
+      "r_disk_kpc": 3.14,
+      "characteristic_gbar_ms2": 4.436924348545353e-11,
+      "global_scarcity": {
+        "normalization": 3.5977813737231044,
+        "chi2": 1830.5193330658865,
+        "rmse_kms": 15.203232555099012,
+        "mean_residual_kms": 1.0652657334955569,
+        "median_log10_velocity_ratio": -0.0044899964181770455,
+        "median_abs_log10_velocity_ratio": 0.03572189075884918
+      },
+      "per_galaxy_scarcity": {
+        "beta_kpc": 11.90401197056251,
+        "beta_sigma_kpc": 0.1555424618192099,
+        "normalization": 4.928765101991425,
+        "chi2": 189.5135368390407,
+        "rmse_kms": 8.730204494357098,
+        "mean_residual_kms": 2.460733658108417,
+        "median_log10_velocity_ratio": 0.0020328805424454574,
+        "median_abs_log10_velocity_ratio": 0.013680998460955468
+      },
+      "mond_control": {
+        "normalization": 0.7837411648815228,
+        "chi2": 351.43847464154646,
+        "rmse_kms": 9.039134031084972,
+        "mean_residual_kms": -2.277785098492168,
+        "median_log10_velocity_ratio": 0.005485620995432824,
+        "median_abs_log10_velocity_ratio": 0.01761867243563189
+      }
+    },
+    {
+      "source_id": "NGC3521",
+      "n_points": 41,
+      "r_disk_kpc": 2.4,
+      "characteristic_gbar_ms2": 3.2657873494534355e-10,
+      "global_scarcity": {
+        "normalization": 3.7079077121516093,
+        "chi2": 716.6791530857444,
+        "rmse_kms": 41.32019902876211,
+        "mean_residual_kms": -2.135278892888072,
+        "median_log10_velocity_ratio": -0.03414587220043152,
+        "median_abs_log10_velocity_ratio": 0.07447084849583668
+      },
+      "per_galaxy_scarcity": {
+        "beta_kpc": 1.872176230459707,
+        "beta_sigma_kpc": 0.15332486556885372,
+        "normalization": 1.99210876210489,
+        "chi2": 158.60002372809777,
+        "rmse_kms": 18.59492949682034,
+        "mean_residual_kms": -3.4892674265216224,
+        "median_log10_velocity_ratio": -0.0219422051897544,
+        "median_abs_log10_velocity_ratio": 0.034724041883898875
+      },
+      "mond_control": {
+        "normalization": 0.9796563529842703,
+        "chi2": 20.511366649657724,
+        "rmse_kms": 6.982907638024031,
+        "mean_residual_kms": -1.7276127622174198,
+        "median_log10_velocity_ratio": -0.007627139202358739,
+        "median_abs_log10_velocity_ratio": 0.012920027715875568
+      }
+    },
+    {
+      "source_id": "NGC3726",
+      "n_points": 12,
+      "r_disk_kpc": 3.4,
+      "characteristic_gbar_ms2": 3.7531023412980546e-11,
+      "global_scarcity": {
+        "normalization": 2.280103629727031,
+        "chi2": 59.30075662599894,
+        "rmse_kms": 21.94066439005098,
+        "mean_residual_kms": 8.815837661728922,
+        "median_log10_velocity_ratio": -0.0013396835346533892,
+        "median_abs_log10_velocity_ratio": 0.01833957512745551
+      },
+      "per_galaxy_scarcity": {
+        "beta_kpc": 7.347198402143917,
+        "beta_sigma_kpc": 0.7417526253345527,
+        "normalization": 2.524918580089383,
+        "chi2": 53.22262565233791,
+        "rmse_kms": 19.197872339321613,
+        "mean_residual_kms": 7.975983006070024,
+        "median_log10_velocity_ratio": 0.010774345608181583,
+        "median_abs_log10_velocity_ratio": 0.02242835766365949
+      },
+      "mond_control": {
+        "normalization": 0.5319211423984156,
+        "chi2": 26.50032410295229,
+        "rmse_kms": 9.123714319384717,
+        "mean_residual_kms": 1.7107425155391454,
+        "median_log10_velocity_ratio": 0.003153823352762063,
+        "median_abs_log10_velocity_ratio": 0.020610434375747194
+      }
+    },
+    {
+      "source_id": "NGC3741",
+      "n_points": 21,
+      "r_disk_kpc": 0.2,
+      "characteristic_gbar_ms2": 1.7321864421790967e-12,
+      "global_scarcity": {
+        "normalization": 16.564976631732854,
+        "chi2": 28.39881229850924,
+        "rmse_kms": 2.7343761482764393,
+        "mean_residual_kms": 0.258068167326632,
+        "median_log10_velocity_ratio": 0.006909165110803541,
+        "median_abs_log10_velocity_ratio": 0.03231470215090995
+      },
+      "per_galaxy_scarcity": {
+        "beta_kpc": 4.2977992654528245,
+        "beta_sigma_kpc": 0.33789924310692576,
+        "normalization": 14.80291679307152,
+        "chi2": 15.758090502484308,
+        "rmse_kms": 1.975247827223855,
+        "mean_residual_kms": -0.14397903504000875,
+        "median_log10_velocity_ratio": -0.005735475834264222,
+        "median_abs_log10_velocity_ratio": 0.018667436689175476
+      },
+      "mond_control": {
+        "normalization": 0.9546504835294441,
+        "chi2": 24.222444403322317,
+        "rmse_kms": 2.4715683101364263,
+        "mean_residual_kms": -0.38671372438320345,
+        "median_log10_velocity_ratio": 0.009275942994050237,
+        "median_abs_log10_velocity_ratio": 0.018709770021612622
+      }
+    },
+    {
+      "source_id": "NGC3769",
+      "n_points": 12,
+      "r_disk_kpc": 3.38,
+      "characteristic_gbar_ms2": 1.4468863843885579e-11,
+      "global_scarcity": {
+        "normalization": 3.8243092131111345,
+        "chi2": 28.55169345072059,
+        "rmse_kms": 14.315468095261407,
+        "mean_residual_kms": 5.630477727095289,
+        "median_log10_velocity_ratio": 0.005762101610974424,
+        "median_abs_log10_velocity_ratio": 0.028210624372176862
+      },
+      "per_galaxy_scarcity": {
+        "beta_kpc": 8.402405539403818,
+        "beta_sigma_kpc": 0.7479156806611954,
+        "normalization": 4.797618630232961,
+        "chi2": 12.464050494723626,
+        "rmse_kms": 9.734859041553024,
+        "mean_residual_kms": 4.826968404367684,
+        "median_log10_velocity_ratio": 0.001903745790974728,
+        "median_abs_log10_velocity_ratio": 0.013670349123186439
+      },
+      "mond_control": {
+        "normalization": 0.6332083123750059,
+        "chi2": 8.152764850547072,
+        "rmse_kms": 5.940889806240821,
+        "mean_residual_kms": -2.257982768808995,
+        "median_log10_velocity_ratio": -0.00992129518315533,
+        "median_abs_log10_velocity_ratio": 0.01644615151487527
+      }
+    },
+    {
+      "source_id": "NGC3877",
+      "n_points": 13,
+      "r_disk_kpc": 2.53,
+      "characteristic_gbar_ms2": 8.226902858080325e-11,
+      "global_scarcity": {
+        "normalization": 1.830393444153376,
+        "chi2": 177.55723388049,
+        "rmse_kms": 24.138827172188762,
+        "mean_residual_kms": 4.595716035700869,
+        "median_log10_velocity_ratio": -0.0025720580587155584,
+        "median_abs_log10_velocity_ratio": 0.04189518387821772
+      },
+      "per_galaxy_scarcity": {
+        "beta_kpc": 3.737685985848593e-07,
+        "beta_sigma_kpc": null,
+        "normalization": 1.5079947659392763,
+        "chi2": 91.54438329158701,
+        "rmse_kms": 19.878109740526472,
+        "mean_residual_kms": -0.6613308163476793,
+        "median_log10_velocity_ratio": -0.008604093746623536,
+        "median_abs_log10_velocity_ratio": 0.019570170001140422
+      },
+      "mond_control": {
+        "normalization": 0.687434221594806,
+        "chi2": 87.28768020933092,
+        "rmse_kms": 18.244586264635576,
+        "mean_residual_kms": 0.28732428877804767,
+        "median_log10_velocity_ratio": -0.009605615923004832,
+        "median_abs_log10_velocity_ratio": 0.02893359261006291
+      }
+    },
+    {
+      "source_id": "NGC3893",
+      "n_points": 10,
+      "r_disk_kpc": 2.38,
+      "characteristic_gbar_ms2": 5.3993178430865364e-11,
+      "global_scarcity": {
+        "normalization": 3.096264843413669,
+        "chi2": 19.84867463052589,
+        "rmse_kms": 9.370343744046929,
+        "mean_residual_kms": 1.9688268250069854,
+        "median_log10_velocity_ratio": 0.0013255002572783198,
+        "median_abs_log10_velocity_ratio": 0.010363688395145457
+      },
+      "per_galaxy_scarcity": {
+        "beta_kpc": 4.059838284784879,
+        "beta_sigma_kpc": 0.391601144157797,
+        "normalization": 2.728509236857652,
+        "chi2": 6.633856898117685,
+        "rmse_kms": 7.580248414566855,
+        "mean_residual_kms": 3.5806736146044784,
+        "median_log10_velocity_ratio": 0.01088931004438548,
+        "median_abs_log10_velocity_ratio": 0.017396633086127246
+      },
+      "mond_control": {
+        "normalization": 0.9423254207296551,
+        "chi2": 7.159967946711112,
+        "rmse_kms": 6.334407165430091,
+        "mean_residual_kms": -0.8651253095024998,
+        "median_log10_velocity_ratio": 0.0014923282678321811,
+        "median_abs_log10_velocity_ratio": 0.009493932101232519
+      }
+    },
+    {
+      "source_id": "NGC3917",
+      "n_points": 17,
+      "r_disk_kpc": 2.63,
+      "characteristic_gbar_ms2": 2.2701726594002712e-11,
+      "global_scarcity": {
+        "normalization": 3.7222432493164352,
+        "chi2": 91.09962643481006,
+        "rmse_kms": 9.3307503433792,
+        "mean_residual_kms": 1.6985883272901634,
+        "median_log10_velocity_ratio": 0.0006956721304343626,
+        "median_abs_log10_velocity_ratio": 0.02505826303973668
+      },
+      "per_galaxy_scarcity": {
+        "beta_kpc": 1.7618521411480443,
+        "beta_sigma_kpc": 0.5323067599425911,
+        "normalization": 3.167885362975467,
+        "chi2": 42.983990936029365,
+        "rmse_kms": 7.037860160965649,
+        "mean_residual_kms": 0.8598156740660796,
+        "median_log10_velocity_ratio": -0.002387849078420308,
+        "median_abs_log10_velocity_ratio": 0.01259143914256369
+      },
+      "mond_control": {
+        "normalization": 0.9027076654619011,
+        "chi2": 49.089979553944175,
+        "rmse_kms": 6.725554620590553,
+        "mean_residual_kms": -0.5355620807059502,
+        "median_log10_velocity_ratio": -0.0018802402410581073,
+        "median_abs_log10_velocity_ratio": 0.011620188393660632
+      }
+    },
+    {
+      "source_id": "NGC3949",
+      "n_points": 7,
+      "r_disk_kpc": 3.59,
+      "characteristic_gbar_ms2": 1.3927785616042502e-10,
+      "global_scarcity": {
+        "normalization": 2.463557426882982,
+        "chi2": 60.41625001598965,
+        "rmse_kms": 19.89498391455338,
+        "mean_residual_kms": -4.388102421084359,
+        "median_log10_velocity_ratio": -0.040628687697233275,
+        "median_abs_log10_velocity_ratio": 0.048251378972043096
+      },
+      "per_galaxy_scarcity": {
+        "beta_kpc": 1.3722717318003215,
+        "beta_sigma_kpc": 0.5511775563364908,
+        "normalization": 1.5191229778932365,
+        "chi2": 5.984453477726475,
+        "rmse_kms": 10.795664240162397,
+        "mean_residual_kms": 4.59399581025517,
+        "median_log10_velocity_ratio": 0.010130050488423536,
+        "median_abs_log10_velocity_ratio": 0.015586701758909527
+      },
+      "mond_control": {
+        "normalization": 0.7610896835187427,
+        "chi2": 2.138212276460993,
+        "rmse_kms": 6.35312656475254,
+        "mean_residual_kms": 2.6725912707765036,
+        "median_log10_velocity_ratio": 0.005895150113074251,
+        "median_abs_log10_velocity_ratio": 0.006407408417193597
+      }
+    },
+    {
+      "source_id": "NGC3953",
+      "n_points": 8,
+      "r_disk_kpc": 4.89,
+      "characteristic_gbar_ms2": 1.0355143458544978e-10,
+      "global_scarcity": {
+        "normalization": 2.072873275092104,
+        "chi2": 50.03083303421326,
+        "rmse_kms": 16.428801438332922,
+        "mean_residual_kms": 1.790835608907944,
+        "median_log10_velocity_ratio": -0.006650177750670285,
+        "median_abs_log10_velocity_ratio": 0.028483675473358745
+      },
+      "per_galaxy_scarcity": {
+        "beta_kpc": 0.3056850341860839,
+        "beta_sigma_kpc": 0.7509313359148603,
+        "normalization": 1.7103674015908097,
+        "chi2": 3.965765953334361,
+        "rmse_kms": 4.651899387288724,
+        "mean_residual_kms": 0.4112813238741815,
+        "median_log10_velocity_ratio": 0.0015102785292598103,
+        "median_abs_log10_velocity_ratio": 0.008906837758327815
+      },
+      "mond_control": {
+        "normalization": 0.91253890227191,
+        "chi2": 20.73131520895123,
+        "rmse_kms": 10.805613286983494,
+        "mean_residual_kms": -0.16117651539054734,
+        "median_log10_velocity_ratio": -0.002690584546524637,
+        "median_abs_log10_velocity_ratio": 0.022818430940809466
+      }
+    },
+    {
+      "source_id": "NGC3972",
+      "n_points": 10,
+      "r_disk_kpc": 2.18,
+      "characteristic_gbar_ms2": 3.324877547281479e-11,
+      "global_scarcity": {
+        "normalization": 3.6390276785305797,
+        "chi2": 45.14130095449436,
+        "rmse_kms": 10.990130631093367,
+        "mean_residual_kms": 3.6615077740512936,
+        "median_log10_velocity_ratio": -0.006064789228181267,
+        "median_abs_log10_velocity_ratio": 0.02914251031042013
+      },
+      "per_galaxy_scarcity": {
+        "beta_kpc": 1.9911895998824467,
+        "beta_sigma_kpc": 0.6868401968689831,
+        "normalization": 3.0728348969599004,
+        "chi2": 20.388013805009596,
+        "rmse_kms": 7.004075645182299,
+        "mean_residual_kms": 1.0796080766196254,
+        "median_log10_velocity_ratio": 0.01864633314440803,
+        "median_abs_log10_velocity_ratio": 0.02696023452818627
+      },
+      "mond_control": {
+        "normalization": 1.00675359109226,
+        "chi2": 12.10922434711106,
+        "rmse_kms": 5.424072061137038,
+        "mean_residual_kms": 0.14359163041600026,
+        "median_log10_velocity_ratio": 0.012311346321636444,
+        "median_abs_log10_velocity_ratio": 0.016937759104317336
+      }
+    },
+    {
+      "source_id": "NGC3992",
+      "n_points": 9,
+      "r_disk_kpc": 4.96,
+      "characteristic_gbar_ms2": 2.8439825303004404e-11,
+      "global_scarcity": {
+        "normalization": 3.1967326712792112,
+        "chi2": 54.788693299573154,
+        "rmse_kms": 16.505240739995138,
+        "mean_residual_kms": 3.475277116696674,
+        "median_log10_velocity_ratio": -0.005251561305617676,
+        "median_abs_log10_velocity_ratio": 0.023619896808210878
+      },
+      "per_galaxy_scarcity": {
+        "beta_kpc": 8.222270288059875,
+        "beta_sigma_kpc": 0.9882688271189773,
+        "normalization": 3.391922102132538,
+        "chi2": 47.20473774242252,
+        "rmse_kms": 15.493970901946192,
+        "mean_residual_kms": 3.401500714976862,
+        "median_log10_velocity_ratio": -0.005367267052215732,
+        "median_abs_log10_velocity_ratio": 0.01680404555982618
+      },
+      "mond_control": {
+        "normalization": 1.0836210147493535,
+        "chi2": 35.64842910739995,
+        "rmse_kms": 13.654015008250251,
+        "mean_residual_kms": -0.22555547826471903,
+        "median_log10_velocity_ratio": -0.002471452033421369,
+        "median_abs_log10_velocity_ratio": 0.017624514261882378
+      }
+    },
+    {
+      "source_id": "NGC4010",
+      "n_points": 12,
+      "r_disk_kpc": 2.81,
+      "characteristic_gbar_ms2": 2.8087723657719682e-11,
+      "global_scarcity": {
+        "normalization": 3.0468893484848873,
+        "chi2": 13.00172734778557,
+        "rmse_kms": 6.010044992338635,
+        "mean_residual_kms": 0.7951229948268533,
+        "median_log10_velocity_ratio": -0.0026683391853840944,
+        "median_abs_log10_velocity_ratio": 0.01568535136241061
+      },
+      "per_galaxy_scarcity": {
+        "beta_kpc": 5.197084228428578,
+        "beta_sigma_kpc": 0.7202018743772552,
+        "normalization": 3.007923227941848,
+        "chi2": 12.794392467677246,
+        "rmse_kms": 6.027303364726441,
+        "mean_residual_kms": 0.5080297855733983,
+        "median_log10_velocity_ratio": -0.00313751359867456,
+        "median_abs_log10_velocity_ratio": 0.015288471130775812
+      },
+      "mond_control": {
+        "normalization": 0.7168724004013834,
+        "chi2": 25.03571652452345,
+        "rmse_kms": 8.29485923237634,
+        "mean_residual_kms": -1.6443590349618205,
+        "median_log10_velocity_ratio": 0.000736342276882169,
+        "median_abs_log10_velocity_ratio": 0.024793531436159352
+      }
+    },
+    {
+      "source_id": "NGC4013",
+      "n_points": 36,
+      "r_disk_kpc": 3.53,
+      "characteristic_gbar_ms2": 2.0503043748618545e-11,
+      "global_scarcity": {
+        "normalization": 2.675358563846794,
+        "chi2": 715.7013744746122,
+        "rmse_kms": 22.899860531096603,
+        "mean_residual_kms": 7.079519199426569,
+        "median_log10_velocity_ratio": 0.006854699827316875,
+        "median_abs_log10_velocity_ratio": 0.04693441035968622
+      },
+      "per_galaxy_scarcity": {
+        "beta_kpc": 10.865552141829173,
+        "beta_sigma_kpc": 0.2743730430216519,
+        "normalization": 3.452477470661382,
+        "chi2": 325.1139088411041,
+        "rmse_kms": 17.825154838024925,
+        "mean_residual_kms": 1.2516359047994792,
+        "median_log10_velocity_ratio": 0.0038161121652818633,
+        "median_abs_log10_velocity_ratio": 0.03605595822370775
+      },
+      "mond_control": {
+        "normalization": 0.7297664158407463,
+        "chi2": 60.40484254779746,
+        "rmse_kms": 7.619295514222932,
+        "mean_residual_kms": 0.45227821964622295,
+        "median_log10_velocity_ratio": 0.001277676959583824,
+        "median_abs_log10_velocity_ratio": 0.009732299566788432
+      }
+    },
+    {
+      "source_id": "NGC4051",
+      "n_points": 7,
+      "r_disk_kpc": 4.65,
+      "characteristic_gbar_ms2": 7.42642355722633e-11,
+      "global_scarcity": {
+        "normalization": 1.742760712377659,
+        "chi2": 30.981196230914424,
+        "rmse_kms": 15.874195161584248,
+        "mean_residual_kms": 4.3317609574421665,
+        "median_log10_velocity_ratio": 0.034569364058268874,
+        "median_abs_log10_velocity_ratio": 0.04104231623670947
+      },
+      "per_galaxy_scarcity": {
+        "beta_kpc": 3.737685985848593e-07,
+        "beta_sigma_kpc": null,
+        "normalization": 1.4027174128655002,
+        "chi2": 8.332111899361129,
+        "rmse_kms": 10.041800755095691,
+        "mean_residual_kms": -0.9894795254784745,
+        "median_log10_velocity_ratio": -0.0007137894484605874,
+        "median_abs_log10_velocity_ratio": 0.016982588134478494
+      },
+      "mond_control": {
+        "normalization": 0.5781241950108966,
+        "chi2": 10.709235747980827,
+        "rmse_kms": 9.354114467401113,
+        "mean_residual_kms": 1.010500125319575,
+        "median_log10_velocity_ratio": 0.017999234742434794,
+        "median_abs_log10_velocity_ratio": 0.026698343768981333
+      }
+    },
+    {
+      "source_id": "NGC4068",
+      "n_points": 6,
+      "r_disk_kpc": 0.59,
+      "characteristic_gbar_ms2": 8.95021109844663e-12,
+      "global_scarcity": {
+        "normalization": 4.009411419400224,
+        "chi2": 16.824751060485994,
+        "rmse_kms": 4.875350938552227,
+        "mean_residual_kms": 0.1988474775959904,
+        "median_log10_velocity_ratio": 0.08103064904645035,
+        "median_abs_log10_velocity_ratio": 0.09201459801712875
+      },
+      "per_galaxy_scarcity": {
+        "beta_kpc": 1.6906036731392522,
+        "beta_sigma_kpc": 0.9256400138398264,
+        "normalization": 2.640210977729313,
+        "chi2": 1.2085728939100413,
+        "rmse_kms": 1.2415441398983669,
+        "mean_residual_kms": -0.44601105704193983,
+        "median_log10_velocity_ratio": -0.0040743385825994715,
+        "median_abs_log10_velocity_ratio": 0.012275823193726195
+      },
+      "mond_control": {
+        "normalization": 0.26435415352080904,
+        "chi2": 6.718878428352756,
+        "rmse_kms": 3.6540256058227847,
+        "mean_residual_kms": -1.159873977215316,
+        "median_log10_velocity_ratio": -0.022836045425981957,
+        "median_abs_log10_velocity_ratio": 0.04832853593691333
+      }
+    },
+    {
+      "source_id": "NGC4085",
+      "n_points": 7,
+      "r_disk_kpc": 1.65,
+      "characteristic_gbar_ms2": 1.0330188389563007e-10,
+      "global_scarcity": {
+        "normalization": 2.009335183697044,
+        "chi2": 23.210763585107713,
+        "rmse_kms": 9.99313034173619,
+        "mean_residual_kms": 1.9789364023041338,
+        "median_log10_velocity_ratio": -0.01156817411996153,
+        "median_abs_log10_velocity_ratio": 0.03243171880197532
+      },
+      "per_galaxy_scarcity": {
+        "beta_kpc": 3.4114655318409484,
+        "beta_sigma_kpc": 0.5496930113391226,
+        "normalization": 1.7398748411847964,
+        "chi2": 9.617100969589625,
+        "rmse_kms": 7.00646149680733,
+        "mean_residual_kms": -0.7307606534216983,
+        "median_log10_velocity_ratio": -0.011107237228885866,
+        "median_abs_log10_velocity_ratio": 0.022441139770553425
+      },
+      "mond_control": {
+        "normalization": 0.6026333647611408,
+        "chi2": 25.696924967508853,
+        "rmse_kms": 12.783700153029198,
+        "mean_residual_kms": -3.19260000641594,
+        "median_log10_velocity_ratio": 0.005910467194990427,
+        "median_abs_log10_velocity_ratio": 0.025674988783410468
+      }
+    },
+    {
+      "source_id": "NGC4088",
+      "n_points": 12,
+      "r_disk_kpc": 2.58,
+      "characteristic_gbar_ms2": 8.043319891012876e-11,
+      "global_scarcity": {
+        "normalization": 1.5650328431597003,
+        "chi2": 31.461413127298623,
+        "rmse_kms": 13.321435121325747,
+        "mean_residual_kms": 4.141978055592035,
+        "median_log10_velocity_ratio": 0.0022591280577364944,
+        "median_abs_log10_velocity_ratio": 0.017982506458945915
+      },
+      "per_galaxy_scarcity": {
+        "beta_kpc": 5.602014504014551,
+        "beta_sigma_kpc": 0.6951429786348615,
+        "normalization": 1.5702881462648266,
+        "chi2": 31.449488568928125,
+        "rmse_kms": 13.363192679048922,
+        "mean_residual_kms": 4.1906382964493005,
+        "median_log10_velocity_ratio": 0.0017502971249775442,
+        "median_abs_log10_velocity_ratio": 0.01854858281792541
+      },
+      "mond_control": {
+        "normalization": 0.45085307152481635,
+        "chi2": 6.584225200854743,
+        "rmse_kms": 5.908828780249663,
+        "mean_residual_kms": 0.8780078719364278,
+        "median_log10_velocity_ratio": 0.0025117812811672226,
+        "median_abs_log10_velocity_ratio": 0.011426913169944063
+      }
+    },
+    {
+      "source_id": "NGC4100",
+      "n_points": 24,
+      "r_disk_kpc": 2.15,
+      "characteristic_gbar_ms2": 3.295699098845294e-11,
+      "global_scarcity": {
+        "normalization": 3.281593244650714,
+        "chi2": 93.5058918972781,
+        "rmse_kms": 12.879326614049413,
+        "mean_residual_kms": 3.68753024696565,
+        "median_log10_velocity_ratio": 0.0012856274909963461,
+        "median_abs_log10_velocity_ratio": 0.00975819442613093
+      },
+      "per_galaxy_scarcity": {
+        "beta_kpc": 4.34209506157682,
+        "beta_sigma_kpc": 0.35819691584909935,
+        "normalization": 3.0850021031439088,
+        "chi2": 82.78852599682043,
+        "rmse_kms": 11.698572635157152,
+        "mean_residual_kms": 3.7320370826068827,
+        "median_log10_velocity_ratio": 0.006955687698423986,
+        "median_abs_log10_velocity_ratio": 0.02020293080332136
+      },
+      "mond_control": {
+        "normalization": 1.011878815710498,
+        "chi2": 50.47628965669864,
+        "rmse_kms": 9.790544706841976,
+        "mean_residual_kms": -1.7991798861184602,
+        "median_log10_velocity_ratio": -0.004273250661550245,
+        "median_abs_log10_velocity_ratio": 0.010897511433097456
+      }
+    },
+    {
+      "source_id": "NGC4138",
+      "n_points": 7,
+      "r_disk_kpc": 1.51,
+      "characteristic_gbar_ms2": 3.285229574739564e-11,
+      "global_scarcity": {
+        "normalization": 3.6147346111796157,
+        "chi2": 15.520194128915092,
+        "rmse_kms": 19.339056797880552,
+        "mean_residual_kms": -0.09304835977269477,
+        "median_log10_velocity_ratio": -0.01653298733231862,
+        "median_abs_log10_velocity_ratio": 0.02791060897798496
+      },
+      "per_galaxy_scarcity": {
+        "beta_kpc": 3.071619272194052,
+        "beta_sigma_kpc": 0.6172375145896336,
+        "normalization": 2.803919777698528,
+        "chi2": 1.1509445209755182,
+        "rmse_kms": 7.699145645437125,
+        "mean_residual_kms": 2.983122044474198,
+        "median_log10_velocity_ratio": -0.0009230786880188898,
+        "median_abs_log10_velocity_ratio": 0.004411535631926302
+      },
+      "mond_control": {
+        "normalization": 0.9772930470886054,
+        "chi2": 7.756445255090413,
+        "rmse_kms": 11.655235383958182,
+        "mean_residual_kms": -6.25223127838102,
+        "median_log10_velocity_ratio": -0.025477481385835953,
+        "median_abs_log10_velocity_ratio": 0.025477481385835953
+      }
+    },
+    {
+      "source_id": "NGC4157",
+      "n_points": 17,
+      "r_disk_kpc": 2.32,
+      "characteristic_gbar_ms2": 3.885589772305592e-11,
+      "global_scarcity": {
+        "normalization": 2.2086753327383697,
+        "chi2": 65.89059387658303,
+        "rmse_kms": 18.24419797984911,
+        "mean_residual_kms": 6.983215604562869,
+        "median_log10_velocity_ratio": 0.023311562035536398,
+        "median_abs_log10_velocity_ratio": 0.03294122565897142
+      },
+      "per_galaxy_scarcity": {
+        "beta_kpc": 6.626403036789281,
+        "beta_sigma_kpc": 0.5388214586634745,
+        "normalization": 2.331137787986839,
+        "chi2": 61.59663654539925,
+        "rmse_kms": 17.49782533458791,
+        "mean_residual_kms": 7.239582026750171,
+        "median_log10_velocity_ratio": 0.02429930119958098,
+        "median_abs_log10_velocity_ratio": 0.03489575916905845
+      },
+      "mond_control": {
+        "normalization": 0.629210615779768,
+        "chi2": 9.084126437191713,
+        "rmse_kms": 6.468997839040291,
+        "mean_residual_kms": 0.5542612384005632,
+        "median_log10_velocity_ratio": 0.00011681530178108654,
+        "median_abs_log10_velocity_ratio": 0.009783700144198985
+      }
+    },
+    {
+      "source_id": "NGC4183",
+      "n_points": 23,
+      "r_disk_kpc": 2.79,
+      "characteristic_gbar_ms2": 1.3072648069040244e-11,
+      "global_scarcity": {
+        "normalization": 4.3787570708451,
+        "chi2": 64.30825686808976,
+        "rmse_kms": 9.458843919840193,
+        "mean_residual_kms": 2.5088905264511534,
+        "median_log10_velocity_ratio": 0.003047573182733865,
+        "median_abs_log10_velocity_ratio": 0.026791247424739366
+      },
+      "per_galaxy_scarcity": {
+        "beta_kpc": 1.650644589446657,
+        "beta_sigma_kpc": 0.6647999403561499,
+        "normalization": 3.703514680921447,
+        "chi2": 32.1707305587731,
+        "rmse_kms": 7.600792903590756,
+        "mean_residual_kms": 1.4761588281392342,
+        "median_log10_velocity_ratio": 0.002485273012438416,
+        "median_abs_log10_velocity_ratio": 0.02603409461627852
+      },
+      "mond_control": {
+        "normalization": 0.6865002187911399,
+        "chi2": 44.05823884716049,
+        "rmse_kms": 7.502516429355324,
+        "mean_residual_kms": 1.366137605604679,
+        "median_log10_velocity_ratio": -0.01012273770432375,
+        "median_abs_log10_velocity_ratio": 0.024578974757184728
+      }
+    },
+    {
+      "source_id": "NGC4217",
+      "n_points": 19,
+      "r_disk_kpc": 2.94,
+      "characteristic_gbar_ms2": 1.1192206538332042e-10,
+      "global_scarcity": {
+        "normalization": 1.652779511719779,
+        "chi2": 31.92873534335735,
+        "rmse_kms": 9.133745099981168,
+        "mean_residual_kms": 1.1273846455766765,
+        "median_log10_velocity_ratio": 0.007462016021452773,
+        "median_abs_log10_velocity_ratio": 0.020589293617220526
+      },
+      "per_galaxy_scarcity": {
+        "beta_kpc": 6.490423022158217,
+        "beta_sigma_kpc": 0.2707547907849543,
+        "normalization": 1.7789794422561274,
+        "chi2": 18.611206080209886,
+        "rmse_kms": 7.309035791260095,
+        "mean_residual_kms": 1.5641661197964511,
+        "median_log10_velocity_ratio": 0.007087907658015972,
+        "median_abs_log10_velocity_ratio": 0.010198898681779544
+      },
+      "mond_control": {
+        "normalization": 0.4641726952905591,
+        "chi2": 174.24127351400148,
+        "rmse_kms": 22.456705866974026,
+        "mean_residual_kms": -0.6023766748379632,
+        "median_log10_velocity_ratio": 0.02889684308591367,
+        "median_abs_log10_velocity_ratio": 0.033870982190359666
+      }
+    },
+    {
+      "source_id": "NGC4559",
+      "n_points": 32,
+      "r_disk_kpc": 2.1,
+      "characteristic_gbar_ms2": 1.8172463780242682e-11,
+      "global_scarcity": {
+        "normalization": 2.957223502226645,
+        "chi2": 38.409280421781304,
+        "rmse_kms": 5.255903571663089,
+        "mean_residual_kms": -0.6317102611586707,
+        "median_log10_velocity_ratio": 0.0014607179118037513,
+        "median_abs_log10_velocity_ratio": 0.01734153079602619
+      },
+      "per_galaxy_scarcity": {
+        "beta_kpc": 7.653774786164713,
+        "beta_sigma_kpc": 0.5411241239765097,
+        "normalization": 3.193360789282386,
+        "chi2": 22.292974792881296,
+        "rmse_kms": 4.67202685962318,
+        "mean_residual_kms": 0.2411363929315571,
+        "median_log10_velocity_ratio": -0.0038251765790706964,
+        "median_abs_log10_velocity_ratio": 0.014320130559141329
+      },
+      "mond_control": {
+        "normalization": 0.5430754290395385,
+        "chi2": 15.064973111703125,
+        "rmse_kms": 3.768820033154749,
+        "mean_residual_kms": -0.9791425798277829,
+        "median_log10_velocity_ratio": -0.0022994798802620673,
+        "median_abs_log10_velocity_ratio": 0.008702319068349722
+      }
+    },
+    {
+      "source_id": "NGC5005",
+      "n_points": 18,
+      "r_disk_kpc": 9.45,
+      "characteristic_gbar_ms2": 3.9361650320632096e-10,
+      "global_scarcity": {
+        "normalization": 2.2734259848581946,
+        "chi2": 71.59222599427403,
+        "rmse_kms": 41.67599582713066,
+        "mean_residual_kms": -5.006673440468971,
+        "median_log10_velocity_ratio": -0.024520020923168226,
+        "median_abs_log10_velocity_ratio": 0.05815438280867997
+      },
+      "per_galaxy_scarcity": {
+        "beta_kpc": 2.262009058041533,
+        "beta_sigma_kpc": 0.39043846320953507,
+        "normalization": 1.5219025839088254,
+        "chi2": 2.616290187264111,
+        "rmse_kms": 11.613344990538494,
+        "mean_residual_kms": 1.9735212893634326,
+        "median_log10_velocity_ratio": -0.0018653327358278105,
+        "median_abs_log10_velocity_ratio": 0.006565822192934128
+      },
+      "mond_control": {
+        "normalization": 0.8557661996074727,
+        "chi2": 4.021714853524809,
+        "rmse_kms": 8.91210107128445,
+        "mean_residual_kms": 3.46737692262283,
+        "median_log10_velocity_ratio": 0.011408225510337378,
+        "median_abs_log10_velocity_ratio": 0.01186017416306822
+      }
+    },
+    {
+      "source_id": "NGC5033",
+      "n_points": 22,
+      "r_disk_kpc": 5.16,
+      "characteristic_gbar_ms2": 2.4906788183677227e-11,
+      "global_scarcity": {
+        "normalization": 3.440810771878774,
+        "chi2": 478.7213554321582,
+        "rmse_kms": 26.037640869979516,
+        "mean_residual_kms": 0.9578652338833368,
+        "median_log10_velocity_ratio": 0.009593582703650955,
+        "median_abs_log10_velocity_ratio": 0.030043853012104473
+      },
+      "per_galaxy_scarcity": {
+        "beta_kpc": 9.497398586092881,
+        "beta_sigma_kpc": 0.2650056675605998,
+        "normalization": 3.8964302269066824,
+        "chi2": 212.23797020504495,
+        "rmse_kms": 35.38836731394691,
+        "mean_residual_kms": 11.814738404982124,
+        "median_log10_velocity_ratio": 0.0018947779306017509,
+        "median_abs_log10_velocity_ratio": 0.00964308191332227
+      },
+      "mond_control": {
+        "normalization": 0.9801161298284248,
+        "chi2": 220.9457433704936,
+        "rmse_kms": 15.50932577979134,
+        "mean_residual_kms": -7.257038086175306,
+        "median_log10_velocity_ratio": -0.007039760937269548,
+        "median_abs_log10_velocity_ratio": 0.014154562993215901
+      }
+    },
+    {
+      "source_id": "NGC5055",
+      "n_points": 28,
+      "r_disk_kpc": 3.2,
+      "characteristic_gbar_ms2": 5.365845117377201e-11,
+      "global_scarcity": {
+        "normalization": 2.193802748172816,
+        "chi2": 10261.86642666571,
+        "rmse_kms": 24.075495097446453,
+        "mean_residual_kms": 14.202805962494503,
+        "median_log10_velocity_ratio": 0.04030352592131267,
+        "median_abs_log10_velocity_ratio": 0.04030352592131267
+      },
+      "per_galaxy_scarcity": {
+        "beta_kpc": 8.264413305685828,
+        "beta_sigma_kpc": 0.04447003622148321,
+        "normalization": 2.734815392181623,
+        "chi2": 6514.0623604731545,
+        "rmse_kms": 24.538027474839744,
+        "mean_residual_kms": 12.739588859501964,
+        "median_log10_velocity_ratio": 0.026606296665739528,
+        "median_abs_log10_velocity_ratio": 0.036281075245205976
+      },
+      "mond_control": {
+        "normalization": 0.6125621872288783,
+        "chi2": 930.0622012895858,
+        "rmse_kms": 8.10520885441636,
+        "mean_residual_kms": -1.8289141276488874,
+        "median_log10_velocity_ratio": 0.0014098640639134772,
+        "median_abs_log10_velocity_ratio": 0.012521999030999348
+      }
+    },
+    {
+      "source_id": "NGC5371",
+      "n_points": 19,
+      "r_disk_kpc": 7.44,
+      "characteristic_gbar_ms2": 7.330056139584842e-11,
+      "global_scarcity": {
+        "normalization": 1.704104512768387,
+        "chi2": 543.5587994749538,
+        "rmse_kms": 25.690840255837433,
+        "mean_residual_kms": 11.410956513756332,
+        "median_log10_velocity_ratio": 0.013650601978643172,
+        "median_abs_log10_velocity_ratio": 0.032150760201821595
+      },
+      "per_galaxy_scarcity": {
+        "beta_kpc": 1.1487244183039846,
+        "beta_sigma_kpc": 0.3243023034272496,
+        "normalization": 1.4990509998943213,
+        "chi2": 369.2391997753557,
+        "rmse_kms": 19.30912681163712,
+        "mean_residual_kms": 8.140762632793411,
+        "median_log10_velocity_ratio": 0.019155537798831973,
+        "median_abs_log10_velocity_ratio": 0.024371950810418548
+      },
+      "mond_control": {
+        "normalization": 0.5383074048534024,
+        "chi2": 905.1778305196796,
+        "rmse_kms": 32.66726545853176,
+        "mean_residual_kms": 8.900645531008097,
+        "median_log10_velocity_ratio": -0.008230055053210462,
+        "median_abs_log10_velocity_ratio": 0.039968895455907566
+      }
+    },
+    {
+      "source_id": "NGC5585",
+      "n_points": 24,
+      "r_disk_kpc": 1.53,
+      "characteristic_gbar_ms2": 1.829928667456688e-11,
+      "global_scarcity": {
+        "normalization": 5.146480100588055,
+        "chi2": 119.19405666879709,
+        "rmse_kms": 3.3959302015798154,
+        "mean_residual_kms": -0.1925956601847516,
+        "median_log10_velocity_ratio": -0.001239828125683783,
+        "median_abs_log10_velocity_ratio": 0.016336898854653743
+      },
+      "per_galaxy_scarcity": {
+        "beta_kpc": 5.44244387153176,
+        "beta_sigma_kpc": 0.13241213467016616,
+        "normalization": 5.110496704258694,
+        "chi2": 118.79535513445882,
+        "rmse_kms": 3.436818956351322,
+        "mean_residual_kms": -0.2220409638974413,
+        "median_log10_velocity_ratio": -0.0017857309185137945,
+        "median_abs_log10_velocity_ratio": 0.017504348863930763
+      },
+      "mond_control": {
+        "normalization": 0.6387500844229368,
+        "chi2": 295.59145516617707,
+        "rmse_kms": 6.2915688384752935,
+        "mean_residual_kms": -0.056753065704778484,
+        "median_log10_velocity_ratio": 0.010150998672882043,
+        "median_abs_log10_velocity_ratio": 0.03879824084384499
+      }
+    },
+    {
+      "source_id": "NGC5907",
+      "n_points": 19,
+      "r_disk_kpc": 5.34,
+      "characteristic_gbar_ms2": 2.1993687329283417e-11,
+      "global_scarcity": {
+        "normalization": 2.8994549413010233,
+        "chi2": 478.2403123363332,
+        "rmse_kms": 17.79906604914619,
+        "mean_residual_kms": 5.678065958002162,
+        "median_log10_velocity_ratio": 0.002472344069671751,
+        "median_abs_log10_velocity_ratio": 0.024086242559513388
+      },
+      "per_galaxy_scarcity": {
+        "beta_kpc": 9.592197023778516,
+        "beta_sigma_kpc": 0.37196593713470016,
+        "normalization": 3.142907583535053,
+        "chi2": 354.78696529610255,
+        "rmse_kms": 19.650239224280433,
+        "mean_residual_kms": 7.45786911022357,
+        "median_log10_velocity_ratio": 0.0012964858142637003,
+        "median_abs_log10_velocity_ratio": 0.01726084263793032
+      },
+      "mond_control": {
+        "normalization": 0.7802223611679229,
+        "chi2": 453.4030738199897,
+        "rmse_kms": 19.71839056287936,
+        "mean_residual_kms": 5.397242234525716,
+        "median_log10_velocity_ratio": -0.0029104172278312406,
+        "median_abs_log10_velocity_ratio": 0.018371238086857086
+      }
+    },
+    {
+      "source_id": "NGC5985",
+      "n_points": 33,
+      "r_disk_kpc": 7.01,
+      "characteristic_gbar_ms2": 5.601327671076373e-11,
+      "global_scarcity": {
+        "normalization": 4.0292876333388,
+        "chi2": 619.6968117817108,
+        "rmse_kms": 24.033214539811265,
+        "mean_residual_kms": 9.16873679933936,
+        "median_log10_velocity_ratio": 0.002151051828939902,
+        "median_abs_log10_velocity_ratio": 0.01897330775186018
+      },
+      "per_galaxy_scarcity": {
+        "beta_kpc": 3.737685985848593e-07,
+        "beta_sigma_kpc": null,
+        "normalization": 3.575925338435003,
+        "chi2": 344.61505317890743,
+        "rmse_kms": 15.57630586321201,
+        "mean_residual_kms": 2.8735271090828935,
+        "median_log10_velocity_ratio": 0.0034542101611204023,
+        "median_abs_log10_velocity_ratio": 0.023546310290948103
+      },
+      "mond_control": {
+        "normalization": 1.8225700342194506,
+        "chi2": 675.6634416956898,
+        "rmse_kms": 26.25741845316017,
+        "mean_residual_kms": 10.807837947407274,
+        "median_log10_velocity_ratio": -0.0026106350852801996,
+        "median_abs_log10_velocity_ratio": 0.0210903578401209
+      }
+    },
+    {
+      "source_id": "NGC6015",
+      "n_points": 44,
+      "r_disk_kpc": 2.3,
+      "characteristic_gbar_ms2": 2.4500898013689407e-11,
+      "global_scarcity": {
+        "normalization": 4.408172601936757,
+        "chi2": 1569.8418221157742,
+        "rmse_kms": 15.772466866901516,
+        "mean_residual_kms": 2.6173940873719173,
+        "median_log10_velocity_ratio": 0.017349114801940194,
+        "median_abs_log10_velocity_ratio": 0.04027313501423969
+      },
+      "per_galaxy_scarcity": {
+        "beta_kpc": 3.327841451651434,
+        "beta_sigma_kpc": 0.11380477389673513,
+        "normalization": 3.5563429758365435,
+        "chi2": 1185.9845427392775,
+        "rmse_kms": 18.031589193021002,
+        "mean_residual_kms": 7.364322993590401,
+        "median_log10_velocity_ratio": 0.03843703386508206,
+        "median_abs_log10_velocity_ratio": 0.05021762859905035
+      },
+      "mond_control": {
+        "normalization": 1.1420208700338128,
+        "chi2": 771.3275524376497,
+        "rmse_kms": 10.907798308220132,
+        "mean_residual_kms": -3.980620453527179,
+        "median_log10_velocity_ratio": -0.018620520650706185,
+        "median_abs_log10_velocity_ratio": 0.030419490154482233
+      }
+    },
+    {
+      "source_id": "NGC6195",
+      "n_points": 23,
+      "r_disk_kpc": 13.94,
+      "characteristic_gbar_ms2": 1.3136245501710467e-10,
+      "global_scarcity": {
+        "normalization": 1.7024000269448398,
+        "chi2": 227.12671517688625,
+        "rmse_kms": 16.133391517927816,
+        "mean_residual_kms": -5.241684060907175,
+        "median_log10_velocity_ratio": -0.015756099564938394,
+        "median_abs_log10_velocity_ratio": 0.026564779264977145
+      },
+      "per_galaxy_scarcity": {
+        "beta_kpc": 3.8533879454148745,
+        "beta_sigma_kpc": 0.26108865353626787,
+        "normalization": 1.5369824453074645,
+        "chi2": 186.09282630438804,
+        "rmse_kms": 14.881983196946946,
+        "mean_residual_kms": -3.0486864443757473,
+        "median_log10_velocity_ratio": -0.013183452248476056,
+        "median_abs_log10_velocity_ratio": 0.02211190803815133
+      },
+      "mond_control": {
+        "normalization": 0.7045925139781001,
+        "chi2": 212.5037776317854,
+        "rmse_kms": 15.448668066760936,
+        "mean_residual_kms": -6.9792961876453825,
+        "median_log10_velocity_ratio": -0.019982597589566487,
+        "median_abs_log10_velocity_ratio": 0.024721638735130055
+      }
+    },
+    {
+      "source_id": "NGC6503",
+      "n_points": 31,
+      "r_disk_kpc": 2.16,
+      "characteristic_gbar_ms2": 8.376762563881368e-12,
+      "global_scarcity": {
+        "normalization": 5.365988789490394,
+        "chi2": 409.0420489574883,
+        "rmse_kms": 11.55989982916925,
+        "mean_residual_kms": 4.018654654279112,
+        "median_log10_velocity_ratio": 0.0047763610196421375,
+        "median_abs_log10_velocity_ratio": 0.021524719921542146
+      },
+      "per_galaxy_scarcity": {
+        "beta_kpc": 6.406574475624596,
+        "beta_sigma_kpc": 0.0994831598917603,
+        "normalization": 5.622342189103054,
+        "chi2": 325.97998078272485,
+        "rmse_kms": 12.341105635993214,
+        "mean_residual_kms": 4.862738178978979,
+        "median_log10_velocity_ratio": 0.0098304838790464,
+        "median_abs_log10_velocity_ratio": 0.017299695869236752
+      },
+      "mond_control": {
+        "normalization": 0.8692027966633766,
+        "chi2": 76.56371368909114,
+        "rmse_kms": 3.8077363787612604,
+        "mean_residual_kms": -0.16787716143300274,
+        "median_log10_velocity_ratio": 0.0010225081450877774,
+        "median_abs_log10_velocity_ratio": 0.006079952595609256
+      }
+    },
+    {
+      "source_id": "NGC6674",
+      "n_points": 15,
+      "r_disk_kpc": 6.04,
+      "characteristic_gbar_ms2": 1.4145391267498064e-11,
+      "global_scarcity": {
+        "normalization": 4.197368218696337,
+        "chi2": 1143.6526603039279,
+        "rmse_kms": 26.667287079351745,
+        "mean_residual_kms": -0.3878496534901293,
+        "median_log10_velocity_ratio": -0.01136544716878913,
+        "median_abs_log10_velocity_ratio": 0.041988474340496774
+      },
+      "per_galaxy_scarcity": {
+        "beta_kpc": 18.30206603549048,
+        "beta_sigma_kpc": 0.5922954093801723,
+        "normalization": 4.952500130655897,
+        "chi2": 592.7111064926493,
+        "rmse_kms": 40.45880459810034,
+        "mean_residual_kms": 20.04575193804418,
+        "median_log10_velocity_ratio": 0.023102537194572607,
+        "median_abs_log10_velocity_ratio": 0.023102537194572607
+      },
+      "mond_control": {
+        "normalization": 1.0026088014433727,
+        "chi2": 214.7707733842452,
+        "rmse_kms": 21.863232311674732,
+        "mean_residual_kms": 9.827998171697313,
+        "median_log10_velocity_ratio": 0.004892942652226096,
+        "median_abs_log10_velocity_ratio": 0.012024170807555455
+      }
+    },
+    {
+      "source_id": "NGC6946",
+      "n_points": 58,
+      "r_disk_kpc": 2.44,
+      "characteristic_gbar_ms2": 5.552179623272473e-11,
+      "global_scarcity": {
+        "normalization": 2.399298829838515,
+        "chi2": 1042.8343083871982,
+        "rmse_kms": 16.43790665747554,
+        "mean_residual_kms": 5.351417204482579,
+        "median_log10_velocity_ratio": 0.002950184744543413,
+        "median_abs_log10_velocity_ratio": 0.016884510640901244
+      },
+      "per_galaxy_scarcity": {
+        "beta_kpc": 2.9749863966509804,
+        "beta_sigma_kpc": 0.08339452741459501,
+        "normalization": 1.956953097839987,
+        "chi2": 206.24839493232489,
+        "rmse_kms": 11.622168787206675,
+        "mean_residual_kms": 6.465029419632846,
+        "median_log10_velocity_ratio": 0.014080384779038122,
+        "median_abs_log10_velocity_ratio": 0.01801282871506585
+      },
+      "mond_control": {
+        "normalization": 0.7261333574592753,
+        "chi2": 107.88878090174892,
+        "rmse_kms": 6.202500404569923,
+        "mean_residual_kms": -3.0982054156095256,
+        "median_log10_velocity_ratio": -0.003566228891950393,
+        "median_abs_log10_velocity_ratio": 0.011908820875910095
+      }
+    },
+    {
+      "source_id": "NGC7331",
+      "n_points": 36,
+      "r_disk_kpc": 5.02,
+      "characteristic_gbar_ms2": 6.54640318788671e-11,
+      "global_scarcity": {
+        "normalization": 1.9907675335347539,
+        "chi2": 774.1296712779119,
+        "rmse_kms": 21.86351522878268,
+        "mean_residual_kms": 2.256194633265895,
+        "median_log10_velocity_ratio": -0.007932501070788318,
+        "median_abs_log10_velocity_ratio": 0.0263318371973999
+      },
+      "per_galaxy_scarcity": {
+        "beta_kpc": 8.107954259074123,
+        "beta_sigma_kpc": 0.16089113213353282,
+        "normalization": 2.187062702360471,
+        "chi2": 493.49867311803314,
+        "rmse_kms": 20.675106975556297,
+        "mean_residual_kms": 7.263855985995418,
+        "median_log10_velocity_ratio": 0.0030567013144708007,
+        "median_abs_log10_velocity_ratio": 0.023656102889638715
+      },
+      "mond_control": {
+        "normalization": 0.6842265977947344,
+        "chi2": 50.32576462817716,
+        "rmse_kms": 5.805730941175013,
+        "mean_residual_kms": 0.75773287892129,
+        "median_log10_velocity_ratio": 0.0002912671094036778,
+        "median_abs_log10_velocity_ratio": 0.008299746538083711
+      }
+    },
+    {
+      "source_id": "NGC7793",
+      "n_points": 46,
+      "r_disk_kpc": 1.21,
+      "characteristic_gbar_ms2": 6.776065496367103e-11,
+      "global_scarcity": {
+        "normalization": 5.05125899999249,
+        "chi2": 386.4725625953193,
+        "rmse_kms": 17.24154291534402,
+        "mean_residual_kms": 5.3990378468571185,
+        "median_log10_velocity_ratio": 0.07342343865732044,
+        "median_abs_log10_velocity_ratio": 0.10722183538332619
+      },
+      "per_galaxy_scarcity": {
+        "beta_kpc": 1.478401118858954,
+        "beta_sigma_kpc": 0.20973536236424392,
+        "normalization": 2.706645019402024,
+        "chi2": 27.08564620005187,
+        "rmse_kms": 5.322926283123271,
+        "mean_residual_kms": 0.7216752085077559,
+        "median_log10_velocity_ratio": -0.0010948757270149987,
+        "median_abs_log10_velocity_ratio": 0.022815237881895885
+      },
+      "mond_control": {
+        "normalization": 0.8267956076041145,
+        "chi2": 37.50577157727441,
+        "rmse_kms": 6.07042401813539,
+        "mean_residual_kms": 0.6978577687560871,
+        "median_log10_velocity_ratio": 0.0030748989670200027,
+        "median_abs_log10_velocity_ratio": 0.027780290177492457
+      }
+    },
+    {
+      "source_id": "NGC7814",
+      "n_points": 18,
+      "r_disk_kpc": 2.54,
+      "characteristic_gbar_ms2": 6.845065820935012e-11,
+      "global_scarcity": {
+        "normalization": 3.2170609625434436,
+        "chi2": 351.53301182764034,
+        "rmse_kms": 56.05659227720113,
+        "mean_residual_kms": 20.510546977040388,
+        "median_log10_velocity_ratio": 0.009526259077138314,
+        "median_abs_log10_velocity_ratio": 0.015703945894073316
+      },
+      "per_galaxy_scarcity": {
+        "beta_kpc": 4.3925912777095055,
+        "beta_sigma_kpc": 0.1907471303416951,
+        "normalization": 3.0421330826573216,
+        "chi2": 319.6489798981707,
+        "rmse_kms": 47.235132451114445,
+        "mean_residual_kms": 14.932708767166382,
+        "median_log10_velocity_ratio": 0.005709833437723114,
+        "median_abs_log10_velocity_ratio": 0.023946702086807128
+      },
+      "mond_control": {
+        "normalization": 1.1791910800716892,
+        "chi2": 87.24234805041343,
+        "rmse_kms": 19.61578819069395,
+        "mean_residual_kms": -6.1688418133384255,
+        "median_log10_velocity_ratio": 0.004139558399542421,
+        "median_abs_log10_velocity_ratio": 0.014601805438657686
+      }
+    },
+    {
+      "source_id": "UGC00128",
+      "n_points": 22,
+      "r_disk_kpc": 5.95,
+      "characteristic_gbar_ms2": 3.518831898367923e-12,
+      "global_scarcity": {
+        "normalization": 6.973338560844078,
+        "chi2": 1362.087957338745,
+        "rmse_kms": 10.369089469736721,
+        "mean_residual_kms": 3.8319448721165275,
+        "median_log10_velocity_ratio": 0.011035664668104031,
+        "median_abs_log10_velocity_ratio": 0.026761014879128405
+      },
+      "per_galaxy_scarcity": {
+        "beta_kpc": 3.737685985848593e-07,
+        "beta_sigma_kpc": null,
+        "normalization": 6.239017733197847,
+        "chi2": 847.8351499298221,
+        "rmse_kms": 11.591526822450316,
+        "mean_residual_kms": 4.329311714133322,
+        "median_log10_velocity_ratio": 0.011170359350643201,
+        "median_abs_log10_velocity_ratio": 0.023247041924395348
+      },
+      "mond_control": {
+        "normalization": 0.8353471405862924,
+        "chi2": 2111.3347093462867,
+        "rmse_kms": 11.449055579211313,
+        "mean_residual_kms": -0.9318403225323787,
+        "median_log10_velocity_ratio": -0.02078089002021421,
+        "median_abs_log10_velocity_ratio": 0.035338267935843465
+      }
+    },
+    {
+      "source_id": "UGC00191",
+      "n_points": 9,
+      "r_disk_kpc": 1.58,
+      "characteristic_gbar_ms2": 1.2591791803030947e-11,
+      "global_scarcity": {
+        "normalization": 4.7173998256446525,
+        "chi2": 319.0202818235922,
+        "rmse_kms": 13.544865444339097,
+        "mean_residual_kms": 9.976523312317532,
+        "median_log10_velocity_ratio": 0.14443501235499528,
+        "median_abs_log10_velocity_ratio": 0.14443501235499528
+      },
+      "per_galaxy_scarcity": {
+        "beta_kpc": 0.08512845900680717,
+        "beta_sigma_kpc": 0.29691098616128087,
+        "normalization": 3.8936945122670106,
+        "chi2": 42.95161509284841,
+        "rmse_kms": 5.382437489661226,
+        "mean_residual_kms": 2.1866702105413203,
+        "median_log10_velocity_ratio": 0.011789219098759064,
+        "median_abs_log10_velocity_ratio": 0.012717229202495925
+      },
+      "mond_control": {
+        "normalization": 0.6759420797860426,
+        "chi2": 99.21678974935935,
+        "rmse_kms": 8.582428725408652,
+        "mean_residual_kms": 5.487553755054484,
+        "median_log10_velocity_ratio": 0.038657925981133656,
+        "median_abs_log10_velocity_ratio": 0.038657925981133656
+      }
+    },
+    {
+      "source_id": "UGC00731",
+      "n_points": 12,
+      "r_disk_kpc": 2.3,
+      "characteristic_gbar_ms2": 2.9801496475101575e-12,
+      "global_scarcity": {
+        "normalization": 6.4151310336433065,
+        "chi2": 481.48677543683146,
+        "rmse_kms": 17.597214624928675,
+        "mean_residual_kms": 5.97888235209297,
+        "median_log10_velocity_ratio": 0.10657908525152583,
+        "median_abs_log10_velocity_ratio": 0.12124757645569409
+      },
+      "per_galaxy_scarcity": {
+        "beta_kpc": 3.737685985848593e-07,
+        "beta_sigma_kpc": null,
+        "normalization": 5.67160983278942,
+        "chi2": 354.21488295416117,
+        "rmse_kms": 14.92601878406267,
+        "mean_residual_kms": 4.825155167797529,
+        "median_log10_velocity_ratio": 0.07950699817586875,
+        "median_abs_log10_velocity_ratio": 0.09470918789649549
+      },
+      "mond_control": {
+        "normalization": 0.7956135330974448,
+        "chi2": 191.04253308572666,
+        "rmse_kms": 11.143076729320846,
+        "mean_residual_kms": 2.838224166532843,
+        "median_log10_velocity_ratio": 0.04797549945167083,
+        "median_abs_log10_velocity_ratio": 0.07202294343084692
+      }
+    },
+    {
+      "source_id": "UGC00891",
+      "n_points": 5,
+      "r_disk_kpc": 1.43,
+      "characteristic_gbar_ms2": 5.142605490311985e-12,
+      "global_scarcity": {
+        "normalization": 6.706797814705555,
+        "chi2": 9.650776326075738,
+        "rmse_kms": 1.4559048333984705,
+        "mean_residual_kms": 0.5486810177617578,
+        "median_log10_velocity_ratio": 0.00019626464876094634,
+        "median_abs_log10_velocity_ratio": 0.010085596325520228
+      },
+      "per_galaxy_scarcity": {
+        "beta_kpc": 5.902728270265834,
+        "beta_sigma_kpc": 0.3879131077632454,
+        "normalization": 6.813049701319997,
+        "chi2": 8.70200285459018,
+        "rmse_kms": 1.6315376587220594,
+        "mean_residual_kms": 0.7903663202352647,
+        "median_log10_velocity_ratio": 0.006672424835110255,
+        "median_abs_log10_velocity_ratio": 0.0074326530320375965
+      },
+      "mond_control": {
+        "normalization": 0.6507333357190364,
+        "chi2": 50.63218076204121,
+        "rmse_kms": 5.031650684364544,
+        "mean_residual_kms": -2.43406831970225,
+        "median_log10_velocity_ratio": -0.02013355608097621,
+        "median_abs_log10_velocity_ratio": 0.022307099677620703
+      }
+    },
+    {
+      "source_id": "UGC01281",
+      "n_points": 23,
+      "r_disk_kpc": 1.63,
+      "characteristic_gbar_ms2": 4.145944041784107e-12,
+      "global_scarcity": {
+        "normalization": 8.117724128603706,
+        "chi2": 33.8034445886976,
+        "rmse_kms": 5.4135556041438875,
+        "mean_residual_kms": 2.7156585315896558,
+        "median_log10_velocity_ratio": 0.0643330672665186,
+        "median_abs_log10_velocity_ratio": 0.06975048899498092
+      },
+      "per_galaxy_scarcity": {
+        "beta_kpc": 0.8654177545678959,
+        "beta_sigma_kpc": 0.8002489212802754,
+        "normalization": 5.90781571883845,
+        "chi2": 1.592567927873595,
+        "rmse_kms": 1.1087954186386917,
+        "mean_residual_kms": -0.0037516228799256207,
+        "median_log10_velocity_ratio": -0.0007120192421701928,
+        "median_abs_log10_velocity_ratio": 0.01079141674709821
+      },
+      "mond_control": {
+        "normalization": 0.7858855329863007,
+        "chi2": 6.466135927091878,
+        "rmse_kms": 2.327218525354999,
+        "mean_residual_kms": -0.6772625034053261,
+        "median_log10_velocity_ratio": -0.010139574667726692,
+        "median_abs_log10_velocity_ratio": 0.018352736893221862
+      }
+    },
+    {
+      "source_id": "UGC02259",
+      "n_points": 8,
+      "r_disk_kpc": 1.62,
+      "characteristic_gbar_ms2": 8.982324283589669e-12,
+      "global_scarcity": {
+        "normalization": 8.230935768009626,
+        "chi2": 293.30610659204075,
+        "rmse_kms": 14.682708021405393,
+        "mean_residual_kms": 4.212612031597878,
+        "median_log10_velocity_ratio": 0.004890041171578991,
+        "median_abs_log10_velocity_ratio": 0.0527781004875949
+      },
+      "per_galaxy_scarcity": {
+        "beta_kpc": 3.737685985848593e-07,
+        "beta_sigma_kpc": null,
+        "normalization": 5.836603221997038,
+        "chi2": 34.53154845042444,
+        "rmse_kms": 5.796028924136235,
+        "mean_residual_kms": 2.6308001238198626,
+        "median_log10_velocity_ratio": 0.007191957680629191,
+        "median_abs_log10_velocity_ratio": 0.016524043414860558
+      },
+      "mond_control": {
+        "normalization": 1.4718957200531635,
+        "chi2": 83.22977929728688,
+        "rmse_kms": 7.862549890647062,
+        "mean_residual_kms": 2.1497417344086704,
+        "median_log10_velocity_ratio": -0.0031135739408059537,
+        "median_abs_log10_velocity_ratio": 0.026501964672285355
+      }
+    },
+    {
+      "source_id": "UGC02487",
+      "n_points": 17,
+      "r_disk_kpc": 7.89,
+      "characteristic_gbar_ms2": 2.6850066527467927e-11,
+      "global_scarcity": {
+        "normalization": 4.467058393533947,
+        "chi2": 893.5966938970042,
+        "rmse_kms": 47.33654808530427,
+        "mean_residual_kms": -16.32287067153433,
+        "median_log10_velocity_ratio": -0.010289110540964416,
+        "median_abs_log10_velocity_ratio": 0.05188627422712856
+      },
+      "per_galaxy_scarcity": {
+        "beta_kpc": 17.701626670413432,
+        "beta_sigma_kpc": 0.5023323560221257,
+        "normalization": 5.109037998096723,
+        "chi2": 189.50522086323718,
+        "rmse_kms": 29.297095426657577,
+        "mean_residual_kms": 12.78424836695344,
+        "median_log10_velocity_ratio": 0.0031135305594058387,
+        "median_abs_log10_velocity_ratio": 0.014344965363132527
+      },
+      "mond_control": {
+        "normalization": 1.5496796995813666,
+        "chi2": 168.80578134727637,
+        "rmse_kms": 10.55602946613393,
+        "mean_residual_kms": 4.3048836852030545,
+        "median_log10_velocity_ratio": 0.001950629944369634,
+        "median_abs_log10_velocity_ratio": 0.009923354650865208
+      }
+    },
+    {
+      "source_id": "UGC02885",
+      "n_points": 19,
+      "r_disk_kpc": 11.4,
+      "characteristic_gbar_ms2": 2.390837550690099e-11,
+      "global_scarcity": {
+        "normalization": 2.9443759132008793,
+        "chi2": 203.18164488256403,
+        "rmse_kms": 32.701331445818596,
+        "mean_residual_kms": 2.3852969533310393,
+        "median_log10_velocity_ratio": 0.004882918899462915,
+        "median_abs_log10_velocity_ratio": 0.03928590159215404
+      },
+      "per_galaxy_scarcity": {
+        "beta_kpc": 10.942453321225742,
+        "beta_sigma_kpc": 0.6739439410210442,
+        "normalization": 3.3361144095023283,
+        "chi2": 129.0213034999473,
+        "rmse_kms": 26.05876996531083,
+        "mean_residual_kms": 1.3996867467262133,
+        "median_log10_velocity_ratio": -0.012240424219765435,
+        "median_abs_log10_velocity_ratio": 0.03095422709373667
+      },
+      "mond_control": {
+        "normalization": 0.9980731337049775,
+        "chi2": 43.76910083924929,
+        "rmse_kms": 15.177736610826658,
+        "mean_residual_kms": -0.9089068653810661,
+        "median_log10_velocity_ratio": -0.007288320874299,
+        "median_abs_log10_velocity_ratio": 0.008199746019989027
+      }
+    },
+    {
+      "source_id": "UGC02916",
+      "n_points": 43,
+      "r_disk_kpc": 6.15,
+      "characteristic_gbar_ms2": 1.5279510516908695e-10,
+      "global_scarcity": {
+        "normalization": 1.9611772351955958,
+        "chi2": 1489.8935722864042,
+        "rmse_kms": 29.35539546965607,
+        "mean_residual_kms": 9.931621045029729,
+        "median_log10_velocity_ratio": 0.020926605542000456,
+        "median_abs_log10_velocity_ratio": 0.026982941243391987
+      },
+      "per_galaxy_scarcity": {
+        "beta_kpc": 4.536070692622993,
+        "beta_sigma_kpc": 0.08929869032756763,
+        "normalization": 1.7818818312652012,
+        "chi2": 1369.7233688594247,
+        "rmse_kms": 28.698360298223566,
+        "mean_residual_kms": 10.947495522769849,
+        "median_log10_velocity_ratio": 0.029289384530328887,
+        "median_abs_log10_velocity_ratio": 0.036685630856210356
+      },
+      "mond_control": {
+        "normalization": 0.7204263731270695,
+        "chi2": 624.1423645262106,
+        "rmse_kms": 21.470161456683737,
+        "mean_residual_kms": 1.6015636054000641,
+        "median_log10_velocity_ratio": 0.002733314949725734,
+        "median_abs_log10_velocity_ratio": 0.023727712866601802
+      }
+    },
+    {
+      "source_id": "UGC02953",
+      "n_points": 115,
+      "r_disk_kpc": 3.55,
+      "characteristic_gbar_ms2": 2.9925065415173455e-10,
+      "global_scarcity": {
+        "normalization": 3.085210353163504,
+        "chi2": 11855.899724344777,
+        "rmse_kms": 42.43797763231969,
+        "mean_residual_kms": 21.134778382323013,
+        "median_log10_velocity_ratio": 0.01275496270886101,
+        "median_abs_log10_velocity_ratio": 0.019961431248668636
+      },
+      "per_galaxy_scarcity": {
+        "beta_kpc": 6.458888676473037,
+        "beta_sigma_kpc": 0.034911957698428656,
+        "normalization": 3.2486027393651744,
+        "chi2": 11121.781952519546,
+        "rmse_kms": 46.351591264778975,
+        "mean_residual_kms": 28.070661907729512,
+        "median_log10_velocity_ratio": 0.031090006106416948,
+        "median_abs_log10_velocity_ratio": 0.03568676051670681
+      },
+      "mond_control": {
+        "normalization": 1.2231928946226047,
+        "chi2": 931.8342945945616,
+        "rmse_kms": 25.178922042496488,
+        "mean_residual_kms": -7.339941287747722,
+        "median_log10_velocity_ratio": -0.0024560397217544025,
+        "median_abs_log10_velocity_ratio": 0.008976567667199672
+      }
+    },
+    {
+      "source_id": "UGC03205",
+      "n_points": 48,
+      "r_disk_kpc": 3.19,
+      "characteristic_gbar_ms2": 1.1874017392060307e-10,
+      "global_scarcity": {
+        "normalization": 3.29956530749013,
+        "chi2": 734.7519320223773,
+        "rmse_kms": 20.72207204415255,
+        "mean_residual_kms": 3.445393981795908,
+        "median_log10_velocity_ratio": -0.00013342318650121738,
+        "median_abs_log10_velocity_ratio": 0.02538070744473603
+      },
+      "per_galaxy_scarcity": {
+        "beta_kpc": 5.313181624054773,
+        "beta_sigma_kpc": 0.14452363936033127,
+        "normalization": 3.2737354582046887,
+        "chi2": 732.5972565863847,
+        "rmse_kms": 20.349442052205024,
+        "mean_residual_kms": 2.4324061346092054,
+        "median_log10_velocity_ratio": -0.0013053548614431398,
+        "median_abs_log10_velocity_ratio": 0.025762135595669887
+      },
+      "mond_control": {
+        "normalization": 1.0165582638067612,
+        "chi2": 372.10272486059193,
+        "rmse_kms": 16.642110589157458,
+        "mean_residual_kms": 8.277913669842851,
+        "median_log10_velocity_ratio": 0.0016558349873325492,
+        "median_abs_log10_velocity_ratio": 0.017664667353094222
+      }
+    },
+    {
+      "source_id": "UGC03546",
+      "n_points": 30,
+      "r_disk_kpc": 3.79,
+      "characteristic_gbar_ms2": 2.621834466134422e-10,
+      "global_scarcity": {
+        "normalization": 2.5197120978239664,
+        "chi2": 299.3708149795894,
+        "rmse_kms": 56.37570573724571,
+        "mean_residual_kms": 33.886871235369235,
+        "median_log10_velocity_ratio": 0.04872071970485273,
+        "median_abs_log10_velocity_ratio": 0.04872071970485273
+      },
+      "per_galaxy_scarcity": {
+        "beta_kpc": 4.678539543608628,
+        "beta_sigma_kpc": 0.15333472303543633,
+        "normalization": 2.433507663902527,
+        "chi2": 271.3307303471354,
+        "rmse_kms": 44.15693806567268,
+        "mean_residual_kms": 23.77699906049799,
+        "median_log10_velocity_ratio": 0.029667064719925036,
+        "median_abs_log10_velocity_ratio": 0.046531459799809174
+      },
+      "mond_control": {
+        "normalization": 0.8197936858702177,
+        "chi2": 47.190555376387586,
+        "rmse_kms": 17.433059536037973,
+        "mean_residual_kms": -11.533570175238223,
+        "median_log10_velocity_ratio": -0.01486024620246331,
+        "median_abs_log10_velocity_ratio": 0.01486024620246331
+      }
+    },
+    {
+      "source_id": "UGC03580",
+      "n_points": 47,
+      "r_disk_kpc": 2.43,
+      "characteristic_gbar_ms2": 9.461351053486697e-11,
+      "global_scarcity": {
+        "normalization": 3.668440953324408,
+        "chi2": 2035.208826726984,
+        "rmse_kms": 17.316875370335634,
+        "mean_residual_kms": -2.3101899448429664,
+        "median_log10_velocity_ratio": -0.044770023957681204,
+        "median_abs_log10_velocity_ratio": 0.06904243689415955
+      },
+      "per_galaxy_scarcity": {
+        "beta_kpc": 9.032827241839152,
+        "beta_sigma_kpc": 0.09570319094869227,
+        "normalization": 4.88601557305776,
+        "chi2": 451.8162096091778,
+        "rmse_kms": 16.55213110298735,
+        "mean_residual_kms": 7.099454510331097,
+        "median_log10_velocity_ratio": 0.004733134133472652,
+        "median_abs_log10_velocity_ratio": 0.013736359146455894
+      },
+      "mond_control": {
+        "normalization": 0.5385089761818099,
+        "chi2": 1006.6947894024962,
+        "rmse_kms": 13.060536657746667,
+        "mean_residual_kms": -4.421079246098542,
+        "median_log10_velocity_ratio": -0.017608713568176806,
+        "median_abs_log10_velocity_ratio": 0.037812657062496646
+      }
+    },
+    {
+      "source_id": "UGC04278",
+      "n_points": 25,
+      "r_disk_kpc": 2.21,
+      "characteristic_gbar_ms2": 5.6457585195523496e-12,
+      "global_scarcity": {
+        "normalization": 6.658530996943752,
+        "chi2": 154.39449962339083,
+        "rmse_kms": 11.603576835777957,
+        "mean_residual_kms": -0.25387973576269585,
+        "median_log10_velocity_ratio": -0.0055965189679793624,
+        "median_abs_log10_velocity_ratio": 0.04976124230661483
+      },
+      "per_galaxy_scarcity": {
+        "beta_kpc": 1.7572054791080387,
+        "beta_sigma_kpc": 1.266498991198882,
+        "normalization": 5.9271913829141925,
+        "chi2": 145.69023857679045,
+        "rmse_kms": 10.68018829095097,
+        "mean_residual_kms": -0.5808103310910633,
+        "median_log10_velocity_ratio": -0.02366289920206779,
+        "median_abs_log10_velocity_ratio": 0.07510376909257069
+      },
+      "mond_control": {
+        "normalization": 1.149891096130467,
+        "chi2": 58.72561158340951,
+        "rmse_kms": 6.466274817896472,
+        "mean_residual_kms": -1.0266176785078387,
+        "median_log10_velocity_ratio": -0.030736106436554285,
+        "median_abs_log10_velocity_ratio": 0.04733425814582069
+      }
+    },
+    {
+      "source_id": "UGC04325",
+      "n_points": 8,
+      "r_disk_kpc": 1.86,
+      "characteristic_gbar_ms2": 1.4001438679912533e-11,
+      "global_scarcity": {
+        "normalization": 6.7315961833393585,
+        "chi2": 344.554433248034,
+        "rmse_kms": 20.056879985185375,
+        "mean_residual_kms": 7.12593479998735,
+        "median_log10_velocity_ratio": 0.05099581984476605,
+        "median_abs_log10_velocity_ratio": 0.09070336460112488
+      },
+      "per_galaxy_scarcity": {
+        "beta_kpc": 3.737685985848593e-07,
+        "beta_sigma_kpc": null,
+        "normalization": 4.96105370236417,
+        "chi2": 62.39668115110557,
+        "rmse_kms": 8.541637573391286,
+        "mean_residual_kms": 1.9647003612821763,
+        "median_log10_velocity_ratio": -0.00612557494773223,
+        "median_abs_log10_velocity_ratio": 0.02680248239436934
+      },
+      "mond_control": {
+        "normalization": 1.6529539023566633,
+        "chi2": 72.25553111823223,
+        "rmse_kms": 9.185899350070585,
+        "mean_residual_kms": 1.9199123393650384,
+        "median_log10_velocity_ratio": 0.010446294517355986,
+        "median_abs_log10_velocity_ratio": 0.040025376162544604
+      }
+    },
+    {
+      "source_id": "UGC04483",
+      "n_points": 8,
+      "r_disk_kpc": 0.18,
+      "characteristic_gbar_ms2": 6.423100684275769e-12,
+      "global_scarcity": {
+        "normalization": 5.697234365743212,
+        "chi2": 352.38171734711,
+        "rmse_kms": 9.785675736751058,
+        "mean_residual_kms": 6.887789479048774,
+        "median_log10_velocity_ratio": 0.42941052821757586,
+        "median_abs_log10_velocity_ratio": 0.42941052821757586
+      },
+      "per_galaxy_scarcity": {
+        "beta_kpc": 0.23316138202021047,
+        "beta_sigma_kpc": 0.19723877901213496,
+        "normalization": 3.3399425094834645,
+        "chi2": 1.9128604061818097,
+        "rmse_kms": 0.8383487701098585,
+        "mean_residual_kms": -0.12349326777396685,
+        "median_log10_velocity_ratio": 0.003952782753651777,
+        "median_abs_log10_velocity_ratio": 0.009611101251809404
+      },
+      "mond_control": {
+        "normalization": 0.3705812152276753,
+        "chi2": 3.09563052138493,
+        "rmse_kms": 1.0177561679750322,
+        "mean_residual_kms": -0.21671599529916408,
+        "median_log10_velocity_ratio": -0.003906387882225546,
+        "median_abs_log10_velocity_ratio": 0.015494082284992074
+      }
+    },
+    {
+      "source_id": "UGC04499",
+      "n_points": 9,
+      "r_disk_kpc": 1.73,
+      "characteristic_gbar_ms2": 9.566019057371543e-12,
+      "global_scarcity": {
+        "normalization": 4.350134171488937,
+        "chi2": 39.836981843083905,
+        "rmse_kms": 6.016294584088201,
+        "mean_residual_kms": 1.396596822304326,
+        "median_log10_velocity_ratio": 0.008851020095617447,
+        "median_abs_log10_velocity_ratio": 0.03073988168923787
+      },
+      "per_galaxy_scarcity": {
+        "beta_kpc": 1.5033972677637322,
+        "beta_sigma_kpc": 0.6987989675427714,
+        "normalization": 3.666549842371668,
+        "chi2": 9.049194398699633,
+        "rmse_kms": 3.6643259658333807,
+        "mean_residual_kms": -0.6196357850411245,
+        "median_log10_velocity_ratio": 0.0006059710147760457,
+        "median_abs_log10_velocity_ratio": 0.006273245360544648
+      },
+      "mond_control": {
+        "normalization": 0.5670413171640315,
+        "chi2": 9.935885773831984,
+        "rmse_kms": 3.4841191079708795,
+        "mean_residual_kms": -0.26038588256943185,
+        "median_log10_velocity_ratio": 0.008898533591049262,
+        "median_abs_log10_velocity_ratio": 0.012686586306490649
+      }
+    },
+    {
+      "source_id": "UGC05005",
+      "n_points": 11,
+      "r_disk_kpc": 3.2,
+      "characteristic_gbar_ms2": 5.258847787035273e-12,
+      "global_scarcity": {
+        "normalization": 4.842546472792567,
+        "chi2": 5.653596441409039,
+        "rmse_kms": 6.749011406194449,
+        "mean_residual_kms": -0.7531373389346744,
+        "median_log10_velocity_ratio": -0.007951799500213234,
+        "median_abs_log10_velocity_ratio": 0.03783987677623296
+      },
+      "per_galaxy_scarcity": {
+        "beta_kpc": 14.145684435927432,
+        "beta_sigma_kpc": 4.069779401296182,
+        "normalization": 5.99399503955094,
+        "chi2": 1.0070302202743484,
+        "rmse_kms": 3.246945371469584,
+        "mean_residual_kms": 0.2026939917641509,
+        "median_log10_velocity_ratio": 0.006538888674711317,
+        "median_abs_log10_velocity_ratio": 0.017993334257936085
+      },
+      "mond_control": {
+        "normalization": 0.43706246165925455,
+        "chi2": 2.31128830539204,
+        "rmse_kms": 4.693237966859782,
+        "mean_residual_kms": -0.6939231534063388,
+        "median_log10_velocity_ratio": -0.003828592673531263,
+        "median_abs_log10_velocity_ratio": 0.02208119918292229
+      }
+    },
+    {
+      "source_id": "UGC05253",
+      "n_points": 73,
+      "r_disk_kpc": 8.07,
+      "characteristic_gbar_ms2": 3.6275887467733566e-10,
+      "global_scarcity": {
+        "normalization": 2.7291743194051135,
+        "chi2": 4406.212311786189,
+        "rmse_kms": 40.163587512626016,
+        "mean_residual_kms": 11.750630778580593,
+        "median_log10_velocity_ratio": 0.005851777112372316,
+        "median_abs_log10_velocity_ratio": 0.0385617691382081
+      },
+      "per_galaxy_scarcity": {
+        "beta_kpc": 4.194696112114476,
+        "beta_sigma_kpc": 0.04120077661694646,
+        "normalization": 2.370159863865843,
+        "chi2": 3389.914774466048,
+        "rmse_kms": 35.60592747240185,
+        "mean_residual_kms": 7.877463277392839,
+        "median_log10_velocity_ratio": -0.004204202895709245,
+        "median_abs_log10_velocity_ratio": 0.03854463469448924
+      },
+      "mond_control": {
+        "normalization": 0.9413190418563865,
+        "chi2": 400.377805031279,
+        "rmse_kms": 15.88937271661892,
+        "mean_residual_kms": 0.10326719322729051,
+        "median_log10_velocity_ratio": -0.002689344414503446,
+        "median_abs_log10_velocity_ratio": 0.009443226801636773
+      }
+    },
+    {
+      "source_id": "UGC05414",
+      "n_points": 6,
+      "r_disk_kpc": 1.47,
+      "characteristic_gbar_ms2": 1.0700797179454585e-11,
+      "global_scarcity": {
+        "normalization": 4.2146918145442305,
+        "chi2": 36.45294290887584,
+        "rmse_kms": 6.042011943027417,
+        "mean_residual_kms": 2.2154411120995,
+        "median_log10_velocity_ratio": 0.04632925373166864,
+        "median_abs_log10_velocity_ratio": 0.06270097734500202
+      },
+      "per_galaxy_scarcity": {
+        "beta_kpc": 1.7795577794440207,
+        "beta_sigma_kpc": 0.5903943142346684,
+        "normalization": 3.313377726581216,
+        "chi2": 0.3751059545355195,
+        "rmse_kms": 0.6141727317098926,
+        "mean_residual_kms": 0.04653930121621267,
+        "median_log10_velocity_ratio": 0.00030701527480825374,
+        "median_abs_log10_velocity_ratio": 0.0050665784759958265
+      },
+      "mond_control": {
+        "normalization": 0.5068460887900155,
+        "chi2": 4.7660505469758805,
+        "rmse_kms": 2.188855453647579,
+        "mean_residual_kms": -0.5255241667460199,
+        "median_log10_velocity_ratio": 0.0004680003332631436,
+        "median_abs_log10_velocity_ratio": 0.012633562529256116
+      }
+    },
+    {
+      "source_id": "UGC05716",
+      "n_points": 12,
+      "r_disk_kpc": 1.14,
+      "characteristic_gbar_ms2": 3.72986030626594e-12,
+      "global_scarcity": {
+        "normalization": 8.141649767314233,
+        "chi2": 1172.7788869525318,
+        "rmse_kms": 8.284444777141983,
+        "mean_residual_kms": -1.608907721288479,
+        "median_log10_velocity_ratio": 0.00830553255425601,
+        "median_abs_log10_velocity_ratio": 0.05233389898203515
+      },
+      "per_galaxy_scarcity": {
+        "beta_kpc": 3.737685985848593e-07,
+        "beta_sigma_kpc": null,
+        "normalization": 6.127885347943093,
+        "chi2": 148.5953351770752,
+        "rmse_kms": 2.7606523452457,
+        "mean_residual_kms": -0.8455598679485353,
+        "median_log10_velocity_ratio": 0.0016818877939898478,
+        "median_abs_log10_velocity_ratio": 0.014086555624339536
+      },
+      "mond_control": {
+        "normalization": 0.8612995621790464,
+        "chi2": 453.7990715780003,
+        "rmse_kms": 5.54651122591722,
+        "mean_residual_kms": -1.0102895940199292,
+        "median_log10_velocity_ratio": 0.00698991489817318,
+        "median_abs_log10_velocity_ratio": 0.0346593964842581
+      }
+    },
+    {
+      "source_id": "UGC05721",
+      "n_points": 23,
+      "r_disk_kpc": 0.38,
+      "characteristic_gbar_ms2": 1.617249141719448e-11,
+      "global_scarcity": {
+        "normalization": 13.268085104380587,
+        "chi2": 223.84836145584268,
+        "rmse_kms": 14.995343744849517,
+        "mean_residual_kms": 5.264728670495087,
+        "median_log10_velocity_ratio": 0.06531344812389973,
+        "median_abs_log10_velocity_ratio": 0.09555069605435702
+      },
+      "per_galaxy_scarcity": {
+        "beta_kpc": 2.351892250989682,
+        "beta_sigma_kpc": 0.19921343884453752,
+        "normalization": 9.148762935746799,
+        "chi2": 19.85330132894707,
+        "rmse_kms": 4.336352731250497,
+        "mean_residual_kms": 0.024421213928617985,
+        "median_log10_velocity_ratio": 0.0048457818104154496,
+        "median_abs_log10_velocity_ratio": 0.02169993216117787
+      },
+      "mond_control": {
+        "normalization": 2.010006843056085,
+        "chi2": 38.781670119487124,
+        "rmse_kms": 6.189007447860726,
+        "mean_residual_kms": -0.055132849650026176,
+        "median_log10_velocity_ratio": -0.008035254904995988,
+        "median_abs_log10_velocity_ratio": 0.03814013678832309
+      }
+    },
+    {
+      "source_id": "UGC05750",
+      "n_points": 11,
+      "r_disk_kpc": 3.46,
+      "characteristic_gbar_ms2": 3.702489385343274e-12,
+      "global_scarcity": {
+        "normalization": 5.189340266709449,
+        "chi2": 5.071167393576522,
+        "rmse_kms": 5.989408247099051,
+        "mean_residual_kms": -2.5307182418508463,
+        "median_log10_velocity_ratio": -0.015131758208386376,
+        "median_abs_log10_velocity_ratio": 0.033451904520137146
+      },
+      "per_galaxy_scarcity": {
+        "beta_kpc": 5.747357147516172e-07,
+        "beta_sigma_kpc": null,
+        "normalization": 4.174229069976461,
+        "chi2": 3.383582213152707,
+        "rmse_kms": 4.633434870063721,
+        "mean_residual_kms": -2.107304799503142,
+        "median_log10_velocity_ratio": -0.008961378132794781,
+        "median_abs_log10_velocity_ratio": 0.025024119530522585
+      },
+      "mond_control": {
+        "normalization": 0.4097793733633782,
+        "chi2": 6.325203671235206,
+        "rmse_kms": 6.457981280185976,
+        "mean_residual_kms": -2.2789887359628036,
+        "median_log10_velocity_ratio": 0.0032931356033530346,
+        "median_abs_log10_velocity_ratio": 0.024934024537543883
+      }
+    },
+    {
+      "source_id": "UGC05764",
+      "n_points": 10,
+      "r_disk_kpc": 1.17,
+      "characteristic_gbar_ms2": 4.8933057788530185e-12,
+      "global_scarcity": {
+        "normalization": 16.62768705475992,
+        "chi2": 3275.574444323276,
+        "rmse_kms": 19.538251817364316,
+        "mean_residual_kms": -3.4041871664146583,
+        "median_log10_velocity_ratio": 0.028816343500194398,
+        "median_abs_log10_velocity_ratio": 0.18910003820988489
+      },
+      "per_galaxy_scarcity": {
+        "beta_kpc": 3.737685985848593e-07,
+        "beta_sigma_kpc": null,
+        "normalization": 7.7561391384694796,
+        "chi2": 455.91149265772833,
+        "rmse_kms": 6.774366188976893,
+        "mean_residual_kms": -0.5854649880251429,
+        "median_log10_velocity_ratio": -0.005781731407365684,
+        "median_abs_log10_velocity_ratio": 0.0667668351147911
+      },
+      "mond_control": {
+        "normalization": 1.8349809022501733,
+        "chi2": 378.8583854947679,
+        "rmse_kms": 7.200501252174554,
+        "mean_residual_kms": -1.9094042986964734,
+        "median_log10_velocity_ratio": -0.0008413199293706942,
+        "median_abs_log10_velocity_ratio": 0.05412530080843691
+      }
+    },
+    {
+      "source_id": "UGC05829",
+      "n_points": 11,
+      "r_disk_kpc": 1.99,
+      "characteristic_gbar_ms2": 4.495819208178302e-12,
+      "global_scarcity": {
+        "normalization": 4.3917906806558875,
+        "chi2": 41.698387733212314,
+        "rmse_kms": 9.851759603635534,
+        "mean_residual_kms": 4.473404877210206,
+        "median_log10_velocity_ratio": 0.07183943324694211,
+        "median_abs_log10_velocity_ratio": 0.07183943324694211
+      },
+      "per_galaxy_scarcity": {
+        "beta_kpc": 3.737685985848593e-07,
+        "beta_sigma_kpc": null,
+        "normalization": 3.8145445453094817,
+        "chi2": 22.549268685107947,
+        "rmse_kms": 7.244699979395783,
+        "mean_residual_kms": 2.960573549409358,
+        "median_log10_velocity_ratio": 0.03036380590878167,
+        "median_abs_log10_velocity_ratio": 0.045187600126573836
+      },
+      "mond_control": {
+        "normalization": 0.507805938379378,
+        "chi2": 5.46501054196045,
+        "rmse_kms": 3.56656116412815,
+        "mean_residual_kms": 1.1555610909979686,
+        "median_log10_velocity_ratio": 0.007040715099374111,
+        "median_abs_log10_velocity_ratio": 0.026434487999959944
+      }
+    },
+    {
+      "source_id": "UGC05918",
+      "n_points": 8,
+      "r_disk_kpc": 1.66,
+      "characteristic_gbar_ms2": 2.8011266623133543e-12,
+      "global_scarcity": {
+        "normalization": 7.888222310626991,
+        "chi2": 37.39485492040848,
+        "rmse_kms": 8.496762580243555,
+        "mean_residual_kms": 3.3094757745635492,
+        "median_log10_velocity_ratio": 0.062492294250946864,
+        "median_abs_log10_velocity_ratio": 0.09493531328359904
+      },
+      "per_galaxy_scarcity": {
+        "beta_kpc": 3.737685985848593e-07,
+        "beta_sigma_kpc": null,
+        "normalization": 6.057053243618052,
+        "chi2": 8.329361800801612,
+        "rmse_kms": 4.010083541480165,
+        "mean_residual_kms": 1.031129776341909,
+        "median_log10_velocity_ratio": 0.002321815083230646,
+        "median_abs_log10_velocity_ratio": 0.031104275749989342
+      },
+      "mond_control": {
+        "normalization": 0.6550762756937153,
+        "chi2": 5.54541206285171,
+        "rmse_kms": 3.2720088395651223,
+        "mean_residual_kms": 0.7490425074278662,
+        "median_log10_velocity_ratio": 0.00924229470628457,
+        "median_abs_log10_velocity_ratio": 0.025655650205934737
+      }
+    },
+    {
+      "source_id": "UGC05986",
+      "n_points": 15,
+      "r_disk_kpc": 1.67,
+      "characteristic_gbar_ms2": 2.027219807626201e-11,
+      "global_scarcity": {
+        "normalization": 7.108755077765504,
+        "chi2": 91.85856421663419,
+        "rmse_kms": 7.072154331960451,
+        "mean_residual_kms": 0.8213621805366543,
+        "median_log10_velocity_ratio": -0.011074242959458318,
+        "median_abs_log10_velocity_ratio": 0.018848666418450555
+      },
+      "per_galaxy_scarcity": {
+        "beta_kpc": 3.4353810862760668,
+        "beta_sigma_kpc": 0.23157322644953363,
+        "normalization": 6.023177663808407,
+        "chi2": 15.303712524924606,
+        "rmse_kms": 2.9944153452674644,
+        "mean_residual_kms": 0.43259847189522843,
+        "median_log10_velocity_ratio": 0.0015137560816007032,
+        "median_abs_log10_velocity_ratio": 0.010937945838646842
+      },
+      "mond_control": {
+        "normalization": 1.5015475422065727,
+        "chi2": 55.106832735259694,
+        "rmse_kms": 5.210708356516847,
+        "mean_residual_kms": -1.0291000014905165,
+        "median_log10_velocity_ratio": 0.007740701158116466,
+        "median_abs_log10_velocity_ratio": 0.012675299653237188
+      }
+    },
+    {
+      "source_id": "UGC06399",
+      "n_points": 9,
+      "r_disk_kpc": 2.05,
+      "characteristic_gbar_ms2": 8.723604526115276e-12,
+      "global_scarcity": {
+        "normalization": 6.240098254848823,
+        "chi2": 15.062181031145187,
+        "rmse_kms": 6.3343744176090935,
+        "mean_residual_kms": 1.022787002649627,
+        "median_log10_velocity_ratio": 0.024033592475290164,
+        "median_abs_log10_velocity_ratio": 0.03651523484355853
+      },
+      "per_galaxy_scarcity": {
+        "beta_kpc": 1.448122620444735,
+        "beta_sigma_kpc": 1.0774411575916514,
+        "normalization": 5.116739721847813,
+        "chi2": 1.3047606446819904,
+        "rmse_kms": 2.179778081263874,
+        "mean_residual_kms": -0.5079429743867965,
+        "median_log10_velocity_ratio": -0.0009438999245107265,
+        "median_abs_log10_velocity_ratio": 0.007263536205990357
+      },
+      "mond_control": {
+        "normalization": 1.0317266189880654,
+        "chi2": 2.741566237447762,
+        "rmse_kms": 3.1040367131323734,
+        "mean_residual_kms": -0.896889421801861,
+        "median_log10_velocity_ratio": -0.0044332869229578,
+        "median_abs_log10_velocity_ratio": 0.011254647663560265
+      }
+    },
+    {
+      "source_id": "UGC06446",
+      "n_points": 17,
+      "r_disk_kpc": 1.49,
+      "characteristic_gbar_ms2": 6.165601587109053e-12,
+      "global_scarcity": {
+        "normalization": 7.909781047456342,
+        "chi2": 110.69496233063735,
+        "rmse_kms": 12.832037689130788,
+        "mean_residual_kms": -0.3369352862755757,
+        "median_log10_velocity_ratio": 0.03721746910047818,
+        "median_abs_log10_velocity_ratio": 0.07189018885563767
+      },
+      "per_galaxy_scarcity": {
+        "beta_kpc": 3.737685985848593e-07,
+        "beta_sigma_kpc": null,
+        "normalization": 5.911116142595252,
+        "chi2": 27.295350072349432,
+        "rmse_kms": 5.9993513327372545,
+        "mean_residual_kms": -0.700128499657811,
+        "median_log10_velocity_ratio": 0.0018076750421126752,
+        "median_abs_log10_velocity_ratio": 0.03475912484847851
+      },
+      "mond_control": {
+        "normalization": 1.2324628564724838,
+        "chi2": 45.38414278373888,
+        "rmse_kms": 8.551941234162397,
+        "mean_residual_kms": -0.7220047407336656,
+        "median_log10_velocity_ratio": -0.0013299766335095906,
+        "median_abs_log10_velocity_ratio": 0.03929404991636004
+      }
+    },
+    {
+      "source_id": "UGC06614",
+      "n_points": 13,
+      "r_disk_kpc": 5.1,
+      "characteristic_gbar_ms2": 4.3565369566426206e-11,
+      "global_scarcity": {
+        "normalization": 2.050563989337599,
+        "chi2": 131.29036190734058,
+        "rmse_kms": 38.1964300396945,
+        "mean_residual_kms": 14.379360577208347,
+        "median_log10_velocity_ratio": -0.020978227129078077,
+        "median_abs_log10_velocity_ratio": 0.05379956607852792
+      },
+      "per_galaxy_scarcity": {
+        "beta_kpc": 21.305867409473382,
+        "beta_sigma_kpc": 1.9391937930890115,
+        "normalization": 3.8585292567688327,
+        "chi2": 54.705892921000576,
+        "rmse_kms": 31.401800293335686,
+        "mean_residual_kms": 7.891238297645283,
+        "median_log10_velocity_ratio": -0.0012714958956873508,
+        "median_abs_log10_velocity_ratio": 0.03547165117328224
+      },
+      "mond_control": {
+        "normalization": 0.5441675386375001,
+        "chi2": 12.68450679064185,
+        "rmse_kms": 11.078127603507342,
+        "mean_residual_kms": 3.150015089947835,
+        "median_log10_velocity_ratio": 0.01265475892027809,
+        "median_abs_log10_velocity_ratio": 0.023556869211387926
+      }
+    },
+    {
+      "source_id": "UGC06667",
+      "n_points": 9,
+      "r_disk_kpc": 5.15,
+      "characteristic_gbar_ms2": 3.69178280222836e-12,
+      "global_scarcity": {
+        "normalization": 11.470852462524755,
+        "chi2": 207.30958379418757,
+        "rmse_kms": 15.306813275904856,
+        "mean_residual_kms": 6.653941685406721,
+        "median_log10_velocity_ratio": 0.08225595015698232,
+        "median_abs_log10_velocity_ratio": 0.08225595015698232
+      },
+      "per_galaxy_scarcity": {
+        "beta_kpc": 3.737685985848593e-07,
+        "beta_sigma_kpc": null,
+        "normalization": 9.806086750746223,
+        "chi2": 108.24443396813348,
+        "rmse_kms": 10.851841903196288,
+        "mean_residual_kms": 4.231285709125544,
+        "median_log10_velocity_ratio": 0.04019439054001326,
+        "median_abs_log10_velocity_ratio": 0.044658009475175627
+      },
+      "mond_control": {
+        "normalization": 2.0795996180021423,
+        "chi2": 52.206626635257464,
+        "rmse_kms": 7.51599847770249,
+        "mean_residual_kms": 2.42044589402131,
+        "median_log10_velocity_ratio": 0.03758206431036979,
+        "median_abs_log10_velocity_ratio": 0.040409872928946745
+      }
+    },
+    {
+      "source_id": "UGC06786",
+      "n_points": 45,
+      "r_disk_kpc": 3.6,
+      "characteristic_gbar_ms2": 1.3279379785426437e-10,
+      "global_scarcity": {
+        "normalization": 4.713219298365372,
+        "chi2": 1822.7754146705356,
+        "rmse_kms": 34.28073943696261,
+        "mean_residual_kms": 4.10778561954349,
+        "median_log10_velocity_ratio": -0.011358559719606025,
+        "median_abs_log10_velocity_ratio": 0.04526812997271952
+      },
+      "per_galaxy_scarcity": {
+        "beta_kpc": 7.44948753659469,
+        "beta_sigma_kpc": 0.07604680080094227,
+        "normalization": 5.340670713020204,
+        "chi2": 1146.3292305224138,
+        "rmse_kms": 40.560184379066925,
+        "mean_residual_kms": 13.552191998714266,
+        "median_log10_velocity_ratio": 0.006212562364731261,
+        "median_abs_log10_velocity_ratio": 0.030689848224364352
+      },
+      "mond_control": {
+        "normalization": 1.5126640905926847,
+        "chi2": 817.5036049180441,
+        "rmse_kms": 18.319263463053957,
+        "mean_residual_kms": -8.127707809838062,
+        "median_log10_velocity_ratio": -0.02240228882018752,
+        "median_abs_log10_velocity_ratio": 0.026297599395169166
+      }
+    },
+    {
+      "source_id": "UGC06787",
+      "n_points": 71,
+      "r_disk_kpc": 5.37,
+      "characteristic_gbar_ms2": 1.6122382696285934e-10,
+      "global_scarcity": {
+        "normalization": 3.667047515203328,
+        "chi2": 7487.842266398448,
+        "rmse_kms": 61.521083756457934,
+        "mean_residual_kms": 24.57259403621348,
+        "median_log10_velocity_ratio": -0.0010821205487545895,
+        "median_abs_log10_velocity_ratio": 0.04145755463530949
+      },
+      "per_galaxy_scarcity": {
+        "beta_kpc": 7.804288734523222,
+        "beta_sigma_kpc": 0.0631032190392542,
+        "normalization": 4.326842527284865,
+        "chi2": 6078.100249128941,
+        "rmse_kms": 77.40928096329377,
+        "mean_residual_kms": 37.624569425718285,
+        "median_log10_velocity_ratio": 0.010258538261511687,
+        "median_abs_log10_velocity_ratio": 0.028732462566986208
+      },
+      "mond_control": {
+        "normalization": 1.3065434575444854,
+        "chi2": 4001.633245776519,
+        "rmse_kms": 34.65774022968189,
+        "mean_residual_kms": -15.535455847231624,
+        "median_log10_velocity_ratio": -0.027408549163981787,
+        "median_abs_log10_velocity_ratio": 0.04038800637497003
+      }
+    },
+    {
+      "source_id": "UGC06818",
+      "n_points": 8,
+      "r_disk_kpc": 1.39,
+      "characteristic_gbar_ms2": 8.148599517992236e-12,
+      "global_scarcity": {
+        "normalization": 4.764673723898862,
+        "chi2": 11.563687943060401,
+        "rmse_kms": 5.803857552590841,
+        "mean_residual_kms": -0.14147848970289667,
+        "median_log10_velocity_ratio": 0.011304943981725013,
+        "median_abs_log10_velocity_ratio": 0.04183855681555938
+      },
+      "per_galaxy_scarcity": {
+        "beta_kpc": 8.414048967731816,
+        "beta_sigma_kpc": 1.2686338172062666,
+        "normalization": 5.778825103139035,
+        "chi2": 6.0587408231800985,
+        "rmse_kms": 4.447942008527944,
+        "mean_residual_kms": 0.20608118454820978,
+        "median_log10_velocity_ratio": -0.01785823613363926,
+        "median_abs_log10_velocity_ratio": 0.03760767230739496
+      },
+      "mond_control": {
+        "normalization": 0.4427107678760163,
+        "chi2": 29.780334590482294,
+        "rmse_kms": 9.795456370781915,
+        "mean_residual_kms": 0.02826305229412185,
+        "median_log10_velocity_ratio": 0.00014434414584790084,
+        "median_abs_log10_velocity_ratio": 0.0753160548885988
+      }
+    },
+    {
+      "source_id": "UGC06917",
+      "n_points": 11,
+      "r_disk_kpc": 2.76,
+      "characteristic_gbar_ms2": 1.3283869972914116e-11,
+      "global_scarcity": {
+        "normalization": 4.747816282523844,
+        "chi2": 19.288967592771833,
+        "rmse_kms": 5.99761084623637,
+        "mean_residual_kms": -0.09954249707954559,
+        "median_log10_velocity_ratio": -0.0063553692976819325,
+        "median_abs_log10_velocity_ratio": 0.019581501201076525
+      },
+      "per_galaxy_scarcity": {
+        "beta_kpc": 3.5781287337988754,
+        "beta_sigma_kpc": 0.7763930197894952,
+        "normalization": 4.371757619300439,
+        "chi2": 13.157570343935195,
+        "rmse_kms": 4.437523689034868,
+        "mean_residual_kms": -0.24251437022056166,
+        "median_log10_velocity_ratio": -0.005024154039896148,
+        "median_abs_log10_velocity_ratio": 0.015211445514442373
+      },
+      "mond_control": {
+        "normalization": 0.9813605388612043,
+        "chi2": 10.585282015572021,
+        "rmse_kms": 3.972113726348055,
+        "mean_residual_kms": -0.17624595708198984,
+        "median_log10_velocity_ratio": -0.005968193211414419,
+        "median_abs_log10_velocity_ratio": 0.013585462817969707
+      }
+    },
+    {
+      "source_id": "UGC06923",
+      "n_points": 6,
+      "r_disk_kpc": 1.44,
+      "characteristic_gbar_ms2": 2.1111305003874827e-11,
+      "global_scarcity": {
+        "normalization": 3.6573779572197345,
+        "chi2": 10.613192695703294,
+        "rmse_kms": 6.941948320208632,
+        "mean_residual_kms": 1.3197532792156335,
+        "median_log10_velocity_ratio": 0.024340351347722895,
+        "median_abs_log10_velocity_ratio": 0.04201319081914228
+      },
+      "per_galaxy_scarcity": {
+        "beta_kpc": 2.85734003556831,
+        "beta_sigma_kpc": 0.9023558354814988,
+        "normalization": 3.1344747047498682,
+        "chi2": 2.78076092310271,
+        "rmse_kms": 3.570835217159207,
+        "mean_residual_kms": -1.0649813529488423,
+        "median_log10_velocity_ratio": -0.013368339228136716,
+        "median_abs_log10_velocity_ratio": 0.022923306230212596
+      },
+      "mond_control": {
+        "normalization": 0.6739045547891491,
+        "chi2": 4.470186071226818,
+        "rmse_kms": 5.257885762714236,
+        "mean_residual_kms": -1.8934911439434394,
+        "median_log10_velocity_ratio": -0.0010420306009587502,
+        "median_abs_log10_velocity_ratio": 0.017949825236067838
+      }
+    },
+    {
+      "source_id": "UGC06930",
+      "n_points": 10,
+      "r_disk_kpc": 3.94,
+      "characteristic_gbar_ms2": 1.1155590722819382e-11,
+      "global_scarcity": {
+        "normalization": 4.163287191897235,
+        "chi2": 17.687372861548727,
+        "rmse_kms": 8.596850619005526,
+        "mean_residual_kms": 1.0156850808189533,
+        "median_log10_velocity_ratio": -0.009323611692016044,
+        "median_abs_log10_velocity_ratio": 0.02437844835291093
+      },
+      "per_galaxy_scarcity": {
+        "beta_kpc": 0.5033083001161979,
+        "beta_sigma_kpc": 1.4608698610405082,
+        "normalization": 3.5072633788080214,
+        "chi2": 6.4586701324063185,
+        "rmse_kms": 5.888810219776017,
+        "mean_residual_kms": 0.060267649204773475,
+        "median_log10_velocity_ratio": 0.0010624891876854134,
+        "median_abs_log10_velocity_ratio": 0.015238023535387987
+      },
+      "mond_control": {
+        "normalization": 0.6926793037954811,
+        "chi2": 12.651677131751837,
+        "rmse_kms": 7.472082871071949,
+        "mean_residual_kms": 0.26736902733237145,
+        "median_log10_velocity_ratio": -0.009798761004959893,
+        "median_abs_log10_velocity_ratio": 0.02562688647910545
+      }
+    },
+    {
+      "source_id": "UGC06983",
+      "n_points": 17,
+      "r_disk_kpc": 3.21,
+      "characteristic_gbar_ms2": 8.865910281886272e-12,
+      "global_scarcity": {
+        "normalization": 6.0113592834626,
+        "chi2": 37.55532497540912,
+        "rmse_kms": 9.585484647766066,
+        "mean_residual_kms": -2.6734980679054656,
+        "median_log10_velocity_ratio": 0.002584750093434873,
+        "median_abs_log10_velocity_ratio": 0.04179341837592832
+      },
+      "per_galaxy_scarcity": {
+        "beta_kpc": 2.2131199739950094,
+        "beta_sigma_kpc": 0.8675152346256797,
+        "normalization": 5.170038203981809,
+        "chi2": 23.473417312267763,
+        "rmse_kms": 7.347731086130086,
+        "mean_residual_kms": -2.038151934291618,
+        "median_log10_velocity_ratio": 0.002329938439572015,
+        "median_abs_log10_velocity_ratio": 0.019632171170465274
+      },
+      "mond_control": {
+        "normalization": 1.1340555974832947,
+        "chi2": 30.788286670717838,
+        "rmse_kms": 9.176658239688559,
+        "mean_residual_kms": -2.719360505776254,
+        "median_log10_velocity_ratio": 0.00018292566730049515,
+        "median_abs_log10_velocity_ratio": 0.037253447724823
+      }
+    },
+    {
+      "source_id": "UGC07089",
+      "n_points": 12,
+      "r_disk_kpc": 2.26,
+      "characteristic_gbar_ms2": 8.725123351759088e-12,
+      "global_scarcity": {
+        "normalization": 3.595368097443722,
+        "chi2": 2.3624129753121728,
+        "rmse_kms": 2.032390528657637,
+        "mean_residual_kms": 0.25437654875458815,
+        "median_log10_velocity_ratio": -0.002504299918175861,
+        "median_abs_log10_velocity_ratio": 0.008131764043902935
+      },
+      "per_galaxy_scarcity": {
+        "beta_kpc": 4.4898780448405295,
+        "beta_sigma_kpc": 1.2298663028469294,
+        "normalization": 3.3990296208959907,
+        "chi2": 1.6605029034508425,
+        "rmse_kms": 1.8112037304607786,
+        "mean_residual_kms": 0.37364537728252883,
+        "median_log10_velocity_ratio": 0.0012815292971052634,
+        "median_abs_log10_velocity_ratio": 0.011342071906386236
+      },
+      "mond_control": {
+        "normalization": 0.3831040025900677,
+        "chi2": 4.327203405667853,
+        "rmse_kms": 3.1368112640178376,
+        "mean_residual_kms": 0.3876740766631516,
+        "median_log10_velocity_ratio": 0.004518773714368936,
+        "median_abs_log10_velocity_ratio": 0.02244263036063667
+      }
+    },
+    {
+      "source_id": "UGC07125",
+      "n_points": 13,
+      "r_disk_kpc": 3.38,
+      "characteristic_gbar_ms2": 4.462189336677237e-12,
+      "global_scarcity": {
+        "normalization": 2.9544095705364186,
+        "chi2": 62.92903659319368,
+        "rmse_kms": 5.417474004247995,
+        "mean_residual_kms": -0.6703927347656806,
+        "median_log10_velocity_ratio": -0.002688091351293133,
+        "median_abs_log10_velocity_ratio": 0.036723090188394994
+      },
+      "per_galaxy_scarcity": {
+        "beta_kpc": 3.737685985848593e-07,
+        "beta_sigma_kpc": null,
+        "normalization": 2.514396884597336,
+        "chi2": 39.1339130550824,
+        "rmse_kms": 4.499251537780418,
+        "mean_residual_kms": -0.9438184879791228,
+        "median_log10_velocity_ratio": -0.01940542939778667,
+        "median_abs_log10_velocity_ratio": 0.026694560173267115
+      },
+      "mond_control": {
+        "normalization": 0.19189383021688805,
+        "chi2": 40.970632610040525,
+        "rmse_kms": 4.692572876533882,
+        "mean_residual_kms": -0.6094221801094223,
+        "median_log10_velocity_ratio": 0.014549723489419703,
+        "median_abs_log10_velocity_ratio": 0.03237389492763589
+      }
+    },
+    {
+      "source_id": "UGC07151",
+      "n_points": 11,
+      "r_disk_kpc": 1.25,
+      "characteristic_gbar_ms2": 1.6553670515152265e-11,
+      "global_scarcity": {
+        "normalization": 4.776225026887284,
+        "chi2": 186.674337328847,
+        "rmse_kms": 11.152267122024968,
+        "mean_residual_kms": -0.13283639995808663,
+        "median_log10_velocity_ratio": 0.00914635452068337,
+        "median_abs_log10_velocity_ratio": 0.08196121413121628
+      },
+      "per_galaxy_scarcity": {
+        "beta_kpc": 0.34182625784890774,
+        "beta_sigma_kpc": 0.38177823164323554,
+        "normalization": 3.116525022716382,
+        "chi2": 14.447958627247594,
+        "rmse_kms": 2.7404618747077345,
+        "mean_residual_kms": -0.5453513596047059,
+        "median_log10_velocity_ratio": -0.0044390663333067,
+        "median_abs_log10_velocity_ratio": 0.008332107231640387
+      },
+      "mond_control": {
+        "normalization": 0.7700500617863104,
+        "chi2": 30.89086034724886,
+        "rmse_kms": 4.251937471181743,
+        "mean_residual_kms": -0.8826502351246271,
+        "median_log10_velocity_ratio": -0.013557123397869866,
+        "median_abs_log10_velocity_ratio": 0.02235959314318845
+      }
+    },
+    {
+      "source_id": "UGC07261",
+      "n_points": 7,
+      "r_disk_kpc": 1.2,
+      "characteristic_gbar_ms2": 1.1755083929604882e-11,
+      "global_scarcity": {
+        "normalization": 5.302457157582105,
+        "chi2": 25.780197409211564,
+        "rmse_kms": 10.862018308389612,
+        "mean_residual_kms": 3.1265093086948963,
+        "median_log10_velocity_ratio": 0.001871608125078674,
+        "median_abs_log10_velocity_ratio": 0.03879262231363417
+      },
+      "per_galaxy_scarcity": {
+        "beta_kpc": 0.6814028811166659,
+        "beta_sigma_kpc": 0.9961306292697306,
+        "normalization": 3.9413311220428047,
+        "chi2": 4.921829532753043,
+        "rmse_kms": 4.74603236066662,
+        "mean_residual_kms": 0.6642111540584779,
+        "median_log10_velocity_ratio": -0.003783776509183019,
+        "median_abs_log10_velocity_ratio": 0.017187236033602667
+      },
+      "mond_control": {
+        "normalization": 0.836680373630687,
+        "chi2": 4.512271055111217,
+        "rmse_kms": 4.544279144675375,
+        "mean_residual_kms": 0.8464095620993614,
+        "median_log10_velocity_ratio": 0.0023749874574961966,
+        "median_abs_log10_velocity_ratio": 0.009693580650872722
+      }
+    },
+    {
+      "source_id": "UGC07323",
+      "n_points": 10,
+      "r_disk_kpc": 2.26,
+      "characteristic_gbar_ms2": 1.6367525963823505e-11,
+      "global_scarcity": {
+        "normalization": 3.3184523728962567,
+        "chi2": 20.04741488211213,
+        "rmse_kms": 5.4794901947891566,
+        "mean_residual_kms": 1.799594265496968,
+        "median_log10_velocity_ratio": 0.03388147845132055,
+        "median_abs_log10_velocity_ratio": 0.03936619422724237
+      },
+      "per_galaxy_scarcity": {
+        "beta_kpc": 1.7795806781198975,
+        "beta_sigma_kpc": 0.8551232617389117,
+        "normalization": 2.769484078604963,
+        "chi2": 1.9824291378790868,
+        "rmse_kms": 1.7230972971687146,
+        "mean_residual_kms": -0.001744655456667843,
+        "median_log10_velocity_ratio": -0.0029609165222157533,
+        "median_abs_log10_velocity_ratio": 0.01111588882360471
+      },
+      "mond_control": {
+        "normalization": 0.5627361960466417,
+        "chi2": 5.608272107791584,
+        "rmse_kms": 2.8981809904004234,
+        "mean_residual_kms": -0.6420513227658151,
+        "median_log10_velocity_ratio": -0.007023850236469753,
+        "median_abs_log10_velocity_ratio": 0.021081080855483634
+      }
+    },
+    {
+      "source_id": "UGC07399",
+      "n_points": 10,
+      "r_disk_kpc": 1.64,
+      "characteristic_gbar_ms2": 1.0282051044764807e-11,
+      "global_scarcity": {
+        "normalization": 14.292829175191462,
+        "chi2": 124.49590834371796,
+        "rmse_kms": 12.598528881364867,
+        "mean_residual_kms": -1.7318941235674274,
+        "median_log10_velocity_ratio": -0.008180222962761925,
+        "median_abs_log10_velocity_ratio": 0.06182803731424209
+      },
+      "per_galaxy_scarcity": {
+        "beta_kpc": 2.1540658809871904,
+        "beta_sigma_kpc": 0.3011680318173239,
+        "normalization": 10.238591488880258,
+        "chi2": 9.811440718002157,
+        "rmse_kms": 2.804066174732556,
+        "mean_residual_kms": -0.7079094109544947,
+        "median_log10_velocity_ratio": -0.004657274348262352,
+        "median_abs_log10_velocity_ratio": 0.008035259466255532
+      },
+      "mond_control": {
+        "normalization": 3.0873846554079667,
+        "chi2": 12.67980795662493,
+        "rmse_kms": 3.127315424398486,
+        "mean_residual_kms": -0.7558742935402947,
+        "median_log10_velocity_ratio": -0.0032050313072679026,
+        "median_abs_log10_velocity_ratio": 0.007968012818871547
+      }
+    },
+    {
+      "source_id": "UGC07524",
+      "n_points": 31,
+      "r_disk_kpc": 3.46,
+      "characteristic_gbar_ms2": 5.832362105594402e-12,
+      "global_scarcity": {
+        "normalization": 4.913604557859273,
+        "chi2": 221.8711630174535,
+        "rmse_kms": 8.904298406160647,
+        "mean_residual_kms": 2.7048444037770474,
+        "median_log10_velocity_ratio": 0.05788506936046284,
+        "median_abs_log10_velocity_ratio": 0.060393808670813946
+      },
+      "per_galaxy_scarcity": {
+        "beta_kpc": 3.737685985848593e-07,
+        "beta_sigma_kpc": null,
+        "normalization": 4.258011898933577,
+        "chi2": 85.34289777533931,
+        "rmse_kms": 5.484654725358736,
+        "mean_residual_kms": 1.096907604690234,
+        "median_log10_velocity_ratio": 0.028226730164521194,
+        "median_abs_log10_velocity_ratio": 0.03494819948732379
+      },
+      "mond_control": {
+        "normalization": 0.6382623796536653,
+        "chi2": 69.07400762442158,
+        "rmse_kms": 4.9758921964021585,
+        "mean_residual_kms": 1.1142353905952749,
+        "median_log10_velocity_ratio": 0.02229044529076313,
+        "median_abs_log10_velocity_ratio": 0.031262278819121914
+      }
+    },
+    {
+      "source_id": "UGC07559",
+      "n_points": 7,
+      "r_disk_kpc": 0.58,
+      "characteristic_gbar_ms2": 4.999035912242932e-12,
+      "global_scarcity": {
+        "normalization": 4.306012281921279,
+        "chi2": 20.488620816028487,
+        "rmse_kms": 5.525987075517997,
+        "mean_residual_kms": 2.2046926022406104,
+        "median_log10_velocity_ratio": 0.11186544422564387,
+        "median_abs_log10_velocity_ratio": 0.11186544422564387
+      },
+      "per_galaxy_scarcity": {
+        "beta_kpc": 1.0856801737979902,
+        "beta_sigma_kpc": 0.9267328358354625,
+        "normalization": 3.015036275511056,
+        "chi2": 1.7580525140778593,
+        "rmse_kms": 1.618711395529653,
+        "mean_residual_kms": -0.09838309301840782,
+        "median_log10_velocity_ratio": -0.002711347539931172,
+        "median_abs_log10_velocity_ratio": 0.0288198999938693
+      },
+      "mond_control": {
+        "normalization": 0.23880001714756716,
+        "chi2": 2.2860425954343926,
+        "rmse_kms": 1.8458468360042182,
+        "mean_residual_kms": -0.36468222836678876,
+        "median_log10_velocity_ratio": -0.005957894712947083,
+        "median_abs_log10_velocity_ratio": 0.01718311887169998
+      }
+    },
+    {
+      "source_id": "UGC07577",
+      "n_points": 9,
+      "r_disk_kpc": 0.9,
+      "characteristic_gbar_ms2": 3.3179249601698246e-12,
+      "global_scarcity": {
+        "normalization": 2.8495669820568748,
+        "chi2": 8.475014532649787,
+        "rmse_kms": 3.076155131493867,
+        "mean_residual_kms": 1.7914040474617599,
+        "median_log10_velocity_ratio": 0.1658347253390206,
+        "median_abs_log10_velocity_ratio": 0.1658347253390206
+      },
+      "per_galaxy_scarcity": {
+        "beta_kpc": 1.2217218066128792,
+        "beta_sigma_kpc": 1.3875678227538046,
+        "normalization": 1.8018853160442643,
+        "chi2": 1.0405890748628301,
+        "rmse_kms": 1.0778979313866768,
+        "mean_residual_kms": 0.3375509709575693,
+        "median_log10_velocity_ratio": -0.008925770569383916,
+        "median_abs_log10_velocity_ratio": 0.026201821878346156
+      },
+      "mond_control": {
+        "normalization": 0.04700104954396015,
+        "chi2": 1.3231720208740558,
+        "rmse_kms": 1.2154753674802525,
+        "mean_residual_kms": -0.1321843932916188,
+        "median_log10_velocity_ratio": -0.02115529106614367,
+        "median_abs_log10_velocity_ratio": 0.047222004464249005
+      }
+    },
+    {
+      "source_id": "UGC07603",
+      "n_points": 12,
+      "r_disk_kpc": 0.53,
+      "characteristic_gbar_ms2": 1.0702313148962035e-11,
+      "global_scarcity": {
+        "normalization": 11.333586288573397,
+        "chi2": 178.1986347995232,
+        "rmse_kms": 11.13677398572367,
+        "mean_residual_kms": 4.072291578039795,
+        "median_log10_velocity_ratio": 0.03217170512221272,
+        "median_abs_log10_velocity_ratio": 0.06975122000765817
+      },
+      "per_galaxy_scarcity": {
+        "beta_kpc": 2.1824220318258747,
+        "beta_sigma_kpc": 0.21825180367059513,
+        "normalization": 7.819475518960696,
+        "chi2": 3.037470679429414,
+        "rmse_kms": 1.453996184705632,
+        "mean_residual_kms": -0.022696109805528646,
+        "median_log10_velocity_ratio": 0.0007472996367882167,
+        "median_abs_log10_velocity_ratio": 0.00809615544705379
+      },
+      "mond_control": {
+        "normalization": 1.3012183652643703,
+        "chi2": 20.618567693666183,
+        "rmse_kms": 3.788231109131162,
+        "mean_residual_kms": -0.5818031481954401,
+        "median_log10_velocity_ratio": 0.008127656279983433,
+        "median_abs_log10_velocity_ratio": 0.013226773044181284
+      }
+    },
+    {
+      "source_id": "UGC07690",
+      "n_points": 7,
+      "r_disk_kpc": 0.57,
+      "characteristic_gbar_ms2": 1.7176456371801425e-11,
+      "global_scarcity": {
+        "normalization": 5.478775844049559,
+        "chi2": 144.06857700755887,
+        "rmse_kms": 19.552976731178717,
+        "mean_residual_kms": 7.153430066112452,
+        "median_log10_velocity_ratio": 0.03989224027511116,
+        "median_abs_log10_velocity_ratio": 0.1190412058561873
+      },
+      "per_galaxy_scarcity": {
+        "beta_kpc": 0.6502667991275598,
+        "beta_sigma_kpc": 0.3161696564270688,
+        "normalization": 3.1578611258973166,
+        "chi2": 1.0845994594647996,
+        "rmse_kms": 1.6965354620925917,
+        "mean_residual_kms": -0.055100477528138674,
+        "median_log10_velocity_ratio": -0.005474973599166257,
+        "median_abs_log10_velocity_ratio": 0.007851808806301024
+      },
+      "mond_control": {
+        "normalization": 0.7022331741878566,
+        "chi2": 8.926053246833291,
+        "rmse_kms": 4.866962351530394,
+        "mean_residual_kms": 0.21199606641667096,
+        "median_log10_velocity_ratio": -0.0007923182657286004,
+        "median_abs_log10_velocity_ratio": 0.03537979462201915
+      }
+    },
+    {
+      "source_id": "UGC07866",
+      "n_points": 7,
+      "r_disk_kpc": 0.61,
+      "characteristic_gbar_ms2": 5.173541978512333e-12,
+      "global_scarcity": {
+        "normalization": 5.0586187116862265,
+        "chi2": 23.573867603070237,
+        "rmse_kms": 7.468971620339885,
+        "mean_residual_kms": 3.55758458828653,
+        "median_log10_velocity_ratio": 0.12316811194072039,
+        "median_abs_log10_velocity_ratio": 0.12316811194072039
+      },
+      "per_galaxy_scarcity": {
+        "beta_kpc": 3.737685985848593e-07,
+        "beta_sigma_kpc": null,
+        "normalization": 3.086548224734172,
+        "chi2": 0.38583056760797035,
+        "rmse_kms": 0.955528632251673,
+        "mean_residual_kms": 0.06866260980015225,
+        "median_log10_velocity_ratio": -0.010193784671631666,
+        "median_abs_log10_velocity_ratio": 0.011099361005153964
+      },
+      "mond_control": {
+        "normalization": 0.31561044860909404,
+        "chi2": 0.31807934870689464,
+        "rmse_kms": 0.8675871799252748,
+        "mean_residual_kms": 0.08517533494490717,
+        "median_log10_velocity_ratio": -0.0034341842745459037,
+        "median_abs_log10_velocity_ratio": 0.011394799913294496
+      }
+    },
+    {
+      "source_id": "UGC08286",
+      "n_points": 17,
+      "r_disk_kpc": 1.05,
+      "characteristic_gbar_ms2": 8.558209866044925e-12,
+      "global_scarcity": {
+        "normalization": 8.508174274323293,
+        "chi2": 414.94185541744264,
+        "rmse_kms": 11.281608643412424,
+        "mean_residual_kms": 3.631486782145578,
+        "median_log10_velocity_ratio": 0.004727717249272264,
+        "median_abs_log10_velocity_ratio": 0.0484054959946304
+      },
+      "per_galaxy_scarcity": {
+        "beta_kpc": 0.33083799394048113,
+        "beta_sigma_kpc": 0.25827799286438413,
+        "normalization": 6.306095529401564,
+        "chi2": 50.0059283170424,
+        "rmse_kms": 3.8953301094958017,
+        "mean_residual_kms": 0.34372506523340635,
+        "median_log10_velocity_ratio": 0.0009317091621073315,
+        "median_abs_log10_velocity_ratio": 0.017213518082499792
+      },
+      "mond_control": {
+        "normalization": 1.4341599887830208,
+        "chi2": 100.58165775828613,
+        "rmse_kms": 5.46447301101466,
+        "mean_residual_kms": 0.9437406343094007,
+        "median_log10_velocity_ratio": -0.003257207646420947,
+        "median_abs_log10_velocity_ratio": 0.02519719757925
+      }
+    },
+    {
+      "source_id": "UGC08490",
+      "n_points": 30,
+      "r_disk_kpc": 0.67,
+      "characteristic_gbar_ms2": 6.18025272301242e-12,
+      "global_scarcity": {
+        "normalization": 10.019916155874732,
+        "chi2": 230.66770149140484,
+        "rmse_kms": 10.23196704822215,
+        "mean_residual_kms": 2.256967247001428,
+        "median_log10_velocity_ratio": -0.012140864511732574,
+        "median_abs_log10_velocity_ratio": 0.033754650372087344
+      },
+      "per_galaxy_scarcity": {
+        "beta_kpc": 2.5016012043567266,
+        "beta_sigma_kpc": 0.18787154587166166,
+        "normalization": 7.77526042064152,
+        "chi2": 18.974502594766246,
+        "rmse_kms": 2.9346136871292887,
+        "mean_residual_kms": 0.2738101330911756,
+        "median_log10_velocity_ratio": 0.006030106009384086,
+        "median_abs_log10_velocity_ratio": 0.010929726144037161
+      },
+      "mond_control": {
+        "normalization": 1.3205094604993797,
+        "chi2": 29.646482876652268,
+        "rmse_kms": 3.668194267378183,
+        "mean_residual_kms": 0.17298738012726034,
+        "median_log10_velocity_ratio": 0.0011306461439069525,
+        "median_abs_log10_velocity_ratio": 0.015511253834635873
+      }
+    },
+    {
+      "source_id": "UGC08550",
+      "n_points": 11,
+      "r_disk_kpc": 0.45,
+      "characteristic_gbar_ms2": 4.341121525531778e-12,
+      "global_scarcity": {
+        "normalization": 8.491410963089836,
+        "chi2": 168.87142686622298,
+        "rmse_kms": 8.446592688336946,
+        "mean_residual_kms": 2.8031414352032553,
+        "median_log10_velocity_ratio": 0.03786204517926706,
+        "median_abs_log10_velocity_ratio": 0.054502997311597676
+      },
+      "per_galaxy_scarcity": {
+        "beta_kpc": 1.4903646086078162,
+        "beta_sigma_kpc": 0.3271372517024472,
+        "normalization": 6.494517917802682,
+        "chi2": 39.78025432092294,
+        "rmse_kms": 3.8947988697791,
+        "mean_residual_kms": 0.3506740189976592,
+        "median_log10_velocity_ratio": -0.005962761118054518,
+        "median_abs_log10_velocity_ratio": 0.026512849096651487
+      },
+      "mond_control": {
+        "normalization": 0.9796180584136005,
+        "chi2": 22.667306106637774,
+        "rmse_kms": 3.0401863526247226,
+        "mean_residual_kms": 0.49918323762740613,
+        "median_log10_velocity_ratio": 0.007004219498790011,
+        "median_abs_log10_velocity_ratio": 0.022221060827687978
+      }
+    },
+    {
+      "source_id": "UGC08699",
+      "n_points": 41,
+      "r_disk_kpc": 3.09,
+      "characteristic_gbar_ms2": 6.829027294029993e-11,
+      "global_scarcity": {
+        "normalization": 4.135273742301546,
+        "chi2": 1246.4480511496254,
+        "rmse_kms": 38.51335733871057,
+        "mean_residual_kms": 8.94572888221566,
+        "median_log10_velocity_ratio": -0.029491295352812537,
+        "median_abs_log10_velocity_ratio": 0.04274918636254619
+      },
+      "per_galaxy_scarcity": {
+        "beta_kpc": 3.1492060780952165,
+        "beta_sigma_kpc": 0.07218973540744632,
+        "normalization": 3.005507340735701,
+        "chi2": 248.03724821645736,
+        "rmse_kms": 20.605001886497863,
+        "mean_residual_kms": 6.167413036270323,
+        "median_log10_velocity_ratio": -0.0059535223079010885,
+        "median_abs_log10_velocity_ratio": 0.01560922535706148
+      },
+      "mond_control": {
+        "normalization": 1.0584592431046427,
+        "chi2": 39.899722460936275,
+        "rmse_kms": 12.813609846136027,
+        "mean_residual_kms": -3.1978572496221767,
+        "median_log10_velocity_ratio": 0.00034120452431201726,
+        "median_abs_log10_velocity_ratio": 0.006966659161915726
+      }
+    },
+    {
+      "source_id": "UGC08837",
+      "n_points": 8,
+      "r_disk_kpc": 1.72,
+      "characteristic_gbar_ms2": 6.689755881425537e-12,
+      "global_scarcity": {
+        "normalization": 3.363625976544543,
+        "chi2": 8.11286357926883,
+        "rmse_kms": 2.647884286310664,
+        "mean_residual_kms": 0.34115694025230237,
+        "median_log10_velocity_ratio": 0.008217288165556062,
+        "median_abs_log10_velocity_ratio": 0.025116804810989875
+      },
+      "per_galaxy_scarcity": {
+        "beta_kpc": 3.144643760646119,
+        "beta_sigma_kpc": 1.0269491744513617,
+        "normalization": 2.8747841148197013,
+        "chi2": 2.825752830448569,
+        "rmse_kms": 1.6134136491041828,
+        "mean_residual_kms": 0.13782670706674616,
+        "median_log10_velocity_ratio": 0.002749098714690556,
+        "median_abs_log10_velocity_ratio": 0.018067844320804514
+      },
+      "mond_control": {
+        "normalization": 0.20045624752574934,
+        "chi2": 21.28978994258633,
+        "rmse_kms": 4.2057810378741936,
+        "mean_residual_kms": 0.21330861844550286,
+        "median_log10_velocity_ratio": -0.01931825937322525,
+        "median_abs_log10_velocity_ratio": 0.05510952553538527
+      }
+    },
+    {
+      "source_id": "UGC09037",
+      "n_points": 22,
+      "r_disk_kpc": 4.28,
+      "characteristic_gbar_ms2": 2.8293526845740904e-11,
+      "global_scarcity": {
+        "normalization": 1.8540265735833583,
+        "chi2": 148.33558521586866,
+        "rmse_kms": 15.436923591044383,
+        "mean_residual_kms": 3.7256677104091356,
+        "median_log10_velocity_ratio": 0.014662947887794972,
+        "median_abs_log10_velocity_ratio": 0.039056653520045635
+      },
+      "per_galaxy_scarcity": {
+        "beta_kpc": 13.18886848710665,
+        "beta_sigma_kpc": 0.7008766860976431,
+        "normalization": 2.5203842569072745,
+        "chi2": 18.889684025135715,
+        "rmse_kms": 5.4332542404266615,
+        "mean_residual_kms": -1.0168766904873094,
+        "median_log10_velocity_ratio": -0.0025331966595582207,
+        "median_abs_log10_velocity_ratio": 0.0072824462404304175
+      },
+      "mond_control": {
+        "normalization": 0.40393411313803007,
+        "chi2": 65.42344704417475,
+        "rmse_kms": 9.216118764618972,
+        "mean_residual_kms": -0.3591886520932771,
+        "median_log10_velocity_ratio": 0.005366021256588138,
+        "median_abs_log10_velocity_ratio": 0.011409073305616697
+      }
+    },
+    {
+      "source_id": "UGC09133",
+      "n_points": 68,
+      "r_disk_kpc": 6.97,
+      "characteristic_gbar_ms2": 1.2267682474324288e-10,
+      "global_scarcity": {
+        "normalization": 3.1176536214752812,
+        "chi2": 14124.044466393383,
+        "rmse_kms": 48.620406334357135,
+        "mean_residual_kms": -12.556163045198746,
+        "median_log10_velocity_ratio": -0.0367653546848606,
+        "median_abs_log10_velocity_ratio": 0.07337217069471452
+      },
+      "per_galaxy_scarcity": {
+        "beta_kpc": 11.099911228988772,
+        "beta_sigma_kpc": 0.06627281900261817,
+        "normalization": 3.8092230511365637,
+        "chi2": 5574.978868843273,
+        "rmse_kms": 50.7988995087573,
+        "mean_residual_kms": 12.19068735384375,
+        "median_log10_velocity_ratio": -0.00169180349316314,
+        "median_abs_log10_velocity_ratio": 0.03855514824037766
+      },
+      "mond_control": {
+        "normalization": 0.7354902753398354,
+        "chi2": 2571.34303335837,
+        "rmse_kms": 28.361102107813142,
+        "mean_residual_kms": 15.135705816385814,
+        "median_log10_velocity_ratio": 0.033409969886392374,
+        "median_abs_log10_velocity_ratio": 0.03566398109587524
+      }
+    },
+    {
+      "source_id": "UGC09992",
+      "n_points": 5,
+      "r_disk_kpc": 1.04,
+      "characteristic_gbar_ms2": 6.555955237807693e-12,
+      "global_scarcity": {
+        "normalization": 3.4309176948186,
+        "chi2": 15.376164682560685,
+        "rmse_kms": 9.925569618965362,
+        "mean_residual_kms": 3.6496827555956655,
+        "median_log10_velocity_ratio": 0.06598225477557766,
+        "median_abs_log10_velocity_ratio": 0.10302771294776354
+      },
+      "per_galaxy_scarcity": {
+        "beta_kpc": 3.737685985848593e-07,
+        "beta_sigma_kpc": null,
+        "normalization": 2.3109729619345347,
+        "chi2": 0.9020229337343821,
+        "rmse_kms": 2.404031859021056,
+        "mean_residual_kms": 0.3332445207811482,
+        "median_log10_velocity_ratio": -0.000984673101613373,
+        "median_abs_log10_velocity_ratio": 0.022040420171624348
+      },
+      "mond_control": {
+        "normalization": 0.21115091395240426,
+        "chi2": 2.6431165452512473,
+        "rmse_kms": 4.115187101385571,
+        "mean_residual_kms": 0.7707796567736089,
+        "median_log10_velocity_ratio": 0.00615832591406248,
+        "median_abs_log10_velocity_ratio": 0.04699687008542383
+      }
+    },
+    {
+      "source_id": "UGC10310",
+      "n_points": 7,
+      "r_disk_kpc": 1.8,
+      "characteristic_gbar_ms2": 8.150170433754842e-12,
+      "global_scarcity": {
+        "normalization": 4.641613355580951,
+        "chi2": 35.589597835255766,
+        "rmse_kms": 11.409406064012988,
+        "mean_residual_kms": 3.393375371468828,
+        "median_log10_velocity_ratio": 0.06654377167333678,
+        "median_abs_log10_velocity_ratio": 0.06858597517560018
+      },
+      "per_galaxy_scarcity": {
+        "beta_kpc": 3.737685985848593e-07,
+        "beta_sigma_kpc": null,
+        "normalization": 3.7334546533076582,
+        "chi2": 6.771347787685406,
+        "rmse_kms": 4.976672442747005,
+        "mean_residual_kms": 0.8783281897513682,
+        "median_log10_velocity_ratio": 0.032892137508448695,
+        "median_abs_log10_velocity_ratio": 0.03683113823493267
+      },
+      "mond_control": {
+        "normalization": 0.6563453233170761,
+        "chi2": 9.561363310460324,
+        "rmse_kms": 5.913728841260598,
+        "mean_residual_kms": 1.040522616323423,
+        "median_log10_velocity_ratio": 0.03325208839743288,
+        "median_abs_log10_velocity_ratio": 0.03623626021148709
+      }
+    },
+    {
+      "source_id": "UGC11455",
+      "n_points": 36,
+      "r_disk_kpc": 5.93,
+      "characteristic_gbar_ms2": 1.327892568484439e-10,
+      "global_scarcity": {
+        "normalization": 2.061115940981025,
+        "chi2": 319.32108071838564,
+        "rmse_kms": 19.305432378394965,
+        "mean_residual_kms": 0.06454848439046718,
+        "median_log10_velocity_ratio": -0.007929935015049095,
+        "median_abs_log10_velocity_ratio": 0.019308416247792747
+      },
+      "per_galaxy_scarcity": {
+        "beta_kpc": 9.733724774050472,
+        "beta_sigma_kpc": 0.3698673497151864,
+        "normalization": 2.415637804953868,
+        "chi2": 188.77355429098523,
+        "rmse_kms": 17.297387906449888,
+        "mean_residual_kms": 1.5914787700993318,
+        "median_log10_velocity_ratio": -0.002216247421377253,
+        "median_abs_log10_velocity_ratio": 0.015822259451670345
+      },
+      "mond_control": {
+        "normalization": 0.795879115776781,
+        "chi2": 161.43348517064527,
+        "rmse_kms": 12.578261664177472,
+        "mean_residual_kms": 0.18814303975858238,
+        "median_log10_velocity_ratio": 0.005863160832525511,
+        "median_abs_log10_velocity_ratio": 0.013599219598828132
+      }
+    },
+    {
+      "source_id": "UGC11557",
+      "n_points": 12,
+      "r_disk_kpc": 2.75,
+      "characteristic_gbar_ms2": 2.7127115932082042e-11,
+      "global_scarcity": {
+        "normalization": 1.6962691654762152,
+        "chi2": 6.493518611526758,
+        "rmse_kms": 5.80218078743573,
+        "mean_residual_kms": -0.6636597891705405,
+        "median_log10_velocity_ratio": -0.005415809578615592,
+        "median_abs_log10_velocity_ratio": 0.031128131481903604
+      },
+      "per_galaxy_scarcity": {
+        "beta_kpc": 5.27638508570892,
+        "beta_sigma_kpc": 1.5372921797912396,
+        "normalization": 1.6739806471479166,
+        "chi2": 6.467205429851967,
+        "rmse_kms": 5.812029361001774,
+        "mean_residual_kms": -0.8146274190283892,
+        "median_log10_velocity_ratio": -0.005714178660194016,
+        "median_abs_log10_velocity_ratio": 0.030194679392233928
+      },
+      "mond_control": {
+        "normalization": 0.20265364426679752,
+        "chi2": 11.252084876482252,
+        "rmse_kms": 7.920875431902885,
+        "mean_residual_kms": -2.401408745026508,
+        "median_log10_velocity_ratio": -0.007134993965133953,
+        "median_abs_log10_velocity_ratio": 0.03868120971508647
+      }
+    },
+    {
+      "source_id": "UGC11820",
+      "n_points": 10,
+      "r_disk_kpc": 2.08,
+      "characteristic_gbar_ms2": 4.58585051258064e-12,
+      "global_scarcity": {
+        "normalization": 4.933457449824806,
+        "chi2": 196.1896127838116,
+        "rmse_kms": 7.341263627265709,
+        "mean_residual_kms": 5.134613757127957,
+        "median_log10_velocity_ratio": 0.07152756046684905,
+        "median_abs_log10_velocity_ratio": 0.07152756046684905
+      },
+      "per_galaxy_scarcity": {
+        "beta_kpc": 0.19558097523589177,
+        "beta_sigma_kpc": 0.658473975311138,
+        "normalization": 4.350225753808403,
+        "chi2": 133.57515942484858,
+        "rmse_kms": 4.499510154802496,
+        "mean_residual_kms": 2.495452431772878,
+        "median_log10_velocity_ratio": 0.023719165910740844,
+        "median_abs_log10_velocity_ratio": 0.03374301693459267
+      },
+      "mond_control": {
+        "normalization": 0.48516936731132304,
+        "chi2": 62.10287864709028,
+        "rmse_kms": 6.058258190184286,
+        "mean_residual_kms": 3.764635807326177,
+        "median_log10_velocity_ratio": 0.03467548461509493,
+        "median_abs_log10_velocity_ratio": 0.03467548461509493
+      }
+    },
+    {
+      "source_id": "UGC11914",
+      "n_points": 65,
+      "r_disk_kpc": 2.44,
+      "characteristic_gbar_ms2": 4.923727725027756e-10,
+      "global_scarcity": {
+        "normalization": 2.6239586410143705,
+        "chi2": 11198.016179619057,
+        "rmse_kms": 67.43768627131551,
+        "mean_residual_kms": 37.64879950756818,
+        "median_log10_velocity_ratio": 0.027364145145893363,
+        "median_abs_log10_velocity_ratio": 0.04361371162822602
+      },
+      "per_galaxy_scarcity": {
+        "beta_kpc": 0.8371660514093839,
+        "beta_sigma_kpc": 0.03793301051006881,
+        "normalization": 1.7620094982622363,
+        "chi2": 456.81497908187504,
+        "rmse_kms": 11.274935020170153,
+        "mean_residual_kms": -3.3967397869489053,
+        "median_log10_velocity_ratio": -0.010347928555458194,
+        "median_abs_log10_velocity_ratio": 0.012682882931034192
+      },
+      "mond_control": {
+        "normalization": 1.270993275041279,
+        "chi2": 194.81582023845334,
+        "rmse_kms": 9.572552796063084,
+        "mean_residual_kms": -2.003842479913963,
+        "median_log10_velocity_ratio": -0.006134549881980475,
+        "median_abs_log10_velocity_ratio": 0.008203941016882385
+      }
+    },
+    {
+      "source_id": "UGC12506",
+      "n_points": 31,
+      "r_disk_kpc": 7.38,
+      "characteristic_gbar_ms2": 1.997078717529615e-11,
+      "global_scarcity": {
+        "normalization": 4.256586418268453,
+        "chi2": 36.86033701934489,
+        "rmse_kms": 19.226474329115494,
+        "mean_residual_kms": 5.976373134388076,
+        "median_log10_velocity_ratio": 0.006100190263092126,
+        "median_abs_log10_velocity_ratio": 0.00990959024425659
+      },
+      "per_galaxy_scarcity": {
+        "beta_kpc": 1.4269976374933389,
+        "beta_sigma_kpc": 1.6381335925405804,
+        "normalization": 3.9775690880217143,
+        "chi2": 30.694901597406965,
+        "rmse_kms": 17.454705995844034,
+        "mean_residual_kms": 5.769085506347811,
+        "median_log10_velocity_ratio": 0.01100840131944814,
+        "median_abs_log10_velocity_ratio": 0.016916474225496334
+      },
+      "mond_control": {
+        "normalization": 1.3598584378948153,
+        "chi2": 109.55697508114758,
+        "rmse_kms": 27.755908953659826,
+        "mean_residual_kms": 4.4393203283428395,
+        "median_log10_velocity_ratio": 0.0009579053344469003,
+        "median_abs_log10_velocity_ratio": 0.029199332308316076
+      }
+    },
+    {
+      "source_id": "UGC12632",
+      "n_points": 15,
+      "r_disk_kpc": 2.42,
+      "characteristic_gbar_ms2": 4.308137656222257e-12,
+      "global_scarcity": {
+        "normalization": 5.529885859739125,
+        "chi2": 139.91330538875638,
+        "rmse_kms": 9.802804566385136,
+        "mean_residual_kms": 4.032065467943947,
+        "median_log10_velocity_ratio": 0.08269822079775965,
+        "median_abs_log10_velocity_ratio": 0.08269822079775965
+      },
+      "per_galaxy_scarcity": {
+        "beta_kpc": 3.737685985848593e-07,
+        "beta_sigma_kpc": null,
+        "normalization": 4.847759795754222,
+        "chi2": 51.903392990447976,
+        "rmse_kms": 5.9352409981551775,
+        "mean_residual_kms": 1.9462103566871396,
+        "median_log10_velocity_ratio": 0.03091569793562996,
+        "median_abs_log10_velocity_ratio": 0.03700127931743205
+      },
+      "mond_control": {
+        "normalization": 0.6325988955054185,
+        "chi2": 57.54426292439974,
+        "rmse_kms": 6.122726829469348,
+        "mean_residual_kms": 2.047729700058107,
+        "median_log10_velocity_ratio": 0.03446203039132382,
+        "median_abs_log10_velocity_ratio": 0.04211681385479111
+      }
+    },
+    {
+      "source_id": "UGC12732",
+      "n_points": 16,
+      "r_disk_kpc": 1.98,
+      "characteristic_gbar_ms2": 4.499081472861948e-12,
+      "global_scarcity": {
+        "normalization": 5.934240130017443,
+        "chi2": 105.26839515954832,
+        "rmse_kms": 8.9333710738807,
+        "mean_residual_kms": 3.061632286289203,
+        "median_log10_velocity_ratio": 0.04527505812415836,
+        "median_abs_log10_velocity_ratio": 0.053321840433828836
+      },
+      "per_galaxy_scarcity": {
+        "beta_kpc": 3.737685985848593e-07,
+        "beta_sigma_kpc": null,
+        "normalization": 5.425108742230056,
+        "chi2": 48.19652529905586,
+        "rmse_kms": 5.909212191936058,
+        "mean_residual_kms": 1.558440869311854,
+        "median_log10_velocity_ratio": 0.02508793710182474,
+        "median_abs_log10_velocity_ratio": 0.03052047537190547
+      },
+      "mond_control": {
+        "normalization": 0.7722454636081596,
+        "chi2": 53.06121424718294,
+        "rmse_kms": 6.567570267793835,
+        "mean_residual_kms": 2.1351401315977454,
+        "median_log10_velocity_ratio": 0.0270822141449849,
+        "median_abs_log10_velocity_ratio": 0.03522070094763009
+      }
+    },
+    {
+      "source_id": "UGCA442",
+      "n_points": 8,
+      "r_disk_kpc": 1.18,
+      "characteristic_gbar_ms2": 4.419949615618712e-12,
+      "global_scarcity": {
+        "normalization": 9.616877489256616,
+        "chi2": 50.95442297285118,
+        "rmse_kms": 4.888743847601487,
+        "mean_residual_kms": 1.4558319735134626,
+        "median_log10_velocity_ratio": 0.0019182334039237864,
+        "median_abs_log10_velocity_ratio": 0.028741393236461812
+      },
+      "per_galaxy_scarcity": {
+        "beta_kpc": 4.2524488178943285,
+        "beta_sigma_kpc": 0.2633424271415957,
+        "normalization": 9.192314164149979,
+        "chi2": 29.68632732814784,
+        "rmse_kms": 3.989428831902029,
+        "mean_residual_kms": -0.500790523633087,
+        "median_log10_velocity_ratio": -0.0029416700483594796,
+        "median_abs_log10_velocity_ratio": 0.03283344721197732
+      },
+      "mond_control": {
+        "normalization": 0.8695168225118434,
+        "chi2": 34.010315217928124,
+        "rmse_kms": 3.3788007286815804,
+        "mean_residual_kms": -2.0158125645462333,
+        "median_log10_velocity_ratio": -0.025082861710825657,
+        "median_abs_log10_velocity_ratio": 0.025397800177054702
+      }
+    },
+    {
+      "source_id": "UGCA444",
+      "n_points": 36,
+      "r_disk_kpc": 0.83,
+      "characteristic_gbar_ms2": 4.3073082083391886e-12,
+      "global_scarcity": {
+        "normalization": 10.839985245066039,
+        "chi2": 184.70405626068614,
+        "rmse_kms": 8.078958284414357,
+        "mean_residual_kms": 1.811223709431301,
+        "median_log10_velocity_ratio": 0.06178077245685169,
+        "median_abs_log10_velocity_ratio": 0.11014641817947193
+      },
+      "per_galaxy_scarcity": {
+        "beta_kpc": 0.6339517917921664,
+        "beta_sigma_kpc": 0.3673263819114338,
+        "normalization": 4.521226241859475,
+        "chi2": 26.345558946757595,
+        "rmse_kms": 3.1249543438019187,
+        "mean_residual_kms": 1.331349459574665,
+        "median_log10_velocity_ratio": 0.014430279794572195,
+        "median_abs_log10_velocity_ratio": 0.03398955347242632
+      },
+      "mond_control": {
+        "normalization": 0.45650433448042343,
+        "chi2": 7.221372444869885,
+        "rmse_kms": 1.8304536441666717,
+        "mean_residual_kms": 0.6796087105104055,
+        "median_log10_velocity_ratio": 0.00967332543020051,
+        "median_abs_log10_velocity_ratio": 0.017991592730350482
+      }
+    }
+  ],
+  "inputs": {
+    "rotcurves": "/home/daniel/workspace/constellation/codebases/astrolabe/data/processed/catalog/sparc_rotcurves.parquet",
+    "rotcurves_sha256": "5c61aa95214a461ec59fcf1f2fd5e4f481849cc36a1867175cacfd446dc5dab5",
+    "galaxies": "/home/daniel/workspace/constellation/codebases/astrolabe/data/processed/catalog/sparc_galaxies.parquet",
+    "galaxies_sha256": "6c666d65012d29fc2ab111070305111763cd7283e1fc6600d168a0ac70bf3947"
+  }
+}
