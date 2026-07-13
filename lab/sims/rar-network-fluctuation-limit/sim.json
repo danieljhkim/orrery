@@ -1,0 +1,27 @@
+{
+  "slug": "rar-network-fluctuation-limit",
+  "title": "RAR network-force fluctuation limit",
+  "kind": "py",
+  "entry": "main.py",
+  "status": "active",
+  "created": "2026-07-13",
+  "topics": [
+    "gravity",
+    "galaxy-rotation",
+    "sparc",
+    "radial-acceleration-relation",
+    "monte-carlo",
+    "intrinsic-scatter"
+  ],
+  "family": "network-force",
+  "summary": "A seeded SPARC-like forward model limits coherent galaxy-to-galaxy fluctuations of the extra acceleration to sigma_net < 0.171 dex (95%, fiducial error budget), with strong stated error-model sensitivity.",
+  "seed": 42,
+  "provenance": {
+    "almanac": "15-discussions/26-07/mechanist-at-the-frontier.md",
+    "orbit_tasks": ["ORB-10195"],
+    "literature": [
+      "https://doi.org/10.1103/PhysRevLett.117.201101",
+      "https://doi.org/10.1051/0004-6361/201732547"
+    ]
+  }
+}

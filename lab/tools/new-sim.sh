@@ -33,7 +33,8 @@ cp -R "$ROOT/templates/$KIND" "$DEST"
 DATE="$(date +%Y-%m-%d)"
 for f in "$DEST"/*; do
   [ -f "$f" ] || continue
-  sed -i '' -e "s/__SLUG__/$SLUG/g" -e "s/__TITLE__/$TITLE/g" -e "s/__DATE__/$DATE/g" "$f"
+  sed -i.bak -e "s/__SLUG__/$SLUG/g" -e "s/__TITLE__/$TITLE/g" -e "s/__DATE__/$DATE/g" "$f"
+  rm -f "$f.bak"
 done
 
 python3 "$ROOT/tools/build-gallery.py"
