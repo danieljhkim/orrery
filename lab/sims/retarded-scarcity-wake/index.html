@@ -1,0 +1,726 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Retarded-Scarcity Wake</title>
+<style>
+  :root {
+    --bg: #040812;
+    --panel-bg: #080d1a;
+    --text: #e8edf9;
+    --muted: #9aa8c8;
+    --faint: #687797;
+    --border: #1c2941;
+    --border-strong: #314261;
+    --hover: #111b2c;
+    --accent: #78d8ff;
+  }
+
+  * { box-sizing: border-box; }
+
+  html, body { min-height: 100%; }
+
+  body {
+    margin: 0;
+    color: var(--text);
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  }
+
+  .orrery-controls {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex-wrap: wrap;
+    margin: 0 auto 12px;
+  }
+
+  .orrery-controls label { font-size: 13px; color: var(--muted); }
+
+  .orrery-controls button {
+    background: transparent;
+    color: var(--text);
+    border: 1px solid var(--border-strong);
+    border-radius: 8px;
+    padding: 6px 12px;
+    font-size: 13px;
+    cursor: pointer;
+  }
+
+  .orrery-controls button:hover { background: var(--hover); }
+  .orrery-controls button.active { border-color: var(--accent); color: var(--accent); }
+  .orrery-controls input[type="range"] { flex: 1; min-width: 120px; }
+
+  .orrery-controls .readout {
+    min-width: 80px;
+    color: var(--muted);
+    font: 13px/1.3 ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+  }
+
+  .orrery-wrap {
+    margin: 0 auto;
+    overflow: hidden;
+    border: 1px solid var(--border);
+    background: var(--panel-bg);
+    position: relative;
+  }
+
+  .orrery-wrap canvas { display: block; width: 100%; }
+
+  .orrery-hud {
+    position: absolute;
+    top: 10px;
+    left: 12px;
+    color: var(--muted);
+    font: 12px/1.35 ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+    pointer-events: none;
+    white-space: pre;
+  }
+
+  .hint {
+    margin: 8px auto 0;
+    color: var(--faint);
+    font-size: 13px;
+  }
+
+  body {
+    padding: 18px;
+    background:
+      radial-gradient(circle at 68% 42%, rgba(31, 49, 91, 0.22), transparent 44%),
+      var(--bg);
+  }
+
+  .title-row {
+    max-width: 1100px;
+    margin: 0 auto 12px;
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 16px;
+  }
+
+  h1.sim-title {
+    margin: 0;
+    max-width: none;
+    font-size: 19px;
+    font-weight: 500;
+    letter-spacing: 0.02em;
+  }
+
+  .model-label {
+    color: #87a0c5;
+    font: 11px/1.35 ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+    text-align: right;
+  }
+
+  .orrery-controls {
+    max-width: 1100px;
+    margin-bottom: 12px;
+  }
+
+  .orrery-controls input[type="range"] {
+    min-width: 150px;
+  }
+
+  .orrery-wrap {
+    max-width: 1100px;
+    border-radius: 14px;
+    border-color: #21314d;
+    box-shadow: 0 22px 80px rgba(0, 0, 0, 0.35);
+  }
+
+  .regime {
+    position: absolute;
+    top: 12px;
+    right: 14px;
+    z-index: 2;
+    max-width: 330px;
+    padding: 8px 10px;
+    border: 1px solid rgba(120, 216, 255, 0.2);
+    border-radius: 8px;
+    background: rgba(4, 8, 18, 0.68);
+    backdrop-filter: blur(6px);
+    color: #a8b8d4;
+    font: 10px/1.45 ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+    pointer-events: none;
+  }
+
+  .regime strong {
+    display: block;
+    color: #e8edf9;
+    font-weight: 500;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+  }
+
+  .hint {
+    max-width: 1100px;
+    line-height: 1.45;
+  }
+
+  @media (max-width: 660px) {
+    body { padding: 12px; }
+    .title-row { align-items: flex-start; flex-direction: column; gap: 4px; }
+    .model-label { text-align: left; }
+    .orrery-controls { gap: 7px; }
+    .orrery-controls input[type="range"] { min-width: 105px; }
+    .regime { top: auto; bottom: 10px; left: 10px; right: 10px; max-width: none; }
+  }
+</style>
+</head>
+<body>
+<div class="title-row">
+  <h1 class="sim-title">Retarded-Scarcity Wake</h1>
+  <div class="model-label">Toy medium · Branch A refuted · Branch D inaccessible</div>
+</div>
+<div id="controls"></div>
+<div class="orrery-wrap" id="wrap">
+  <div class="regime" id="regime" aria-live="polite"></div>
+</div>
+<p class="hint">Each spherical front remains centered where the galaxy was when that front
+was emitted. This is a negative-control visualization: the retarded-position shortcut is not
+a consistent local field, and the supercritical cone is inaccessible to real galaxies under
+current gravity-speed bounds. It is not the velocity-corrected field of general relativity.</p>
+
+<script>
+// This sim intentionally carries its tiny harness inline so it works from a
+// direct file:// URL as well as Orrery's static server.
+function createLoop({ step, render, dt = 1 / 120, speed = 1, maxStepsPerFrame = 400 }) {
+  let running = false;
+  let accumulator = 0;
+  let last = 0;
+  let simTime = 0;
+  let frameId = 0;
+
+  function frame(now) {
+    if (!running) return;
+    const elapsed = Math.min((now - last) / 1000, 0.1);
+    last = now;
+    accumulator += elapsed * loop.speed;
+    let steps = 0;
+    while (accumulator >= dt && steps < maxStepsPerFrame) {
+      step(dt);
+      simTime += dt;
+      accumulator -= dt;
+      steps++;
+    }
+    if (steps === maxStepsPerFrame) accumulator = 0;
+    render();
+    frameId = requestAnimationFrame(frame);
+  }
+
+  const loop = {
+    speed,
+    get running() { return running; },
+    get time() { return simTime; },
+    start() {
+      if (running) return;
+      running = true;
+      last = performance.now();
+      frameId = requestAnimationFrame(frame);
+    },
+    pause() {
+      running = false;
+      cancelAnimationFrame(frameId);
+    },
+    toggle() {
+      if (running) loop.pause(); else loop.start();
+      return running;
+    },
+    reset() {
+      accumulator = 0;
+      simTime = 0;
+    },
+    renderOnce() { render(); },
+  };
+  return loop;
+}
+
+function createPanel(definitions, { mount }) {
+  const element = document.createElement('div');
+  element.className = 'orrery-controls';
+  let rangeIndex = 0;
+
+  for (const definition of definitions) {
+    if (definition.type === 'button') {
+      const button = document.createElement('button');
+      button.type = 'button';
+      button.textContent = definition.label;
+      button.addEventListener('click', () => definition.onClick?.(button));
+      element.appendChild(button);
+      continue;
+    }
+
+    if (definition.type === 'toggle') {
+      const button = document.createElement('button');
+      button.type = 'button';
+      let enabled = Boolean(definition.value);
+      const paint = () => {
+        button.textContent = definition.label;
+        button.classList.toggle('active', enabled);
+        button.setAttribute('aria-pressed', String(enabled));
+      };
+      button.addEventListener('click', () => {
+        enabled = !enabled;
+        paint();
+        definition.onChange?.(enabled);
+      });
+      paint();
+      element.appendChild(button);
+      continue;
+    }
+
+    if (definition.type === 'range') {
+      const id = `wake-range-${rangeIndex++}`;
+      const label = document.createElement('label');
+      label.htmlFor = id;
+      label.textContent = definition.label;
+      const input = document.createElement('input');
+      input.id = id;
+      input.type = 'range';
+      input.min = definition.min;
+      input.max = definition.max;
+      input.step = definition.step;
+      input.value = definition.value;
+      const output = document.createElement('span');
+      output.className = 'readout';
+      const update = () => {
+        const value = Number(input.value);
+        output.textContent = definition.format ? definition.format(value) : String(value);
+        definition.onChange?.(value);
+      };
+      input.addEventListener('input', update);
+      input.addEventListener('change', update);
+      output.textContent = definition.format
+        ? definition.format(Number(input.value))
+        : input.value;
+      element.append(label, input, output);
+      continue;
+    }
+
+    throw new Error(`Unknown control type: ${definition.type}`);
+  }
+
+  mount.appendChild(element);
+  return { el: element };
+}
+
+function createCanvas2D({ mount, height }) {
+  const canvas = document.createElement('canvas');
+  canvas.style.height = `${height}px`;
+  mount.appendChild(canvas);
+  const ctx = canvas.getContext('2d');
+
+  function resize() {
+    const ratio = Math.min(window.devicePixelRatio || 1, 2.5);
+    const width = canvas.clientWidth;
+    const cssHeight = canvas.clientHeight;
+    canvas.width = Math.round(width * ratio);
+    canvas.height = Math.round(cssHeight * ratio);
+    ctx.setTransform(ratio, 0, 0, ratio, 0, 0);
+  }
+
+  window.addEventListener('resize', resize);
+  queueMicrotask(resize);
+  return {
+    canvas,
+    ctx,
+    size: () => ({ w: canvas.clientWidth, h: canvas.clientHeight }),
+  };
+}
+
+function createHud(mount) {
+  const element = document.createElement('div');
+  element.className = 'orrery-hud';
+  mount.appendChild(element);
+  return { set: (text) => { element.textContent = text; } };
+}
+
+const P = {
+  beta: 0.45,
+  cg: 165,
+  cadence: 0.32,
+  showCone: true,
+  frontLife: 6.4,
+};
+
+const wrap = document.getElementById('wrap');
+const regime = document.getElementById('regime');
+const surface = createCanvas2D({
+  mount: wrap,
+  height: window.innerWidth <= 660 ? 490 : 640,
+});
+const hud = createHud(wrap);
+
+let sourceX = 0;
+let emissionClock = 0;
+let frontSerial = 0;
+const fronts = [];
+
+function seededRandom(seed = 0x5eed1234) {
+  let state = seed >>> 0;
+  return () => {
+    state = (1664525 * state + 1013904223) >>> 0;
+    return state / 4294967296;
+  };
+}
+
+const random = seededRandom();
+const backgroundStars = Array.from({ length: 260 }, () => ({
+  x: random(),
+  y: random(),
+  depth: 0.25 + 0.75 * random(),
+  radius: 0.35 + 1.15 * random(),
+}));
+
+const bulgeStars = Array.from({ length: 190 }, () => {
+  const radius = Math.pow(random(), 1.7);
+  const angle = random() * Math.PI * 2;
+  return {
+    x: radius * Math.cos(angle),
+    y: radius * Math.sin(angle),
+    radius: 0.5 + 1.35 * random(),
+    alpha: 0.3 + 0.7 * (1 - radius),
+    warm: random() > 0.7,
+  };
+});
+
+function emitFront() {
+  fronts.push({
+    x: sourceX,
+    radius: 5,
+    age: 0,
+    serial: frontSerial++,
+  });
+}
+
+function reset() {
+  sourceX = 0;
+  emissionClock = 0;
+  frontSerial = 0;
+  fronts.length = 0;
+  emitFront();
+  loop.reset();
+  loop.renderOnce();
+}
+
+function step(dt) {
+  const galaxySpeed = P.beta * P.cg;
+  sourceX += galaxySpeed * dt;
+  emissionClock += dt;
+
+  while (emissionClock >= P.cadence) {
+    emissionClock -= P.cadence;
+    emitFront();
+  }
+
+  for (const front of fronts) {
+    front.radius += P.cg * dt;
+    front.age += dt;
+  }
+
+  while (fronts.length && fronts[0].age > P.frontLife) fronts.shift();
+}
+
+function drawBackground(ctx, w, h) {
+  const gradient = ctx.createRadialGradient(w * 0.66, h * 0.52, 0, w * 0.66, h * 0.52, h * 0.8);
+  gradient.addColorStop(0, '#0b1730');
+  gradient.addColorStop(0.48, '#071020');
+  gradient.addColorStop(1, '#030711');
+  ctx.fillStyle = gradient;
+  ctx.fillRect(0, 0, w, h);
+
+  const grid = 52;
+  const gridOffset = ((-sourceX * 0.16) % grid + grid) % grid;
+  ctx.strokeStyle = 'rgba(82, 118, 164, 0.08)';
+  ctx.lineWidth = 1;
+  for (let x = gridOffset - grid; x < w + grid; x += grid) {
+    ctx.beginPath();
+    ctx.moveTo(x, 0);
+    ctx.lineTo(x, h);
+    ctx.stroke();
+  }
+  for (let y = 26; y < h; y += grid) {
+    ctx.beginPath();
+    ctx.moveTo(0, y);
+    ctx.lineTo(w, y);
+    ctx.stroke();
+  }
+
+  const span = w + 180;
+  for (const star of backgroundStars) {
+    const travel = sourceX * (0.025 + star.depth * 0.06);
+    const x = ((star.x * span - travel) % span + span) % span - 90;
+    const y = star.y * h;
+    ctx.fillStyle = `rgba(175, 203, 235, ${0.16 + 0.42 * star.depth})`;
+    ctx.beginPath();
+    ctx.arc(x, y, star.radius, 0, Math.PI * 2);
+    ctx.fill();
+  }
+
+  ctx.fillStyle = 'rgba(133, 161, 201, 0.42)';
+  ctx.font = '10px ui-monospace, "SF Mono", Menlo, monospace';
+  ctx.fillText('SUBSTRATE REST GRID', 14, h - 16);
+}
+
+function drawArrow(ctx, x, y, length) {
+  if (length < 3) return;
+  ctx.save();
+  ctx.strokeStyle = 'rgba(255, 215, 132, 0.8)';
+  ctx.fillStyle = 'rgba(255, 215, 132, 0.8)';
+  ctx.lineWidth = 1.4;
+  ctx.beginPath();
+  ctx.moveTo(x, y);
+  ctx.lineTo(x + length, y);
+  ctx.stroke();
+  ctx.beginPath();
+  ctx.moveTo(x + length, y);
+  ctx.lineTo(x + length - 8, y - 4);
+  ctx.lineTo(x + length - 8, y + 4);
+  ctx.closePath();
+  ctx.fill();
+  ctx.fillStyle = 'rgba(255, 225, 164, 0.75)';
+  ctx.font = '10px ui-monospace, "SF Mono", Menlo, monospace';
+  ctx.fillText(`v = ${Math.round(P.beta * P.cg)} px/s`, x, y - 8);
+  ctx.restore();
+}
+
+function drawConeGuide(ctx, sourceScreenX, cy, w, h) {
+  if (!P.showCone || P.beta <= 1.001) return;
+
+  const mu = Math.asin(1 / P.beta);
+  const tangent = Math.tan(mu);
+  const maxBack = sourceScreenX + 40;
+  const back = Math.min(maxBack, (h * 0.47) / Math.max(tangent, 0.001));
+  const endX = sourceScreenX - back;
+  const dy = back * tangent;
+
+  ctx.save();
+  ctx.fillStyle = 'rgba(255, 159, 104, 0.06)';
+  ctx.strokeStyle = 'rgba(255, 173, 112, 0.7)';
+  ctx.lineWidth = 1.3;
+  ctx.setLineDash([7, 7]);
+  ctx.beginPath();
+  ctx.moveTo(sourceScreenX, cy);
+  ctx.lineTo(endX, cy - dy);
+  ctx.lineTo(endX, cy + dy);
+  ctx.closePath();
+  ctx.fill();
+  ctx.stroke();
+  ctx.setLineDash([]);
+  ctx.fillStyle = 'rgba(255, 191, 142, 0.8)';
+  ctx.font = '10px ui-monospace, "SF Mono", Menlo, monospace';
+  ctx.fillText(`cone half-angle ${Math.round(mu * 180 / Math.PI)}°`, Math.max(12, endX + 8), cy - dy - 8);
+  ctx.restore();
+}
+
+function drawFront(ctx, front, sourceScreenX, cy, w, h) {
+  const x = sourceScreenX + front.x - sourceX;
+  const r = front.radius;
+  if (x + r < -30 || x - r > w + 30 || cy + r < -30 || cy - r > h + 30) return;
+
+  const fade = Math.pow(Math.max(0, 1 - front.age / P.frontLife), 1.2);
+  const pulse = 0.76 + 0.24 * Math.sin(loop.time * 4 - front.serial * 0.7);
+
+  ctx.save();
+  ctx.globalCompositeOperation = 'lighter';
+  ctx.strokeStyle = `rgba(104, 204, 255, ${0.12 + 0.54 * fade * pulse})`;
+  ctx.lineWidth = 1.1 + 1.2 * fade;
+  ctx.shadowColor = 'rgba(82, 186, 255, 0.7)';
+  ctx.shadowBlur = 8 * fade;
+  ctx.setLineDash([Math.max(5, r * 0.025), Math.max(8, r * 0.04)]);
+  ctx.lineDashOffset = -loop.time * 18 - front.serial * 3;
+  ctx.beginPath();
+  ctx.arc(x, cy, r, 0, Math.PI * 2);
+  ctx.stroke();
+
+  if (front.serial % 2 === 0 && r > 18) {
+    ctx.strokeStyle = `rgba(151, 127, 255, ${0.08 + 0.23 * fade})`;
+    ctx.lineWidth = 0.8;
+    ctx.setLineDash([5, 10]);
+    ctx.beginPath();
+    ctx.ellipse(x, cy, r, r * 0.25, 0, 0, Math.PI * 2);
+    ctx.stroke();
+  }
+  ctx.restore();
+}
+
+function drawGalaxy(ctx, cx, cy, w) {
+  const compact = w <= 660;
+  const bulgeR = compact ? 27 : 36;
+
+  const outerGlow = ctx.createRadialGradient(cx, cy, 0, cx, cy, bulgeR * 2.8);
+  outerGlow.addColorStop(0, 'rgba(255, 238, 189, 0.72)');
+  outerGlow.addColorStop(0.18, 'rgba(255, 201, 116, 0.32)');
+  outerGlow.addColorStop(0.55, 'rgba(160, 119, 255, 0.12)');
+  outerGlow.addColorStop(1, 'rgba(92, 100, 180, 0)');
+  ctx.fillStyle = outerGlow;
+  ctx.beginPath();
+  ctx.arc(cx, cy, bulgeR * 2.8, 0, Math.PI * 2);
+  ctx.fill();
+
+  const core = ctx.createRadialGradient(cx - bulgeR * 0.18, cy - bulgeR * 0.12, 1, cx, cy, bulgeR);
+  core.addColorStop(0, '#fff9df');
+  core.addColorStop(0.2, '#ffd98d');
+  core.addColorStop(0.52, '#d89a69');
+  core.addColorStop(0.82, '#705a80');
+  core.addColorStop(1, 'rgba(49, 45, 79, 0)');
+  ctx.save();
+  ctx.translate(cx, cy);
+  ctx.scale(1, 0.84);
+  ctx.fillStyle = core;
+  ctx.beginPath();
+  ctx.arc(0, 0, bulgeR, 0, Math.PI * 2);
+  ctx.fill();
+  ctx.restore();
+
+  for (const star of bulgeStars) {
+    const x = cx + star.x * bulgeR * 1.8;
+    const y = cy + star.y * bulgeR * 1.35;
+    ctx.fillStyle = star.warm
+      ? `rgba(255, 210, 142, ${star.alpha})`
+      : `rgba(232, 237, 255, ${star.alpha})`;
+    ctx.beginPath();
+    ctx.arc(x, y, star.radius, 0, Math.PI * 2);
+    ctx.fill();
+  }
+
+  ctx.strokeStyle = 'rgba(255, 247, 221, 0.86)';
+  ctx.lineWidth = 1;
+  ctx.beginPath();
+  ctx.moveTo(cx - 5, cy);
+  ctx.lineTo(cx + 5, cy);
+  ctx.moveTo(cx, cy - 5);
+  ctx.lineTo(cx, cy + 5);
+  ctx.stroke();
+}
+
+function drawDirectionalLabels(ctx, cx, cy, w) {
+  if (P.beta < 0.025) return;
+  const compact = w <= 660;
+  const offset = compact ? 48 : 72;
+  const y = cy + (compact ? 66 : 88);
+  ctx.save();
+  ctx.font = `${compact ? 9 : 10}px ui-monospace, "SF Mono", Menlo, monospace`;
+  ctx.textAlign = 'center';
+  ctx.fillStyle = 'rgba(255, 180, 129, 0.78)';
+  ctx.fillText('TRAILING', cx - offset, y);
+  ctx.fillStyle = 'rgba(255, 209, 172, 0.56)';
+  ctx.fillText('shortcut: stronger g', cx - offset, y + 13);
+  ctx.fillStyle = 'rgba(117, 216, 255, 0.78)';
+  ctx.fillText('LEADING', cx + offset, y);
+  ctx.fillStyle = 'rgba(174, 229, 255, 0.58)';
+  ctx.fillText('shortcut: higher Φ', cx + offset, y + 13);
+  ctx.restore();
+}
+
+function updateRegime() {
+  let name;
+  let detail;
+  if (P.beta < 0.015) {
+    name = 'Stationary source';
+    detail = 'All emitted fronts remain concentric.';
+  } else if (P.beta < 0.985) {
+    name = 'Subcritical translation';
+    detail = 'The galaxy stays inside every expanding front.';
+  } else if (P.beta <= 1.015) {
+    name = 'Critical boundary';
+    detail = 'The galaxy nearly rides its own propagation front.';
+  } else {
+    const mu = Math.asin(1 / P.beta) * 180 / Math.PI;
+    name = 'Supercritical wake';
+    detail = `The galaxy outruns c_g; cone half-angle ≈ ${mu.toFixed(1)}°.`;
+  }
+  regime.innerHTML = `<strong>${name}</strong>${detail}`;
+}
+
+function render() {
+  const { ctx } = surface;
+  const { w, h } = surface.size();
+  const cx = w * (w <= 660 ? 0.61 : 0.66);
+  const cy = h * 0.50;
+
+  drawBackground(ctx, w, h);
+
+  ctx.strokeStyle = 'rgba(255, 190, 124, 0.22)';
+  ctx.lineWidth = 1;
+  ctx.setLineDash([3, 8]);
+  ctx.beginPath();
+  ctx.moveTo(0, cy);
+  ctx.lineTo(cx - 38, cy);
+  ctx.stroke();
+  ctx.setLineDash([]);
+
+  for (const front of fronts) drawFront(ctx, front, cx, cy, w, h);
+  drawConeGuide(ctx, cx, cy, w, h);
+  drawGalaxy(ctx, cx, cy, w);
+  drawDirectionalLabels(ctx, cx, cy, w);
+  drawArrow(ctx, cx - 24, cy - (w <= 660 ? 62 : 84), Math.min(122, 18 + P.beta * 66));
+
+  const speed = P.beta * P.cg;
+  hud.set(
+    `β_g = ${P.beta.toFixed(2)}   galaxy v = ${speed.toFixed(0)} px/s\n` +
+    `c_g = ${P.cg.toFixed(0)} px/s   fronts = ${fronts.length}   t = ${loop.time.toFixed(1)} s`
+  );
+  updateRegime();
+}
+
+const loop = createLoop({ step, render, dt: 1 / 120 });
+
+const controlsPanel = createPanel([
+  {
+    type: 'button',
+    key: 'play',
+    label: 'Pause',
+    onClick: (button) => {
+      button.textContent = loop.toggle() ? 'Pause' : 'Play';
+    },
+  },
+  {
+    type: 'range',
+    key: 'beta',
+    label: 'Galaxy speed',
+    min: 0,
+    max: 1.6,
+    step: 0.01,
+    value: P.beta,
+    format: (value) => `${value.toFixed(2)} c_g`,
+    onChange: (value) => { P.beta = value; },
+  },
+  {
+    type: 'range',
+    key: 'cg',
+    label: 'Propagation c_g',
+    min: 80,
+    max: 260,
+    step: 5,
+    value: P.cg,
+    format: (value) => `${value.toFixed(0)} px/s`,
+    onChange: (value) => { P.cg = value; },
+  },
+  {
+    type: 'range',
+    key: 'cadence',
+    label: 'Front cadence',
+    min: 0.16,
+    max: 0.7,
+    step: 0.01,
+    value: P.cadence,
+    format: (value) => `${value.toFixed(2)} s`,
+    onChange: (value) => { P.cadence = value; },
+  },
+  {
+    type: 'toggle',
+    key: 'cone',
+    label: 'Cone guide',
+    value: P.showCone,
+    onChange: (value) => { P.showCone = value; },
+  },
+  { type: 'button', label: 'Reset', onClick: reset },
+], { mount: document.getElementById('controls') });
+
+emitFront();
+loop.start();
+</script>
+</body>
+</html>

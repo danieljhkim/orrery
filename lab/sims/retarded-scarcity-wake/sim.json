@@ -1,0 +1,22 @@
+{
+  "slug": "retarded-scarcity-wake",
+  "title": "Retarded-Scarcity Wake",
+  "kind": "web",
+  "entry": "index.html",
+  "status": "active",
+  "created": "2026-08-07",
+  "topics": [
+    "gravity",
+    "preferred-frame",
+    "field-propagation",
+    "galaxy-dynamics",
+    "negative-control"
+  ],
+  "family": "retarded-scarcity-wake",
+  "summary": "Interactive negative-control visualization of the refuted delayed-center shortcut and the observationally inaccessible supercritical wake branch.",
+  "provenance": {
+    "almanac": "15-discussions/26-08/from-galactic-motion-to-the-moving-gravity-medium-problem.md",
+    "theory_context": "../../principia/theory/retarded-scarcity-wake.md",
+    "adjudication_context": "../../principia/theory/moving-source-field-consistency.md"
+  }
+}
