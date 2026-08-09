@@ -67,7 +67,7 @@ def coordinate_grid(size: int, dimensions: int) -> tuple[np.ndarray, ...]:
 
 def compensated_deficit(radius2: np.ndarray, core_sigma: float) -> np.ndarray:
     """Return a void core plus expelled halo with exactly zero lattice sum."""
-    # L-0005: a compensated core has no gravity monopole without an added source law.
+    # A compensated core has no gravity monopole without an added source law.
     halo_sigma = HALO_RATIO * core_sigma
     core = np.exp(-radius2 / (2.0 * core_sigma**2))
     halo = np.exp(-radius2 / (2.0 * halo_sigma**2))

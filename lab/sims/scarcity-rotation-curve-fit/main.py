@@ -265,7 +265,7 @@ def fit_yukawa_curve(
     )
     residual = observed_kms - predicted
     chi2 = float(np.sum(np.square(residual / error_kms)))
-    # L-0006: count the fitted mass normalization; it is not fixed independently.
+    # Count the fitted mass normalization; it is not fixed independently.
     parameters = 4
     dof = len(radius_kpc) - parameters
     return YukawaFit(
