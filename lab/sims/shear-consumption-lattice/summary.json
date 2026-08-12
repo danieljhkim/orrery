@@ -1,0 +1,101 @@
+{
+  "frozen_rule": {
+    "consumption": "s = n * sqrt((3/2) * e_dev:e_dev), coefficient exactly 1",
+    "core": "fixed inward substrate flux at the inner boundary",
+    "outer_boundary": "unit-density reservoir",
+    "profile_policy": "no velocity profile is imposed",
+    "radial_reduction": "s = n * abs(-du/dr + u/r) for inward speed u",
+    "transport": "nearest-neighbour Fick flux; velocity is flux divided by face area and local density"
+  },
+  "gate_results": {
+    "amplitude": {
+      "amplitudes": [
+        0.00023921747851761096,
+        0.0007990401360125543,
+        0.002411410710978408,
+        0.008211285152777623,
+        0.026315035595389048
+      ],
+      "core_fluxes": [
+        0.003,
+        0.01,
+        0.03,
+        0.1,
+        0.3
+      ],
+      "maximum_initial_condition_relative_difference": 9.645165556910432e-07,
+      "monotonic_increasing": true,
+      "passed": true
+    },
+    "attractor": {
+      "combined_numerical_error": 1.6354931017162737e-05,
+      "exponent": -0.5000149713239704,
+      "initial_condition_exponent_difference": 1.1682775694632497e-06,
+      "passed": true,
+      "regression_standard_error": 2.920820480459793e-07,
+      "resolution_exponents": [
+        -0.5000413439500825,
+        -0.5000149713239704,
+        -0.500008722878109
+      ],
+      "time_step_exponents": [
+        -0.500014676595045,
+        -0.5000149713239704,
+        -0.5000155754532981
+      ]
+    },
+    "silence": {
+      "consistent_with_zero": true,
+      "hubble_rate": 0.02,
+      "lattice_size": 17,
+      "maximum_consumption_density": 7.359808400080195e-18,
+      "maximum_over_n_abs_H": 3.6799042000400974e-16,
+      "rms_consumption_density": 5.341714971733083e-18,
+      "spacing": 0.5
+    }
+  },
+  "run_record": "runs/2026-08-12-seed-42.json",
+  "schema_version": 1,
+  "task": "ORB-10751",
+  "two_core_superposition": {
+    "amplitudes": [
+      0.910129254860185,
+      0.8486584311634179,
+      0.7604127453088776,
+      0.6501262085769746,
+      0.5388780327535058,
+      0.4614988742021442
+    ],
+    "depletions": [
+      0.0024307850891603,
+      0.0048701288803415415,
+      0.009775057235109158,
+      0.019694050741629957,
+      0.0400057310479177,
+      0.08289951307946643
+    ],
+    "modulation_fits": {
+      "ORB_10157_screening_family": {
+        "alpha": 1.071,
+        "form": "A(D) = (1-D)^1.071",
+        "log_rmse": 0.42107130465936654
+      },
+      "best_headroom_power": {
+        "alpha": 10.792460995158741,
+        "form": "A(D) = (1-D)^alpha, constrained to A(0)=1",
+        "log_rmse": 0.15769179957504248
+      },
+      "best_two_parameter_form": {
+        "beta": 0.6683278782195008,
+        "c": 6.81732335785671,
+        "form": "A(D) = 1 / (1 + c D^beta)",
+        "log_rmse": 0.030972587257596634
+      }
+    },
+    "role": "exploratory; not a predeclared gate"
+  },
+  "verdict": {
+    "apparatus_level": "all three predeclared gates pass; the two-core probe screens much more strongly than ORB-10157 over the measured range",
+    "theory_reconciliation": "deferred to kepler; principia is intentionally untouched"
+  }
+}

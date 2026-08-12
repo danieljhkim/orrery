@@ -1,0 +1,549 @@
+{
+  "apparatus": {
+    "diffusivity": 2.0,
+    "fit_radius_range": [
+      3.0,
+      20.0
+    ],
+    "primary_shells": 256,
+    "primary_time_step": 0.1,
+    "radial_domain": [
+      1.0,
+      32.0
+    ],
+    "steady_tolerance": 1e-09
+  },
+  "frozen_rule": {
+    "consumption": "s = n * sqrt((3/2) * e_dev:e_dev), coefficient exactly 1",
+    "core": "fixed inward substrate flux at the inner boundary",
+    "outer_boundary": "unit-density reservoir",
+    "profile_policy": "no velocity profile is imposed",
+    "radial_reduction": "s = n * abs(-du/dr + u/r) for inward speed u",
+    "transport": "nearest-neighbour Fick flux; velocity is flux divided by face area and local density"
+  },
+  "gates": {
+    "amplitude": {
+      "criterion": "strictly increasing exterior half-power amplitude with <1e-6 seeded-initial-condition spread",
+      "maximum_initial_condition_relative_difference": 9.645165556910432e-07,
+      "monotonic_increasing": true,
+      "passed": true,
+      "sweep": [
+        {
+          "amplitude": 0.00023921747851761096,
+          "core_flux": 0.003,
+          "flow_exponent": -0.5001901928801619,
+          "initial_condition_relative_difference": 8.079041898018825e-07,
+          "perturbed_amplitude": 0.00023921767178241413,
+          "steady_state": {
+            "core_flux": 0.003,
+            "distributed_shear_consumption": 0.5409778230851723,
+            "elapsed_time": 865.1,
+            "last_step_change_over_max_deficit": 9.993375258175566e-10,
+            "max_shell_balance_over_total_consumption": 7.026568490829887e-09,
+            "maximum_density": 0.9999987202277577,
+            "minimum_density": 0.9988939292133431,
+            "outer_reservoir_flux": 0.5439772907771736,
+            "reached": true,
+            "steps": 8651
+          }
+        },
+        {
+          "amplitude": 0.0007990401360125543,
+          "core_flux": 0.01,
+          "flow_exponent": -0.5006143180704795,
+          "initial_condition_relative_difference": 8.118683136629083e-07,
+          "perturbed_amplitude": 0.0007990407847279221,
+          "steady_state": {
+            "core_flux": 0.01,
+            "distributed_shear_consumption": 1.8056066101031898,
+            "elapsed_time": 865.7,
+            "last_step_change_over_max_deficit": 9.99874459594943e-10,
+            "max_shell_balance_over_total_consumption": 6.865130533256755e-09,
+            "maximum_density": 0.9999957285704614,
+            "minimum_density": 0.9963107098233973,
+            "outer_reservoir_flux": 1.8156048329417698,
+            "reached": true,
+            "steps": 8657
+          }
+        },
+        {
+          "amplitude": 0.002411410710978408,
+          "core_flux": 0.03,
+          "flow_exponent": -0.5018355221110629,
+          "initial_condition_relative_difference": 8.206627288651124e-07,
+          "perturbed_amplitude": 0.0024114126899333027,
+          "steady_state": {
+            "core_flux": 0.03,
+            "distributed_shear_consumption": 5.437141912095472,
+            "elapsed_time": 867.6,
+            "last_step_change_over_max_deficit": 9.98831485933075e-10,
+            "max_shell_balance_over_total_consumption": 6.832562475723159e-09,
+            "maximum_density": 0.9999871379012532,
+            "minimum_density": 0.9889114579890179,
+            "outer_reservoir_flux": 5.467136572280871,
+            "reached": true,
+            "steps": 8676
+          }
+        },
+        {
+          "amplitude": 0.008211285152777623,
+          "core_flux": 0.1,
+          "flow_exponent": -0.5062241872849895,
+          "initial_condition_relative_difference": 8.540729482757051e-07,
+          "perturbed_amplitude": 0.008211292165814142,
+          "steady_state": {
+            "core_flux": 0.1,
+            "distributed_shear_consumption": 18.3691734815256,
+            "elapsed_time": 874.3000000000001,
+            "last_step_change_over_max_deficit": 9.998077873557207e-10,
+            "max_shell_balance_over_total_consumption": 6.780842184854559e-09,
+            "maximum_density": 0.9999565490821836,
+            "minimum_density": 0.9627886078109062,
+            "outer_reservoir_flux": 18.469155506339366,
+            "reached": true,
+            "steps": 8743
+          }
+        },
+        {
+          "amplitude": 0.026315035595389048,
+          "core_flux": 0.3,
+          "flow_exponent": -0.5198809132982855,
+          "initial_condition_relative_difference": 9.645165556910432e-07,
+          "perturbed_amplitude": 0.026315060976676543,
+          "steady_state": {
+            "core_flux": 0.3,
+            "distributed_shear_consumption": 57.457494721544165,
+            "elapsed_time": 897.2,
+            "last_step_change_over_max_deficit": 9.991219348468965e-10,
+            "max_shell_balance_over_total_consumption": 6.679379565355131e-09,
+            "maximum_density": 0.9998641186517572,
+            "minimum_density": 0.8859754535702958,
+            "outer_reservoir_flux": 57.75743936434484,
+            "reached": true,
+            "steps": 8972
+          }
+        }
+      ]
+    },
+    "attractor": {
+      "combined_exponent_error": 1.6354931017162737e-05,
+      "criterion": "target -1/2 lies within two combined regression, seed, resolution, and timestep errors",
+      "initial_condition_exponent_difference": 1.1682775694632497e-06,
+      "numerical_exponent_half_range": 1.6310535986718833e-05,
+      "passed": true,
+      "primary": {
+        "core_flux": 0.0001,
+        "fixed_half_power_amplitude": 7.967114286348284e-06,
+        "fixed_half_power_relative_rmse": 8.829756250235257e-06,
+        "flow_fit": {
+          "ci95_high": -0.5000143988431562,
+          "ci95_low": -0.5000155438047846,
+          "exponent": -0.5000149713239704,
+          "intercept": -11.740157637134683,
+          "radial_decades": 0.8059334548299835,
+          "samples": 140,
+          "standard_error": 2.920820480459793e-07
+        },
+        "initial_condition": "rest",
+        "seed": 42,
+        "shells": 256,
+        "steady_state": {
+          "core_flux": 0.0001,
+          "distributed_shear_consumption": 0.018022905658463526,
+          "elapsed_time": 865.6,
+          "last_step_change_over_max_deficit": 9.939821829951055e-10,
+          "max_shell_balance_over_total_consumption": 1.9402735600037964e-08,
+          "maximum_density": 0.9999999573637174,
+          "minimum_density": 0.999963140828438,
+          "outer_reservoir_flux": 0.01812288838560704,
+          "reached": true,
+          "steps": 8656
+        },
+        "time_step": 0.1
+      },
+      "resolution_checks": [
+        {
+          "core_flux": 0.0001,
+          "fixed_half_power_amplitude": 7.994177288510292e-06,
+          "fixed_half_power_relative_rmse": 2.6148670653987807e-05,
+          "flow_fit": {
+            "ci95_high": -0.500037312038853,
+            "ci95_low": -0.5000453758613119,
+            "exponent": -0.5000413439500825,
+            "intercept": -11.736714255258342,
+            "radial_decades": 0.8104745752508442,
+            "samples": 70,
+            "standard_error": 2.0570975660386565e-06
+          },
+          "initial_condition": "rest",
+          "seed": 42,
+          "shells": 128,
+          "steady_state": {
+            "core_flux": 0.0001,
+            "distributed_shear_consumption": 0.018084029180313415,
+            "elapsed_time": 865.6,
+            "last_step_change_over_max_deficit": 9.971642621741624e-10,
+            "max_shell_balance_over_total_consumption": 1.7656632296521822e-08,
+            "maximum_density": 0.9999999144398346,
+            "minimum_density": 0.9999632584507865,
+            "outer_reservoir_flux": 0.018184011745649546,
+            "reached": true,
+            "steps": 8656
+          },
+          "time_step": 0.1
+        },
+        {
+          "core_flux": 0.0001,
+          "fixed_half_power_amplitude": 7.967114286348284e-06,
+          "fixed_half_power_relative_rmse": 8.829756250235257e-06,
+          "flow_fit": {
+            "ci95_high": -0.5000143988431562,
+            "ci95_low": -0.5000155438047846,
+            "exponent": -0.5000149713239704,
+            "intercept": -11.740157637134683,
+            "radial_decades": 0.8059334548299835,
+            "samples": 140,
+            "standard_error": 2.920820480459793e-07
+          },
+          "initial_condition": "rest",
+          "seed": 42,
+          "shells": 256,
+          "steady_state": {
+            "core_flux": 0.0001,
+            "distributed_shear_consumption": 0.018022905658463526,
+            "elapsed_time": 865.6,
+            "last_step_change_over_max_deficit": 9.939821829951055e-10,
+            "max_shell_balance_over_total_consumption": 1.9402735600037964e-08,
+            "maximum_density": 0.9999999573637174,
+            "minimum_density": 0.999963140828438,
+            "outer_reservoir_flux": 0.01812288838560704,
+            "reached": true,
+            "steps": 8656
+          },
+          "time_step": 0.1
+        },
+        {
+          "core_flux": 0.0001,
+          "fixed_half_power_amplitude": 7.960269002379774e-06,
+          "fixed_half_power_relative_rmse": 5.0508795701509874e-06,
+          "flow_fit": {
+            "ci95_high": -0.5000086703252623,
+            "ci95_low": -0.5000087754309558,
+            "exponent": -0.500008722878109,
+            "intercept": -11.74102992396762,
+            "radial_decades": 0.8194250891343668,
+            "samples": 281,
+            "standard_error": 2.681267691056508e-08
+          },
+          "initial_condition": "rest",
+          "seed": 42,
+          "shells": 512,
+          "steady_state": {
+            "core_flux": 0.0001,
+            "distributed_shear_consumption": 0.018007433435290036,
+            "elapsed_time": 866.1,
+            "last_step_change_over_max_deficit": 9.91582143991748e-10,
+            "max_shell_balance_over_total_consumption": 5.262810308118555e-08,
+            "maximum_density": 0.999999978700056,
+            "minimum_density": 0.9999630516139942,
+            "outer_reservoir_flux": 0.01810741859320966,
+            "reached": true,
+            "steps": 8661
+          },
+          "time_step": 0.1
+        }
+      ],
+      "second_initial_condition": {
+        "core_flux": 0.0001,
+        "fixed_half_power_amplitude": 7.96712060755801e-06,
+        "fixed_half_power_relative_rmse": 8.216997369248365e-06,
+        "flow_fit": {
+          "ci95_high": -0.5000131846871425,
+          "ci95_low": -0.5000144214056594,
+          "exponent": -0.500013803046401,
+          "intercept": -11.740159268261309,
+          "radial_decades": 0.8059334548299835,
+          "samples": 140,
+          "standard_error": 3.154894175957165e-07
+        },
+        "initial_condition": "perturbed",
+        "seed": 42,
+        "shells": 256,
+        "steady_state": {
+          "core_flux": 0.0001,
+          "distributed_shear_consumption": 0.01802292261740833,
+          "elapsed_time": 1428.2,
+          "last_step_change_over_max_deficit": 9.9398095942376e-10,
+          "max_shell_balance_over_total_consumption": 1.981329300853491e-08,
+          "maximum_density": 0.9999999573635949,
+          "minimum_density": 0.999963140783065,
+          "outer_reservoir_flux": 0.018122940437176115,
+          "reached": true,
+          "steps": 14282
+        },
+        "time_step": 0.1
+      },
+      "target_exponent": -0.5,
+      "time_step_checks": [
+        {
+          "core_flux": 0.0001,
+          "fixed_half_power_amplitude": 7.967115885548408e-06,
+          "fixed_half_power_relative_rmse": 8.674165088424653e-06,
+          "flow_fit": {
+            "ci95_high": -0.5000140927976332,
+            "ci95_low": -0.5000152603924567,
+            "exponent": -0.500014676595045,
+            "intercept": -11.740158047986018,
+            "radial_decades": 0.8059334548299835,
+            "samples": 140,
+            "standard_error": 2.978558223271326e-07
+          },
+          "initial_condition": "rest",
+          "seed": 42,
+          "shells": 256,
+          "steady_state": {
+            "core_flux": 0.0001,
+            "distributed_shear_consumption": 0.018022909925785393,
+            "elapsed_time": 910.4000000000001,
+            "last_step_change_over_max_deficit": 9.969939413324154e-10,
+            "max_shell_balance_over_total_consumption": 3.107104330060425e-08,
+            "maximum_density": 0.9999999573636866,
+            "minimum_density": 0.9999631408170184,
+            "outer_reservoir_flux": 0.01812290145748794,
+            "reached": true,
+            "steps": 4552
+          },
+          "time_step": 0.2
+        },
+        {
+          "core_flux": 0.0001,
+          "fixed_half_power_amplitude": 7.967114286348284e-06,
+          "fixed_half_power_relative_rmse": 8.829756250235257e-06,
+          "flow_fit": {
+            "ci95_high": -0.5000143988431562,
+            "ci95_low": -0.5000155438047846,
+            "exponent": -0.5000149713239704,
+            "intercept": -11.740157637134683,
+            "radial_decades": 0.8059334548299835,
+            "samples": 140,
+            "standard_error": 2.920820480459793e-07
+          },
+          "initial_condition": "rest",
+          "seed": 42,
+          "shells": 256,
+          "steady_state": {
+            "core_flux": 0.0001,
+            "distributed_shear_consumption": 0.018022905658463526,
+            "elapsed_time": 865.6,
+            "last_step_change_over_max_deficit": 9.939821829951055e-10,
+            "max_shell_balance_over_total_consumption": 1.9402735600037964e-08,
+            "maximum_density": 0.9999999573637174,
+            "minimum_density": 0.999963140828438,
+            "outer_reservoir_flux": 0.01812288838560704,
+            "reached": true,
+            "steps": 8656
+          },
+          "time_step": 0.1
+        },
+        {
+          "core_flux": 0.0001,
+          "fixed_half_power_amplitude": 7.967111031139698e-06,
+          "fixed_half_power_relative_rmse": 9.149993997833894e-06,
+          "flow_fit": {
+            "ci95_high": -0.5000150263475985,
+            "ci95_low": -0.5000161245589977,
+            "exponent": -0.5000155754532981,
+            "intercept": -11.740156791918462,
+            "radial_decades": 0.8059334548299835,
+            "samples": 140,
+            "standard_error": 2.8015596917862107e-07
+          },
+          "initial_condition": "rest",
+          "seed": 42,
+          "shells": 256,
+          "steady_state": {
+            "core_flux": 0.0001,
+            "distributed_shear_consumption": 0.01802289680840098,
+            "elapsed_time": 821.3000000000001,
+            "last_step_change_over_max_deficit": 9.969948857054581e-10,
+            "max_shell_balance_over_total_consumption": 1.995759270770888e-08,
+            "maximum_density": 0.9999999573637808,
+            "minimum_density": 0.9999631408519322,
+            "outer_reservoir_flux": 0.018122861439599836,
+            "reached": true,
+            "steps": 16426
+          },
+          "time_step": 0.05
+        }
+      ]
+    },
+    "silence": {
+      "consistent_with_zero": true,
+      "hubble_rate": 0.02,
+      "lattice_size": 17,
+      "maximum_consumption_density": 7.359808400080195e-18,
+      "maximum_over_n_abs_H": 3.6799042000400974e-16,
+      "rms_consumption_density": 5.341714971733083e-18,
+      "spacing": 0.5
+    }
+  },
+  "limitations": [
+    "The radial finite-volume apparatus is a spherical reduction, not a full 3-D shell tessellation.",
+    "Finite density depletion shifts the fitted exponent slightly below -1/2 at stronger core fluxes; the declared attractor comparison uses the weak-depletion primary run.",
+    "The two-core probe uses a coarse 25^3 Cartesian lattice and is exploratory rather than a gate."
+  ],
+  "schema_version": 1,
+  "seed": 42,
+  "task": "ORB-10751",
+  "two_core_superposition_probe": {
+    "apparatus": {
+      "amplitude_measurement": "paired velocity subtraction projected on the isolated target over radii 2-5",
+      "core_separation": 8.0,
+      "half_width": 12.0,
+      "lattice": "25^3 Cartesian cells with a full Dirichlet reservoir",
+      "spacing": 0.9230769230769231,
+      "target_core_rate": 0.1
+    },
+    "isolated_steady_state": {
+      "integrated_shear_consumption": 4.179709243106604,
+      "last_step_change_over_max_deficit": 9.434898707939311e-10,
+      "maximum_deficit": 0.012236594978205706,
+      "steps": 167
+    },
+    "modulation_fits": {
+      "ORB_10157_screening_family": {
+        "alpha": 1.071,
+        "form": "A(D) = (1-D)^1.071",
+        "log_rmse": 0.42107130465936654
+      },
+      "best_headroom_power": {
+        "alpha": 10.792460995158741,
+        "form": "A(D) = (1-D)^alpha, constrained to A(0)=1",
+        "log_rmse": 0.15769179957504248
+      },
+      "best_two_parameter_form": {
+        "beta": 0.6683278782195008,
+        "c": 6.81732335785671,
+        "form": "A(D) = 1 / (1 + c D^beta)",
+        "log_rmse": 0.030972587257596634
+      }
+    },
+    "role": "exploratory; not a predeclared gate",
+    "sweep": [
+      {
+        "ORB_10157_screening_amplitude": 0.9973968539911535,
+        "ambient_depletion_at_target": 0.0024307850891603,
+        "background_steady_state": {
+          "integrated_shear_consumption": 2.0865066350612995,
+          "last_step_change_over_max_deficit": 9.324584462225735e-10,
+          "maximum_deficit": 0.006112196153383373,
+          "steps": 167
+        },
+        "measured_incremental_amplitude": 0.910129254860185,
+        "measured_over_ORB_10157": 0.9125046376657786,
+        "neighbour_core_rate": 0.05,
+        "paired_steady_state": {
+          "integrated_shear_consumption": 4.728711411218496,
+          "last_step_change_over_max_deficit": 9.289654134305208e-10,
+          "maximum_deficit": 0.012787068650851875,
+          "steps": 167
+        }
+      },
+      {
+        "ORB_10157_screening_amplitude": 0.994784995108465,
+        "ambient_depletion_at_target": 0.0048701288803415415,
+        "background_steady_state": {
+          "integrated_shear_consumption": 4.179709243106605,
+          "last_step_change_over_max_deficit": 9.434897999113256e-10,
+          "maximum_deficit": 0.012236594978205704,
+          "steps": 167
+        },
+        "measured_incremental_amplitude": 0.8486584311634179,
+        "measured_over_ORB_10157": 0.8531073903772399,
+        "neighbour_core_rate": 0.1,
+        "paired_steady_state": {
+          "integrated_shear_consumption": 5.975621529942986,
+          "last_step_change_over_max_deficit": 9.389243732321794e-10,
+          "maximum_deficit": 0.014083623163438724,
+          "steps": 169
+        }
+      },
+      {
+        "ORB_10157_screening_amplitude": 0.9895345576753156,
+        "ambient_depletion_at_target": 0.009775057235109158,
+        "background_steady_state": {
+          "integrated_shear_consumption": 8.38673863310419,
+          "last_step_change_over_max_deficit": 9.666275904366228e-10,
+          "maximum_deficit": 0.024522809068349458,
+          "steps": 167
+        },
+        "measured_incremental_amplitude": 0.7604127453088776,
+        "measured_over_ORB_10157": 0.768454966439265,
+        "neighbour_core_rate": 0.2,
+        "paired_steady_state": {
+          "integrated_shear_consumption": 9.484115098426965,
+          "last_step_change_over_max_deficit": 9.504123621695585e-10,
+          "maximum_deficit": 0.025622105595351725,
+          "steps": 167
+        }
+      },
+      {
+        "ORB_10157_screening_amplitude": 0.9789225089176448,
+        "ambient_depletion_at_target": 0.019694050741629957,
+        "background_steady_state": {
+          "integrated_shear_consumption": 16.887266442643966,
+          "last_step_change_over_max_deficit": 9.150673329717255e-10,
+          "maximum_deficit": 0.04925087799690518,
+          "steps": 168
+        },
+        "measured_incremental_amplitude": 0.6501262085769746,
+        "measured_over_ORB_10157": 0.6641242822128923,
+        "neighbour_core_rate": 0.4,
+        "paired_steady_state": {
+          "integrated_shear_consumption": 17.51966979375978,
+          "last_step_change_over_max_deficit": 9.233276354483638e-10,
+          "maximum_deficit": 0.04985595224343358,
+          "steps": 167
+        }
+      },
+      {
+        "ORB_10157_screening_amplitude": 0.9572154810139305,
+        "ambient_depletion_at_target": 0.0400057310479177,
+        "background_steady_state": {
+          "integrated_shear_consumption": 34.269915121867584,
+          "last_step_change_over_max_deficit": 9.261549466378324e-10,
+          "maximum_deficit": 0.09938275579544777,
+          "steps": 169
+        },
+        "measured_incremental_amplitude": 0.5388780327535058,
+        "measured_over_ORB_10157": 0.5629641845979123,
+        "neighbour_core_rate": 0.8,
+        "paired_steady_state": {
+          "integrated_shear_consumption": 34.629467634673155,
+          "last_step_change_over_max_deficit": 9.421070511527482e-10,
+          "maximum_deficit": 0.09969142749207596,
+          "steps": 168
+        }
+      },
+      {
+        "ORB_10157_screening_amplitude": 0.9114829004357472,
+        "ambient_depletion_at_target": 0.08289951307946643,
+        "background_steady_state": {
+          "integrated_shear_consumption": 70.92438187623728,
+          "last_step_change_over_max_deficit": 9.29453597708998e-10,
+          "maximum_deficit": 0.20288761977977793,
+          "steps": 172
+        },
+        "measured_incremental_amplitude": 0.4614988742021442,
+        "measured_over_ORB_10157": 0.5063165463460896,
+        "neighbour_core_rate": 1.6,
+        "paired_steady_state": {
+          "integrated_shear_consumption": 71.15150951366616,
+          "last_step_change_over_max_deficit": 9.96793301612242e-10,
+          "maximum_deficit": 0.20308502437173687,
+          "steps": 171
+        }
+      }
+    ]
+  }
+}
