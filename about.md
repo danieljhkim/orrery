@@ -5,7 +5,7 @@ summary: A cabinet of physics simulations — interactive canvas/three.js sims a
 status: active
 stack: JavaScript + Python
 gate: direct
-agents: faraday, kepler
+agents: "—"
 ---
 
 # orrery — codebase card
