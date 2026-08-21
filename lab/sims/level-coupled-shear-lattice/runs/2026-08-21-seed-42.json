@@ -1,0 +1,1114 @@
+{
+  "apparatus": {
+    "ORB_10751_strain_consumption_3d_sha256": "aa1155e07536c3318c0afb0baabbbf472d66658046be4d21d816f135632c8461",
+    "constants": {
+      "G": 1.0,
+      "c_squared": 1.0,
+      "seed": 42
+    },
+    "consumption": "s = n * sqrt((3/2) * e_dev:e_dev), coefficient exactly 1; radial reduction s = n*abs(-du/dr + u/r)",
+    "field": "finite-volume core draws, or N individually counted unit-core draws for composition; discrete Gauss accumulation and inward level integration with isolated Robin outer face",
+    "outer_boundary": "finite representation of rest at infinity: sigma(R)=GM/R and u(R)=sqrt(2 c^2 sigma(R))",
+    "primary": {
+      "cfl": 0.4,
+      "fit_radii_in_core_units": [
+        4.0,
+        32.0
+      ],
+      "shells": 192,
+      "steady_tolerance": 5e-07
+    },
+    "rolling_rule": "material inertial update D_-u/Dt = -c^2 d(sigma)/dr, semi-Lagrangian backtrace; no diffusive/Fick transport"
+  },
+  "gates": {
+    "composition": {
+      "amplitude_vs_count_fit": {
+        "ci95_high": 0.5000000000000021,
+        "ci95_low": 0.4999999999999943,
+        "coefficient": 1.4232050762432455,
+        "decades": 1.505149978319906,
+        "exponent": 0.4999999999999982,
+        "samples": 6,
+        "standard_error": 2.008766274113435e-15
+      },
+      "count_decades": 1.505149978319906,
+      "criterion": "A(N) exponent 1/2 inside its 95% CI and within 0.05 over at least one decade",
+      "passed": true,
+      "sweep": [
+        {
+          "composition": {
+            "fixed_packing_density_proxy_N_over_r3": 1.0,
+            "unit_cores": 1,
+            "unit_draw_strength": 1.0
+          },
+          "draw_field": {
+            "core_level_sigma_s": 1.017583929567975,
+            "draw_strength_recovered": 1.0,
+            "maximum_draw_radius": 0.0,
+            "outer_level": 0.015625,
+            "relative_draw_balance_error": 0.0,
+            "sigma_s_times_r_s": 1.017583929567975,
+            "source_cells": 1,
+            "source_model": "deterministic co-cluster of individually counted unit-core draws"
+          },
+          "flow_fit": {
+            "closure_ratio_A2_over_2c2_sigma_s_r_s": 0.9952558359999404,
+            "fixed_half_power_amplitude": 1.4232050762432513,
+            "fixed_half_power_relative_rmse": 0.00367673652872345,
+            "free_power_fit": {
+              "ci95_high": -0.5051806959861173,
+              "ci95_low": -0.5058000278788343,
+              "coefficient": 1.4420149812214291,
+              "decades": 0.8861802433346282,
+              "exponent": -0.5054903619324758,
+              "samples": 85,
+              "standard_error": 0.00015799282977474742
+            }
+          },
+          "parameters": {
+            "cfl": 0.4,
+            "core_radius": 1.0,
+            "initial_condition": "rest",
+            "mass_draw_strength": 1.0,
+            "outer_radius": 64.0,
+            "seed": 42,
+            "shells": 192,
+            "time_step": 0.0920024080068863,
+            "unit_core_count": 1
+          },
+          "steady_state": {
+            "elapsed_time": 440.8755391689992,
+            "last_max_log_density_change": 4.953619975045509e-07,
+            "last_velocity_change_over_core_speed": 1.0228778753794428e-10,
+            "max_continuity_shear_residual": 0.0059020595444395085,
+            "max_shear_consumption_density": 0.252154501669609,
+            "maximum_density": 0.9999901831226399,
+            "minimum_density": 0.8824955666834794,
+            "reached": true,
+            "steps": 4792
+          }
+        },
+        {
+          "composition": {
+            "fixed_packing_density_proxy_N_over_r3": 1.0,
+            "unit_cores": 2,
+            "unit_draw_strength": 1.0
+          },
+          "draw_field": {
+            "core_level_sigma_s": 1.6153138002621372,
+            "draw_strength_recovered": 2.0,
+            "maximum_draw_radius": 1.0302428182979988,
+            "outer_level": 0.024803141437003115,
+            "relative_draw_balance_error": 0.0,
+            "sigma_s_times_r_s": 2.0351678591359494,
+            "source_cells": 2,
+            "source_model": "deterministic co-cluster of individually counted unit-core draws"
+          },
+          "flow_fit": {
+            "closure_ratio_A2_over_2c2_sigma_s_r_s": 0.9952558359999175,
+            "fixed_half_power_amplitude": 2.0127159208614174,
+            "fixed_half_power_relative_rmse": 0.0036767365287290947,
+            "free_power_fit": {
+              "ci95_high": -0.5051806959861288,
+              "ci95_low": -0.505800027878844,
+              "coefficient": 2.0419057465335113,
+              "decades": 0.8861802433346282,
+              "exponent": -0.5054903619324864,
+              "samples": 85,
+              "standard_error": 0.0001579928297742867
+            }
+          },
+          "parameters": {
+            "cfl": 0.4,
+            "core_radius": 1.2599210498948732,
+            "initial_condition": "rest",
+            "mass_draw_strength": 2.0,
+            "outer_radius": 80.63494719327188,
+            "seed": 42,
+            "shells": 192,
+            "time_step": 0.09200240800688635,
+            "unit_core_count": 2
+          },
+          "steady_state": {
+            "elapsed_time": 440.87553916899935,
+            "last_max_log_density_change": 4.953619975323065e-07,
+            "last_velocity_change_over_core_speed": 1.0228783007802383e-10,
+            "max_continuity_shear_residual": 0.005902059544441618,
+            "max_shear_consumption_density": 0.2521545016695864,
+            "maximum_density": 0.9999901831226385,
+            "minimum_density": 0.8824955666833945,
+            "reached": true,
+            "steps": 4792
+          }
+        },
+        {
+          "composition": {
+            "fixed_packing_density_proxy_N_over_r3": 1.0000000000000002,
+            "unit_cores": 4,
+            "unit_draw_strength": 1.0
+          },
+          "draw_field": {
+            "core_level_sigma_s": 2.564150825794867,
+            "draw_strength_recovered": 4.0,
+            "maximum_draw_radius": 1.3664650373440483,
+            "outer_level": 0.03937253280921479,
+            "relative_draw_balance_error": 0.0,
+            "sigma_s_times_r_s": 4.070335718271899,
+            "source_cells": 4,
+            "source_model": "deterministic co-cluster of individually counted unit-core draws"
+          },
+          "flow_fit": {
+            "closure_ratio_A2_over_2c2_sigma_s_r_s": 0.9952558359999212,
+            "fixed_half_power_amplitude": 2.8464101524864747,
+            "fixed_half_power_relative_rmse": 0.003676736528726259,
+            "free_power_fit": {
+              "ci95_high": -0.5051806959861234,
+              "ci95_low": -0.5058000278788395,
+              "coefficient": 2.8913562841038405,
+              "decades": 0.8861802433346282,
+              "exponent": -0.5054903619324814,
+              "samples": 85,
+              "standard_error": 0.00015799282977453912
+            }
+          },
+          "parameters": {
+            "cfl": 0.4,
+            "core_radius": 1.5874010519681994,
+            "initial_condition": "rest",
+            "mass_draw_strength": 4.0,
+            "outer_radius": 101.59366732596476,
+            "seed": 42,
+            "shells": 192,
+            "time_step": 0.09200240800688633,
+            "unit_core_count": 4
+          },
+          "steady_state": {
+            "elapsed_time": 440.8755391689993,
+            "last_max_log_density_change": 4.953619971992396e-07,
+            "last_velocity_change_over_core_speed": 1.0228782323535015e-10,
+            "max_continuity_shear_residual": 0.005902059544442673,
+            "max_shear_consumption_density": 0.2521545016696066,
+            "maximum_density": 0.999990183122639,
+            "minimum_density": 0.8824955666834613,
+            "reached": true,
+            "steps": 4792
+          }
+        },
+        {
+          "composition": {
+            "fixed_packing_density_proxy_N_over_r3": 1.0,
+            "unit_cores": 8,
+            "unit_draw_strength": 1.0
+          },
+          "draw_field": {
+            "core_level_sigma_s": 4.0703357182719,
+            "draw_strength_recovered": 8.0,
+            "maximum_draw_radius": 1.7616904385259886,
+            "outer_level": 0.0625,
+            "relative_draw_balance_error": 0.0,
+            "sigma_s_times_r_s": 8.1406714365438,
+            "source_cells": 8,
+            "source_model": "deterministic co-cluster of individually counted unit-core draws"
+          },
+          "flow_fit": {
+            "closure_ratio_A2_over_2c2_sigma_s_r_s": 0.9952558359999397,
+            "fixed_half_power_amplitude": 4.02543184172288,
+            "fixed_half_power_relative_rmse": 0.003676736528723248,
+            "free_power_fit": {
+              "ci95_high": -0.5051806959861173,
+              "ci95_low": -0.5058000278788343,
+              "coefficient": 4.094185628214843,
+              "decades": 0.8861802433346282,
+              "exponent": -0.5054903619324758,
+              "samples": 85,
+              "standard_error": 0.00015799282977474417
+            }
+          },
+          "parameters": {
+            "cfl": 0.4,
+            "core_radius": 2.0,
+            "initial_condition": "rest",
+            "mass_draw_strength": 8.0,
+            "outer_radius": 128.0,
+            "seed": 42,
+            "shells": 192,
+            "time_step": 0.0920024080068863,
+            "unit_core_count": 8
+          },
+          "steady_state": {
+            "elapsed_time": 440.8755391689992,
+            "last_max_log_density_change": 4.953619975045509e-07,
+            "last_velocity_change_over_core_speed": 1.0228778753794428e-10,
+            "max_continuity_shear_residual": 0.0059020595444395085,
+            "max_shear_consumption_density": 0.252154501669609,
+            "maximum_density": 0.9999901831226399,
+            "minimum_density": 0.8824955666834794,
+            "reached": true,
+            "steps": 4792
+          }
+        },
+        {
+          "composition": {
+            "fixed_packing_density_proxy_N_over_r3": 1.0,
+            "unit_cores": 16,
+            "unit_draw_strength": 1.0
+          },
+          "draw_field": {
+            "core_level_sigma_s": 6.461255201048549,
+            "draw_strength_recovered": 16.0,
+            "maximum_draw_radius": 2.243983928507391,
+            "outer_level": 0.09921256574801246,
+            "relative_draw_balance_error": 0.0,
+            "sigma_s_times_r_s": 16.281342873087596,
+            "source_cells": 16,
+            "source_model": "deterministic co-cluster of individually counted unit-core draws"
+          },
+          "flow_fit": {
+            "closure_ratio_A2_over_2c2_sigma_s_r_s": 0.9952558359999177,
+            "fixed_half_power_amplitude": 5.69282030497294,
+            "fixed_half_power_relative_rmse": 0.0036767365287291467,
+            "free_power_fit": {
+              "ci95_high": -0.5051806959861288,
+              "ci95_low": -0.505800027878844,
+              "coefficient": 5.797402433742929,
+              "decades": 0.8861802433346282,
+              "exponent": -0.5054903619324864,
+              "samples": 85,
+              "standard_error": 0.00015799282977429179
+            }
+          },
+          "parameters": {
+            "cfl": 0.4,
+            "core_radius": 2.5198420997897464,
+            "initial_condition": "rest",
+            "mass_draw_strength": 16.0,
+            "outer_radius": 161.26989438654377,
+            "seed": 42,
+            "shells": 192,
+            "time_step": 0.09200240800688635,
+            "unit_core_count": 16
+          },
+          "steady_state": {
+            "elapsed_time": 440.87553916899935,
+            "last_max_log_density_change": 4.953619975323065e-07,
+            "last_velocity_change_over_core_speed": 1.0228783007802383e-10,
+            "max_continuity_shear_residual": 0.005902059544441618,
+            "max_shear_consumption_density": 0.2521545016695864,
+            "maximum_density": 0.9999901831226385,
+            "minimum_density": 0.8824955666833945,
+            "reached": true,
+            "steps": 4792
+          }
+        },
+        {
+          "composition": {
+            "fixed_packing_density_proxy_N_over_r3": 1.0000000000000002,
+            "unit_cores": 32,
+            "unit_draw_strength": 1.0
+          },
+          "draw_field": {
+            "core_level_sigma_s": 10.256603303179467,
+            "draw_strength_recovered": 32.0,
+            "maximum_draw_radius": 2.842361818945371,
+            "outer_level": 0.15749013123685915,
+            "relative_draw_balance_error": 0.0,
+            "sigma_s_times_r_s": 32.56268574617519,
+            "source_cells": 32,
+            "source_model": "deterministic co-cluster of individually counted unit-core draws"
+          },
+          "flow_fit": {
+            "closure_ratio_A2_over_2c2_sigma_s_r_s": 0.995255835999921,
+            "fixed_half_power_amplitude": 8.050863683445684,
+            "fixed_half_power_relative_rmse": 0.0036767365287262237,
+            "free_power_fit": {
+              "ci95_high": -0.5051806959861234,
+              "ci95_low": -0.5058000278788395,
+              "coefficient": 8.209172233702978,
+              "decades": 0.8861802433346282,
+              "exponent": -0.5054903619324814,
+              "samples": 85,
+              "standard_error": 0.00015799282977453332
+            }
+          },
+          "parameters": {
+            "cfl": 0.4,
+            "core_radius": 3.1748021039363987,
+            "initial_condition": "rest",
+            "mass_draw_strength": 32.0,
+            "outer_radius": 203.18733465192952,
+            "seed": 42,
+            "shells": 192,
+            "time_step": 0.09200240800688633,
+            "unit_core_count": 32
+          },
+          "steady_state": {
+            "elapsed_time": 440.8755391689993,
+            "last_max_log_density_change": 4.953619971992396e-07,
+            "last_velocity_change_over_core_speed": 1.0228782323535015e-10,
+            "max_continuity_shear_residual": 0.005902059544442673,
+            "max_shear_consumption_density": 0.2521545016696066,
+            "maximum_density": 0.999990183122639,
+            "minimum_density": 0.8824955666834613,
+            "reached": true,
+            "steps": 4792
+          }
+        }
+      ],
+      "verdict": "pass"
+    },
+    "convergence": {
+      "criterion": "three-rung amplitude shifts shrink with finest shift <2%, and CFL halving shifts amplitude <1%",
+      "finest_relative_amplitude_shift": 0.003180631878259915,
+      "passed": true,
+      "resolution_ladder": [
+        {
+          "draw_field": {
+            "core_level_sigma_s": 1.066862428796843,
+            "draw_strength_recovered": 1.0000000000000004,
+            "maximum_draw_radius": 1.0,
+            "outer_level": 0.015625000000000007,
+            "relative_draw_balance_error": 4.440892098500626e-16,
+            "sigma_s_times_r_s": 1.066862428796843,
+            "source_cells": 16,
+            "source_model": "16 spherical finite-volume draw cells"
+          },
+          "flow_fit": {
+            "closure_ratio_A2_over_2c2_sigma_s_r_s": 0.9600714380960783,
+            "fixed_half_power_amplitude": 1.431268071512573,
+            "fixed_half_power_relative_rmse": 0.006758647538841851,
+            "free_power_fit": {
+              "ci95_high": -0.5097786329295837,
+              "ci95_low": -0.5114097309350263,
+              "coefficient": 1.468671699006109,
+              "decades": 0.8348838822346024,
+              "exponent": -0.510594181932305,
+              "samples": 42,
+              "standard_error": 0.0004160964299598673
+            }
+          },
+          "parameters": {
+            "cfl": 0.4,
+            "core_radius": 1.0,
+            "initial_condition": "rest",
+            "mass_draw_strength": 1.0,
+            "outer_radius": 64.0,
+            "seed": 42,
+            "shells": 96,
+            "time_step": 0.17970497458075066,
+            "unit_core_count": null
+          },
+          "steady_state": {
+            "elapsed_time": 478.554347308539,
+            "last_max_log_density_change": 4.880154636233147e-07,
+            "last_velocity_change_over_core_speed": 9.797786389067697e-11,
+            "max_continuity_shear_residual": 0.010052318642868652,
+            "max_shear_consumption_density": 0.21093205643177992,
+            "maximum_density": 0.9999609128824031,
+            "minimum_density": 0.8041017456131119,
+            "reached": true,
+            "steps": 2663
+          }
+        },
+        {
+          "draw_field": {
+            "core_level_sigma_s": 1.0175839295679754,
+            "draw_strength_recovered": 1.0000000000000004,
+            "maximum_draw_radius": 1.0,
+            "outer_level": 0.015625000000000007,
+            "relative_draw_balance_error": 4.440892098500626e-16,
+            "sigma_s_times_r_s": 1.0175839295679754,
+            "source_cells": 16,
+            "source_model": "16 spherical finite-volume draw cells"
+          },
+          "flow_fit": {
+            "closure_ratio_A2_over_2c2_sigma_s_r_s": 0.9952558359999399,
+            "fixed_half_power_amplitude": 1.4232050762432513,
+            "fixed_half_power_relative_rmse": 0.0036767365287234807,
+            "free_power_fit": {
+              "ci95_high": -0.5051806959861175,
+              "ci95_low": -0.5058000278788345,
+              "coefficient": 1.44201498122143,
+              "decades": 0.8861802433346282,
+              "exponent": -0.505490361932476,
+              "samples": 85,
+              "standard_error": 0.00015799282977474788
+            }
+          },
+          "parameters": {
+            "cfl": 0.4,
+            "core_radius": 1.0,
+            "initial_condition": "rest",
+            "mass_draw_strength": 1.0,
+            "outer_radius": 64.0,
+            "seed": 42,
+            "shells": 192,
+            "time_step": 0.09200240800688629,
+            "unit_core_count": null
+          },
+          "steady_state": {
+            "elapsed_time": 440.8755391689991,
+            "last_max_log_density_change": 4.953619974212842e-07,
+            "last_velocity_change_over_core_speed": 1.0228794318471256e-10,
+            "max_continuity_shear_residual": 0.0059020595444395085,
+            "max_shear_consumption_density": 0.2521545016696088,
+            "maximum_density": 0.9999901831226399,
+            "minimum_density": 0.8824955666834786,
+            "reached": true,
+            "steps": 4792
+          }
+        },
+        {
+          "draw_field": {
+            "core_level_sigma_s": 1.0044623647282611,
+            "draw_strength_recovered": 1.0000000000000004,
+            "maximum_draw_radius": 1.0,
+            "outer_level": 0.015625000000000007,
+            "relative_draw_balance_error": 4.440892098500626e-16,
+            "sigma_s_times_r_s": 1.0044623647282611,
+            "source_cells": 16,
+            "source_model": "16 spherical finite-volume draw cells"
+          },
+          "flow_fit": {
+            "closure_ratio_A2_over_2c2_sigma_s_r_s": 1.0018738144927644,
+            "fixed_half_power_amplitude": 1.4186927368988151,
+            "fixed_half_power_relative_rmse": 0.0018401025726362341,
+            "free_power_fit": {
+              "ci95_high": -0.5026303775135973,
+              "ci95_low": -0.5028477629598721,
+              "coefficient": 1.4280268609473947,
+              "decades": 0.8982811773991798,
+              "exponent": -0.5027390702367347,
+              "samples": 171,
+              "standard_error": 5.545547098844501e-05
+            }
+          },
+          "parameters": {
+            "cfl": 0.4,
+            "core_radius": 1.0,
+            "initial_condition": "rest",
+            "mass_draw_strength": 1.0,
+            "outer_radius": 64.0,
+            "seed": 42,
+            "shells": 384,
+            "time_step": 0.04630069221749177,
+            "unit_core_count": null
+          },
+          "steady_state": {
+            "elapsed_time": 419.7620756437804,
+            "last_max_log_density_change": 4.907692729011481e-07,
+            "last_velocity_change_over_core_speed": 1.0484978350503643e-10,
+            "max_continuity_shear_residual": 0.00288179545889905,
+            "max_shear_consumption_density": 0.26092061483261475,
+            "maximum_density": 0.9999975406030548,
+            "minimum_density": 0.9373783789116705,
+            "reached": true,
+            "steps": 9066
+          }
+        }
+      ],
+      "successive_absolute_amplitude_shifts": [
+        0.008062995269321638,
+        0.004512339344436178
+      ],
+      "timestep_halving": [
+        {
+          "draw_field": {
+            "core_level_sigma_s": 1.0175839295679754,
+            "draw_strength_recovered": 1.0000000000000004,
+            "maximum_draw_radius": 1.0,
+            "outer_level": 0.015625000000000007,
+            "relative_draw_balance_error": 4.440892098500626e-16,
+            "sigma_s_times_r_s": 1.0175839295679754,
+            "source_cells": 16,
+            "source_model": "16 spherical finite-volume draw cells"
+          },
+          "flow_fit": {
+            "closure_ratio_A2_over_2c2_sigma_s_r_s": 0.9952558359999399,
+            "fixed_half_power_amplitude": 1.4232050762432513,
+            "fixed_half_power_relative_rmse": 0.0036767365287234807,
+            "free_power_fit": {
+              "ci95_high": -0.5051806959861175,
+              "ci95_low": -0.5058000278788345,
+              "coefficient": 1.44201498122143,
+              "decades": 0.8861802433346282,
+              "exponent": -0.505490361932476,
+              "samples": 85,
+              "standard_error": 0.00015799282977474788
+            }
+          },
+          "parameters": {
+            "cfl": 0.4,
+            "core_radius": 1.0,
+            "initial_condition": "rest",
+            "mass_draw_strength": 1.0,
+            "outer_radius": 64.0,
+            "seed": 42,
+            "shells": 192,
+            "time_step": 0.09200240800688629,
+            "unit_core_count": null
+          },
+          "steady_state": {
+            "elapsed_time": 440.8755391689991,
+            "last_max_log_density_change": 4.953619974212842e-07,
+            "last_velocity_change_over_core_speed": 1.0228794318471256e-10,
+            "max_continuity_shear_residual": 0.0059020595444395085,
+            "max_shear_consumption_density": 0.2521545016696088,
+            "maximum_density": 0.9999901831226399,
+            "minimum_density": 0.8824955666834786,
+            "reached": true,
+            "steps": 4792
+          }
+        },
+        {
+          "draw_field": {
+            "core_level_sigma_s": 1.0175839295679754,
+            "draw_strength_recovered": 1.0000000000000004,
+            "maximum_draw_radius": 1.0,
+            "outer_level": 0.015625000000000007,
+            "relative_draw_balance_error": 4.440892098500626e-16,
+            "sigma_s_times_r_s": 1.0175839295679754,
+            "source_cells": 16,
+            "source_model": "16 spherical finite-volume draw cells"
+          },
+          "flow_fit": {
+            "closure_ratio_A2_over_2c2_sigma_s_r_s": 0.9952558340196145,
+            "fixed_half_power_amplitude": 1.4232050748273293,
+            "fixed_half_power_relative_rmse": 0.003676735449143897,
+            "free_power_fit": {
+              "ci95_high": -0.5051806948237084,
+              "ci95_low": -0.505800026219129,
+              "coefficient": 1.4420149750339428,
+              "decades": 0.8861802433346282,
+              "exponent": -0.5054903605214187,
+              "samples": 85,
+              "standard_error": 0.00015799270291340912
+            }
+          },
+          "parameters": {
+            "cfl": 0.2,
+            "core_radius": 1.0,
+            "initial_condition": "rest",
+            "mass_draw_strength": 1.0,
+            "outer_radius": 64.0,
+            "seed": 42,
+            "shells": 192,
+            "time_step": 0.046001204003443145,
+            "unit_core_count": null
+          },
+          "steady_state": {
+            "elapsed_time": 439.4495018448924,
+            "last_max_log_density_change": 4.981365090417356e-07,
+            "last_velocity_change_over_core_speed": 1.1360875522950529e-10,
+            "max_continuity_shear_residual": 0.005902057817799178,
+            "max_shear_consumption_density": 0.25215605325227897,
+            "maximum_density": 0.9999901831226438,
+            "minimum_density": 0.8825110762150926,
+            "reached": true,
+            "steps": 9553
+          }
+        }
+      ],
+      "timestep_relative_amplitude_shift": 9.948826569839633e-10,
+      "verdict": "pass"
+    },
+    "density": {
+      "amplitude_vs_core_radius_fit": {
+        "ci95_high": 1.828512596426534e-14,
+        "ci95_low": -1.8328456565163757e-14,
+        "coefficient": 1.4232050762432407,
+        "decades": 0.6020599913279624,
+        "exponent": -2.166530044920847e-17,
+        "samples": 3,
+        "standard_error": 9.340199624854361e-15
+      },
+      "criterion": "A(r_s) exponent consistent with zero, inconsistent with -3/2, and max/min A below 1.01 for a >=4x radius span",
+      "flux_r_minus_3_over_2_revived": false,
+      "maximum_to_minimum_amplitude": 1.0000000000000113,
+      "passed": true,
+      "radius_span": 4.0,
+      "sweep": [
+        {
+          "draw_field": {
+            "core_level_sigma_s": 2.0351678591359508,
+            "draw_strength_recovered": 1.0000000000000004,
+            "maximum_draw_radius": 0.5,
+            "outer_level": 0.031250000000000014,
+            "relative_draw_balance_error": 4.440892098500626e-16,
+            "sigma_s_times_r_s": 1.0175839295679754,
+            "source_cells": 16,
+            "source_model": "16 spherical finite-volume draw cells"
+          },
+          "flow_fit": {
+            "closure_ratio_A2_over_2c2_sigma_s_r_s": 0.9952558359999177,
+            "fixed_half_power_amplitude": 1.4232050762432353,
+            "fixed_half_power_relative_rmse": 0.0036767365287283475,
+            "free_power_fit": {
+              "ci95_high": -0.5051806959861268,
+              "ci95_low": -0.5058000278788425,
+              "coefficient": 1.436537636325289,
+              "decades": 0.8861802433346282,
+              "exponent": -0.5054903619324846,
+              "samples": 85,
+              "standard_error": 0.00015799282977443046
+            }
+          },
+          "parameters": {
+            "cfl": 0.4,
+            "core_radius": 0.5,
+            "initial_condition": "rest",
+            "mass_draw_strength": 1.0,
+            "outer_radius": 32.0,
+            "seed": 42,
+            "shells": 192,
+            "time_step": 0.032527763293580404,
+            "unit_core_count": null
+          },
+          "steady_state": {
+            "elapsed_time": 155.8730417028373,
+            "last_max_log_density_change": 4.953619978653734e-07,
+            "last_velocity_change_over_core_speed": 1.0228784755230733e-10,
+            "max_continuity_shear_residual": 0.01669354530736289,
+            "max_shear_consumption_density": 0.7132006321491294,
+            "maximum_density": 0.9999901831226378,
+            "minimum_density": 0.8824955666834176,
+            "reached": true,
+            "steps": 4792
+          }
+        },
+        {
+          "draw_field": {
+            "core_level_sigma_s": 1.0175839295679754,
+            "draw_strength_recovered": 1.0000000000000004,
+            "maximum_draw_radius": 1.0,
+            "outer_level": 0.015625000000000007,
+            "relative_draw_balance_error": 4.440892098500626e-16,
+            "sigma_s_times_r_s": 1.0175839295679754,
+            "source_cells": 16,
+            "source_model": "16 spherical finite-volume draw cells"
+          },
+          "flow_fit": {
+            "closure_ratio_A2_over_2c2_sigma_s_r_s": 0.9952558359999399,
+            "fixed_half_power_amplitude": 1.4232050762432513,
+            "fixed_half_power_relative_rmse": 0.0036767365287234807,
+            "free_power_fit": {
+              "ci95_high": -0.5051806959861175,
+              "ci95_low": -0.5058000278788345,
+              "coefficient": 1.44201498122143,
+              "decades": 0.8861802433346282,
+              "exponent": -0.505490361932476,
+              "samples": 85,
+              "standard_error": 0.00015799282977474788
+            }
+          },
+          "parameters": {
+            "cfl": 0.4,
+            "core_radius": 1.0,
+            "initial_condition": "rest",
+            "mass_draw_strength": 1.0,
+            "outer_radius": 64.0,
+            "seed": 42,
+            "shells": 192,
+            "time_step": 0.09200240800688629,
+            "unit_core_count": null
+          },
+          "steady_state": {
+            "elapsed_time": 440.8755391689991,
+            "last_max_log_density_change": 4.953619974212842e-07,
+            "last_velocity_change_over_core_speed": 1.0228794318471256e-10,
+            "max_continuity_shear_residual": 0.0059020595444395085,
+            "max_shear_consumption_density": 0.2521545016696088,
+            "maximum_density": 0.9999901831226399,
+            "minimum_density": 0.8824955666834786,
+            "reached": true,
+            "steps": 4792
+          }
+        },
+        {
+          "draw_field": {
+            "core_level_sigma_s": 0.5087919647839877,
+            "draw_strength_recovered": 1.0000000000000004,
+            "maximum_draw_radius": 2.0,
+            "outer_level": 0.007812500000000003,
+            "relative_draw_balance_error": 4.440892098500626e-16,
+            "sigma_s_times_r_s": 1.0175839295679754,
+            "source_cells": 16,
+            "source_model": "16 spherical finite-volume draw cells"
+          },
+          "flow_fit": {
+            "closure_ratio_A2_over_2c2_sigma_s_r_s": 0.9952558359999177,
+            "fixed_half_power_amplitude": 1.4232050762432353,
+            "fixed_half_power_relative_rmse": 0.0036767365287283475,
+            "free_power_fit": {
+              "ci95_high": -0.5051806959861266,
+              "ci95_low": -0.5058000278788423,
+              "coefficient": 1.4475132105736346,
+              "decades": 0.8861802433346282,
+              "exponent": -0.5054903619324844,
+              "samples": 85,
+              "standard_error": 0.00015799282977443355
+            }
+          },
+          "parameters": {
+            "cfl": 0.4,
+            "core_radius": 2.0,
+            "initial_condition": "rest",
+            "mass_draw_strength": 1.0,
+            "outer_radius": 128.0,
+            "seed": 42,
+            "shells": 192,
+            "time_step": 0.26022210634864323,
+            "unit_core_count": null
+          },
+          "steady_state": {
+            "elapsed_time": 1246.9843336226984,
+            "last_max_log_density_change": 4.953619978653734e-07,
+            "last_velocity_change_over_core_speed": 1.0228784755230733e-10,
+            "max_continuity_shear_residual": 0.002086693163420361,
+            "max_shear_consumption_density": 0.08915007901864118,
+            "maximum_density": 0.9999901831226378,
+            "minimum_density": 0.8824955666834176,
+            "reached": true,
+            "steps": 4792
+          }
+        }
+      ],
+      "verdict": "pass_level_closure"
+    },
+    "frozen_rule_silence": {
+      "criterion": "copied ORB-10751 stencil returns <1e-12 on isotropic Hubble flow",
+      "maximum_consumption_density": 6.009258394948637e-18,
+      "passed": true
+    },
+    "level": {
+      "amplitude_vs_level_fit": {
+        "ci95_high": 0.5000000000000017,
+        "ci95_low": 0.4999999999999987,
+        "coefficient": 1.4108549436422815,
+        "decades": 3.0,
+        "exponent": 0.5000000000000002,
+        "samples": 4,
+        "standard_error": 7.537809229077693e-16
+      },
+      "criterion": "A^2/(2 c^2 sigma_s r_s) within 3%, amplitude-level exponent 1/2 inside its 95% CI, and rest/perturbed spread below 1%",
+      "mass_decades": 3.0,
+      "maximum_absolute_closure_ratio_error": 0.004744164000074935,
+      "passed": true,
+      "rest_vs_perturbed": {
+        "perturbed": {
+          "draw_field": {
+            "core_level_sigma_s": 1.0175839295679754,
+            "draw_strength_recovered": 1.0000000000000004,
+            "maximum_draw_radius": 1.0,
+            "outer_level": 0.015625000000000007,
+            "relative_draw_balance_error": 4.440892098500626e-16,
+            "sigma_s_times_r_s": 1.0175839295679754,
+            "source_cells": 16,
+            "source_model": "16 spherical finite-volume draw cells"
+          },
+          "flow_fit": {
+            "closure_ratio_A2_over_2c2_sigma_s_r_s": 0.9952558408565388,
+            "fixed_half_power_amplitude": 1.4232050797156932,
+            "fixed_half_power_relative_rmse": 0.0036767390224732087,
+            "free_power_fit": {
+              "ci95_high": -0.5051806989458018,
+              "ci95_low": -0.5058000317456052,
+              "coefficient": 1.442014996332664,
+              "decades": 0.8861802433346282,
+              "exponent": -0.5054903653457035,
+              "samples": 85,
+              "standard_error": 0.00015799306117433894
+            }
+          },
+          "parameters": {
+            "cfl": 0.4,
+            "core_radius": 1.0,
+            "initial_condition": "perturbed",
+            "mass_draw_strength": 1.0,
+            "outer_radius": 64.0,
+            "seed": 42,
+            "shells": 192,
+            "time_step": 0.09200240800688629,
+            "unit_core_count": null
+          },
+          "steady_state": {
+            "elapsed_time": 331.5766784568182,
+            "last_max_log_density_change": 4.991000582821314e-07,
+            "last_velocity_change_over_core_speed": 6.799872666030987e-11,
+            "max_continuity_shear_residual": 0.005902061426580951,
+            "max_shear_consumption_density": 0.2521497456087534,
+            "maximum_density": 0.999990183122637,
+            "minimum_density": 0.8824581318960281,
+            "reached": true,
+            "steps": 3604
+          }
+        },
+        "relative_amplitude_difference": 2.43987458135748e-09,
+        "rest": {
+          "draw_field": {
+            "core_level_sigma_s": 1.0175839295679754,
+            "draw_strength_recovered": 1.0000000000000004,
+            "maximum_draw_radius": 1.0,
+            "outer_level": 0.015625000000000007,
+            "relative_draw_balance_error": 4.440892098500626e-16,
+            "sigma_s_times_r_s": 1.0175839295679754,
+            "source_cells": 16,
+            "source_model": "16 spherical finite-volume draw cells"
+          },
+          "flow_fit": {
+            "closure_ratio_A2_over_2c2_sigma_s_r_s": 0.9952558359999399,
+            "fixed_half_power_amplitude": 1.4232050762432513,
+            "fixed_half_power_relative_rmse": 0.0036767365287234807,
+            "free_power_fit": {
+              "ci95_high": -0.5051806959861175,
+              "ci95_low": -0.5058000278788345,
+              "coefficient": 1.44201498122143,
+              "decades": 0.8861802433346282,
+              "exponent": -0.505490361932476,
+              "samples": 85,
+              "standard_error": 0.00015799282977474788
+            }
+          },
+          "parameters": {
+            "cfl": 0.4,
+            "core_radius": 1.0,
+            "initial_condition": "rest",
+            "mass_draw_strength": 1.0,
+            "outer_radius": 64.0,
+            "seed": 42,
+            "shells": 192,
+            "time_step": 0.09200240800688629,
+            "unit_core_count": null
+          },
+          "steady_state": {
+            "elapsed_time": 440.8755391689991,
+            "last_max_log_density_change": 4.953619974212842e-07,
+            "last_velocity_change_over_core_speed": 1.0228794318471256e-10,
+            "max_continuity_shear_residual": 0.0059020595444395085,
+            "max_shear_consumption_density": 0.2521545016696088,
+            "maximum_density": 0.9999901831226399,
+            "minimum_density": 0.8824955666834786,
+            "reached": true,
+            "steps": 4792
+          }
+        }
+      },
+      "sweep": [
+        {
+          "draw_field": {
+            "core_level_sigma_s": 0.010175839295679749,
+            "draw_strength_recovered": 0.010000000000000002,
+            "maximum_draw_radius": 1.0,
+            "outer_level": 0.00015625000000000003,
+            "relative_draw_balance_error": 1.734723475976807e-16,
+            "sigma_s_times_r_s": 0.010175839295679749,
+            "source_cells": 16,
+            "source_model": "16 spherical finite-volume draw cells"
+          },
+          "flow_fit": {
+            "closure_ratio_A2_over_2c2_sigma_s_r_s": 0.995255835999932,
+            "fixed_half_power_amplitude": 0.14232050762432452,
+            "fixed_half_power_relative_rmse": 0.0036767365287253117,
+            "free_power_fit": {
+              "ci95_high": -0.5051806959861221,
+              "ci95_low": -0.5058000278788376,
+              "coefficient": 0.14420149812214386,
+              "decades": 0.8861802433346282,
+              "exponent": -0.5054903619324799,
+              "samples": 85,
+              "standard_error": 0.00015799282977434114
+            }
+          },
+          "parameters": {
+            "cfl": 0.4,
+            "core_radius": 1.0,
+            "initial_condition": "rest",
+            "mass_draw_strength": 0.01,
+            "outer_radius": 64.0,
+            "seed": 42,
+            "shells": 192,
+            "time_step": 0.9200240800688632,
+            "unit_core_count": null
+          },
+          "steady_state": {
+            "elapsed_time": 4408.755391689992,
+            "last_max_log_density_change": 4.953619976710844e-07,
+            "last_velocity_change_over_core_speed": 1.0228784590548241e-10,
+            "max_continuity_shear_residual": 0.000590205954444159,
+            "max_shear_consumption_density": 0.025215450166959686,
+            "maximum_density": 0.9999901831226372,
+            "minimum_density": 0.8824955666834342,
+            "reached": true,
+            "steps": 4792
+          }
+        },
+        {
+          "draw_field": {
+            "core_level_sigma_s": 0.10175839295679752,
+            "draw_strength_recovered": 0.10000000000000003,
+            "maximum_draw_radius": 1.0,
+            "outer_level": 0.0015625000000000005,
+            "relative_draw_balance_error": 2.7755575615628914e-16,
+            "sigma_s_times_r_s": 0.10175839295679752,
+            "source_cells": 16,
+            "source_model": "16 spherical finite-volume draw cells"
+          },
+          "flow_fit": {
+            "closure_ratio_A2_over_2c2_sigma_s_r_s": 0.9952558359999251,
+            "fixed_half_power_amplitude": 0.45005696184422345,
+            "fixed_half_power_relative_rmse": 0.0036767365287248303,
+            "free_power_fit": {
+              "ci95_high": -0.5051806959861197,
+              "ci95_low": -0.5058000278788367,
+              "coefficient": 0.45600517607446445,
+              "decades": 0.8861802433346282,
+              "exponent": -0.5054903619324782,
+              "samples": 85,
+              "standard_error": 0.00015799282977473298
+            }
+          },
+          "parameters": {
+            "cfl": 0.4,
+            "core_radius": 1.0,
+            "initial_condition": "rest",
+            "mass_draw_strength": 0.1,
+            "outer_radius": 64.0,
+            "seed": 42,
+            "shells": 192,
+            "time_step": 0.290937159521873,
+            "unit_core_count": null
+          },
+          "steady_state": {
+            "elapsed_time": 1394.1708684288153,
+            "last_max_log_density_change": 4.953619972825063e-07,
+            "last_velocity_change_over_core_speed": 1.0228778899328628e-10,
+            "max_continuity_shear_residual": 0.0018663951046369864,
+            "max_shear_consumption_density": 0.07973825475406215,
+            "maximum_density": 0.9999901831226389,
+            "minimum_density": 0.8824955666833946,
+            "reached": true,
+            "steps": 4792
+          }
+        },
+        {
+          "draw_field": {
+            "core_level_sigma_s": 1.0175839295679754,
+            "draw_strength_recovered": 1.0000000000000004,
+            "maximum_draw_radius": 1.0,
+            "outer_level": 0.015625000000000007,
+            "relative_draw_balance_error": 4.440892098500626e-16,
+            "sigma_s_times_r_s": 1.0175839295679754,
+            "source_cells": 16,
+            "source_model": "16 spherical finite-volume draw cells"
+          },
+          "flow_fit": {
+            "closure_ratio_A2_over_2c2_sigma_s_r_s": 0.9952558359999399,
+            "fixed_half_power_amplitude": 1.4232050762432513,
+            "fixed_half_power_relative_rmse": 0.0036767365287234807,
+            "free_power_fit": {
+              "ci95_high": -0.5051806959861175,
+              "ci95_low": -0.5058000278788345,
+              "coefficient": 1.44201498122143,
+              "decades": 0.8861802433346282,
+              "exponent": -0.505490361932476,
+              "samples": 85,
+              "standard_error": 0.00015799282977474788
+            }
+          },
+          "parameters": {
+            "cfl": 0.4,
+            "core_radius": 1.0,
+            "initial_condition": "rest",
+            "mass_draw_strength": 1.0,
+            "outer_radius": 64.0,
+            "seed": 42,
+            "shells": 192,
+            "time_step": 0.09200240800688629,
+            "unit_core_count": null
+          },
+          "steady_state": {
+            "elapsed_time": 440.8755391689991,
+            "last_max_log_density_change": 4.953619974212842e-07,
+            "last_velocity_change_over_core_speed": 1.0228794318471256e-10,
+            "max_continuity_shear_residual": 0.0059020595444395085,
+            "max_shear_consumption_density": 0.2521545016696088,
+            "maximum_density": 0.9999901831226399,
+            "minimum_density": 0.8824955666834786,
+            "reached": true,
+            "steps": 4792
+          }
+        },
+        {
+          "draw_field": {
+            "core_level_sigma_s": 10.17583929567975,
+            "draw_strength_recovered": 10.000000000000004,
+            "maximum_draw_radius": 1.0,
+            "outer_level": 0.15625000000000006,
+            "relative_draw_balance_error": 3.552713678800501e-16,
+            "sigma_s_times_r_s": 10.17583929567975,
+            "source_cells": 16,
+            "source_model": "16 spherical finite-volume draw cells"
+          },
+          "flow_fit": {
+            "closure_ratio_A2_over_2c2_sigma_s_r_s": 0.9952558359999296,
+            "fixed_half_power_amplitude": 4.500569618442245,
+            "fixed_half_power_relative_rmse": 0.003676736528724743,
+            "free_power_fit": {
+              "ci95_high": -0.5051806959861208,
+              "ci95_low": -0.5058000278788369,
+              "coefficient": 4.560051760744664,
+              "decades": 0.8861802433346282,
+              "exponent": -0.5054903619324789,
+              "samples": 85,
+              "standard_error": 0.00015799282977450548
+            }
+          },
+          "parameters": {
+            "cfl": 0.4,
+            "core_radius": 1.0,
+            "initial_condition": "rest",
+            "mass_draw_strength": 10.0,
+            "outer_radius": 64.0,
+            "seed": 42,
+            "shells": 192,
+            "time_step": 0.029093715952187297,
+            "unit_core_count": null
+          },
+          "steady_state": {
+            "elapsed_time": 139.41708684288153,
+            "last_max_log_density_change": 4.953619972269951e-07,
+            "last_velocity_change_over_core_speed": 1.0228776438337137e-10,
+            "max_continuity_shear_residual": 0.018663951046368865,
+            "max_shear_consumption_density": 0.7973825475406636,
+            "maximum_density": 0.9999901831226427,
+            "minimum_density": 0.8824955666834399,
+            "reached": true,
+            "steps": 4792
+          }
+        }
+      ],
+      "verdict": "pass"
+    }
+  },
+  "limitations": [
+    "The apparatus is a spherical finite-volume reduction; the composition gate retains N unit draws and fixed packing density but coarse-grains cluster multipoles and cannot diagnose near-field core interactions.",
+    "The draw-sourced standing level is one-way coupled into momentum. Shear destruction evolves substrate density and tests steady continuity, but destroyed substrate does not alter the externally conserved draw count.",
+    "An isolated-monopole Robin face represents infinity on a finite domain. It supplies the rest-at-infinity energy reference but not a fitted exterior amplitude.",
+    "Uncertainty intervals are log-regression standard errors; the separate resolution and timestep gate quantifies numerical sensitivity and is not folded into those intervals.",
+    "This is an apparatus result only; principia theory documents are intentionally untouched."
+  ],
+  "reproducibility": {
+    "byte_identical_in_memory_rerun_verified": true,
+    "command": "uv run lab/sims/level-coupled-shear-lattice/main.py --check-determinism"
+  },
+  "run_id": "jrun-20260821-0332-3",
+  "schema_version": 1,
+  "seed": 42,
+  "task": "ORB-10932",
+  "verdict": {
+    "all_predeclared_gates_passed": true,
+    "composition_gate": "pass",
+    "density_gate": "pass_level_closure",
+    "level_gate": "pass",
+    "theory_reconciliation": "deferred to kepler; principia is intentionally untouched"
+  }
+}

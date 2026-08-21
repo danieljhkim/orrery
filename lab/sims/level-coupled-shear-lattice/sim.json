@@ -1,0 +1,28 @@
+{
+  "slug": "level-coupled-shear-lattice",
+  "title": "Level-coupled shear lattice",
+  "kind": "py",
+  "entry": "main.py",
+  "status": "active",
+  "created": "2026-08-21",
+  "topics": [
+    "gravity",
+    "gravity-as-scarcity",
+    "radial-flow",
+    "counting-lattice",
+    "inertial-flow",
+    "strain",
+    "level-matching"
+  ],
+  "family": "gravity-as-scarcity",
+  "summary": "A draw-sourced standing scarcity level drives an inertial substrate lattice with frozen coefficient-one shear destruction, testing amplitude closure, source-radius independence, and mass-additive composition.",
+  "seed": 42,
+  "provenance": {
+    "almanac": "15-discussions/26-07/gravity-as-scarcity-of-space.md",
+    "orbit_tasks": [
+      "ORB-10932"
+    ],
+    "parent_apparatus": "../shear-consumption-lattice/",
+    "theory_context": "../../principia/theory/shear-sourced-consumption.md"
+  }
+}

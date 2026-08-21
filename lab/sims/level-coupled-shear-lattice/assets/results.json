@@ -1,0 +1,116 @@
+{
+  "apparatus": {
+    "ORB_10751_strain_consumption_3d_sha256": "aa1155e07536c3318c0afb0baabbbf472d66658046be4d21d816f135632c8461",
+    "constants": {
+      "G": 1.0,
+      "c_squared": 1.0,
+      "seed": 42
+    },
+    "consumption": "s = n * sqrt((3/2) * e_dev:e_dev), coefficient exactly 1; radial reduction s = n*abs(-du/dr + u/r)",
+    "field": "finite-volume core draws, or N individually counted unit-core draws for composition; discrete Gauss accumulation and inward level integration with isolated Robin outer face",
+    "outer_boundary": "finite representation of rest at infinity: sigma(R)=GM/R and u(R)=sqrt(2 c^2 sigma(R))",
+    "primary": {
+      "cfl": 0.4,
+      "fit_radii_in_core_units": [
+        4.0,
+        32.0
+      ],
+      "shells": 192,
+      "steady_tolerance": 5e-07
+    },
+    "rolling_rule": "material inertial update D_-u/Dt = -c^2 d(sigma)/dr, semi-Lagrangian backtrace; no diffusive/Fick transport"
+  },
+  "gate_results": {
+    "composition": {
+      "amplitude_vs_count_fit": {
+        "ci95_high": 0.5000000000000021,
+        "ci95_low": 0.4999999999999943,
+        "coefficient": 1.4232050762432455,
+        "decades": 1.505149978319906,
+        "exponent": 0.4999999999999982,
+        "samples": 6,
+        "standard_error": 2.008766274113435e-15
+      },
+      "count_decades": 1.505149978319906,
+      "verdict": "pass"
+    },
+    "convergence": {
+      "cfl_values": [
+        0.4,
+        0.2
+      ],
+      "finest_relative_amplitude_shift": 0.003180631878259915,
+      "resolution_amplitudes": [
+        1.431268071512573,
+        1.4232050762432513,
+        1.4186927368988151
+      ],
+      "shells": [
+        96,
+        192,
+        384
+      ],
+      "timestep_amplitudes": [
+        1.4232050762432513,
+        1.4232050748273293
+      ],
+      "timestep_relative_amplitude_shift": 9.948826569839633e-10,
+      "verdict": "pass"
+    },
+    "density": {
+      "amplitude_vs_core_radius_fit": {
+        "ci95_high": 1.828512596426534e-14,
+        "ci95_low": -1.8328456565163757e-14,
+        "coefficient": 1.4232050762432407,
+        "decades": 0.6020599913279624,
+        "exponent": -2.166530044920847e-17,
+        "samples": 3,
+        "standard_error": 9.340199624854361e-15
+      },
+      "flux_r_minus_3_over_2_revived": false,
+      "maximum_to_minimum_amplitude": 1.0000000000000113,
+      "verdict": "pass_level_closure"
+    },
+    "frozen_rule_silence": {
+      "criterion": "copied ORB-10751 stencil returns <1e-12 on isotropic Hubble flow",
+      "maximum_consumption_density": 6.009258394948637e-18,
+      "passed": true
+    },
+    "level": {
+      "amplitude_vs_level_fit": {
+        "ci95_high": 0.5000000000000017,
+        "ci95_low": 0.4999999999999987,
+        "coefficient": 1.4108549436422815,
+        "decades": 3.0,
+        "exponent": 0.5000000000000002,
+        "samples": 4,
+        "standard_error": 7.537809229077693e-16
+      },
+      "mass_decades": 3.0,
+      "maximum_absolute_closure_ratio_error": 0.004744164000074935,
+      "rest_perturbed_relative_amplitude_difference": 2.43987458135748e-09,
+      "verdict": "pass"
+    }
+  },
+  "limitations": [
+    "The apparatus is a spherical finite-volume reduction; the composition gate retains N unit draws and fixed packing density but coarse-grains cluster multipoles and cannot diagnose near-field core interactions.",
+    "The draw-sourced standing level is one-way coupled into momentum. Shear destruction evolves substrate density and tests steady continuity, but destroyed substrate does not alter the externally conserved draw count.",
+    "An isolated-monopole Robin face represents infinity on a finite domain. It supplies the rest-at-infinity energy reference but not a fitted exterior amplitude.",
+    "Uncertainty intervals are log-regression standard errors; the separate resolution and timestep gate quantifies numerical sensitivity and is not folded into those intervals.",
+    "This is an apparatus result only; principia theory documents are intentionally untouched."
+  ],
+  "reproducibility": {
+    "byte_identical_in_memory_rerun_verified": true,
+    "command": "uv run lab/sims/level-coupled-shear-lattice/main.py --check-determinism"
+  },
+  "run_record": "runs/2026-08-21-seed-42.json",
+  "schema_version": 1,
+  "task": "ORB-10932",
+  "verdict": {
+    "all_predeclared_gates_passed": true,
+    "composition_gate": "pass",
+    "density_gate": "pass_level_closure",
+    "level_gate": "pass",
+    "theory_reconciliation": "deferred to kepler; principia is intentionally untouched"
+  }
+}
