@@ -1,0 +1,479 @@
+{
+  "apparatus": {
+    "ORB_10751_expected_stencil_sha256": "aa1155e07536c3318c0afb0baabbbf472d66658046be4d21d816f135632c8461",
+    "amplitude_measurement": "paired target stored-level gradient projected on the isolated target gradient over fixed physical radii 2-6",
+    "consumption_rule": "s=n*sqrt((3/2)*e_dev:e_dev), coefficient exactly 1",
+    "domain_half_width": 12.0,
+    "field_equation": "-discrete_laplacian(H)=Gaussian draw density; sigma=1-exp(-H) anonymous shared-capacity expectation",
+    "fixed_physical_core_sigma": 0.75,
+    "grid_sizes": [
+      25,
+      41,
+      65
+    ],
+    "implementation_choice": "full 3-D extension of ORB-10932 level coupling, rather than replacing core boundaries inside ORB-10755's flux-relaxation solver",
+    "matched_depletion_grid": [
+      0.00011583343167894163,
+      0.00028287530664427055,
+      0.0006908060820547826,
+      0.0016870084867605577,
+      0.004119821333849304,
+      0.010060961729618663,
+      0.024569742889863338,
+      0.06000144736629184,
+      0.14652874888386405,
+      0.3578359388299104,
+      0.8738664602928569
+    ],
+    "matched_grid_interpolation": "piecewise linear in log(D)-log(A) inside every rung's directly measured range",
+    "measured_stencil_sha256": "aa1155e07536c3318c0afb0baabbbf472d66658046be4d21d816f135632c8461",
+    "neighbour_position": [
+      4.0,
+      0.0,
+      0.0
+    ],
+    "no_fixed_flux_boundary": true,
+    "stencil_sha256_match": true,
+    "target_position": [
+      -4.0,
+      0.0,
+      0.0
+    ],
+    "tradeoff": "preserves genuinely nonspherical draw superposition and removes fixed-flux core data; as in ORB-10932, the conserved standing draw level is one-way coupled, so the frozen destruction stencil diagnoses substrate consumption but does not alter source counts"
+  },
+  "gates": {
+    "family": {
+      "convergence": {
+        "combined_apparatus_error": 0.0035595754988267557,
+        "consistent_with_ORB_10157_p_1_071": true,
+        "continuum_to_finest_relative_shift": 0.00047697083133683483,
+        "converged": true,
+        "criterion": "second-order-in-spacing extrapolation and finest-rung shift each differ from the finest p by below 2%; successive shifts are also reported but need not be monotone",
+        "finest_relative_shift": 0.001349939445512182,
+        "grid_sizes": [
+          25,
+          41,
+          65
+        ],
+        "parameter": "headroom exponent p",
+        "regression_standard_errors": [
+          0.003047443897755092,
+          0.0030934837281579434,
+          0.0032525996298725657
+        ],
+        "second_order_spacing_extrapolation": 1.0717360259651905,
+        "spacings": [
+          1.0,
+          0.5999999999999996,
+          0.375
+        ],
+        "successive_shift_shrinkage": false,
+        "successive_shifts": [
+          0.0006783455887124923,
+          -0.0014460889943570532
+        ],
+        "values": [
+          1.0719928262525207,
+          1.0726711718412332,
+          1.0712250828468761
+        ]
+      },
+      "decisive_threshold": "winning family log-RMSE must be at least 3x smaller; fixed ORB-10157 is a parameter check within the headroom family",
+      "finest_fit_parameters": {
+        "ORB_10157_fixed": {
+          "form": "A(D) = (1-D)^1.071",
+          "log_rmse": 0.006589385207311253,
+          "p": 1.071
+        },
+        "flux_free": {
+          "beta": 1.9999999999999998,
+          "beta_standard_error": 0.2188675306237097,
+          "c": 8.874501547087247,
+          "c_standard_error": 1.2103963410634913,
+          "form": "A(D) = 1/(1+c*D^beta)",
+          "log_rmse": 0.09488391234404946,
+          "nonanalytic_beta_below_one": false
+        },
+        "headroom_free": {
+          "form": "A(D) = (1-D)^p",
+          "log_rmse": 0.006587808022675706,
+          "p": 1.0712250828468761,
+          "p_ci95": [
+            1.0648499875723259,
+            1.0776001781214264
+          ],
+          "p_standard_error": 0.0032525996298725657
+        }
+      },
+      "fits_by_rung": [
+        {
+          "fits": {
+            "ORB_10157_fixed": {
+              "form": "A(D) = (1-D)^1.071",
+              "log_rmse": 0.0062049556213379705,
+              "p": 1.071
+            },
+            "flux_free": {
+              "beta": 1.9999999999999998,
+              "beta_standard_error": 0.2201543418522714,
+              "c": 8.882920670318125,
+              "c_standard_error": 1.2190316536717165,
+              "form": "A(D) = 1/(1+c*D^beta)",
+              "log_rmse": 0.09548572606412052,
+              "nonanalytic_beta_below_one": false
+            },
+            "headroom_free": {
+              "form": "A(D) = (1-D)^p",
+              "log_rmse": 0.006172286061248701,
+              "p": 1.0719928262525207,
+              "p_ci95": [
+                1.0660198362129207,
+                1.0779658162921206
+              ],
+              "p_standard_error": 0.003047443897755092
+            }
+          },
+          "grid_size": 25
+        },
+        {
+          "fits": {
+            "ORB_10157_fixed": {
+              "form": "A(D) = (1-D)^1.071",
+              "log_rmse": 0.006356304587526813,
+              "p": 1.071
+            },
+            "flux_free": {
+              "beta": 1.9999999999999998,
+              "beta_standard_error": 0.22031426725619987,
+              "c": 8.893931018270909,
+              "c_standard_error": 1.2219055552062754,
+              "form": "A(D) = 1/(1+c*D^beta)",
+              "log_rmse": 0.09561255951658648,
+              "nonanalytic_beta_below_one": false
+            },
+            "headroom_free": {
+              "form": "A(D) = (1-D)^p",
+              "log_rmse": 0.006265535030874396,
+              "p": 1.0726711718412332,
+              "p_ci95": [
+                1.0666079437340437,
+                1.0787343999484227
+              ],
+              "p_standard_error": 0.0030934837281579434
+            }
+          },
+          "grid_size": 41
+        },
+        {
+          "fits": {
+            "ORB_10157_fixed": {
+              "form": "A(D) = (1-D)^1.071",
+              "log_rmse": 0.006589385207311253,
+              "p": 1.071
+            },
+            "flux_free": {
+              "beta": 1.9999999999999998,
+              "beta_standard_error": 0.2188675306237097,
+              "c": 8.874501547087247,
+              "c_standard_error": 1.2103963410634913,
+              "form": "A(D) = 1/(1+c*D^beta)",
+              "log_rmse": 0.09488391234404946,
+              "nonanalytic_beta_below_one": false
+            },
+            "headroom_free": {
+              "form": "A(D) = (1-D)^p",
+              "log_rmse": 0.006587808022675706,
+              "p": 1.0712250828468761,
+              "p_ci95": [
+                1.0648499875723259,
+                1.0776001781214264
+              ],
+              "p_standard_error": 0.0032525996298725657
+            }
+          },
+          "grid_size": 65
+        }
+      ],
+      "log_rmse_table": {
+        "ORB_10157_fixed": 0.006589385207311253,
+        "flux_free": 0.09488391234404946,
+        "headroom_free": 0.006587808022675706
+      },
+      "passed_closure_prediction": true,
+      "rationale": "converged headroom family is >3x better than flux in log-RMSE and p is consistent with 1.071",
+      "verdict": "confirmed"
+    },
+    "far_field_composition": {
+      "A1_squared_plus_A2_squared": 0.15873379760839587,
+      "A_pair_squared": 0.1587337976083958,
+      "combined_amplitude": 0.3984141031745686,
+      "combined_level_coefficient": 0.15873379760839582,
+      "component_amplitudes": [
+        0.2817213140750944,
+        0.28172131407509426
+      ],
+      "component_level_coefficients": [
+        0.07936689880419796,
+        0.0793668988041979
+      ],
+      "criterion": "finest-rung far-field 1/r level fits obey A_pair^2=A_1^2+A_2^2 within 1%",
+      "fit_shell_from_barycenter": [
+        8.5,
+        10.5
+      ],
+      "passed": true,
+      "relative_error": 5.245683534410855e-16,
+      "verdict": "pass"
+    },
+    "small_D_analyticity": {
+      "criterion": "on the four smallest matched D points, |d ln A/dD| stays below 2 and the smallest-D magnitude is less than twice the largest-D magnitude",
+      "depletion_points": [
+        0.00011583343167894163,
+        0.00028287530664427055,
+        0.0006908060820547826,
+        0.0016870084867605577
+      ],
+      "finite_difference_d_ln_A_d_D": [
+        -1.0063616332490775,
+        -1.0351407415974583,
+        -1.0544785259148794
+      ],
+      "passed_directional_probe": true,
+      "smallest_to_largest_D_slope_magnitude_ratio": 0.9543690160745045,
+      "verdict": "bounded_analytic_headroom_compatible"
+    }
+  },
+  "limitations": [
+    "The finite box uses a zero-level Dirichlet face as a discrete rest-at-infinity approximation; the fixed physical domain makes its bias common across the resolution ladder.",
+    "The anonymous-slot expectation is evaluated deterministically rather than sampled at finite capacity; this isolates discretization and family error from Monte Carlo shot noise.",
+    "The level-to-consumption coupling is one-way, matching ORB-10932: destroyed substrate does not erase externally conserved core draws.",
+    "The small-D gate is exploratory and uses finite differences on the four smallest matched depletion points.",
+    "This is an apparatus verdict only; principia reconciliation is deferred to kepler."
+  ],
+  "reproducibility": {
+    "byte_identical_in_memory_rerun_verified": true,
+    "command": "UV_CACHE_DIR=/tmp/orbit-uv-cache-10934 uv run lab/sims/level-core-two-core-superposition/main.py --check-determinism",
+    "random_numbers_used": false,
+    "seed": 42
+  },
+  "resolution_ladder": {
+    "convergence": {
+      "combined_apparatus_error": 0.0035595754988267557,
+      "consistent_with_ORB_10157_p_1_071": true,
+      "continuum_to_finest_relative_shift": 0.00047697083133683483,
+      "converged": true,
+      "criterion": "second-order-in-spacing extrapolation and finest-rung shift each differ from the finest p by below 2%; successive shifts are also reported but need not be monotone",
+      "finest_relative_shift": 0.001349939445512182,
+      "grid_sizes": [
+        25,
+        41,
+        65
+      ],
+      "parameter": "headroom exponent p",
+      "regression_standard_errors": [
+        0.003047443897755092,
+        0.0030934837281579434,
+        0.0032525996298725657
+      ],
+      "second_order_spacing_extrapolation": 1.0717360259651905,
+      "spacings": [
+        1.0,
+        0.5999999999999996,
+        0.375
+      ],
+      "successive_shift_shrinkage": false,
+      "successive_shifts": [
+        0.0006783455887124923,
+        -0.0014460889943570532
+      ],
+      "values": [
+        1.0719928262525207,
+        1.0726711718412332,
+        1.0712250828468761
+      ]
+    },
+    "core_sigma_in_cells_by_rung": [
+      0.75,
+      1.2500000000000007,
+      2.0
+    ],
+    "directly_measured_depletion_ranges": [
+      [
+        0.00011583343167894163,
+        0.8757081109985314
+      ],
+      [
+        0.00011561821819177775,
+        0.8738664602928569
+      ],
+      [
+        0.000115251506334974,
+        0.8738727287832634
+      ]
+    ],
+    "family_fits_by_rung": [
+      {
+        "fits": {
+          "ORB_10157_fixed": {
+            "form": "A(D) = (1-D)^1.071",
+            "log_rmse": 0.0062049556213379705,
+            "p": 1.071
+          },
+          "flux_free": {
+            "beta": 1.9999999999999998,
+            "beta_standard_error": 0.2201543418522714,
+            "c": 8.882920670318125,
+            "c_standard_error": 1.2190316536717165,
+            "form": "A(D) = 1/(1+c*D^beta)",
+            "log_rmse": 0.09548572606412052,
+            "nonanalytic_beta_below_one": false
+          },
+          "headroom_free": {
+            "form": "A(D) = (1-D)^p",
+            "log_rmse": 0.006172286061248701,
+            "p": 1.0719928262525207,
+            "p_ci95": [
+              1.0660198362129207,
+              1.0779658162921206
+            ],
+            "p_standard_error": 0.003047443897755092
+          }
+        },
+        "grid_size": 25
+      },
+      {
+        "fits": {
+          "ORB_10157_fixed": {
+            "form": "A(D) = (1-D)^1.071",
+            "log_rmse": 0.006356304587526813,
+            "p": 1.071
+          },
+          "flux_free": {
+            "beta": 1.9999999999999998,
+            "beta_standard_error": 0.22031426725619987,
+            "c": 8.893931018270909,
+            "c_standard_error": 1.2219055552062754,
+            "form": "A(D) = 1/(1+c*D^beta)",
+            "log_rmse": 0.09561255951658648,
+            "nonanalytic_beta_below_one": false
+          },
+          "headroom_free": {
+            "form": "A(D) = (1-D)^p",
+            "log_rmse": 0.006265535030874396,
+            "p": 1.0726711718412332,
+            "p_ci95": [
+              1.0666079437340437,
+              1.0787343999484227
+            ],
+            "p_standard_error": 0.0030934837281579434
+          }
+        },
+        "grid_size": 41
+      },
+      {
+        "fits": {
+          "ORB_10157_fixed": {
+            "form": "A(D) = (1-D)^1.071",
+            "log_rmse": 0.006589385207311253,
+            "p": 1.071
+          },
+          "flux_free": {
+            "beta": 1.9999999999999998,
+            "beta_standard_error": 0.2188675306237097,
+            "c": 8.874501547087247,
+            "c_standard_error": 1.2103963410634913,
+            "form": "A(D) = 1/(1+c*D^beta)",
+            "log_rmse": 0.09488391234404946,
+            "nonanalytic_beta_below_one": false
+          },
+          "headroom_free": {
+            "form": "A(D) = (1-D)^p",
+            "log_rmse": 0.006587808022675706,
+            "p": 1.0712250828468761,
+            "p_ci95": [
+              1.0648499875723259,
+              1.0776001781214264
+            ],
+            "p_standard_error": 0.0032525996298725657
+          }
+        },
+        "grid_size": 65
+      }
+    ],
+    "grid_sizes": [
+      25,
+      41,
+      65
+    ],
+    "matched_depletion_grid": [
+      0.00011583343167894163,
+      0.00028287530664427055,
+      0.0006908060820547826,
+      0.0016870084867605577,
+      0.004119821333849304,
+      0.010060961729618663,
+      0.024569742889863338,
+      0.06000144736629184,
+      0.14652874888386405,
+      0.3578359388299104,
+      0.8738664602928569
+    ],
+    "physical_core_sigma_by_rung": [
+      0.75,
+      0.75,
+      0.75
+    ],
+    "spacings": [
+      1.0,
+      0.5999999999999996,
+      0.375
+    ]
+  },
+  "run_record": "runs/2026-08-21-seed-42.json",
+  "schema_version": 1,
+  "separation_control": {
+    "criterion": "three fixed-draw separation points follow finest A(D) with log-RMSE below 0.08",
+    "grid_size": 65,
+    "log_rmse_against_A_of_D": 0.009246899618100608,
+    "maximum_absolute_log_residual": 0.010898115614922543,
+    "measurements": [
+      {
+        "ambient_depletion_at_target": 0.23735425062534105,
+        "core_separation": 6.0,
+        "finest_headroom_family_prediction": 0.7480683655059444,
+        "fixed_neighbour_draw_strength": 35.0,
+        "fixed_target_draw_strength": 1.0,
+        "log_residual": 0.008405039541777523,
+        "measured_incremental_amplitude": 0.7543824074128388
+      },
+      {
+        "ambient_depletion_at_target": 0.1489935527110426,
+        "core_separation": 8.0,
+        "finest_headroom_family_prediction": 0.8412833848883853,
+        "fixed_neighbour_draw_strength": 35.0,
+        "fixed_target_draw_strength": 1.0,
+        "log_residual": 0.010898115614922543,
+        "measured_incremental_amplitude": 0.8505019296254459
+      },
+      {
+        "ambient_depletion_at_target": 0.09444209606934151,
+        "core_separation": 10.0,
+        "finest_headroom_family_prediction": 0.8991819495414675,
+        "fixed_neighbour_draw_strength": 35.0,
+        "fixed_target_draw_strength": 1.0,
+        "log_residual": 0.008191571521181102,
+        "measured_incremental_amplitude": 0.9065779137196015
+      }
+    ],
+    "passed": true
+  },
+  "task": "ORB-10934",
+  "verdict": {
+    "all_three_predeclared_gates_executed": true,
+    "closure_prediction_confirmed": true,
+    "family": "confirmed",
+    "far_field_composition": "pass",
+    "small_D_analyticity": "bounded_analytic_headroom_compatible",
+    "theory_reconciliation": "deferred to kepler; principia intentionally untouched"
+  }
+}

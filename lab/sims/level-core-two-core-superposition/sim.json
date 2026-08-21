@@ -1,0 +1,24 @@
+{
+  "slug": "level-core-two-core-superposition",
+  "title": "Level-core two-core superposition",
+  "kind": "py",
+  "entry": "main.py",
+  "status": "active",
+  "created": "2026-08-21",
+  "topics": [
+    "gravity",
+    "gravity-as-scarcity",
+    "counting-lattice",
+    "level-matching",
+    "superposition",
+    "strain",
+    "resolution-convergence"
+  ],
+  "family": "gravity-as-scarcity",
+  "summary": "A full 3-D draw-sourced two-core lattice discriminates headroom and fixed-flux modulation families on a matched depletion grid while checking small-D analyticity and far-field quadrature composition.",
+  "provenance": {
+    "almanac": "15-discussions/26-07/gravity-as-scarcity-of-space.md",
+    "orbit_task": "ORB-10934",
+    "predecessors": ["ORB-10932", "ORB-10755", "ORB-10751", "ORB-10157"]
+  }
+}
