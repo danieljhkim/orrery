@@ -1,0 +1,25 @@
+{
+  "slug": "level-core-wind-tunnel",
+  "title": "Level-core wind tunnel",
+  "kind": "py",
+  "entry": "main.py",
+  "status": "active",
+  "created": "2026-08-21",
+  "topics": [
+    "gravity",
+    "gravity-as-scarcity",
+    "counting-lattice",
+    "level-matching",
+    "moving-source",
+    "preferred-frame",
+    "strain",
+    "resolution-convergence"
+  ],
+  "family": "gravity-as-scarcity",
+  "summary": "A comoving draw-sourced 3-D level core in uniform substrate wind measures Bernoulli speed isotropy, the non-boosted direction wake, momentum transport, and the no-core Galilean null.",
+  "provenance": {
+    "almanac": "15-discussions/26-08/from-galactic-motion-to-the-moving-gravity-medium-problem.md",
+    "orbit_task": "ORB-10935",
+    "predecessors": ["ORB-10934", "ORB-10932", "ORB-10755", "ORB-10751"]
+  }
+}

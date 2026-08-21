@@ -1,0 +1,947 @@
+{
+  "apparatus": {
+    "ORB_10751_expected_stencil_sha256": "aa1155e07536c3318c0afb0baabbbf472d66658046be4d21d816f135632c8461",
+    "coefficient_one_consumption_rule": "s=n*sqrt((3/2)*e_dev:e_dev)",
+    "direction_equation": "positive-x solution of |grad Phi|^2=U^2+2 sigma marched from the uniform inflow face",
+    "field_equation": "-discrete_laplacian(H)=normalized Gaussian draw; sigma=1-exp(-H); |v|^2=U^2+2 sigma",
+    "finest_v_GP_at_probe": 0.14191544994206343,
+    "fixed_domain_half_width": 12.0,
+    "fixed_physical_core_sigma": 0.75,
+    "grid_sizes": [
+      41,
+      61,
+      81
+    ],
+    "implementation_choice": "comoving source frame with uniform +x inflow; the exactly comoving elliptic level is solved once per rung and wind enters only at the outer face",
+    "measured_stencil_sha256": "aa1155e07536c3318c0afb0baabbbf472d66658046be4d21d816f135632c8461",
+    "measurement_radii": [
+      3.0,
+      5.0
+    ],
+    "no_fixed_flux_core_boundary": true,
+    "probe_radius": 5.0,
+    "stencil_sha256_match": true,
+    "tradeoff": "the downstream Hamilton-Jacobi march cleanly enforces the Bernoulli branch and exposes caustics, but only represents a single-valued positive-x potential graph; clip fractions explicitly diagnose where that steady branch does not exist",
+    "wind_ratios": [
+      0.03,
+      0.1,
+      0.3,
+      1.0
+    ],
+    "wind_speeds": [
+      0.004257463498261903,
+      0.014191544994206343,
+      0.04257463498261903,
+      0.14191544994206343
+    ]
+  },
+  "gates": {
+    "G1_speed_isotropy": {
+      "cases": [
+        {
+          "combined_apparatus_error": 0.0005755026205551734,
+          "converged": true,
+          "dipole_apparatus_error_from_finest_shift": 5.030536196728262e-17,
+          "isotropic_within_apparatus_error": true,
+          "maximum_pointwise_formula_relative_error": 2.74008452740696e-16,
+          "multipole_apparatus_errors_from_finest_shift": {
+            "l1": 1.0278424391392161e-16,
+            "l2": 0.00044006349926522446,
+            "l3": 5.996310200337259e-17
+          },
+          "normalized_dipole_magnitude": 1.7242057482661492e-16,
+          "normalized_dipole_vector": [
+            4.295959409672238e-17,
+            -1.2386013811998928e-16,
+            -1.1199104465751868e-16
+          ],
+          "normalized_speed_multipoles": {
+            "l1": 0.0,
+            "l2": 7.614579397186796e-05,
+            "l3": 2.3982427607889877e-16
+          },
+          "radius": 3.0,
+          "relative_angular_speed_rms": 0.0005755026205551734,
+          "wind_ratio": 0.03,
+          "wind_speed": 0.004257463498261903
+        },
+        {
+          "combined_apparatus_error": 0.0002990133449645693,
+          "converged": true,
+          "dipole_apparatus_error_from_finest_shift": 4.105076901950016e-17,
+          "isotropic_within_apparatus_error": true,
+          "maximum_pointwise_formula_relative_error": 3.909806020749104e-16,
+          "multipole_apparatus_errors_from_finest_shift": {
+            "l1": 0.0,
+            "l2": 0.0002990133449645693,
+            "l3": 2.56692499272034e-16
+          },
+          "normalized_dipole_magnitude": 2.3001199050078167e-16,
+          "normalized_dipole_vector": [
+            1.5752545426695795e-16,
+            -1.176428733457327e-16,
+            -1.1937923346662984e-16
+          ],
+          "normalized_speed_multipoles": {
+            "l1": 0.0,
+            "l2": -9.668907931090663e-05,
+            "l3": 8.554109516557232e-17
+          },
+          "radius": 5.0,
+          "relative_angular_speed_rms": 0.00027927506757631477,
+          "wind_ratio": 0.03,
+          "wind_speed": 0.004257463498261903
+        },
+        {
+          "combined_apparatus_error": 0.0005724785322228491,
+          "converged": true,
+          "dipole_apparatus_error_from_finest_shift": 5.379959388102374e-17,
+          "isotropic_within_apparatus_error": true,
+          "maximum_pointwise_formula_relative_error": 2.7339870438948314e-16,
+          "multipole_apparatus_errors_from_finest_shift": {
+            "l1": 1.0255286059828606e-16,
+            "l2": 0.00043760134493925216,
+            "l3": 2.392873874229161e-16
+          },
+          "normalized_dipole_magnitude": 2.3587338705892017e-16,
+          "normalized_dipole_vector": [
+            1.0816122016225483e-16,
+            -1.6053929251860602e-16,
+            -1.3477589077162449e-16
+          ],
+          "normalized_speed_multipoles": {
+            "l1": -1.0255286059828606e-16,
+            "l2": 7.56600015040106e-05,
+            "l3": 3.5893501209400123e-16
+          },
+          "radius": 3.0,
+          "relative_angular_speed_rms": 0.0005724785322228491,
+          "wind_ratio": 0.1,
+          "wind_speed": 0.014191544994206343
+        },
+        {
+          "combined_apparatus_error": 0.0002971683845821714,
+          "converged": true,
+          "dipole_apparatus_error_from_finest_shift": 5.964873010565427e-17,
+          "isotropic_within_apparatus_error": true,
+          "maximum_pointwise_formula_relative_error": 1.9460763422524598e-16,
+          "multipole_apparatus_errors_from_finest_shift": {
+            "l1": 1.460083785223101e-16,
+            "l2": 0.0002971683845821714,
+            "l3": 2.5546384006153185e-16
+          },
+          "normalized_dipole_magnitude": 7.615803887950474e-17,
+          "normalized_dipole_vector": [
+            -2.394973500576861e-17,
+            -6.921188300774203e-17,
+            2.088473915681608e-17
+          ],
+          "normalized_speed_multipoles": {
+            "l1": 0.0,
+            "l2": -9.589051994645417e-05,
+            "l3": 2.5546384006153185e-16
+          },
+          "radius": 5.0,
+          "relative_angular_speed_rms": 0.0002761830513388914,
+          "wind_ratio": 0.1,
+          "wind_speed": 0.014191544994206343
+        },
+        {
+          "combined_apparatus_error": 0.0005472848997775234,
+          "converged": true,
+          "dipole_apparatus_error_from_finest_shift": 4.728593193286989e-17,
+          "isotropic_within_apparatus_error": true,
+          "maximum_pointwise_formula_relative_error": 2.682078268694163e-16,
+          "multipole_apparatus_errors_from_finest_shift": {
+            "l1": 1.006036994992086e-16,
+            "l2": 0.00041702477870185863,
+            "l3": 2.3474524242881347e-16
+          },
+          "normalized_dipole_magnitude": 1.724191420271576e-16,
+          "normalized_dipole_vector": [
+            -1.3361428839738641e-17,
+            -1.2801427778073124e-16,
+            -1.1472653329121176e-16
+          ],
+          "normalized_speed_multipoles": {
+            "l1": -1.006036994992086e-16,
+            "l2": 7.162099648328498e-05,
+            "l3": 1.1737098274907669e-16
+          },
+          "radius": 3.0,
+          "relative_angular_speed_rms": 0.0005472848997775234,
+          "wind_ratio": 0.3,
+          "wind_speed": 0.04257463498261903
+        },
+        {
+          "combined_apparatus_error": 0.00028169086320520824,
+          "converged": true,
+          "dipole_apparatus_error_from_finest_shift": 4.6680124270371853e-17,
+          "isotropic_within_apparatus_error": true,
+          "maximum_pointwise_formula_relative_error": 3.7465998095268524e-16,
+          "multipole_apparatus_errors_from_finest_shift": {
+            "l1": 0.0,
+            "l2": 0.00028169086320520824,
+            "l3": 1.6396487023943927e-16
+          },
+          "normalized_dipole_magnitude": 1.8182747501254912e-16,
+          "normalized_dipole_vector": [
+            7.190518820426643e-17,
+            -1.670011718408249e-16,
+            -1.2178598192993599e-18
+          ],
+          "normalized_speed_multipoles": {
+            "l1": 0.0,
+            "l2": -8.940195326596025e-05,
+            "l3": 0.0
+          },
+          "radius": 5.0,
+          "relative_angular_speed_rms": 0.0002519022752461333,
+          "wind_ratio": 0.3,
+          "wind_speed": 0.04257463498261903
+        },
+        {
+          "combined_apparatus_error": 0.00036862272436300316,
+          "converged": true,
+          "dipole_apparatus_error_from_finest_shift": 8.754388635929424e-17,
+          "isotropic_within_apparatus_error": true,
+          "maximum_pointwise_formula_relative_error": 2.2445609709198345e-16,
+          "multipole_apparatus_errors_from_finest_shift": {
+            "l1": 1.6835374988486152e-16,
+            "l2": 0.00026923010360682263,
+            "l3": 1.1123712478638626e-20
+          },
+          "normalized_dipole_magnitude": 1.316991970619927e-16,
+          "normalized_dipole_vector": [
+            2.3018417802127e-18,
+            -8.261967818263442e-17,
+            -1.0253472001322465e-16
+          ],
+          "normalized_speed_multipoles": {
+            "l1": 0.0,
+            "l2": 4.377990531643548e-05,
+            "l3": 1.9642383191148375e-16
+          },
+          "radius": 3.0,
+          "relative_angular_speed_rms": 0.00036862272436300316,
+          "wind_ratio": 1.0,
+          "wind_speed": 0.14191544994206343
+        },
+        {
+          "combined_apparatus_error": 0.00017301052609597993,
+          "converged": true,
+          "dipole_apparatus_error_from_finest_shift": 1.7256093713656854e-17,
+          "isotropic_within_apparatus_error": true,
+          "maximum_pointwise_formula_relative_error": 2.7658941632584067e-16,
+          "multipole_apparatus_errors_from_finest_shift": {
+            "l1": 0.0,
+            "l2": 0.00017301052609597993,
+            "l3": 2.4204710732808373e-16
+          },
+          "normalized_dipole_magnitude": 2.653629380762604e-16,
+          "normalized_dipole_vector": [
+            1.8597624597592544e-16,
+            -1.4667407634702617e-16,
+            -1.1965383472715792e-16
+          ],
+          "normalized_speed_multipoles": {
+            "l1": 0.0,
+            "l2": -5.055974671071501e-05,
+            "l3": 1.2101286593640464e-16
+          },
+          "radius": 5.0,
+          "relative_angular_speed_rms": 0.0001308197591722624,
+          "wind_ratio": 1.0,
+          "wind_speed": 0.14191544994206343
+        }
+      ],
+      "criterion": "every U/r shell has finest multipole shift <1%, pointwise Bernoulli error <1e-12, and speed dipole no larger than combined lattice/angular apparatus error",
+      "passed": true,
+      "verdict": "pass"
+    },
+    "G2_wake_structure": {
+      "cases": [
+        {
+          "actual_nx_multipoles": {
+            "l0": 0.378850041016957,
+            "l1": -0.5107019213319172,
+            "l2": 0.17727947679037726,
+            "l3": 0.02874579519101832
+          },
+          "actual_radial_component_multipoles": {
+            "l0": -0.8030717802518945,
+            "l1": 0.24943316127351134,
+            "l2": 0.1669444767455469,
+            "l3": 0.2505824765396544
+          },
+          "aft_mean_nx": 0.9663481833951653,
+          "comparator_nx_multipoles": {
+            "l0": 0.014040729250744954,
+            "l1": -0.9996281537773279,
+            "l2": -0.014082803903829808,
+            "l3": -0.0031837463817188383
+          },
+          "converged": true,
+          "finest_shift_error": {
+            "fore_minus_aft_nx": 0.0710186029658545,
+            "rms_angle_radians": 0.011553313556801004
+          },
+          "fore_mean_nx": 0.107442001297349,
+          "fore_minus_aft_nx": -0.8589061820978162,
+          "radius": 3.0,
+          "weighted_rms_angle_from_boosted_GP_radians": 0.6451930541305846,
+          "wind_ratio": 0.03
+        },
+        {
+          "actual_nx_multipoles": {
+            "l0": 0.3480943571893629,
+            "l1": -0.4901234335546022,
+            "l2": 0.2038694101199922,
+            "l3": -0.04462355880369207
+          },
+          "actual_radial_component_multipoles": {
+            "l0": -0.7930897634826393,
+            "l1": 0.25426347895463575,
+            "l2": 0.16414568674333635,
+            "l3": 0.16595165271154833
+          },
+          "aft_mean_nx": 0.9701265358135385,
+          "comparator_nx_multipoles": {
+            "l0": 0.020010890874193665,
+            "l1": -0.9995292523353387,
+            "l2": -0.020085567520181508,
+            "l3": -0.003929581899414572
+          },
+          "converged": true,
+          "finest_shift_error": {
+            "fore_minus_aft_nx": 0.03725376913284284,
+            "rms_angle_radians": 0.01769207455405697
+          },
+          "fore_mean_nx": 0.05016718013777691,
+          "fore_minus_aft_nx": -0.9199593556757616,
+          "radius": 5.0,
+          "weighted_rms_angle_from_boosted_GP_radians": 0.6568297761182068,
+          "wind_ratio": 0.03
+        },
+        {
+          "actual_nx_multipoles": {
+            "l0": 0.35749427143672924,
+            "l1": -0.5094228139864224,
+            "l2": 0.3518668670929197,
+            "l3": -0.009711369512268307
+          },
+          "actual_radial_component_multipoles": {
+            "l0": -0.8162655513482435,
+            "l1": 0.29819350087625074,
+            "l2": 0.2523485729038678,
+            "l3": 0.11576972278909699
+          },
+          "aft_mean_nx": 0.9675114672315028,
+          "comparator_nx_multipoles": {
+            "l0": 0.04680191952749921,
+            "l1": -0.996947083992406,
+            "l2": -0.04676279612829792,
+            "l3": -0.005860343757761607
+          },
+          "converged": true,
+          "finest_shift_error": {
+            "fore_minus_aft_nx": 0.041102139324527553,
+            "rms_angle_radians": 0.04375084342555635
+          },
+          "fore_mean_nx": 0.08626981107498974,
+          "fore_minus_aft_nx": -0.8812416561565131,
+          "radius": 3.0,
+          "weighted_rms_angle_from_boosted_GP_radians": 0.6064294285315763,
+          "wind_ratio": 0.1
+        },
+        {
+          "actual_nx_multipoles": {
+            "l0": 0.37964240321686044,
+            "l1": -0.47149454834582716,
+            "l2": 0.25915360345130956,
+            "l3": -0.11044351156961267
+          },
+          "actual_radial_component_multipoles": {
+            "l0": -0.7365498892260904,
+            "l1": 0.36327172855197354,
+            "l2": 0.17069757883781073,
+            "l3": 0.05403659670797434
+          },
+          "aft_mean_nx": 0.97162549520936,
+          "comparator_nx_multipoles": {
+            "l0": 0.0667012577085824,
+            "l1": -0.9940867483900917,
+            "l2": -0.06643060910412668,
+            "l3": -0.009337747274163921
+          },
+          "converged": true,
+          "finest_shift_error": {
+            "fore_minus_aft_nx": 0.004546831561258791,
+            "rms_angle_radians": 0.05296970588911232
+          },
+          "fore_mean_nx": 0.08755699794224281,
+          "fore_minus_aft_nx": -0.8840684972671172,
+          "radius": 5.0,
+          "weighted_rms_angle_from_boosted_GP_radians": 0.7322780855869767,
+          "wind_ratio": 0.1
+        },
+        {
+          "actual_nx_multipoles": {
+            "l0": 0.5129177122299218,
+            "l1": -0.6196752733123219,
+            "l2": -0.026636622621871303,
+            "l3": 0.2140214622067053
+          },
+          "actual_radial_component_multipoles": {
+            "l0": -0.775814652283388,
+            "l1": 0.23257991567135908,
+            "l2": 0.12193824172064674,
+            "l3": 0.21347615698319644
+          },
+          "aft_mean_nx": 0.9741729332834888,
+          "comparator_nx_multipoles": {
+            "l0": 0.1403927443364017,
+            "l1": -0.9733786383366692,
+            "l2": -0.13554481899701792,
+            "l3": -0.028430357166398666
+          },
+          "converged": true,
+          "finest_shift_error": {
+            "fore_minus_aft_nx": 0.00588544143798353,
+            "rms_angle_radians": 0.004334542619528148
+          },
+          "fore_mean_nx": 0.05097611756095028,
+          "fore_minus_aft_nx": -0.9231968157225384,
+          "radius": 3.0,
+          "weighted_rms_angle_from_boosted_GP_radians": 0.5526569729065212,
+          "wind_ratio": 0.3
+        },
+        {
+          "actual_nx_multipoles": {
+            "l0": 0.4393211840500238,
+            "l1": -0.6088064022690991,
+            "l2": 0.18468653132383978,
+            "l3": 0.20873506017174162
+          },
+          "actual_radial_component_multipoles": {
+            "l0": -0.7902488988641518,
+            "l1": 0.24975164024839766,
+            "l2": 0.20498627339689057,
+            "l3": 0.20072654358756548
+          },
+          "aft_mean_nx": 0.9796524993257193,
+          "comparator_nx_multipoles": {
+            "l0": 0.20006274216331538,
+            "l1": -0.9462419090433234,
+            "l2": -0.18554689833885385,
+            "l3": -0.0529195446423988
+          },
+          "converged": true,
+          "finest_shift_error": {
+            "fore_minus_aft_nx": 0.023744482899016983,
+            "rms_angle_radians": 0.0340838739301218
+          },
+          "fore_mean_nx": 0.06863233518659037,
+          "fore_minus_aft_nx": -0.9110201641391289,
+          "radius": 5.0,
+          "weighted_rms_angle_from_boosted_GP_radians": 0.5159308153800942,
+          "wind_ratio": 0.3
+        },
+        {
+          "actual_nx_multipoles": {
+            "l0": 0.8631998078817535,
+            "l1": -0.2005324621552716,
+            "l2": -0.09646709204351067,
+            "l3": -0.05380259966968078
+          },
+          "actual_radial_component_multipoles": {
+            "l0": -0.40441766409459906,
+            "l1": 0.6362358941196417,
+            "l2": 0.07003081534702006,
+            "l3": 0.04536370105254337
+          },
+          "aft_mean_nx": 0.9922409293025436,
+          "comparator_nx_multipoles": {
+            "l0": 0.46769110034445377,
+            "l1": -0.7052063291773454,
+            "l2": -0.271971802738534,
+            "l3": -0.16379952676528814
+          },
+          "converged": true,
+          "finest_shift_error": {
+            "fore_minus_aft_nx": 0.020049652909319926,
+            "rms_angle_radians": 0.0033425742056316654
+          },
+          "fore_mean_nx": 0.5871738773499714,
+          "fore_minus_aft_nx": -0.4050670519525722,
+          "radius": 3.0,
+          "weighted_rms_angle_from_boosted_GP_radians": 0.6476481411427824,
+          "wind_ratio": 1.0
+        },
+        {
+          "actual_nx_multipoles": {
+            "l0": 0.8895398937218721,
+            "l1": -0.18994823075897896,
+            "l2": -0.133232066089354,
+            "l3": -0.09494870746461741
+          },
+          "actual_radial_component_multipoles": {
+            "l0": -0.3433141086952787,
+            "l1": 0.6556060924607469,
+            "l2": 0.006955157003684653,
+            "l3": 0.0006590666135564242
+          },
+          "aft_mean_nx": 0.9961755729286749,
+          "comparator_nx_multipoles": {
+            "l0": 0.6670914399651253,
+            "l1": -0.3992643568028104,
+            "l2": -0.09470498535830485,
+            "l3": -0.04481832497588542
+          },
+          "converged": true,
+          "finest_shift_error": {
+            "fore_minus_aft_nx": 0.004631772476782037,
+            "rms_angle_radians": 0.010838306655224894
+          },
+          "fore_mean_nx": 0.5835714042668092,
+          "fore_minus_aft_nx": -0.41260416866186567,
+          "radius": 5.0,
+          "weighted_rms_angle_from_boosted_GP_radians": 0.4555567398642648,
+          "wind_ratio": 1.0
+        }
+      ],
+      "criterion": "finest shift in boosted-GP RMS angle and fore-aft n_x asymmetry each below 0.1",
+      "not_a_kill_gate": true,
+      "stagnation_geometry_by_wind": [
+        {
+          "actual_minimum_axis_speed": 0.004257463498261903,
+          "actual_minimum_axis_x": -12.0,
+          "actual_reason": "Bernoulli q>=U>0 forbids a stagnation point on the marched positive-x branch",
+          "actual_stagnation_points": [],
+          "boosted_GP_axis_sign_change_intervals": [
+            [
+              0.0,
+              0.29999999999999893
+            ],
+            [
+              11.7,
+              12.0
+            ]
+          ],
+          "boosted_GP_minimum_axis_speed": 0.004257463498261903,
+          "boosted_GP_minimum_axis_x": -12.0
+        },
+        {
+          "actual_minimum_axis_speed": 0.014191544994206343,
+          "actual_minimum_axis_x": -12.0,
+          "actual_reason": "Bernoulli q>=U>0 forbids a stagnation point on the marched positive-x branch",
+          "actual_stagnation_points": [],
+          "boosted_GP_axis_sign_change_intervals": [
+            [
+              0.0,
+              0.29999999999999893
+            ],
+            [
+              11.7,
+              12.0
+            ]
+          ],
+          "boosted_GP_minimum_axis_speed": 0.008490945865722636,
+          "boosted_GP_minimum_axis_x": 11.7
+        },
+        {
+          "actual_minimum_axis_speed": 0.04257463498261903,
+          "actual_minimum_axis_x": -12.0,
+          "actual_reason": "Bernoulli q>=U>0 forbids a stagnation point on the marched positive-x branch",
+          "actual_stagnation_points": [],
+          "boosted_GP_axis_sign_change_intervals": [
+            [
+              0.0,
+              0.29999999999999893
+            ],
+            [
+              10.8,
+              11.099999999999998
+            ]
+          ],
+          "boosted_GP_minimum_axis_speed": 0.0030701730075073166,
+          "boosted_GP_minimum_axis_x": 10.8
+        },
+        {
+          "actual_minimum_axis_speed": 0.14191544994206343,
+          "actual_minimum_axis_x": -12.0,
+          "actual_reason": "Bernoulli q>=U>0 forbids a stagnation point on the marched positive-x branch",
+          "actual_stagnation_points": [],
+          "boosted_GP_axis_sign_change_intervals": [
+            [
+              0.0,
+              0.29999999999999893
+            ],
+            [
+              4.800000000000001,
+              5.099999999999998
+            ]
+          ],
+          "boosted_GP_minimum_axis_speed": 0.0022912407226702847,
+          "boosted_GP_minimum_axis_x": 5.099999999999998
+        }
+      ],
+      "steady_wake_existence": [
+        {
+          "by_grid": [
+            {
+              "caustic_clip_fraction": 0.7400059488399762,
+              "grid_size": 41,
+              "inflow_face": "Phi constant on x=-L, so v=(U,0,0) where sigma=0",
+              "maximum_relative_Bernoulli_speed_error": 2.2172428784928604e-16,
+              "method": "second-order predictor-corrector positive-x Hamilton-Jacobi march; transverse gradients are limited at 0.999 q when the graph branch forms a caustic",
+              "steady_existence_criterion": "fraction of predictor/corrector transverse rates requiring q-limit clipping < 1e-4",
+              "steady_single_valued_branch_exists": false
+            },
+            {
+              "caustic_clip_fraction": 0.738305115112425,
+              "grid_size": 61,
+              "inflow_face": "Phi constant on x=-L, so v=(U,0,0) where sigma=0",
+              "maximum_relative_Bernoulli_speed_error": 2.9598493596135183e-16,
+              "method": "second-order predictor-corrector positive-x Hamilton-Jacobi march; transverse gradients are limited at 0.999 q when the graph branch forms a caustic",
+              "steady_existence_criterion": "fraction of predictor/corrector transverse rates requiring q-limit clipping < 1e-4",
+              "steady_single_valued_branch_exists": false
+            },
+            {
+              "caustic_clip_fraction": 0.7402987349489407,
+              "grid_size": 81,
+              "inflow_face": "Phi constant on x=-L, so v=(U,0,0) where sigma=0",
+              "maximum_relative_Bernoulli_speed_error": 3.0126736488520885e-16,
+              "method": "second-order predictor-corrector positive-x Hamilton-Jacobi march; transverse gradients are limited at 0.999 q when the graph branch forms a caustic",
+              "steady_existence_criterion": "fraction of predictor/corrector transverse rates requiring q-limit clipping < 1e-4",
+              "steady_single_valued_branch_exists": false
+            }
+          ],
+          "wind_ratio": 0.03
+        },
+        {
+          "by_grid": [
+            {
+              "caustic_clip_fraction": 0.7098453301606187,
+              "grid_size": 41,
+              "inflow_face": "Phi constant on x=-L, so v=(U,0,0) where sigma=0",
+              "maximum_relative_Bernoulli_speed_error": 2.2203479250194943e-16,
+              "method": "second-order predictor-corrector positive-x Hamilton-Jacobi march; transverse gradients are limited at 0.999 q when the graph branch forms a caustic",
+              "steady_existence_criterion": "fraction of predictor/corrector transverse rates requiring q-limit clipping < 1e-4",
+              "steady_single_valued_branch_exists": false
+            },
+            {
+              "caustic_clip_fraction": 0.7091462868404551,
+              "grid_size": 61,
+              "inflow_face": "Phi constant on x=-L, so v=(U,0,0) where sigma=0",
+              "maximum_relative_Bernoulli_speed_error": 2.918001244865215e-16,
+              "method": "second-order predictor-corrector positive-x Hamilton-Jacobi march; transverse gradients are limited at 0.999 q when the graph branch forms a caustic",
+              "steady_existence_criterion": "fraction of predictor/corrector transverse rates requiring q-limit clipping < 1e-4",
+              "steady_single_valued_branch_exists": false
+            },
+            {
+              "caustic_clip_fraction": 0.7133859167809785,
+              "grid_size": 81,
+              "inflow_face": "Phi constant on x=-L, so v=(U,0,0) where sigma=0",
+              "maximum_relative_Bernoulli_speed_error": 3.0529197771001727e-16,
+              "method": "second-order predictor-corrector positive-x Hamilton-Jacobi march; transverse gradients are limited at 0.999 q when the graph branch forms a caustic",
+              "steady_existence_criterion": "fraction of predictor/corrector transverse rates requiring q-limit clipping < 1e-4",
+              "steady_single_valued_branch_exists": false
+            }
+          ],
+          "wind_ratio": 0.1
+        },
+        {
+          "by_grid": [
+            {
+              "caustic_clip_fraction": 0.5722784057108864,
+              "grid_size": 41,
+              "inflow_face": "Phi constant on x=-L, so v=(U,0,0) where sigma=0",
+              "maximum_relative_Bernoulli_speed_error": 2.2185557692023878e-16,
+              "method": "second-order predictor-corrector positive-x Hamilton-Jacobi march; transverse gradients are limited at 0.999 q when the graph branch forms a caustic",
+              "steady_existence_criterion": "fraction of predictor/corrector transverse rates requiring q-limit clipping < 1e-4",
+              "steady_single_valued_branch_exists": false
+            },
+            {
+              "caustic_clip_fraction": 0.5939353220460449,
+              "grid_size": 61,
+              "inflow_face": "Phi constant on x=-L, so v=(U,0,0) where sigma=0",
+              "maximum_relative_Bernoulli_speed_error": 3.0145993436783027e-16,
+              "method": "second-order predictor-corrector positive-x Hamilton-Jacobi march; transverse gradients are limited at 0.999 q when the graph branch forms a caustic",
+              "steady_existence_criterion": "fraction of predictor/corrector transverse rates requiring q-limit clipping < 1e-4",
+              "steady_single_valued_branch_exists": false
+            },
+            {
+              "caustic_clip_fraction": 0.5730871818320378,
+              "grid_size": 81,
+              "inflow_face": "Phi constant on x=-L, so v=(U,0,0) where sigma=0",
+              "maximum_relative_Bernoulli_speed_error": 3.067009737675893e-16,
+              "method": "second-order predictor-corrector positive-x Hamilton-Jacobi march; transverse gradients are limited at 0.999 q when the graph branch forms a caustic",
+              "steady_existence_criterion": "fraction of predictor/corrector transverse rates requiring q-limit clipping < 1e-4",
+              "steady_single_valued_branch_exists": false
+            }
+          ],
+          "wind_ratio": 0.3
+        },
+        {
+          "by_grid": [
+            {
+              "caustic_clip_fraction": 0.01609161213563355,
+              "grid_size": 41,
+              "inflow_face": "Phi constant on x=-L, so v=(U,0,0) where sigma=0",
+              "maximum_relative_Bernoulli_speed_error": 2.862907710088327e-16,
+              "method": "second-order predictor-corrector positive-x Hamilton-Jacobi march; transverse gradients are limited at 0.999 q when the graph branch forms a caustic",
+              "steady_existence_criterion": "fraction of predictor/corrector transverse rates requiring q-limit clipping < 1e-4",
+              "steady_single_valued_branch_exists": false
+            },
+            {
+              "caustic_clip_fraction": 0.021212935590791005,
+              "grid_size": 61,
+              "inflow_face": "Phi constant on x=-L, so v=(U,0,0) where sigma=0",
+              "maximum_relative_Bernoulli_speed_error": 2.880898663589851e-16,
+              "method": "second-order predictor-corrector positive-x Hamilton-Jacobi march; transverse gradients are limited at 0.999 q when the graph branch forms a caustic",
+              "steady_existence_criterion": "fraction of predictor/corrector transverse rates requiring q-limit clipping < 1e-4",
+              "steady_single_valued_branch_exists": false
+            },
+            {
+              "caustic_clip_fraction": 0.027598689224203627,
+              "grid_size": 81,
+              "inflow_face": "Phi constant on x=-L, so v=(U,0,0) where sigma=0",
+              "maximum_relative_Bernoulli_speed_error": 3.124281774027248e-16,
+              "method": "second-order predictor-corrector positive-x Hamilton-Jacobi march; transverse gradients are limited at 0.999 q when the graph branch forms a caustic",
+              "steady_existence_criterion": "fraction of predictor/corrector transverse rates requiring q-limit clipping < 1e-4",
+              "steady_single_valued_branch_exists": false
+            }
+          ],
+          "wind_ratio": 1.0
+        }
+      ],
+      "verdict": "measured_converged"
+    },
+    "G3_momentum_budget": {
+      "cases": [
+        {
+          "advective_momentum_flux_x_through_control_cube": -1.5106060058120423,
+          "consumed_momentum_integral_x": 14.206946869267387,
+          "control_cube_half_width": 8.0,
+          "converged": true,
+          "core_exclusion_radius": 1.5,
+          "finest_relative_shift": {
+            "advective_momentum_flux_x_through_control_cube": 0.002797946734466154,
+            "consumed_momentum_integral_x": 0.09498381089263266
+          },
+          "flux_minus_consumed_x": -15.717552875079429,
+          "integrated_consumption": 370.55376646427914,
+          "sign_convention": "positive consumed integral removes +x wind momentum and therefore implies drag; positive surface flux is net +x advective momentum leaving the cube",
+          "wind_ratio": 0.03,
+          "wind_speed": 0.004257463498261903
+        },
+        {
+          "advective_momentum_flux_x_through_control_cube": -1.5481616218956182,
+          "consumed_momentum_integral_x": 12.163483726740107,
+          "control_cube_half_width": 8.0,
+          "converged": true,
+          "core_exclusion_radius": 1.5,
+          "finest_relative_shift": {
+            "advective_momentum_flux_x_through_control_cube": 0.008673062727781601,
+            "consumed_momentum_integral_x": 0.13783411316423202
+          },
+          "flux_minus_consumed_x": -13.711645348635725,
+          "integrated_consumption": 456.3551677876417,
+          "sign_convention": "positive consumed integral removes +x wind momentum and therefore implies drag; positive surface flux is net +x advective momentum leaving the cube",
+          "wind_ratio": 0.1,
+          "wind_speed": 0.014191544994206343
+        },
+        {
+          "advective_momentum_flux_x_through_control_cube": -2.434306902864286,
+          "consumed_momentum_integral_x": 10.747433388947236,
+          "control_cube_half_width": 8.0,
+          "converged": true,
+          "core_exclusion_radius": 1.5,
+          "finest_relative_shift": {
+            "advective_momentum_flux_x_through_control_cube": 0.0030535045583624043,
+            "consumed_momentum_integral_x": 0.15136487058900341
+          },
+          "flux_minus_consumed_x": -13.181740291811522,
+          "integrated_consumption": 310.5181302006339,
+          "sign_convention": "positive consumed integral removes +x wind momentum and therefore implies drag; positive surface flux is net +x advective momentum leaving the cube",
+          "wind_ratio": 0.3,
+          "wind_speed": 0.04257463498261903
+        },
+        {
+          "advective_momentum_flux_x_through_control_cube": -7.48836728893615,
+          "consumed_momentum_integral_x": 21.507323205994545,
+          "control_cube_half_width": 8.0,
+          "converged": true,
+          "core_exclusion_radius": 1.5,
+          "finest_relative_shift": {
+            "advective_momentum_flux_x_through_control_cube": 0.0054812990498512276,
+            "consumed_momentum_integral_x": 0.0023252470546421076
+          },
+          "flux_minus_consumed_x": -28.995690494930695,
+          "integrated_consumption": 147.35673155589916,
+          "sign_convention": "positive consumed integral removes +x wind momentum and therefore implies drag; positive surface flux is net +x advective momentum leaving the cube",
+          "wind_ratio": 1.0,
+          "wind_speed": 0.14191544994206343
+        }
+      ],
+      "criterion": "finest relative shifts of consumed +x momentum and far-surface advective flux are each below 25% for every U",
+      "implied_drag_scaling": {
+        "A": 20.298413922998808,
+        "fit_uses_all_four_winds": true,
+        "form": "|integral s v_x dV| = A U^p",
+        "p": 0.0976132058243027,
+        "sign": "drag"
+      },
+      "passed": true,
+      "verdict": "pass_converged"
+    },
+    "G4_Galilean_null": {
+      "by_rung": [
+        {
+          "apparatus_precision": 2.220446049250313e-16,
+          "grid_size": 41,
+          "measurements": [
+            {
+              "integrated_consumption": 0.0,
+              "maximum_consumption": 0.0,
+              "maximum_speed_error": 0.0,
+              "wind_speed": 0.004257463498261903
+            },
+            {
+              "integrated_consumption": 1.6965237758020977e-15,
+              "maximum_consumption": 2.742838647325548e-18,
+              "maximum_speed_error": 0.0,
+              "wind_speed": 0.014191544994206343
+            },
+            {
+              "integrated_consumption": 0.0,
+              "maximum_consumption": 0.0,
+              "maximum_speed_error": 0.0,
+              "wind_speed": 0.04257463498261903
+            },
+            {
+              "integrated_consumption": 1.3572190206416782e-14,
+              "maximum_consumption": 2.1942709178604383e-17,
+              "maximum_speed_error": 0.0,
+              "wind_speed": 0.14191544994206343
+            }
+          ],
+          "passed": true
+        },
+        {
+          "apparatus_precision": 2.220446049250313e-16,
+          "grid_size": 61,
+          "measurements": [
+            {
+              "integrated_consumption": 0.0,
+              "maximum_consumption": 0.0,
+              "maximum_speed_error": 0.0,
+              "wind_speed": 0.004257463498261903
+            },
+            {
+              "integrated_consumption": 8.858080461135967e-15,
+              "maximum_consumption": 1.0971354589302191e-17,
+              "maximum_speed_error": 0.0,
+              "wind_speed": 0.014191544994206343
+            },
+            {
+              "integrated_consumption": 4.471620326029964e-15,
+              "maximum_consumption": 1.0971354589302191e-17,
+              "maximum_speed_error": 0.0,
+              "wind_speed": 0.04257463498261903
+            },
+            {
+              "integrated_consumption": 3.5772962608239714e-14,
+              "maximum_consumption": 8.777083671441753e-17,
+              "maximum_speed_error": 0.0,
+              "wind_speed": 0.14191544994206343
+            }
+          ],
+          "passed": true
+        },
+        {
+          "apparatus_precision": 2.220446049250313e-16,
+          "grid_size": 81,
+          "measurements": [
+            {
+              "integrated_consumption": 3.310213111527983e-15,
+              "maximum_consumption": 5.485677294651096e-18,
+              "maximum_speed_error": 0.0,
+              "wind_speed": 0.004257463498261903
+            },
+            {
+              "integrated_consumption": 1.6670739165864612e-15,
+              "maximum_consumption": 5.485677294651096e-18,
+              "maximum_speed_error": 0.0,
+              "wind_speed": 0.014191544994206343
+            },
+            {
+              "integrated_consumption": 6.668295666345845e-15,
+              "maximum_consumption": 2.1942709178604383e-17,
+              "maximum_speed_error": 0.0,
+              "wind_speed": 0.04257463498261903
+            },
+            {
+              "integrated_consumption": 2.667318266538338e-14,
+              "maximum_consumption": 8.777083671441753e-17,
+              "maximum_speed_error": 0.0,
+              "wind_speed": 0.14191544994206343
+            }
+          ],
+          "passed": true
+        }
+      ],
+      "criterion": "uniform no-core wind has zero consumption and zero speed error to floating apparatus precision on every rung and U",
+      "passed": true,
+      "verdict": "pass"
+    }
+  },
+  "limitations": [
+    "The finite box uses zero-level Dirichlet faces; its common physical boundary is retained across the ladder but is not an infinite-reservoir extrapolation.",
+    "The Hamilton-Jacobi direction solver is a one-way, positive-x graph march. Low-U caustics are recorded by the clip diagnostic and mean no smooth single-valued steady branch was found by this apparatus.",
+    "The momentum surface term is the advective lattice flux only; pressure/level stress is not silently inferred, so flux-minus-consumption is reported rather than required to vanish.",
+    "The externally conserved standing draw level is one-way coupled: the frozen stencil diagnoses consumption without erasing core draw counts, matching ORB-10932/ORB-10934.",
+    "This is an apparatus verdict only; moving-source theory reconciliation belongs to kepler."
+  ],
+  "reproducibility": {
+    "byte_identical_in_memory_rerun_verified": true,
+    "command": "UV_CACHE_DIR=/tmp/orbit-uv-cache-10935 uv run lab/sims/level-core-wind-tunnel/main.py --check-determinism",
+    "random_numbers_used": false,
+    "seed": 42
+  },
+  "resolution_ladder": {
+    "convergence_criterion": "G1 finest multipole shift <1%; G2 direction shifts <0.1; G3 momentum shifts <25%; every gate records its per-case errors",
+    "core_sigma_in_cells_by_rung": [
+      1.2500000000000007,
+      1.8749999999999984,
+      2.4999999999999942
+    ],
+    "grid_sizes": [
+      41,
+      61,
+      81
+    ],
+    "physical_core_sigma_by_rung": [
+      0.75,
+      0.75,
+      0.75
+    ],
+    "spacings": [
+      0.5999999999999996,
+      0.40000000000000036,
+      0.3000000000000007
+    ]
+  },
+  "run_record": "runs/2026-08-21-seed-42.json",
+  "schema_version": 1,
+  "task": "ORB-10935",
+  "verdict": {
+    "G1": "pass",
+    "G2": "measured_converged",
+    "G3": "pass_converged",
+    "G4": "pass",
+    "all_four_predeclared_gates_executed": true,
+    "theory_reconciliation": "deferred to kepler; principia intentionally untouched"
+  }
+}
