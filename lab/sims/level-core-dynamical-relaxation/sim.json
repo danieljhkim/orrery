@@ -1,0 +1,24 @@
+{
+  "slug": "level-core-dynamical-relaxation",
+  "title": "Level-core dynamical relaxation wind tunnel",
+  "kind": "py",
+  "entry": "main.py",
+  "status": "active",
+  "created": "2026-08-21",
+  "topics": [
+    "gravity",
+    "gravity-as-scarcity",
+    "level-matching",
+    "moving-source",
+    "dynamical-relaxation",
+    "strain",
+    "resolution-convergence"
+  ],
+  "family": "gravity-as-scarcity",
+  "summary": "A deterministic initial-value wind tunnel lets the moving draw-sourced closed-system equations discover whether a steady wake and Bernoulli speed law actually emerge.",
+  "provenance": {
+    "almanac": "15-discussions/26-08/from-galactic-motion-to-the-moving-gravity-medium-problem.md",
+    "orbit_task": "ORB-10937",
+    "predecessors": ["ORB-10935", "ORB-10934", "ORB-10932", "ORB-10751"]
+  }
+}
