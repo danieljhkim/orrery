@@ -10,8 +10,9 @@ at the frozen local rate
 
 which is ``n * abs(-du/dr + u/r)`` for radial inward speed ``u``.  Semi-implicit
 steps evolve the density from either rest or a seeded perturbation to a steady
-state.  A manufactured 3-D Hubble flow tests the zero-shear limit.  A small
-3-D Cartesian companion lattice supplies the exploratory two-core probe.
+state.  A manufactured 3-D Hubble flow tests the zero-shear limit.  A 3-D
+Cartesian companion lattice supplies the resolution-converged two-core
+superposition measurement.
 
 Run with:
     uv run lab/sims/shear-consumption-lattice/main.py
@@ -43,7 +44,18 @@ PRIMARY_CORE_FLUX = 0.0001
 FIT_RADIUS_RANGE = (3.0, 20.0)
 STEADY_TOLERANCE = 1.0e-9
 MAX_RADIAL_STEPS = 20_000
-RUN_RECORD = "2026-08-12-seed-42.json"
+RUN_RECORD = "2026-08-21-seed-42.json"
+CARTESIAN_HALF_WIDTH = 12.0
+CARTESIAN_TIME_STEP = 2.0
+CARTESIAN_TOLERANCE = 1.0e-8
+CORE_SIGMA = 0.75
+TWO_CORE_GRID_SIZES = (25, 41, 65)
+TWO_CORE_TARGET_POSITION = (-4.0, 0.0, 0.0)
+TWO_CORE_NEIGHBOUR_POSITION = (4.0, 0.0, 0.0)
+TWO_CORE_TARGET_RATE = 0.1
+TWO_CORE_NEIGHBOUR_RATES = (0.1, 0.2, 0.4, 0.8, 1.6, 3.2)
+SEPARATION_CONTROL_VALUES = (6.0, 8.0, 10.0)
+SEPARATION_CONTROL_RATE = 1.6
 
 
 @dataclass(frozen=True)
@@ -301,15 +313,23 @@ def cartesian_setup(size: int, half_width: float, time_step: float) -> dict:
 
 
 def gaussian_core_source(
-    xyz: tuple[np.ndarray, ...], position: tuple[float, float, float], rate: float, spacing: float
+    xyz: tuple[np.ndarray, ...],
+    position: tuple[float, float, float],
+    rate: float,
+    spacing: float,
+    sigma: float = CORE_SIGMA,
 ) -> np.ndarray:
     radius_squared = sum((axis - center) ** 2 for axis, center in zip(xyz, position))
-    weights = np.exp(-radius_squared / (2.0 * (0.8 * spacing) ** 2))
+    # The source has a fixed physical width.  Tying sigma to the cell spacing,
+    # as the exploratory 25^3 probe did, changes the model under refinement.
+    weights = np.exp(-radius_squared / (2.0 * sigma**2))
     return rate * weights / (np.sum(weights) * spacing**3)
 
 
 def cartesian_fields(deficit: np.ndarray, spacing: float) -> tuple[np.ndarray, np.ndarray]:
     density = 1.0 - deficit
+    if not np.all(np.isfinite(density)) or float(np.min(density)) <= 0.0:
+        raise RuntimeError("Cartesian lattice reached non-positive density")
     deficit_gradient = np.gradient(deficit, spacing, edge_order=2)
     velocity = np.stack(
         [DIFFUSIVITY * component / density for component in deficit_gradient]
@@ -322,15 +342,18 @@ def run_cartesian(
     sources: list[tuple[tuple[float, float, float], float]],
     size: int = 25,
     half_width: float = 12.0,
-    time_step: float = 2.0,
-    tolerance: float = 1.0e-9,
+    time_step: float = CARTESIAN_TIME_STEP,
+    tolerance: float = CARTESIAN_TOLERANCE,
     max_steps: int = 1000,
+    core_sigma: float = CORE_SIGMA,
 ) -> tuple[dict, np.ndarray, np.ndarray, dict]:
     apparatus = cartesian_setup(size, half_width, time_step)
     spacing = apparatus["spacing"]
     forcing = sum(
         (
-            gaussian_core_source(apparatus["xyz"], position, rate, spacing)
+            gaussian_core_source(
+                apparatus["xyz"], position, rate, spacing, core_sigma
+            )
             for position, rate in sources
         ),
         np.zeros((size, size, size)),
@@ -371,6 +394,40 @@ def run_cartesian(
     return record, deficit, velocity, apparatus
 
 
+def trilinear_sample(
+    field: np.ndarray,
+    coordinates: np.ndarray,
+    position: tuple[float, float, float],
+) -> float:
+    """Sample a scalar cell-centred field at a fixed physical position."""
+    lower = []
+    fractions = []
+    for component in position:
+        upper_index = int(np.searchsorted(coordinates, component))
+        upper_index = min(max(upper_index, 1), len(coordinates) - 1)
+        lower_index = upper_index - 1
+        lower.append(lower_index)
+        fractions.append(
+            float(
+                (component - coordinates[lower_index])
+                / (coordinates[upper_index] - coordinates[lower_index])
+            )
+        )
+    sampled = 0.0
+    for dx in (0, 1):
+        for dy in (0, 1):
+            for dz in (0, 1):
+                weight = (
+                    (fractions[0] if dx else 1.0 - fractions[0])
+                    * (fractions[1] if dy else 1.0 - fractions[1])
+                    * (fractions[2] if dz else 1.0 - fractions[2])
+                )
+                sampled += weight * field[
+                    lower[0] + dx, lower[1] + dy, lower[2] + dz
+                ]
+    return float(sampled)
+
+
 def projected_source_amplitude(
     paired_velocity: np.ndarray,
     background_velocity: np.ndarray,
@@ -387,60 +444,21 @@ def projected_source_amplitude(
     return float(np.sum(incremental * reference) / np.sum(reference * reference))
 
 
-def two_core_probe() -> dict:
-    size = 25
-    half_width = 12.0
-    target_position = (-4.0, 0.0, 0.0)
-    neighbour_position = (4.0, 0.0, 0.0)
-    target_rate = 0.1
-    neighbour_rates = (0.05, 0.1, 0.2, 0.4, 0.8, 1.6)
-    isolated_record, _, isolated_velocity, apparatus = run_cartesian(
-        [(target_position, target_rate)], size=size, half_width=half_width
-    )
-    coordinate = apparatus["coordinates"]
-    target_index = tuple(
-        int(np.argmin(np.abs(coordinate - component))) for component in target_position
-    )
-    sweep = []
-    for rate in neighbour_rates:
-        background_record, background_deficit, background_velocity, _ = run_cartesian(
-            [(neighbour_position, rate)], size=size, half_width=half_width
-        )
-        paired_record, _, paired_velocity, _ = run_cartesian(
-            [(target_position, target_rate), (neighbour_position, rate)],
-            size=size,
-            half_width=half_width,
-        )
-        depletion = float(background_deficit[target_index])
-        amplitude = projected_source_amplitude(
-            paired_velocity,
-            background_velocity,
-            isolated_velocity,
-            apparatus["xyz"],
-            target_position,
-        )
-        screening_family = float((1.0 - depletion) ** 1.071)
-        sweep.append(
-            {
-                "neighbour_core_rate": rate,
-                "ambient_depletion_at_target": depletion,
-                "measured_incremental_amplitude": amplitude,
-                "ORB_10157_screening_amplitude": screening_family,
-                "measured_over_ORB_10157": amplitude / screening_family,
-                "background_steady_state": background_record,
-                "paired_steady_state": paired_record,
-            }
-        )
-
+def fit_modulation_families(sweep: list[dict]) -> dict:
+    """Fit the three predeclared families and report log-space RMSE."""
     depletion = np.array([row["ambient_depletion_at_target"] for row in sweep])
     amplitude = np.array([row["measured_incremental_amplitude"] for row in sweep])
+    if np.any(depletion <= 0.0) or np.any(depletion >= 1.0) or np.any(amplitude <= 0.0):
+        raise RuntimeError("modulation fit received values outside its log domain")
     log_headroom = np.log1p(-depletion)
     log_amplitude = np.log(amplitude)
     headroom_alpha = float(
         np.dot(log_headroom, log_amplitude) / np.dot(log_headroom, log_headroom)
     )
 
-    def rational_modulation(d: np.ndarray, coefficient: float, exponent: float) -> np.ndarray:
+    def rational_modulation(
+        d: np.ndarray, coefficient: float, exponent: float
+    ) -> np.ndarray:
         return 1.0 / (1.0 + coefficient * d**exponent)
 
     parameters, _ = curve_fit(
@@ -449,45 +467,369 @@ def two_core_probe() -> dict:
         amplitude,
         p0=(6.0, 0.65),
         bounds=(0.0, np.inf),
+        maxfev=20_000,
     )
     rational_prediction = rational_modulation(depletion, *parameters)
     orb_prediction = (1.0 - depletion) ** 1.071
     return {
-        "role": "exploratory; not a predeclared gate",
+        "best_two_parameter_form": {
+            "form": "A(D) = 1 / (1 + c D^beta)",
+            "c": float(parameters[0]),
+            "beta": float(parameters[1]),
+            "log_rmse": float(
+                np.sqrt(np.mean((log_amplitude - np.log(rational_prediction)) ** 2))
+            ),
+        },
+        "best_headroom_power": {
+            "form": "A(D) = (1-D)^alpha, constrained to A(0)=1",
+            "alpha": headroom_alpha,
+            "log_rmse": float(
+                np.sqrt(
+                    np.mean((log_amplitude - headroom_alpha * log_headroom) ** 2)
+                )
+            ),
+        },
+        "ORB_10157_screening_family": {
+            "form": "A(D) = (1-D)^1.071",
+            "alpha": 1.071,
+            "log_rmse": float(
+                np.sqrt(np.mean((log_amplitude - np.log(orb_prediction)) ** 2))
+            ),
+        },
+    }
+
+
+def run_two_core_sweep(
+    size: int,
+    neighbour_rates: tuple[float, ...] = TWO_CORE_NEIGHBOUR_RATES,
+    target_position: tuple[float, float, float] = TWO_CORE_TARGET_POSITION,
+    neighbour_position: tuple[float, float, float] = TWO_CORE_NEIGHBOUR_POSITION,
+    time_step: float = CARTESIAN_TIME_STEP,
+) -> dict:
+    """Measure target-core modulation for one physical configuration."""
+    isolated_record, _, isolated_velocity, apparatus = run_cartesian(
+        [(target_position, TWO_CORE_TARGET_RATE)],
+        size=size,
+        half_width=CARTESIAN_HALF_WIDTH,
+        time_step=time_step,
+    )
+    sweep = []
+    for rate in neighbour_rates:
+        background_record, background_deficit, background_velocity, _ = run_cartesian(
+            [(neighbour_position, rate)],
+            size=size,
+            half_width=CARTESIAN_HALF_WIDTH,
+            time_step=time_step,
+        )
+        paired_record, _, paired_velocity, _ = run_cartesian(
+            [(target_position, TWO_CORE_TARGET_RATE), (neighbour_position, rate)],
+            size=size,
+            half_width=CARTESIAN_HALF_WIDTH,
+            time_step=time_step,
+        )
+        depletion = trilinear_sample(
+            background_deficit, apparatus["coordinates"], target_position
+        )
+        amplitude = projected_source_amplitude(
+            paired_velocity,
+            background_velocity,
+            isolated_velocity,
+            apparatus["xyz"],
+            target_position,
+        )
+        sweep.append(
+            {
+                "neighbour_core_rate": rate,
+                "ambient_depletion_at_target": depletion,
+                "measured_incremental_amplitude": amplitude,
+                "ORB_10157_screening_amplitude": float(
+                    (1.0 - depletion) ** 1.071
+                ),
+                "background_steady_state": background_record,
+                "paired_steady_state": paired_record,
+            }
+        )
+    result = {
         "apparatus": {
             "lattice": f"{size}^3 Cartesian cells with a full Dirichlet reservoir",
-            "half_width": half_width,
+            "half_width": CARTESIAN_HALF_WIDTH,
             "spacing": float(apparatus["spacing"]),
-            "core_separation": 8.0,
-            "target_core_rate": target_rate,
+            "time_step": time_step,
+            "steady_tolerance": CARTESIAN_TOLERANCE,
+            "core_sigma": CORE_SIGMA,
+            "target_position": list(target_position),
+            "neighbour_position": list(neighbour_position),
+            "core_separation": float(
+                np.linalg.norm(np.subtract(neighbour_position, target_position))
+            ),
+            "target_core_rate": TWO_CORE_TARGET_RATE,
+            "neighbour_core_rates": list(neighbour_rates),
             "amplitude_measurement": "paired velocity subtraction projected on the isolated target over radii 2-5",
+            "depletion_measurement": "trilinear sample of the background deficit at the fixed physical target position",
         },
         "isolated_steady_state": isolated_record,
         "sweep": sweep,
-        "modulation_fits": {
-            "best_two_parameter_form": {
-                "form": "A(D) = 1 / (1 + c D^beta)",
-                "c": float(parameters[0]),
-                "beta": float(parameters[1]),
-                "log_rmse": float(
-                    np.sqrt(np.mean((log_amplitude - np.log(rational_prediction)) ** 2))
-                ),
-            },
-            "best_headroom_power": {
-                "form": "A(D) = (1-D)^alpha, constrained to A(0)=1",
-                "alpha": headroom_alpha,
-                "log_rmse": float(
-                    np.sqrt(np.mean((log_amplitude - headroom_alpha * log_headroom) ** 2))
-                ),
-            },
-            "ORB_10157_screening_family": {
-                "form": "A(D) = (1-D)^1.071",
-                "alpha": 1.071,
-                "log_rmse": float(
-                    np.sqrt(np.mean((log_amplitude - np.log(orb_prediction)) ** 2))
-                ),
-            },
+        "depletion_range": [
+            min(row["ambient_depletion_at_target"] for row in sweep),
+            max(row["ambient_depletion_at_target"] for row in sweep),
+        ],
+    }
+    if len(sweep) >= 2:
+        result["unmatched_raw_modulation_fits"] = fit_modulation_families(sweep)
+    return result
+
+
+def apply_matched_depletion_grid(ladder: list[dict], samples: int = 8) -> list[float]:
+    """Interpolate every rung onto one common physical depletion grid."""
+    lower = max(rung["depletion_range"][0] for rung in ladder)
+    upper = min(rung["depletion_range"][1] for rung in ladder)
+    matched_depletion = np.geomspace(lower, upper, samples)
+    for rung in ladder:
+        raw_depletion = np.array(
+            [row["ambient_depletion_at_target"] for row in rung["sweep"]]
+        )
+        raw_amplitude = np.array(
+            [row["measured_incremental_amplitude"] for row in rung["sweep"]]
+        )
+        matched_amplitude = np.exp(
+            np.interp(
+                np.log(matched_depletion),
+                np.log(raw_depletion),
+                np.log(raw_amplitude),
+            )
+        )
+        matched_sweep = [
+            {
+                "ambient_depletion_at_target": float(depletion),
+                "measured_incremental_amplitude": float(amplitude),
+            }
+            for depletion, amplitude in zip(matched_depletion, matched_amplitude)
+        ]
+        rung["matched_fit_samples"] = matched_sweep
+        rung["modulation_fits"] = fit_modulation_families(matched_sweep)
+    return [float(value) for value in matched_depletion]
+
+
+def parameter_convergence(ladder: list[dict]) -> dict:
+    """Report successive shifts and a second-order continuum extrapolation."""
+    spacings = np.array([rung["apparatus"]["spacing"] for rung in ladder])
+    parameters = {
+        name: np.array(
+            [
+                rung["modulation_fits"]["best_two_parameter_form"][name]
+                for rung in ladder
+            ]
+        )
+        for name in ("c", "beta")
+    }
+    shifts = {
+        name: [float(value) for value in np.diff(values)]
+        for name, values in parameters.items()
+    }
+    extrapolated = {}
+    errors = {}
+    fine_relative_shifts = {}
+    for name, values in parameters.items():
+        slope, intercept = np.polyfit(spacings**2, values, 1)
+        del slope
+        extrapolated[name] = float(intercept)
+        errors[name] = float(
+            max(abs(intercept - values[-1]), abs(values[-1] - values[-2]))
+        )
+        fine_relative_shifts[name] = float(
+            abs(values[-1] - values[-2]) / max(abs(values[-1]), 1.0e-15)
+        )
+    first_shift_norm = float(
+        np.hypot(
+            shifts["c"][0] / parameters["c"][-1],
+            shifts["beta"][0] / parameters["beta"][-1],
+        )
+    )
+    second_shift_norm = float(
+        np.hypot(
+            shifts["c"][1] / parameters["c"][-1],
+            shifts["beta"][1] / parameters["beta"][-1],
+        )
+    )
+    shifts_shrink = {
+        name: bool(abs(values[1]) < abs(values[0]))
+        for name, values in shifts.items()
+    }
+    converged = bool(
+        all(shifts_shrink.values())
+        and second_shift_norm < first_shift_norm
+        and max(fine_relative_shifts.values()) < 0.25
+    )
+    finest_fits = ladder[-1]["modulation_fits"]
+    drifting_to_orb = bool(
+        finest_fits["ORB_10157_screening_family"]["log_rmse"]
+        <= finest_fits["best_two_parameter_form"]["log_rmse"]
+    )
+    if converged:
+        verdict = "resolution_converged_distinct_shear_family"
+    elif drifting_to_orb:
+        verdict = "ORB_10751_family_was_a_discretization_artifact"
+    else:
+        verdict = "resolution_inconclusive_not_drifting_to_ORB_10157"
+    return {
+        "criterion": "the successive shifts of both c and beta and their normalized joint shift must shrink, with each finest-rung relative parameter shift below 0.25",
+        "grid_sizes": [
+            int(rung["apparatus"]["lattice"].split("^")[0]) for rung in ladder
+        ],
+        "spacings": [float(value) for value in spacings],
+        "parameter_values": {
+            name: [float(value) for value in values]
+            for name, values in parameters.items()
         },
+        "successive_rung_shifts": shifts,
+        "normalized_shift_norms": [first_shift_norm, second_shift_norm],
+        "fine_relative_parameter_shifts": fine_relative_shifts,
+        "per_parameter_shifts_shrink": shifts_shrink,
+        "normalized_shift_shrinks": bool(second_shift_norm < first_shift_norm),
+        "converged": converged,
+        "continuum_extrapolation": {
+            "model": "p(h) = p(0) + k h^2 least-squares fit over all three rungs",
+            "parameters": extrapolated,
+            "conservative_errors": errors,
+        },
+        "drifting_to_ORB_10157": drifting_to_orb,
+        "verdict": verdict,
+    }
+
+
+def separation_control(size: int, finest: dict, finest_fit: dict) -> dict:
+    coefficient = finest_fit["c"]
+    exponent = finest_fit["beta"]
+    rows = []
+    for separation in SEPARATION_CONTROL_VALUES:
+        target_position = (-0.5 * separation, 0.0, 0.0)
+        neighbour_position = (0.5 * separation, 0.0, 0.0)
+        if separation == 8.0:
+            measurement = finest
+            row = next(
+                candidate
+                for candidate in finest["sweep"]
+                if candidate["neighbour_core_rate"] == SEPARATION_CONTROL_RATE
+            )
+        else:
+            measurement = run_two_core_sweep(
+                size,
+                (SEPARATION_CONTROL_RATE,),
+                target_position,
+                neighbour_position,
+            )
+            row = measurement["sweep"][0]
+        depletion = row["ambient_depletion_at_target"]
+        amplitude = row["measured_incremental_amplitude"]
+        prediction = 1.0 / (1.0 + coefficient * depletion**exponent)
+        rows.append(
+            {
+                "core_separation": separation,
+                "target_core_rate": TWO_CORE_TARGET_RATE,
+                "neighbour_core_rate": SEPARATION_CONTROL_RATE,
+                "ambient_depletion_at_target": depletion,
+                "measured_incremental_amplitude": amplitude,
+                "finest_resolution_family_prediction": prediction,
+                "log_residual": float(np.log(amplitude / prediction)),
+                "isolated_steady_state": measurement["isolated_steady_state"],
+                "background_steady_state": row["background_steady_state"],
+                "paired_steady_state": row["paired_steady_state"],
+            }
+        )
+    residuals = np.array([row["log_residual"] for row in rows])
+    rms = float(np.sqrt(np.mean(residuals**2)))
+    return {
+        "criterion": "fixed-mass separation points follow the finest-rung A(D) family with log-RMSE below 0.08; otherwise the residuals quantify geometry dependence",
+        "grid_size": size,
+        "fixed_core_rates": [TWO_CORE_TARGET_RATE, SEPARATION_CONTROL_RATE],
+        "measurements": rows,
+        "log_rmse_against_A_of_D": rms,
+        "maximum_absolute_log_residual": float(np.max(np.abs(residuals))),
+        "consistent_with_A_of_D": bool(rms < 0.08),
+    }
+
+
+def two_core_adjudication() -> dict:
+    ladder = [run_two_core_sweep(size) for size in TWO_CORE_GRID_SIZES]
+    matched_depletion_grid = apply_matched_depletion_grid(ladder)
+    convergence = parameter_convergence(ladder)
+    finest = ladder[-1]
+    finest_fit = finest["modulation_fits"]["best_two_parameter_form"]
+    separation = separation_control(TWO_CORE_GRID_SIZES[-1], finest, finest_fit)
+    half_step = run_two_core_sweep(
+        TWO_CORE_GRID_SIZES[-1],
+        (SEPARATION_CONTROL_RATE,),
+        time_step=0.5 * CARTESIAN_TIME_STEP,
+    )
+    baseline_row = next(
+        row
+        for row in finest["sweep"]
+        if row["neighbour_core_rate"] == SEPARATION_CONTROL_RATE
+    )
+    half_row = half_step["sweep"][0]
+    step_halving = {
+        "grid_size": TWO_CORE_GRID_SIZES[-1],
+        "neighbour_core_rate": SEPARATION_CONTROL_RATE,
+        "time_steps": [CARTESIAN_TIME_STEP, 0.5 * CARTESIAN_TIME_STEP],
+        "depletions": [
+            baseline_row["ambient_depletion_at_target"],
+            half_row["ambient_depletion_at_target"],
+        ],
+        "amplitudes": [
+            baseline_row["measured_incremental_amplitude"],
+            half_row["measured_incremental_amplitude"],
+        ],
+        "relative_depletion_shift": float(
+            abs(
+                half_row["ambient_depletion_at_target"]
+                - baseline_row["ambient_depletion_at_target"]
+            )
+            / baseline_row["ambient_depletion_at_target"]
+        ),
+        "relative_amplitude_shift": float(
+            abs(
+                half_row["measured_incremental_amplitude"]
+                - baseline_row["measured_incremental_amplitude"]
+            )
+            / baseline_row["measured_incremental_amplitude"]
+        ),
+    }
+    step_halving["passed"] = bool(
+        max(
+            step_halving["relative_depletion_shift"],
+            step_halving["relative_amplitude_shift"],
+        )
+        < 0.01
+    )
+    return {
+        "role": "predeclared resolution-convergence gate",
+        "matched_physical_configuration": {
+            "half_width": CARTESIAN_HALF_WIDTH,
+            "core_separation_to_domain_width": 8.0 / (2.0 * CARTESIAN_HALF_WIDTH),
+            "core_sigma": CORE_SIGMA,
+            "target_core_rate": TWO_CORE_TARGET_RATE,
+            "neighbour_core_rates": list(TWO_CORE_NEIGHBOUR_RATES),
+            "note": "all physical lengths, source rates, and rules are identical across rungs; only cell spacing changes",
+        },
+        "resolution_ladder": ladder,
+        "matched_fit_protocol": {
+            "depletion_grid": matched_depletion_grid,
+            "interpolation": "piecewise linear in log(D)-log(A) between directly measured sweep points",
+            "range": [matched_depletion_grid[0], matched_depletion_grid[-1]],
+        },
+        "convergence": convergence,
+        "range_check": {
+            "previous_ceiling": 0.083,
+            "measured_ranges_by_grid": [rung["depletion_range"] for rung in ladder],
+            "finest_measured_ceiling": finest["depletion_range"][1],
+            "extended_beyond_previous_ceiling": bool(
+                finest["depletion_range"][1] > 0.083
+            ),
+            "strongest_cataloged_neighbour_rate": TWO_CORE_NEIGHBOUR_RATES[-1],
+        },
+        "separation_control": separation,
+        "top_rung_step_halving": step_halving,
+        "level_core_scope_note": "This task adjudicates the inherited flux-type core apparatus. The level-core closure raised in ORB-10932 is a different boundary model and is not tested here.",
     }
 
 
@@ -570,10 +912,10 @@ def experiment() -> tuple[dict, dict]:
         "criterion": "strictly increasing exterior half-power amplitude with <1e-6 seeded-initial-condition spread",
     }
     silence = silence_gate()
-    superposition = two_core_probe()
+    superposition = two_core_adjudication()
     full_record = {
         "schema_version": 1,
-        "task": "ORB-10751",
+        "task": "ORB-10755",
         "seed": SEED,
         "frozen_rule": {
             "consumption": "s = n * sqrt((3/2) * e_dev:e_dev), coefficient exactly 1",
@@ -596,16 +938,17 @@ def experiment() -> tuple[dict, dict]:
             "amplitude": amplitude_gate,
             "silence": silence,
         },
-        "two_core_superposition_probe": superposition,
+        "two_core_superposition_adjudication": superposition,
         "limitations": [
             "The radial finite-volume apparatus is a spherical reduction, not a full 3-D shell tessellation.",
             "Finite density depletion shifts the fitted exponent slightly below -1/2 at stronger core fluxes; the declared attractor comparison uses the weak-depletion primary run.",
-            "The two-core probe uses a coarse 25^3 Cartesian lattice and is exploratory rather than a gate.",
+            "The two-core resolution gate tests the inherited flux-type Gaussian core boundary model; it does not test the distinct level-core closure raised in ORB-10932.",
+            "The deepest cataloged two-core point is the strongest stable predeclared sweep point, not evidence that still deeper steady branches cannot exist with a different solver.",
         ],
     }
     summary = {
         "schema_version": 1,
-        "task": "ORB-10751",
+        "task": "ORB-10755",
         "run_record": f"runs/{RUN_RECORD}",
         "frozen_rule": full_record["frozen_rule"],
         "gate_results": {
@@ -635,16 +978,41 @@ def experiment() -> tuple[dict, dict]:
         },
         "two_core_superposition": {
             "role": superposition["role"],
-            "depletions": [
-                row["ambient_depletion_at_target"] for row in superposition["sweep"]
+            "grid_sizes": list(TWO_CORE_GRID_SIZES),
+            "depletion_ranges": superposition["range_check"][
+                "measured_ranges_by_grid"
             ],
-            "amplitudes": [
-                row["measured_incremental_amplitude"] for row in superposition["sweep"]
+            "matched_fit_protocol": superposition["matched_fit_protocol"],
+            "fits_by_grid": [
+                {
+                    "grid_size": size,
+                    "modulation_fits": rung["modulation_fits"],
+                }
+                for size, rung in zip(
+                    TWO_CORE_GRID_SIZES, superposition["resolution_ladder"]
+                )
             ],
-            "modulation_fits": superposition["modulation_fits"],
+            "convergence": superposition["convergence"],
+            "range_check": superposition["range_check"],
+            "separation_control": {
+                "consistent_with_A_of_D": superposition["separation_control"][
+                    "consistent_with_A_of_D"
+                ],
+                "log_rmse_against_A_of_D": superposition[
+                    "separation_control"
+                ]["log_rmse_against_A_of_D"],
+                "maximum_absolute_log_residual": superposition[
+                    "separation_control"
+                ]["maximum_absolute_log_residual"],
+                "measurements": superposition["separation_control"][
+                    "measurements"
+                ],
+            },
+            "top_rung_step_halving": superposition["top_rung_step_halving"],
+            "level_core_scope_note": superposition["level_core_scope_note"],
         },
         "verdict": {
-            "apparatus_level": "all three predeclared gates pass; the two-core probe screens much more strongly than ORB-10157 over the measured range",
+            "apparatus_level": superposition["convergence"]["verdict"],
             "theory_reconciliation": "deferred to kepler; principia is intentionally untouched",
         },
     }
@@ -675,10 +1043,12 @@ def main() -> None:
         (runs / RUN_RECORD).write_bytes(encoded(full_record))
     digest = hashlib.sha256(encoded(full_record)).hexdigest()
     fit = summary["gate_results"]["attractor"]
+    two_core = summary["two_core_superposition"]
     print(
         f"attractor p={fit['exponent']:.8f} +/- {fit['combined_numerical_error']:.2e}; "
         f"amplitude={summary['gate_results']['amplitude']['passed']}; "
         f"silence={summary['gate_results']['silence']['maximum_consumption_density']:.2e}; "
+        f"two_core={two_core['convergence']['verdict']}; "
         f"sha256={digest}"
     )
 

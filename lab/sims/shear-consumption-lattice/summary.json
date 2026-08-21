@@ -54,48 +54,305 @@
       "spacing": 0.5
     }
   },
-  "run_record": "runs/2026-08-12-seed-42.json",
+  "run_record": "runs/2026-08-21-seed-42.json",
   "schema_version": 1,
-  "task": "ORB-10751",
+  "task": "ORB-10755",
   "two_core_superposition": {
-    "amplitudes": [
-      0.910129254860185,
-      0.8486584311634179,
-      0.7604127453088776,
-      0.6501262085769746,
-      0.5388780327535058,
-      0.4614988742021442
-    ],
-    "depletions": [
-      0.0024307850891603,
-      0.0048701288803415415,
-      0.009775057235109158,
-      0.019694050741629957,
-      0.0400057310479177,
-      0.08289951307946643
-    ],
-    "modulation_fits": {
-      "ORB_10157_screening_family": {
-        "alpha": 1.071,
-        "form": "A(D) = (1-D)^1.071",
-        "log_rmse": 0.42107130465936654
+    "convergence": {
+      "continuum_extrapolation": {
+        "conservative_errors": {
+          "beta": 0.026865228018888798,
+          "c": 0.1840733471736824
+        },
+        "model": "p(h) = p(0) + k h^2 least-squares fit over all three rungs",
+        "parameters": {
+          "beta": 0.6055624332840617,
+          "c": 4.625127602277014
+        }
       },
-      "best_headroom_power": {
-        "alpha": 10.792460995158741,
-        "form": "A(D) = (1-D)^alpha, constrained to A(0)=1",
-        "log_rmse": 0.15769179957504248
+      "converged": true,
+      "criterion": "the successive shifts of both c and beta and their normalized joint shift must shrink, with each finest-rung relative parameter shift below 0.25",
+      "drifting_to_ORB_10157": false,
+      "fine_relative_parameter_shifts": {
+        "beta": 0.04567039737724039,
+        "c": 0.03847717122782292
       },
-      "best_two_parameter_form": {
-        "beta": 0.6683278782195008,
-        "c": 6.81732335785671,
-        "form": "A(D) = 1 / (1 + c D^beta)",
-        "log_rmse": 0.030972587257596634
-      }
+      "grid_sizes": [
+        25,
+        41,
+        65
+      ],
+      "normalized_shift_norms": [
+        0.1924325222220822,
+        0.059718321328468785
+      ],
+      "normalized_shift_shrinks": true,
+      "parameter_values": {
+        "beta": [
+          0.4917132051759821,
+          0.5613763805876731,
+          0.5882416086065619
+        ],
+        "c": [
+          3.5965748894049234,
+          4.270175050097669,
+          4.441054255103332
+        ]
+      },
+      "per_parameter_shifts_shrink": {
+        "beta": true,
+        "c": true
+      },
+      "spacings": [
+        0.9230769230769231,
+        0.5714285714285714,
+        0.36363636363636365
+      ],
+      "successive_rung_shifts": {
+        "beta": [
+          0.06966317541169104,
+          0.026865228018888798
+        ],
+        "c": [
+          0.6736001606927458,
+          0.17087920500566245
+        ]
+      },
+      "verdict": "resolution_converged_distinct_shear_family"
     },
-    "role": "exploratory; not a predeclared gate"
+    "depletion_ranges": [
+      [
+        0.004608122838855419,
+        0.17279798660739462
+      ],
+      [
+        0.005495704922506424,
+        0.21882736236518588
+      ],
+      [
+        0.00589961770442943,
+        0.2430082533453609
+      ]
+    ],
+    "fits_by_grid": [
+      {
+        "grid_size": 25,
+        "modulation_fits": {
+          "ORB_10157_screening_family": {
+            "alpha": 1.071,
+            "form": "A(D) = (1-D)^1.071",
+            "log_rmse": 0.5044375951446473
+          },
+          "best_headroom_power": {
+            "alpha": 6.012864471284991,
+            "form": "A(D) = (1-D)^alpha, constrained to A(0)=1",
+            "log_rmse": 0.2885152309754304
+          },
+          "best_two_parameter_form": {
+            "beta": 0.4917132051759821,
+            "c": 3.5965748894049234,
+            "form": "A(D) = 1 / (1 + c D^beta)",
+            "log_rmse": 0.06285231378685445
+          }
+        }
+      },
+      {
+        "grid_size": 41,
+        "modulation_fits": {
+          "ORB_10157_screening_family": {
+            "alpha": 1.071,
+            "form": "A(D) = (1-D)^1.071",
+            "log_rmse": 0.4940093124391549
+          },
+          "best_headroom_power": {
+            "alpha": 6.101863216698786,
+            "form": "A(D) = (1-D)^alpha, constrained to A(0)=1",
+            "log_rmse": 0.2580823619080081
+          },
+          "best_two_parameter_form": {
+            "beta": 0.5613763805876731,
+            "c": 4.270175050097669,
+            "form": "A(D) = 1 / (1 + c D^beta)",
+            "log_rmse": 0.054791416639105105
+          }
+        }
+      },
+      {
+        "grid_size": 65,
+        "modulation_fits": {
+          "ORB_10157_screening_family": {
+            "alpha": 1.071,
+            "form": "A(D) = (1-D)^1.071",
+            "log_rmse": 0.4802658957318342
+          },
+          "best_headroom_power": {
+            "alpha": 6.03295775804834,
+            "form": "A(D) = (1-D)^alpha, constrained to A(0)=1",
+            "log_rmse": 0.24092310768921021
+          },
+          "best_two_parameter_form": {
+            "beta": 0.5882416086065619,
+            "c": 4.441054255103332,
+            "form": "A(D) = 1 / (1 + c D^beta)",
+            "log_rmse": 0.050650596536848
+          }
+        }
+      }
+    ],
+    "grid_sizes": [
+      25,
+      41,
+      65
+    ],
+    "level_core_scope_note": "This task adjudicates the inherited flux-type core apparatus. The level-core closure raised in ORB-10932 is a different boundary model and is not tested here.",
+    "matched_fit_protocol": {
+      "depletion_grid": [
+        0.00589961770442943,
+        0.009557725581948789,
+        0.015484074202172907,
+        0.025085105430439757,
+        0.04063933731136299,
+        0.06583810228290463,
+        0.10666157469556517,
+        0.17279798660739462
+      ],
+      "interpolation": "piecewise linear in log(D)-log(A) between directly measured sweep points",
+      "range": [
+        0.00589961770442943,
+        0.17279798660739462
+      ]
+    },
+    "range_check": {
+      "extended_beyond_previous_ceiling": true,
+      "finest_measured_ceiling": 0.2430082533453609,
+      "measured_ranges_by_grid": [
+        [
+          0.004608122838855419,
+          0.17279798660739462
+        ],
+        [
+          0.005495704922506424,
+          0.21882736236518588
+        ],
+        [
+          0.00589961770442943,
+          0.2430082533453609
+        ]
+      ],
+      "previous_ceiling": 0.083,
+      "strongest_cataloged_neighbour_rate": 3.2
+    },
+    "role": "predeclared resolution-convergence gate",
+    "separation_control": {
+      "consistent_with_A_of_D": true,
+      "log_rmse_against_A_of_D": 0.035151629927934455,
+      "maximum_absolute_log_residual": 0.05090422795305554,
+      "measurements": [
+        {
+          "ambient_depletion_at_target": 0.1298866063731617,
+          "background_steady_state": {
+            "integrated_shear_consumption": 107.09310601566045,
+            "last_step_change_over_max_deficit": 9.185837508660622e-09,
+            "maximum_deficit": 0.24928841083104467,
+            "steps": 166
+          },
+          "core_separation": 6.0,
+          "finest_resolution_family_prediction": 0.42794616765782845,
+          "isolated_steady_state": {
+            "integrated_shear_consumption": 6.372303489452108,
+            "last_step_change_over_max_deficit": 9.454438756461518e-09,
+            "maximum_deficit": 0.014770945079440441,
+            "steps": 159
+          },
+          "log_residual": -0.05090422795305554,
+          "measured_incremental_amplitude": 0.4067070645642514,
+          "neighbour_core_rate": 1.6,
+          "paired_steady_state": {
+            "integrated_shear_consumption": 107.555427749183,
+            "last_step_change_over_max_deficit": 9.76342229695036e-09,
+            "maximum_deficit": 0.24977719449241514,
+            "steps": 165
+          },
+          "target_core_rate": 0.1
+        },
+        {
+          "ambient_depletion_at_target": 0.10240824520264753,
+          "background_steady_state": {
+            "integrated_shear_consumption": 105.76526768033615,
+            "last_step_change_over_max_deficit": 9.209946160739163e-09,
+            "maximum_deficit": 0.2447038972338561,
+            "steps": 164
+          },
+          "core_separation": 8.0,
+          "finest_resolution_family_prediction": 0.4624672748301586,
+          "isolated_steady_state": {
+            "integrated_shear_consumption": 6.331553463659808,
+            "last_step_change_over_max_deficit": 9.843913466166004e-09,
+            "maximum_deficit": 0.01454039672296198,
+            "steps": 158
+          },
+          "log_residual": -0.032046359010386674,
+          "measured_incremental_amplitude": 0.4478818358292668,
+          "neighbour_core_rate": 1.6,
+          "paired_steady_state": {
+            "integrated_shear_consumption": 106.17153230235313,
+            "last_step_change_over_max_deficit": 9.730598898087776e-09,
+            "maximum_deficit": 0.24496267837861924,
+            "steps": 163
+          },
+          "target_core_rate": 0.1
+        },
+        {
+          "ambient_depletion_at_target": 0.07946520600043529,
+          "background_steady_state": {
+            "integrated_shear_consumption": 103.96090769104343,
+            "last_step_change_over_max_deficit": 9.989607393687344e-09,
+            "maximum_deficit": 0.2379195867241493,
+            "steps": 161
+          },
+          "core_separation": 10.0,
+          "finest_resolution_family_prediction": 0.4996981103291396,
+          "isolated_steady_state": {
+            "integrated_shear_consumption": 6.276940295760742,
+            "last_step_change_over_max_deficit": 9.490644807841662e-09,
+            "maximum_deficit": 0.014191018016545313,
+            "steps": 158
+          },
+          "log_residual": 0.009418158548895808,
+          "measured_incremental_amplitude": 0.5044265781366752,
+          "neighbour_core_rate": 1.6,
+          "paired_steady_state": {
+            "integrated_shear_consumption": 104.39426152986067,
+            "last_step_change_over_max_deficit": 9.570463422714184e-09,
+            "maximum_deficit": 0.23807230716818967,
+            "steps": 161
+          },
+          "target_core_rate": 0.1
+        }
+      ]
+    },
+    "top_rung_step_halving": {
+      "amplitudes": [
+        0.4478818358292668,
+        0.4478818565430406
+      ],
+      "depletions": [
+        0.10240824520264753,
+        0.1024082263570249
+      ],
+      "grid_size": 65,
+      "neighbour_core_rate": 1.6,
+      "passed": true,
+      "relative_amplitude_shift": 4.624830066829875e-08,
+      "relative_depletion_shift": 1.8402446594595925e-07,
+      "time_steps": [
+        2.0,
+        1.0
+      ]
+    }
   },
   "verdict": {
-    "apparatus_level": "all three predeclared gates pass; the two-core probe screens much more strongly than ORB-10157 over the measured range",
+    "apparatus_level": "resolution_converged_distinct_shear_family",
     "theory_reconciliation": "deferred to kepler; principia is intentionally untouched"
   }
 }

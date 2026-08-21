@@ -1,0 +1,1298 @@
+{
+  "apparatus": {
+    "diffusivity": 2.0,
+    "fit_radius_range": [
+      3.0,
+      20.0
+    ],
+    "primary_shells": 256,
+    "primary_time_step": 0.1,
+    "radial_domain": [
+      1.0,
+      32.0
+    ],
+    "steady_tolerance": 1e-09
+  },
+  "frozen_rule": {
+    "consumption": "s = n * sqrt((3/2) * e_dev:e_dev), coefficient exactly 1",
+    "core": "fixed inward substrate flux at the inner boundary",
+    "outer_boundary": "unit-density reservoir",
+    "profile_policy": "no velocity profile is imposed",
+    "radial_reduction": "s = n * abs(-du/dr + u/r) for inward speed u",
+    "transport": "nearest-neighbour Fick flux; velocity is flux divided by face area and local density"
+  },
+  "gates": {
+    "amplitude": {
+      "criterion": "strictly increasing exterior half-power amplitude with <1e-6 seeded-initial-condition spread",
+      "maximum_initial_condition_relative_difference": 9.645165556910432e-07,
+      "monotonic_increasing": true,
+      "passed": true,
+      "sweep": [
+        {
+          "amplitude": 0.00023921747851761096,
+          "core_flux": 0.003,
+          "flow_exponent": -0.5001901928801619,
+          "initial_condition_relative_difference": 8.079041898018825e-07,
+          "perturbed_amplitude": 0.00023921767178241413,
+          "steady_state": {
+            "core_flux": 0.003,
+            "distributed_shear_consumption": 0.5409778230851723,
+            "elapsed_time": 865.1,
+            "last_step_change_over_max_deficit": 9.993375258175566e-10,
+            "max_shell_balance_over_total_consumption": 7.026568490829887e-09,
+            "maximum_density": 0.9999987202277577,
+            "minimum_density": 0.9988939292133431,
+            "outer_reservoir_flux": 0.5439772907771736,
+            "reached": true,
+            "steps": 8651
+          }
+        },
+        {
+          "amplitude": 0.0007990401360125543,
+          "core_flux": 0.01,
+          "flow_exponent": -0.5006143180704795,
+          "initial_condition_relative_difference": 8.118683136629083e-07,
+          "perturbed_amplitude": 0.0007990407847279221,
+          "steady_state": {
+            "core_flux": 0.01,
+            "distributed_shear_consumption": 1.8056066101031898,
+            "elapsed_time": 865.7,
+            "last_step_change_over_max_deficit": 9.99874459594943e-10,
+            "max_shell_balance_over_total_consumption": 6.865130533256755e-09,
+            "maximum_density": 0.9999957285704614,
+            "minimum_density": 0.9963107098233973,
+            "outer_reservoir_flux": 1.8156048329417698,
+            "reached": true,
+            "steps": 8657
+          }
+        },
+        {
+          "amplitude": 0.002411410710978408,
+          "core_flux": 0.03,
+          "flow_exponent": -0.5018355221110629,
+          "initial_condition_relative_difference": 8.206627288651124e-07,
+          "perturbed_amplitude": 0.0024114126899333027,
+          "steady_state": {
+            "core_flux": 0.03,
+            "distributed_shear_consumption": 5.437141912095472,
+            "elapsed_time": 867.6,
+            "last_step_change_over_max_deficit": 9.98831485933075e-10,
+            "max_shell_balance_over_total_consumption": 6.832562475723159e-09,
+            "maximum_density": 0.9999871379012532,
+            "minimum_density": 0.9889114579890179,
+            "outer_reservoir_flux": 5.467136572280871,
+            "reached": true,
+            "steps": 8676
+          }
+        },
+        {
+          "amplitude": 0.008211285152777623,
+          "core_flux": 0.1,
+          "flow_exponent": -0.5062241872849895,
+          "initial_condition_relative_difference": 8.540729482757051e-07,
+          "perturbed_amplitude": 0.008211292165814142,
+          "steady_state": {
+            "core_flux": 0.1,
+            "distributed_shear_consumption": 18.3691734815256,
+            "elapsed_time": 874.3000000000001,
+            "last_step_change_over_max_deficit": 9.998077873557207e-10,
+            "max_shell_balance_over_total_consumption": 6.780842184854559e-09,
+            "maximum_density": 0.9999565490821836,
+            "minimum_density": 0.9627886078109062,
+            "outer_reservoir_flux": 18.469155506339366,
+            "reached": true,
+            "steps": 8743
+          }
+        },
+        {
+          "amplitude": 0.026315035595389048,
+          "core_flux": 0.3,
+          "flow_exponent": -0.5198809132982855,
+          "initial_condition_relative_difference": 9.645165556910432e-07,
+          "perturbed_amplitude": 0.026315060976676543,
+          "steady_state": {
+            "core_flux": 0.3,
+            "distributed_shear_consumption": 57.457494721544165,
+            "elapsed_time": 897.2,
+            "last_step_change_over_max_deficit": 9.991219348468965e-10,
+            "max_shell_balance_over_total_consumption": 6.679379565355131e-09,
+            "maximum_density": 0.9998641186517572,
+            "minimum_density": 0.8859754535702958,
+            "outer_reservoir_flux": 57.75743936434484,
+            "reached": true,
+            "steps": 8972
+          }
+        }
+      ]
+    },
+    "attractor": {
+      "combined_exponent_error": 1.6354931017162737e-05,
+      "criterion": "target -1/2 lies within two combined regression, seed, resolution, and timestep errors",
+      "initial_condition_exponent_difference": 1.1682775694632497e-06,
+      "numerical_exponent_half_range": 1.6310535986718833e-05,
+      "passed": true,
+      "primary": {
+        "core_flux": 0.0001,
+        "fixed_half_power_amplitude": 7.967114286348284e-06,
+        "fixed_half_power_relative_rmse": 8.829756250235257e-06,
+        "flow_fit": {
+          "ci95_high": -0.5000143988431562,
+          "ci95_low": -0.5000155438047846,
+          "exponent": -0.5000149713239704,
+          "intercept": -11.740157637134683,
+          "radial_decades": 0.8059334548299835,
+          "samples": 140,
+          "standard_error": 2.920820480459793e-07
+        },
+        "initial_condition": "rest",
+        "seed": 42,
+        "shells": 256,
+        "steady_state": {
+          "core_flux": 0.0001,
+          "distributed_shear_consumption": 0.018022905658463526,
+          "elapsed_time": 865.6,
+          "last_step_change_over_max_deficit": 9.939821829951055e-10,
+          "max_shell_balance_over_total_consumption": 1.9402735600037964e-08,
+          "maximum_density": 0.9999999573637174,
+          "minimum_density": 0.999963140828438,
+          "outer_reservoir_flux": 0.01812288838560704,
+          "reached": true,
+          "steps": 8656
+        },
+        "time_step": 0.1
+      },
+      "resolution_checks": [
+        {
+          "core_flux": 0.0001,
+          "fixed_half_power_amplitude": 7.994177288510292e-06,
+          "fixed_half_power_relative_rmse": 2.6148670653987807e-05,
+          "flow_fit": {
+            "ci95_high": -0.500037312038853,
+            "ci95_low": -0.5000453758613119,
+            "exponent": -0.5000413439500825,
+            "intercept": -11.736714255258342,
+            "radial_decades": 0.8104745752508442,
+            "samples": 70,
+            "standard_error": 2.0570975660386565e-06
+          },
+          "initial_condition": "rest",
+          "seed": 42,
+          "shells": 128,
+          "steady_state": {
+            "core_flux": 0.0001,
+            "distributed_shear_consumption": 0.018084029180313415,
+            "elapsed_time": 865.6,
+            "last_step_change_over_max_deficit": 9.971642621741624e-10,
+            "max_shell_balance_over_total_consumption": 1.7656632296521822e-08,
+            "maximum_density": 0.9999999144398346,
+            "minimum_density": 0.9999632584507865,
+            "outer_reservoir_flux": 0.018184011745649546,
+            "reached": true,
+            "steps": 8656
+          },
+          "time_step": 0.1
+        },
+        {
+          "core_flux": 0.0001,
+          "fixed_half_power_amplitude": 7.967114286348284e-06,
+          "fixed_half_power_relative_rmse": 8.829756250235257e-06,
+          "flow_fit": {
+            "ci95_high": -0.5000143988431562,
+            "ci95_low": -0.5000155438047846,
+            "exponent": -0.5000149713239704,
+            "intercept": -11.740157637134683,
+            "radial_decades": 0.8059334548299835,
+            "samples": 140,
+            "standard_error": 2.920820480459793e-07
+          },
+          "initial_condition": "rest",
+          "seed": 42,
+          "shells": 256,
+          "steady_state": {
+            "core_flux": 0.0001,
+            "distributed_shear_consumption": 0.018022905658463526,
+            "elapsed_time": 865.6,
+            "last_step_change_over_max_deficit": 9.939821829951055e-10,
+            "max_shell_balance_over_total_consumption": 1.9402735600037964e-08,
+            "maximum_density": 0.9999999573637174,
+            "minimum_density": 0.999963140828438,
+            "outer_reservoir_flux": 0.01812288838560704,
+            "reached": true,
+            "steps": 8656
+          },
+          "time_step": 0.1
+        },
+        {
+          "core_flux": 0.0001,
+          "fixed_half_power_amplitude": 7.960269002379774e-06,
+          "fixed_half_power_relative_rmse": 5.0508795701509874e-06,
+          "flow_fit": {
+            "ci95_high": -0.5000086703252623,
+            "ci95_low": -0.5000087754309558,
+            "exponent": -0.500008722878109,
+            "intercept": -11.74102992396762,
+            "radial_decades": 0.8194250891343668,
+            "samples": 281,
+            "standard_error": 2.681267691056508e-08
+          },
+          "initial_condition": "rest",
+          "seed": 42,
+          "shells": 512,
+          "steady_state": {
+            "core_flux": 0.0001,
+            "distributed_shear_consumption": 0.018007433435290036,
+            "elapsed_time": 866.1,
+            "last_step_change_over_max_deficit": 9.91582143991748e-10,
+            "max_shell_balance_over_total_consumption": 5.262810308118555e-08,
+            "maximum_density": 0.999999978700056,
+            "minimum_density": 0.9999630516139942,
+            "outer_reservoir_flux": 0.01810741859320966,
+            "reached": true,
+            "steps": 8661
+          },
+          "time_step": 0.1
+        }
+      ],
+      "second_initial_condition": {
+        "core_flux": 0.0001,
+        "fixed_half_power_amplitude": 7.96712060755801e-06,
+        "fixed_half_power_relative_rmse": 8.216997369248365e-06,
+        "flow_fit": {
+          "ci95_high": -0.5000131846871425,
+          "ci95_low": -0.5000144214056594,
+          "exponent": -0.500013803046401,
+          "intercept": -11.740159268261309,
+          "radial_decades": 0.8059334548299835,
+          "samples": 140,
+          "standard_error": 3.154894175957165e-07
+        },
+        "initial_condition": "perturbed",
+        "seed": 42,
+        "shells": 256,
+        "steady_state": {
+          "core_flux": 0.0001,
+          "distributed_shear_consumption": 0.01802292261740833,
+          "elapsed_time": 1428.2,
+          "last_step_change_over_max_deficit": 9.9398095942376e-10,
+          "max_shell_balance_over_total_consumption": 1.981329300853491e-08,
+          "maximum_density": 0.9999999573635949,
+          "minimum_density": 0.999963140783065,
+          "outer_reservoir_flux": 0.018122940437176115,
+          "reached": true,
+          "steps": 14282
+        },
+        "time_step": 0.1
+      },
+      "target_exponent": -0.5,
+      "time_step_checks": [
+        {
+          "core_flux": 0.0001,
+          "fixed_half_power_amplitude": 7.967115885548408e-06,
+          "fixed_half_power_relative_rmse": 8.674165088424653e-06,
+          "flow_fit": {
+            "ci95_high": -0.5000140927976332,
+            "ci95_low": -0.5000152603924567,
+            "exponent": -0.500014676595045,
+            "intercept": -11.740158047986018,
+            "radial_decades": 0.8059334548299835,
+            "samples": 140,
+            "standard_error": 2.978558223271326e-07
+          },
+          "initial_condition": "rest",
+          "seed": 42,
+          "shells": 256,
+          "steady_state": {
+            "core_flux": 0.0001,
+            "distributed_shear_consumption": 0.018022909925785393,
+            "elapsed_time": 910.4000000000001,
+            "last_step_change_over_max_deficit": 9.969939413324154e-10,
+            "max_shell_balance_over_total_consumption": 3.107104330060425e-08,
+            "maximum_density": 0.9999999573636866,
+            "minimum_density": 0.9999631408170184,
+            "outer_reservoir_flux": 0.01812290145748794,
+            "reached": true,
+            "steps": 4552
+          },
+          "time_step": 0.2
+        },
+        {
+          "core_flux": 0.0001,
+          "fixed_half_power_amplitude": 7.967114286348284e-06,
+          "fixed_half_power_relative_rmse": 8.829756250235257e-06,
+          "flow_fit": {
+            "ci95_high": -0.5000143988431562,
+            "ci95_low": -0.5000155438047846,
+            "exponent": -0.5000149713239704,
+            "intercept": -11.740157637134683,
+            "radial_decades": 0.8059334548299835,
+            "samples": 140,
+            "standard_error": 2.920820480459793e-07
+          },
+          "initial_condition": "rest",
+          "seed": 42,
+          "shells": 256,
+          "steady_state": {
+            "core_flux": 0.0001,
+            "distributed_shear_consumption": 0.018022905658463526,
+            "elapsed_time": 865.6,
+            "last_step_change_over_max_deficit": 9.939821829951055e-10,
+            "max_shell_balance_over_total_consumption": 1.9402735600037964e-08,
+            "maximum_density": 0.9999999573637174,
+            "minimum_density": 0.999963140828438,
+            "outer_reservoir_flux": 0.01812288838560704,
+            "reached": true,
+            "steps": 8656
+          },
+          "time_step": 0.1
+        },
+        {
+          "core_flux": 0.0001,
+          "fixed_half_power_amplitude": 7.967111031139698e-06,
+          "fixed_half_power_relative_rmse": 9.149993997833894e-06,
+          "flow_fit": {
+            "ci95_high": -0.5000150263475985,
+            "ci95_low": -0.5000161245589977,
+            "exponent": -0.5000155754532981,
+            "intercept": -11.740156791918462,
+            "radial_decades": 0.8059334548299835,
+            "samples": 140,
+            "standard_error": 2.8015596917862107e-07
+          },
+          "initial_condition": "rest",
+          "seed": 42,
+          "shells": 256,
+          "steady_state": {
+            "core_flux": 0.0001,
+            "distributed_shear_consumption": 0.01802289680840098,
+            "elapsed_time": 821.3000000000001,
+            "last_step_change_over_max_deficit": 9.969948857054581e-10,
+            "max_shell_balance_over_total_consumption": 1.995759270770888e-08,
+            "maximum_density": 0.9999999573637808,
+            "minimum_density": 0.9999631408519322,
+            "outer_reservoir_flux": 0.018122861439599836,
+            "reached": true,
+            "steps": 16426
+          },
+          "time_step": 0.05
+        }
+      ]
+    },
+    "silence": {
+      "consistent_with_zero": true,
+      "hubble_rate": 0.02,
+      "lattice_size": 17,
+      "maximum_consumption_density": 7.359808400080195e-18,
+      "maximum_over_n_abs_H": 3.6799042000400974e-16,
+      "rms_consumption_density": 5.341714971733083e-18,
+      "spacing": 0.5
+    }
+  },
+  "limitations": [
+    "The radial finite-volume apparatus is a spherical reduction, not a full 3-D shell tessellation.",
+    "Finite density depletion shifts the fitted exponent slightly below -1/2 at stronger core fluxes; the declared attractor comparison uses the weak-depletion primary run.",
+    "The two-core resolution gate tests the inherited flux-type Gaussian core boundary model; it does not test the distinct level-core closure raised in ORB-10932.",
+    "The deepest cataloged two-core point is the strongest stable predeclared sweep point, not evidence that still deeper steady branches cannot exist with a different solver."
+  ],
+  "schema_version": 1,
+  "seed": 42,
+  "task": "ORB-10755",
+  "two_core_superposition_adjudication": {
+    "convergence": {
+      "continuum_extrapolation": {
+        "conservative_errors": {
+          "beta": 0.026865228018888798,
+          "c": 0.1840733471736824
+        },
+        "model": "p(h) = p(0) + k h^2 least-squares fit over all three rungs",
+        "parameters": {
+          "beta": 0.6055624332840617,
+          "c": 4.625127602277014
+        }
+      },
+      "converged": true,
+      "criterion": "the successive shifts of both c and beta and their normalized joint shift must shrink, with each finest-rung relative parameter shift below 0.25",
+      "drifting_to_ORB_10157": false,
+      "fine_relative_parameter_shifts": {
+        "beta": 0.04567039737724039,
+        "c": 0.03847717122782292
+      },
+      "grid_sizes": [
+        25,
+        41,
+        65
+      ],
+      "normalized_shift_norms": [
+        0.1924325222220822,
+        0.059718321328468785
+      ],
+      "normalized_shift_shrinks": true,
+      "parameter_values": {
+        "beta": [
+          0.4917132051759821,
+          0.5613763805876731,
+          0.5882416086065619
+        ],
+        "c": [
+          3.5965748894049234,
+          4.270175050097669,
+          4.441054255103332
+        ]
+      },
+      "per_parameter_shifts_shrink": {
+        "beta": true,
+        "c": true
+      },
+      "spacings": [
+        0.9230769230769231,
+        0.5714285714285714,
+        0.36363636363636365
+      ],
+      "successive_rung_shifts": {
+        "beta": [
+          0.06966317541169104,
+          0.026865228018888798
+        ],
+        "c": [
+          0.6736001606927458,
+          0.17087920500566245
+        ]
+      },
+      "verdict": "resolution_converged_distinct_shear_family"
+    },
+    "level_core_scope_note": "This task adjudicates the inherited flux-type core apparatus. The level-core closure raised in ORB-10932 is a different boundary model and is not tested here.",
+    "matched_fit_protocol": {
+      "depletion_grid": [
+        0.00589961770442943,
+        0.009557725581948789,
+        0.015484074202172907,
+        0.025085105430439757,
+        0.04063933731136299,
+        0.06583810228290463,
+        0.10666157469556517,
+        0.17279798660739462
+      ],
+      "interpolation": "piecewise linear in log(D)-log(A) between directly measured sweep points",
+      "range": [
+        0.00589961770442943,
+        0.17279798660739462
+      ]
+    },
+    "matched_physical_configuration": {
+      "core_separation_to_domain_width": 0.3333333333333333,
+      "core_sigma": 0.75,
+      "half_width": 12.0,
+      "neighbour_core_rates": [
+        0.1,
+        0.2,
+        0.4,
+        0.8,
+        1.6,
+        3.2
+      ],
+      "note": "all physical lengths, source rates, and rules are identical across rungs; only cell spacing changes",
+      "target_core_rate": 0.1
+    },
+    "range_check": {
+      "extended_beyond_previous_ceiling": true,
+      "finest_measured_ceiling": 0.2430082533453609,
+      "measured_ranges_by_grid": [
+        [
+          0.004608122838855419,
+          0.17279798660739462
+        ],
+        [
+          0.005495704922506424,
+          0.21882736236518588
+        ],
+        [
+          0.00589961770442943,
+          0.2430082533453609
+        ]
+      ],
+      "previous_ceiling": 0.083,
+      "strongest_cataloged_neighbour_rate": 3.2
+    },
+    "resolution_ladder": [
+      {
+        "apparatus": {
+          "amplitude_measurement": "paired velocity subtraction projected on the isolated target over radii 2-5",
+          "core_separation": 8.0,
+          "core_sigma": 0.75,
+          "depletion_measurement": "trilinear sample of the background deficit at the fixed physical target position",
+          "half_width": 12.0,
+          "lattice": "25^3 Cartesian cells with a full Dirichlet reservoir",
+          "neighbour_core_rates": [
+            0.1,
+            0.2,
+            0.4,
+            0.8,
+            1.6,
+            3.2
+          ],
+          "neighbour_position": [
+            4.0,
+            0.0,
+            0.0
+          ],
+          "spacing": 0.9230769230769231,
+          "steady_tolerance": 1e-08,
+          "target_core_rate": 0.1,
+          "target_position": [
+            -4.0,
+            0.0,
+            0.0
+          ],
+          "time_step": 2.0
+        },
+        "depletion_range": [
+          0.004608122838855419,
+          0.17279798660739462
+        ],
+        "isolated_steady_state": {
+          "integrated_shear_consumption": 4.114693429076818,
+          "last_step_change_over_max_deficit": 9.899243146440192e-09,
+          "maximum_deficit": 0.012006010870348013,
+          "steps": 145
+        },
+        "matched_fit_samples": [
+          {
+            "ambient_depletion_at_target": 0.00589961770442943,
+            "measured_incremental_amplitude": 0.8164279779799165
+          },
+          {
+            "ambient_depletion_at_target": 0.009557725581948789,
+            "measured_incremental_amplitude": 0.7552715657492053
+          },
+          {
+            "ambient_depletion_at_target": 0.015484074202172907,
+            "measured_incremental_amplitude": 0.6785535370098983
+          },
+          {
+            "ambient_depletion_at_target": 0.025085105430439757,
+            "measured_incremental_amplitude": 0.6024384126924494
+          },
+          {
+            "ambient_depletion_at_target": 0.04063933731136299,
+            "measured_incremental_amplitude": 0.5329299216674986
+          },
+          {
+            "ambient_depletion_at_target": 0.06583810228290463,
+            "measured_incremental_amplitude": 0.48178417016242003
+          },
+          {
+            "ambient_depletion_at_target": 0.10666157469556517,
+            "measured_incremental_amplitude": 0.45942237712264505
+          },
+          {
+            "ambient_depletion_at_target": 0.17279798660739462,
+            "measured_incremental_amplitude": 0.45151889555353913
+          }
+        ],
+        "modulation_fits": {
+          "ORB_10157_screening_family": {
+            "alpha": 1.071,
+            "form": "A(D) = (1-D)^1.071",
+            "log_rmse": 0.5044375951446473
+          },
+          "best_headroom_power": {
+            "alpha": 6.012864471284991,
+            "form": "A(D) = (1-D)^alpha, constrained to A(0)=1",
+            "log_rmse": 0.2885152309754304
+          },
+          "best_two_parameter_form": {
+            "beta": 0.4917132051759821,
+            "c": 3.5965748894049234,
+            "form": "A(D) = 1 / (1 + c D^beta)",
+            "log_rmse": 0.06285231378685445
+          }
+        },
+        "sweep": [
+          {
+            "ORB_10157_screening_amplitude": 0.9950655089518029,
+            "ambient_depletion_at_target": 0.004608122838855419,
+            "background_steady_state": {
+              "integrated_shear_consumption": 4.114693429076821,
+              "last_step_change_over_max_deficit": 9.89924321868415e-09,
+              "maximum_deficit": 0.012006010870348013,
+              "steps": 145
+            },
+            "measured_incremental_amplitude": 0.848709064324397,
+            "neighbour_core_rate": 0.1,
+            "paired_steady_state": {
+              "integrated_shear_consumption": 5.88228222600917,
+              "last_step_change_over_max_deficit": 9.772162092427936e-09,
+              "maximum_deficit": 0.013825838789229772,
+              "steps": 147
+            }
+          },
+          {
+            "ORB_10157_screening_amplitude": 0.9900978012271111,
+            "ambient_depletion_at_target": 0.009248795902416963,
+            "background_steady_state": {
+              "integrated_shear_consumption": 8.255772260207724,
+              "last_step_change_over_max_deficit": 9.084150579896668e-09,
+              "maximum_deficit": 0.024059892673415007,
+              "steps": 146
+            },
+            "measured_incremental_amplitude": 0.7608011338790336,
+            "neighbour_core_rate": 0.2,
+            "paired_steady_state": {
+              "integrated_shear_consumption": 9.335873340125305,
+              "last_step_change_over_max_deficit": 9.996742637513682e-09,
+              "maximum_deficit": 0.025142956809728806,
+              "steps": 145
+            }
+          },
+          {
+            "ORB_10157_screening_amplitude": 0.9800582387132718,
+            "ambient_depletion_at_target": 0.018632154270214443,
+            "background_steady_state": {
+              "integrated_shear_consumption": 16.621364589786776,
+              "last_step_change_over_max_deficit": 9.494483917362274e-09,
+              "maximum_deficit": 0.04831769210721514,
+              "steps": 146
+            },
+            "measured_incremental_amplitude": 0.6512369174361418,
+            "neighbour_core_rate": 0.4,
+            "paired_steady_state": {
+              "integrated_shear_consumption": 17.24411956703738,
+              "last_step_change_over_max_deficit": 9.703863439926648e-09,
+              "maximum_deficit": 0.04891379881096168,
+              "steps": 145
+            }
+          },
+          {
+            "ORB_10157_screening_amplitude": 0.9595273236155859,
+            "ambient_depletion_at_target": 0.03784105466351376,
+            "background_steady_state": {
+              "integrated_shear_consumption": 33.72010056732282,
+              "last_step_change_over_max_deficit": 9.442034181791055e-09,
+              "maximum_deficit": 0.09748368692457654,
+              "steps": 147
+            },
+            "measured_incremental_amplitude": 0.5409404117286903,
+            "neighbour_core_rate": 0.8,
+            "paired_steady_state": {
+              "integrated_shear_consumption": 34.074364641651265,
+              "last_step_change_over_max_deficit": 9.714039402019457e-09,
+              "maximum_deficit": 0.09778691359779618,
+              "steps": 146
+            }
+          },
+          {
+            "ORB_10157_screening_amplitude": 0.9163039618814545,
+            "ambient_depletion_at_target": 0.0783711046557175,
+            "background_steady_state": {
+              "integrated_shear_consumption": 69.72992668332498,
+              "last_step_change_over_max_deficit": 9.023528645833994e-09,
+              "maximum_deficit": 0.19892331287180112,
+              "steps": 150
+            },
+            "measured_incremental_amplitude": 0.4645435302865772,
+            "neighbour_core_rate": 1.6,
+            "paired_steady_state": {
+              "integrated_shear_consumption": 69.95495043642188,
+              "last_step_change_over_max_deficit": 9.715307546543757e-09,
+              "maximum_deficit": 0.19911970982013172,
+              "steps": 149
+            }
+          },
+          {
+            "ORB_10157_screening_amplitude": 0.8161350041225607,
+            "ambient_depletion_at_target": 0.17279798660739462,
+            "background_steady_state": {
+              "integrated_shear_consumption": 153.76778145272468,
+              "last_step_change_over_max_deficit": 9.595746181853628e-09,
+              "maximum_deficit": 0.4215101954734565,
+              "steps": 161
+            },
+            "measured_incremental_amplitude": 0.45151889555353913,
+            "neighbour_core_rate": 3.2,
+            "paired_steady_state": {
+              "integrated_shear_consumption": 153.93559093548095,
+              "last_step_change_over_max_deficit": 9.477575176582476e-09,
+              "maximum_deficit": 0.4216748931457426,
+              "steps": 161
+            }
+          }
+        ],
+        "unmatched_raw_modulation_fits": {
+          "ORB_10157_screening_family": {
+            "alpha": 1.071,
+            "form": "A(D) = (1-D)^1.071",
+            "log_rmse": 0.4834101312582456
+          },
+          "best_headroom_power": {
+            "alpha": 5.571520463794848,
+            "form": "A(D) = (1-D)^alpha, constrained to A(0)=1",
+            "log_rmse": 0.2883231538859946
+          },
+          "best_two_parameter_form": {
+            "beta": 0.5114543111547133,
+            "c": 3.7570463057500416,
+            "form": "A(D) = 1 / (1 + c D^beta)",
+            "log_rmse": 0.07339088389379758
+          }
+        }
+      },
+      {
+        "apparatus": {
+          "amplitude_measurement": "paired velocity subtraction projected on the isolated target over radii 2-5",
+          "core_separation": 8.0,
+          "core_sigma": 0.75,
+          "depletion_measurement": "trilinear sample of the background deficit at the fixed physical target position",
+          "half_width": 12.0,
+          "lattice": "41^3 Cartesian cells with a full Dirichlet reservoir",
+          "neighbour_core_rates": [
+            0.1,
+            0.2,
+            0.4,
+            0.8,
+            1.6,
+            3.2
+          ],
+          "neighbour_position": [
+            4.0,
+            0.0,
+            0.0
+          ],
+          "spacing": 0.5714285714285714,
+          "steady_tolerance": 1e-08,
+          "target_core_rate": 0.1,
+          "target_position": [
+            -4.0,
+            0.0,
+            0.0
+          ],
+          "time_step": 2.0
+        },
+        "depletion_range": [
+          0.005495704922506424,
+          0.21882736236518588
+        ],
+        "isolated_steady_state": {
+          "integrated_shear_consumption": 5.4661636380100935,
+          "last_step_change_over_max_deficit": 9.396827804175898e-09,
+          "maximum_deficit": 0.013774664954649851,
+          "steps": 153
+        },
+        "matched_fit_samples": [
+          {
+            "ambient_depletion_at_target": 0.00589961770442943,
+            "measured_incremental_amplitude": 0.8394371465623087
+          },
+          {
+            "ambient_depletion_at_target": 0.009557725581948789,
+            "measured_incremental_amplitude": 0.7793736520197415
+          },
+          {
+            "ambient_depletion_at_target": 0.015484074202172907,
+            "measured_incremental_amplitude": 0.7075092968244336
+          },
+          {
+            "ambient_depletion_at_target": 0.025085105430439757,
+            "measured_incremental_amplitude": 0.6321317869683076
+          },
+          {
+            "ambient_depletion_at_target": 0.04063933731136299,
+            "measured_incremental_amplitude": 0.5539656596426482
+          },
+          {
+            "ambient_depletion_at_target": 0.06583810228290463,
+            "measured_incremental_amplitude": 0.4907462520566944
+          },
+          {
+            "ambient_depletion_at_target": 0.10666157469556517,
+            "measured_incremental_amplitude": 0.4461829228362052
+          },
+          {
+            "ambient_depletion_at_target": 0.17279798660739462,
+            "measured_incremental_amplitude": 0.43540188822032383
+          }
+        ],
+        "modulation_fits": {
+          "ORB_10157_screening_family": {
+            "alpha": 1.071,
+            "form": "A(D) = (1-D)^1.071",
+            "log_rmse": 0.4940093124391549
+          },
+          "best_headroom_power": {
+            "alpha": 6.101863216698786,
+            "form": "A(D) = (1-D)^alpha, constrained to A(0)=1",
+            "log_rmse": 0.2580823619080081
+          },
+          "best_two_parameter_form": {
+            "beta": 0.5613763805876731,
+            "c": 4.270175050097669,
+            "form": "A(D) = 1 / (1 + c D^beta)",
+            "log_rmse": 0.054791416639105105
+          }
+        },
+        "sweep": [
+          {
+            "ORB_10157_screening_amplitude": 0.9941152503119679,
+            "ambient_depletion_at_target": 0.005495704922506424,
+            "background_steady_state": {
+              "integrated_shear_consumption": 5.46616363801009,
+              "last_step_change_over_max_deficit": 9.396827804175898e-09,
+              "maximum_deficit": 0.013774664954649851,
+              "steps": 153
+            },
+            "measured_incremental_amplitude": 0.8486482922128656,
+            "neighbour_core_rate": 0.1,
+            "paired_steady_state": {
+              "integrated_shear_consumption": 7.7766754976280446,
+              "last_step_change_over_max_deficit": 9.120232729958536e-09,
+              "maximum_deficit": 0.015809309200300888,
+              "steps": 156
+            }
+          },
+          {
+            "ORB_10157_screening_amplitude": 0.9881836750187962,
+            "ambient_depletion_at_target": 0.011037322734771652,
+            "background_steady_state": {
+              "integrated_shear_consumption": 10.957908071797531,
+              "last_step_change_over_max_deficit": 9.599359804316866e-09,
+              "maximum_deficit": 0.02761815089679048,
+              "steps": 153
+            },
+            "measured_incremental_amplitude": 0.7623016180742814,
+            "neighbour_core_rate": 0.2,
+            "paired_steady_state": {
+              "integrated_shear_consumption": 12.381106261072693,
+              "last_step_change_over_max_deficit": 9.63484682408637e-09,
+              "maximum_deficit": 0.028774556828851987,
+              "steps": 153
+            }
+          },
+          {
+            "ORB_10157_screening_amplitude": 0.9761718733351571,
+            "ambient_depletion_at_target": 0.02226620728887908,
+            "background_steady_state": {
+              "integrated_shear_consumption": 22.032284092115116,
+              "last_step_change_over_max_deficit": 9.078067677451384e-09,
+              "maximum_deficit": 0.055523256048607056,
+              "steps": 154
+            },
+            "measured_incremental_amplitude": 0.6530871224856187,
+            "neighbour_core_rate": 0.4,
+            "paired_steady_state": {
+              "integrated_shear_consumption": 22.889375510809415,
+              "last_step_change_over_max_deficit": 9.439359458501993e-09,
+              "maximum_deficit": 0.056157693707900885,
+              "steps": 153
+            }
+          },
+          {
+            "ORB_10157_screening_amplitude": 0.9514878955446505,
+            "ambient_depletion_at_target": 0.04537020752873136,
+            "background_steady_state": {
+              "integrated_shear_consumption": 44.63922326682918,
+              "last_step_change_over_max_deficit": 9.11059416880853e-09,
+              "maximum_deficit": 0.11229980226954123,
+              "steps": 155
+            },
+            "measured_incremental_amplitude": 0.5375251610951514,
+            "neighbour_core_rate": 0.8,
+            "paired_steady_state": {
+              "integrated_shear_consumption": 45.16309113729391,
+              "last_step_change_over_max_deficit": 9.521037046723487e-09,
+              "maximum_deficit": 0.11266476327082514,
+              "steps": 154
+            }
+          },
+          {
+            "ORB_10157_screening_amplitude": 0.8987831205714235,
+            "ambient_depletion_at_target": 0.09483600330069561,
+            "background_steady_state": {
+              "integrated_shear_consumption": 92.49073420635636,
+              "last_step_change_over_max_deficit": 9.20389979336379e-09,
+              "maximum_deficit": 0.23071912991266091,
+              "steps": 158
+            },
+            "measured_incremental_amplitude": 0.4488490052749056,
+            "neighbour_core_rate": 1.6,
+            "paired_steady_state": {
+              "integrated_shear_consumption": 92.8225725942916,
+              "last_step_change_over_max_deficit": 9.809257545800161e-09,
+              "maximum_deficit": 0.23095564140909444,
+              "steps": 157
+            }
+          },
+          {
+            "ORB_10157_screening_amplitude": 0.7675948660116404,
+            "ambient_depletion_at_target": 0.21882736236518588,
+            "background_steady_state": {
+              "integrated_shear_consumption": 211.40350848997224,
+              "last_step_change_over_max_deficit": 9.306240198290793e-09,
+              "maximum_deficit": 0.5050967192347109,
+              "steps": 180
+            },
+            "measured_incremental_amplitude": 0.4302200492017957,
+            "neighbour_core_rate": 3.2,
+            "paired_steady_state": {
+              "integrated_shear_consumption": 211.63617124596297,
+              "last_step_change_over_max_deficit": 9.20674086368777e-09,
+              "maximum_deficit": 0.5053004334530026,
+              "steps": 180
+            }
+          }
+        ],
+        "unmatched_raw_modulation_fits": {
+          "ORB_10157_screening_family": {
+            "alpha": 1.071,
+            "form": "A(D) = (1-D)^1.071",
+            "log_rmse": 0.48259016744144395
+          },
+          "best_headroom_power": {
+            "alpha": 4.481718304013793,
+            "form": "A(D) = (1-D)^alpha, constrained to A(0)=1",
+            "log_rmse": 0.29989460160435677
+          },
+          "best_two_parameter_form": {
+            "beta": 0.533147609891032,
+            "c": 3.764721049072167,
+            "form": "A(D) = 1 / (1 + c D^beta)",
+            "log_rmse": 0.07526679904931619
+          }
+        }
+      },
+      {
+        "apparatus": {
+          "amplitude_measurement": "paired velocity subtraction projected on the isolated target over radii 2-5",
+          "core_separation": 8.0,
+          "core_sigma": 0.75,
+          "depletion_measurement": "trilinear sample of the background deficit at the fixed physical target position",
+          "half_width": 12.0,
+          "lattice": "65^3 Cartesian cells with a full Dirichlet reservoir",
+          "neighbour_core_rates": [
+            0.1,
+            0.2,
+            0.4,
+            0.8,
+            1.6,
+            3.2
+          ],
+          "neighbour_position": [
+            4.0,
+            0.0,
+            0.0
+          ],
+          "spacing": 0.36363636363636365,
+          "steady_tolerance": 1e-08,
+          "target_core_rate": 0.1,
+          "target_position": [
+            -4.0,
+            0.0,
+            0.0
+          ],
+          "time_step": 2.0
+        },
+        "depletion_range": [
+          0.00589961770442943,
+          0.2430082533453609
+        ],
+        "isolated_steady_state": {
+          "integrated_shear_consumption": 6.331553463659808,
+          "last_step_change_over_max_deficit": 9.843913466166004e-09,
+          "maximum_deficit": 0.01454039672296198,
+          "steps": 158
+        },
+        "matched_fit_samples": [
+          {
+            "ambient_depletion_at_target": 0.00589961770442943,
+            "measured_incremental_amplitude": 0.851133920722877
+          },
+          {
+            "ambient_depletion_at_target": 0.009557725581948789,
+            "measured_incremental_amplitude": 0.7919048337143322
+          },
+          {
+            "ambient_depletion_at_target": 0.015484074202172907,
+            "measured_incremental_amplitude": 0.7236990488645748
+          },
+          {
+            "ambient_depletion_at_target": 0.025085105430439757,
+            "measured_incremental_amplitude": 0.6501091616731186
+          },
+          {
+            "ambient_depletion_at_target": 0.04063933731136299,
+            "measured_incremental_amplitude": 0.5695489622746214
+          },
+          {
+            "ambient_depletion_at_target": 0.06583810228290463,
+            "measured_incremental_amplitude": 0.5016234513432528
+          },
+          {
+            "ambient_depletion_at_target": 0.10666157469556517,
+            "measured_incremental_amplitude": 0.44685273213997806
+          },
+          {
+            "ambient_depletion_at_target": 0.17279798660739462,
+            "measured_incremental_amplitude": 0.43483046218312577
+          }
+        ],
+        "modulation_fits": {
+          "ORB_10157_screening_family": {
+            "alpha": 1.071,
+            "form": "A(D) = (1-D)^1.071",
+            "log_rmse": 0.4802658957318342
+          },
+          "best_headroom_power": {
+            "alpha": 6.03295775804834,
+            "form": "A(D) = (1-D)^alpha, constrained to A(0)=1",
+            "log_rmse": 0.24092310768921021
+          },
+          "best_two_parameter_form": {
+            "beta": 0.5882416086065619,
+            "c": 4.441054255103332,
+            "form": "A(D) = 1 / (1 + c D^beta)",
+            "log_rmse": 0.050650596536848
+          }
+        },
+        "sweep": [
+          {
+            "ORB_10157_screening_amplitude": 0.9936828351851519,
+            "ambient_depletion_at_target": 0.00589961770442943,
+            "background_steady_state": {
+              "integrated_shear_consumption": 6.3315534636598185,
+              "last_step_change_over_max_deficit": 9.843913466166004e-09,
+              "maximum_deficit": 0.01454039672296198,
+              "steps": 158
+            },
+            "measured_incremental_amplitude": 0.851133920722877,
+            "neighbour_core_rate": 0.1,
+            "paired_steady_state": {
+              "integrated_shear_consumption": 8.982014195951178,
+              "last_step_change_over_max_deficit": 9.987746495273177e-09,
+              "maximum_deficit": 0.016827991306966918,
+              "steps": 161
+            }
+          },
+          {
+            "ORB_10157_screening_amplitude": 0.987313249087139,
+            "ambient_depletion_at_target": 0.011850709798229992,
+            "background_steady_state": {
+              "integrated_shear_consumption": 12.664898087729384,
+              "last_step_change_over_max_deficit": 9.179936542124295e-09,
+              "maximum_deficit": 0.029158695295632926,
+              "steps": 159
+            },
+            "measured_incremental_amplitude": 0.766851352296923,
+            "neighbour_core_rate": 0.2,
+            "paired_steady_state": {
+              "integrated_shear_consumption": 14.326547813817015,
+              "last_step_change_over_max_deficit": 9.298506232703615e-09,
+              "maximum_deficit": 0.030441818681253646,
+              "steps": 159
+            }
+          },
+          {
+            "ORB_10157_screening_amplitude": 0.974405875297169,
+            "ambient_depletion_at_target": 0.023917869148944282,
+            "background_steady_state": {
+              "integrated_shear_consumption": 25.386594060057014,
+              "last_step_change_over_max_deficit": 9.662267210680644e-09,
+              "maximum_deficit": 0.05864422173710723,
+              "steps": 159
+            },
+            "measured_incremental_amplitude": 0.6586589801619186,
+            "neighbour_core_rate": 0.4,
+            "paired_steady_state": {
+              "integrated_shear_consumption": 26.421299573244326,
+              "last_step_change_over_max_deficit": 9.077968049643888e-09,
+              "maximum_deficit": 0.05935260276554036,
+              "steps": 159
+            }
+          },
+          {
+            "ORB_10157_screening_amplitude": 0.9478322615870763,
+            "ambient_depletion_at_target": 0.048795205571596376,
+            "background_steady_state": {
+              "integrated_shear_consumption": 51.22499692253856,
+              "last_step_change_over_max_deficit": 9.769852264752557e-09,
+              "maximum_deficit": 0.11873298739859742,
+              "steps": 160
+            },
+            "measured_incremental_amplitude": 0.5416895897644407,
+            "neighbour_core_rate": 0.8,
+            "paired_steady_state": {
+              "integrated_shear_consumption": 51.87495775501616,
+              "last_step_change_over_max_deficit": 9.199159691905609e-09,
+              "maximum_deficit": 0.11913922739250768,
+              "steps": 160
+            }
+          },
+          {
+            "ORB_10157_screening_amplitude": 0.8907328170390597,
+            "ambient_depletion_at_target": 0.10240824520264753,
+            "background_steady_state": {
+              "integrated_shear_consumption": 105.76526768033615,
+              "last_step_change_over_max_deficit": 9.209946160739163e-09,
+              "maximum_deficit": 0.2447038972338561,
+              "steps": 164
+            },
+            "measured_incremental_amplitude": 0.4478818358292668,
+            "neighbour_core_rate": 1.6,
+            "paired_steady_state": {
+              "integrated_shear_consumption": 106.17153230235313,
+              "last_step_change_over_max_deficit": 9.730598898087776e-09,
+              "maximum_deficit": 0.24496267837861924,
+              "steps": 163
+            }
+          },
+          {
+            "ORB_10157_screening_amplitude": 0.7421755034548689,
+            "ambient_depletion_at_target": 0.2430082533453609,
+            "background_steady_state": {
+              "integrated_shear_consumption": 246.35145414370552,
+              "last_step_change_over_max_deficit": 9.492034485846808e-09,
+              "maximum_deficit": 0.5469372918914855,
+              "steps": 195
+            },
+            "measured_incremental_amplitude": 0.42652951360960495,
+            "neighbour_core_rate": 3.2,
+            "paired_steady_state": {
+              "integrated_shear_consumption": 246.62427300343538,
+              "last_step_change_over_max_deficit": 9.406799574689425e-09,
+              "maximum_deficit": 0.5471670420137296,
+              "steps": 195
+            }
+          }
+        ],
+        "unmatched_raw_modulation_fits": {
+          "ORB_10157_screening_family": {
+            "alpha": 1.071,
+            "form": "A(D) = (1-D)^1.071",
+            "log_rmse": 0.4714710970945419
+          },
+          "best_headroom_power": {
+            "alpha": 3.9903685392926236,
+            "form": "A(D) = (1-D)^alpha, constrained to A(0)=1",
+            "log_rmse": 0.30161073429071983
+          },
+          "best_two_parameter_form": {
+            "beta": 0.5390675028251005,
+            "c": 3.645237639950479,
+            "form": "A(D) = 1 / (1 + c D^beta)",
+            "log_rmse": 0.07554356127782606
+          }
+        }
+      }
+    ],
+    "role": "predeclared resolution-convergence gate",
+    "separation_control": {
+      "consistent_with_A_of_D": true,
+      "criterion": "fixed-mass separation points follow the finest-rung A(D) family with log-RMSE below 0.08; otherwise the residuals quantify geometry dependence",
+      "fixed_core_rates": [
+        0.1,
+        1.6
+      ],
+      "grid_size": 65,
+      "log_rmse_against_A_of_D": 0.035151629927934455,
+      "maximum_absolute_log_residual": 0.05090422795305554,
+      "measurements": [
+        {
+          "ambient_depletion_at_target": 0.1298866063731617,
+          "background_steady_state": {
+            "integrated_shear_consumption": 107.09310601566045,
+            "last_step_change_over_max_deficit": 9.185837508660622e-09,
+            "maximum_deficit": 0.24928841083104467,
+            "steps": 166
+          },
+          "core_separation": 6.0,
+          "finest_resolution_family_prediction": 0.42794616765782845,
+          "isolated_steady_state": {
+            "integrated_shear_consumption": 6.372303489452108,
+            "last_step_change_over_max_deficit": 9.454438756461518e-09,
+            "maximum_deficit": 0.014770945079440441,
+            "steps": 159
+          },
+          "log_residual": -0.05090422795305554,
+          "measured_incremental_amplitude": 0.4067070645642514,
+          "neighbour_core_rate": 1.6,
+          "paired_steady_state": {
+            "integrated_shear_consumption": 107.555427749183,
+            "last_step_change_over_max_deficit": 9.76342229695036e-09,
+            "maximum_deficit": 0.24977719449241514,
+            "steps": 165
+          },
+          "target_core_rate": 0.1
+        },
+        {
+          "ambient_depletion_at_target": 0.10240824520264753,
+          "background_steady_state": {
+            "integrated_shear_consumption": 105.76526768033615,
+            "last_step_change_over_max_deficit": 9.209946160739163e-09,
+            "maximum_deficit": 0.2447038972338561,
+            "steps": 164
+          },
+          "core_separation": 8.0,
+          "finest_resolution_family_prediction": 0.4624672748301586,
+          "isolated_steady_state": {
+            "integrated_shear_consumption": 6.331553463659808,
+            "last_step_change_over_max_deficit": 9.843913466166004e-09,
+            "maximum_deficit": 0.01454039672296198,
+            "steps": 158
+          },
+          "log_residual": -0.032046359010386674,
+          "measured_incremental_amplitude": 0.4478818358292668,
+          "neighbour_core_rate": 1.6,
+          "paired_steady_state": {
+            "integrated_shear_consumption": 106.17153230235313,
+            "last_step_change_over_max_deficit": 9.730598898087776e-09,
+            "maximum_deficit": 0.24496267837861924,
+            "steps": 163
+          },
+          "target_core_rate": 0.1
+        },
+        {
+          "ambient_depletion_at_target": 0.07946520600043529,
+          "background_steady_state": {
+            "integrated_shear_consumption": 103.96090769104343,
+            "last_step_change_over_max_deficit": 9.989607393687344e-09,
+            "maximum_deficit": 0.2379195867241493,
+            "steps": 161
+          },
+          "core_separation": 10.0,
+          "finest_resolution_family_prediction": 0.4996981103291396,
+          "isolated_steady_state": {
+            "integrated_shear_consumption": 6.276940295760742,
+            "last_step_change_over_max_deficit": 9.490644807841662e-09,
+            "maximum_deficit": 0.014191018016545313,
+            "steps": 158
+          },
+          "log_residual": 0.009418158548895808,
+          "measured_incremental_amplitude": 0.5044265781366752,
+          "neighbour_core_rate": 1.6,
+          "paired_steady_state": {
+            "integrated_shear_consumption": 104.39426152986067,
+            "last_step_change_over_max_deficit": 9.570463422714184e-09,
+            "maximum_deficit": 0.23807230716818967,
+            "steps": 161
+          },
+          "target_core_rate": 0.1
+        }
+      ]
+    },
+    "top_rung_step_halving": {
+      "amplitudes": [
+        0.4478818358292668,
+        0.4478818565430406
+      ],
+      "depletions": [
+        0.10240824520264753,
+        0.1024082263570249
+      ],
+      "grid_size": 65,
+      "neighbour_core_rate": 1.6,
+      "passed": true,
+      "relative_amplitude_shift": 4.624830066829875e-08,
+      "relative_depletion_shift": 1.8402446594595925e-07,
+      "time_steps": [
+        2.0,
+        1.0
+      ]
+    }
+  }
+}

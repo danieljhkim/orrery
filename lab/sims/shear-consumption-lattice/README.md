@@ -19,7 +19,7 @@ uv run lab/sims/shear-consumption-lattice/main.py
 ```
 
 The command deterministically rewrites `summary.json` and
-`runs/2026-08-12-seed-42.json`. Add `--check-determinism --no-write` for a
+`runs/2026-08-21-seed-42.json`. Add `--check-determinism --no-write` for a
 byte-for-byte in-memory rerun check. The run record is authoritative for all
 full-precision measurements and convergence data.
 
@@ -43,15 +43,34 @@ this repository.
   by the same 3-D deviatoric-strain stencil. Its measured consumption must be
   below `1e-12` relative to `n|H|`.
 
-## Exploratory two-core probe
+## Two-core resolution gate
 
-A full 25-cubed Cartesian companion lattice uses the identical neighbour-flux
-and 3-D strain rule. One core is held fixed while a second core's rate is swept.
-Paired velocity subtraction isolates the target core over radii 2–5. The run
-record reports the measured modulation, a fitted two-parameter law, and the
-direct comparison with the ORB-10157 screening family
-`A(D) = (1-D)^1.071`. This probe is explicitly exploratory, not a gate; its
-coarse-grid limitation is retained in the report.
+The Cartesian companion lattice uses the identical neighbour-flux and 3-D
+strain rule on a 25³ → 41³ → 65³ ladder. The physical domain, Gaussian core
+width, core positions, source rates, and core-separation-to-domain ratio remain
+fixed while only the cell spacing changes. One core is held fixed while a
+second core's rate is swept. Paired velocity subtraction isolates the target
+core over radii 2–5; background depletion is trilinearly sampled at its fixed
+physical position. Each rung is interpolated onto the same eight-point
+log-spaced depletion grid before fitting, so parameter convergence is not
+confounded by slightly different sampled depletion ranges.
+
+The predeclared convergence gate requires the successive shifts of both `c`
+and `beta` in `A(D) = 1/(1+c D^beta)` to shrink, the joint normalized shift to
+shrink, and each last-rung relative shift to be below 25%. It passes. A
+second-order-in-spacing extrapolation gives `c = 4.625 ± 0.184` and
+`beta = 0.6056 ± 0.0269`. At 65³ the two-parameter, constrained headroom, and
+fixed ORB-10157 families have log-RMSE 0.0507, 0.2409, and 0.4803,
+respectively. The directly measured range reaches `D = 0.243`, beyond the old
+`D = 0.083` ceiling.
+
+At 65³, three fixed-mass separations quantify geometry dependence against the
+fitted `A(D)` family (log-RMSE 0.0352), and halving `dt` changes depletion and
+amplitude by less than `2e-7` relatively. The flux-core family is therefore a
+resolution-converged result of this apparatus, not the old 25³ discretization
+artifact. A level-type core is a different boundary model raised by ORB-10932
+and is deliberately outside this measurement; theory reconciliation remains
+Kepler's follow-up.
 
 Finite density depletion shifts stronger-core radial fits slightly below the
 weak-depletion half-power limit. The primary gate therefore tests the declared

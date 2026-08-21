@@ -19,7 +19,8 @@
   "provenance": {
     "almanac": "15-discussions/26-07/gravity-as-scarcity-of-space.md",
     "orbit_tasks": [
-      "ORB-10751"
+      "ORB-10751",
+      "ORB-10755"
     ],
     "theory_context": "../../principia/theory/shear-sourced-consumption.md"
   }
