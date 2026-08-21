@@ -1,6 +1,6 @@
 {
   "slug": "level-core-dynamical-relaxation",
-  "title": "Level-core dynamical relaxation wind tunnel",
+  "title": "Level-core extended dynamical relaxation",
   "kind": "py",
   "entry": "main.py",
   "status": "active",
@@ -11,14 +11,15 @@
     "level-matching",
     "moving-source",
     "dynamical-relaxation",
+    "extended-horizon",
     "strain",
     "resolution-convergence"
   ],
   "family": "gravity-as-scarcity",
-  "summary": "A deterministic initial-value wind tunnel lets the moving draw-sourced closed-system equations discover whether a steady wake and Bernoulli speed law actually emerge.",
+  "summary": "A deterministic T=600 wind tunnel finds joint residual settlement but ladder-confirmed core cavitation at intermediate wind and a converged violation of the Bernoulli speed closure.",
   "provenance": {
     "almanac": "15-discussions/26-08/from-galactic-motion-to-the-moving-gravity-medium-problem.md",
-    "orbit_task": "ORB-10937",
-    "predecessors": ["ORB-10935", "ORB-10934", "ORB-10932", "ORB-10751"]
+    "orbit_task": "ORB-10938",
+    "predecessors": ["ORB-10937", "ORB-10935", "ORB-10934", "ORB-10932", "ORB-10751"]
   }
 }
