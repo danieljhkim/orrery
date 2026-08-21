@@ -1,6 +1,6 @@
 {
   "slug": "two-substance-dynamical-packet",
-  "title": "Two-substance dynamical packet budget",
+  "title": "Two-substance packet coupling and wake test",
   "kind": "py",
   "entry": "main.py",
   "status": "active",
@@ -14,11 +14,12 @@
     "wave-packets"
   ],
   "family": "two-substance-vortex-vacuum",
-  "summary": "A deterministic 2-D conserved lattice evolves localized relative-mode packets and measures whether their co-moving common-mode content scales with packet energy.",
+  "summary": "Coupling controls, time-resolved profile lags, primary-observable refinement, an emission gate, and a Hamiltonian audit distinguish a packet-bound common mode from an imposed wake.",
   "provenance": {
     "almanac": "15-discussions/26-06/swirl-photon-correspondence.md",
     "orbit_tasks": [
-      "ORB-10940"
+      "ORB-10940",
+      "ORB-10941"
     ],
     "theory_context": "../../principia/theory/swirl-photon.md",
     "companion_sims": [
