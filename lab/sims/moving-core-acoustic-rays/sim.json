@@ -1,0 +1,25 @@
+{
+  "slug": "moving-core-acoustic-rays",
+  "title": "Moving-core acoustic rays",
+  "kind": "py",
+  "entry": "main.py",
+  "status": "active",
+  "created": "2026-08-21",
+  "topics": [
+    "gravity",
+    "gravity-as-scarcity",
+    "moving-source",
+    "preferred-frame",
+    "geometric-optics",
+    "acoustic-metric",
+    "shapiro-delay",
+    "resolution-convergence"
+  ],
+  "family": "gravity-as-scarcity",
+  "summary": "Hamiltonian acoustic rays bracket deflection and Shapiro modulation across Galilean, marched, and T=60 realized moving-core direction fields, with an explicitly aberrated Schwarzschild comparator.",
+  "provenance": {
+    "almanac": "15-discussions/26-08/from-galactic-motion-to-the-moving-gravity-medium-problem.md",
+    "orbit_task": "ORB-10939",
+    "predecessors": ["ORB-10938", "ORB-10937", "ORB-10935", "ORB-10166"]
+  }
+}
