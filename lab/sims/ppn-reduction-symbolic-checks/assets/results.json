@@ -1,0 +1,212 @@
+{
+  "all_passed": true,
+  "engine": "sympy-1.14.0",
+  "gates": [
+    {
+      "details": {
+        "explicit_wind_derivative_at_fixed_u_is_zero": true,
+        "metric_after_v_equals_u_minus_U": "Matrix([\n[-c**2 + u_x**2 + u_y**2 + u_z**2, -u_x, -u_y, -u_z],\n[                            -u_x,    1,    0,    0],\n[                            -u_y,    0,    1,    0],\n[                            -u_z,    0,    0,    1]])",
+        "transformed_metric_equals_pg_of_u": true
+      },
+      "name": "statement_0_reservoir_pg_form",
+      "passed": true
+    },
+    {
+      "details": {
+        "exact_minkowski_pullback": true,
+        "nonzero_components": 0,
+        "orders_in_U": "all",
+        "riemann_components_checked": 256
+      },
+      "name": "pure_wind_full_riemann_flatness",
+      "passed": true
+    },
+    {
+      "details": {
+        "cross_terms_vanish": true,
+        "exact_schwarzschild": true,
+        "exact_spatial_stretch": true,
+        "gp_g_rr": "-1/(epsilon - 1)",
+        "gp_lapse_squared": "1 - epsilon"
+      },
+      "name": "steady_diagonalization_and_static_schwarzschild",
+      "passed": true
+    },
+    {
+      "details": {
+        "anisotropic_piece_nonzero": true,
+        "anisotropic_piece_numerator": [
+          "-12*y*z",
+          "12*x*z",
+          "-4*x*y"
+        ],
+        "anisotropic_test_field": [
+          "x",
+          "2*y",
+          "3*z"
+        ],
+        "static_gp_anisotropy_piece_numerator": [
+          "0",
+          "0",
+          "0"
+        ],
+        "static_gp_vorticity_piece": [
+          "0",
+          "0",
+          "0"
+        ],
+        "vector_identity_residual": [
+          "0",
+          "0",
+          "0"
+        ]
+      },
+      "name": "two_piece_g0i_obstruction",
+      "passed": true
+    },
+    {
+      "details": {
+        "classifications_through_epsilon_epsilon_w": [
+          {
+            "classification": "slot-surviving",
+            "order": "epsilon",
+            "reason": "static Schwarzschild lapse",
+            "slot": "h_00",
+            "term": "a.a"
+          },
+          {
+            "classification": "slot-surviving",
+            "order": "sqrt(epsilon)*epsilon_w",
+            "reason": "stationary temporal shift leaves g_00 unchanged; generic wake contraction is nonzero",
+            "slot": "h_00",
+            "term": "2*a.b"
+          },
+          {
+            "classification": "gauge-removable",
+            "order": "sqrt(epsilon)",
+            "reason": "static radial GP part is removed by the temporal lambda shift",
+            "slot": "h_0i",
+            "term": "-a_i"
+          },
+          {
+            "classification": "gauge-removable",
+            "order": "epsilon_w",
+            "reason": "the integrable part is absorbed by lambda",
+            "slot": "h_0i",
+            "term": "-b_i longitudinal part"
+          },
+          {
+            "classification": "slot-surviving",
+            "order": "epsilon_w",
+            "reason": "curl obstruction prevents a scalar lambda",
+            "slot": "h_0i",
+            "term": "-b_i transverse part"
+          },
+          {
+            "classification": "gauge-removable",
+            "order": "epsilon*epsilon_w",
+            "reason": "nonlinear term in grad(lambda)=-u/(1-u^2)",
+            "slot": "h_0i",
+            "term": "-[a^2*b_i + 2*(a.b)*a_i] longitudinal part"
+          },
+          {
+            "classification": "slot-surviving",
+            "order": "epsilon*epsilon_w",
+            "reason": "the two-piece obstruction is the integrability condition",
+            "slot": "h_0i",
+            "term": "-[a^2*b_i + 2*(a.b)*a_i] transverse part"
+          },
+          {
+            "classification": "slot-surviving",
+            "order": "epsilon",
+            "reason": "static Schwarzschild spatial curvature",
+            "slot": "h_ij",
+            "term": "a_i*a_j"
+          },
+          {
+            "classification": "slot-surviving",
+            "order": "sqrt(epsilon)*epsilon_w",
+            "reason": "generic part has nonzero linearized curvature and is not a spatial pure gauge",
+            "slot": "h_ij",
+            "term": "a_i*b_j + b_i*a_j"
+          }
+        ],
+        "curvature_witness": {
+          "R_0i0j_at_sqrt_epsilon_epsilon_w": [
+            [
+              "-2",
+              "0",
+              "0"
+            ],
+            [
+              "0",
+              "-4",
+              "0"
+            ],
+            [
+              "0",
+              "0",
+              "-6"
+            ]
+          ],
+          "a": [
+            "x",
+            "y",
+            "z"
+          ],
+          "b": [
+            "x",
+            "2*y",
+            "3*z"
+          ],
+          "both_leading_flows_are_potential": true,
+          "nonzero": true
+        },
+        "direct_metric_coefficients_at_epsilon_epsilon_w": {
+          "h_00": "0",
+          "h_0i": [
+            "0",
+            "0",
+            "0"
+          ],
+          "h_ij": [
+            [
+              "0",
+              "0",
+              "0"
+            ],
+            [
+              "0",
+              "0",
+              "0"
+            ],
+            [
+              "0",
+              "0",
+              "0"
+            ]
+          ],
+          "note": "epsilon*epsilon_w enters the nonlinear temporal generator and its obstruction, not a new monomial of the PG metric for delta-v=O(epsilon_w)"
+        },
+        "hazard_verdict": "KILL: a generic wake has observable sqrt(epsilon)*epsilon_w curvature; survival requires extra cancellations in the realized wake",
+        "small_parameters": {
+          "epsilon_w": "U/c",
+          "p": "sqrt(epsilon)",
+          "u_over_c": "p*a + epsilon_w*b"
+        },
+        "super_ppn_kill": true,
+        "temporal_generator_epsilon_epsilon_w": [
+          "-3*a_x**2*b_x - 2*a_x*a_y*b_y - 2*a_x*a_z*b_z - a_y**2*b_x - a_z**2*b_x",
+          "-a_x**2*b_y - 2*a_x*a_y*b_x - 3*a_y**2*b_y - 2*a_y*a_z*b_z - a_z**2*b_y",
+          "-a_x**2*b_z - 2*a_x*a_z*b_x - a_y**2*b_z - 2*a_y*a_z*b_y - 3*a_z**2*b_z"
+        ]
+      },
+      "name": "half_order_bookkeeping",
+      "passed": true
+    }
+  ],
+  "hazard_verdict": "KILL: a generic wake has observable sqrt(epsilon)*epsilon_w curvature; survival requires extra cancellations in the realized wake",
+  "schema_version": 1,
+  "sim": "ppn-reduction-symbolic-checks",
+  "task": "ORB-11040"
+}
