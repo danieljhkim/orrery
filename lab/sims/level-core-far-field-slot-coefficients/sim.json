@@ -1,0 +1,25 @@
+{
+  "slug": "level-core-far-field-slot-coefficients",
+  "title": "Level-core far-field slot coefficients",
+  "kind": "py",
+  "entry": "main.py",
+  "status": "active",
+  "created": "2026-08-28",
+  "topics": [
+    "gravity",
+    "gravity-as-scarcity",
+    "moving-source",
+    "preferred-frame",
+    "far-field",
+    "PPN",
+    "dynamical-relaxation",
+    "resolution-convergence"
+  ],
+  "family": "gravity-as-scarcity",
+  "summary": "A settled large-box ladder finds a converged nonzero disturbance-speed dipole tail, a quadrupole slot only at one wind, and no converged far-field alpha1 obstruction regime; the trough floors and the Galilean null passes.",
+  "provenance": {
+    "almanac": "15-discussions/26-08/from-galactic-motion-to-the-moving-gravity-medium-problem.md",
+    "orbit_task": "ORB-11041",
+    "predecessors": ["ORB-11039", "ORB-10938", "ORB-10935", "ORB-10751"]
+  }
+}
