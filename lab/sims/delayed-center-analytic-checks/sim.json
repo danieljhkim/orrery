@@ -1,0 +1,24 @@
+{
+  "slug": "delayed-center-analytic-checks",
+  "title": "Delayed-center analytic checks",
+  "kind": "py",
+  "entry": "main.py",
+  "status": "active",
+  "created": "2026-09-04",
+  "topics": [
+    "gravity",
+    "preferred-frame",
+    "field-propagation",
+    "negative-control",
+    "poisson-equation",
+    "numerical-verification"
+  ],
+  "family": "retarded-scarcity-wake",
+  "summary": "Deterministic quadrature, finite-difference, loop-work, and contrast ladders catalog why the delayed-center shortcut is non-Laplace, non-conservative under its alternate force rule, and 2-beta rather than 4-beta under its declared rule.",
+  "provenance": {
+    "almanac": "15-discussions/26-08/from-galactic-motion-to-the-moving-gravity-medium-problem.md",
+    "theory_context": "../../principia/theory/moving-source-field-consistency/",
+    "related_sim": "../retarded-scarcity-wake/",
+    "orbit_task": "ORB-11169"
+  }
+}

@@ -1,0 +1,656 @@
+{
+  "all_passed": true,
+  "checks": [
+    {
+      "claim_assessments": {
+        "moving-source-legendre-not-laplace": "supports",
+        "retarded-wake-delayed-center-dipole": "supports"
+      },
+      "claim_ids": [
+        "moving-source-legendre-not-laplace",
+        "retarded-wake-delayed-center-dipole"
+      ],
+      "fine_measurements": {
+        "coefficients_by_radius": [
+          {
+            "coefficients_n0_through_n6": [
+              1.0000000000000009,
+              -0.30000000000000443,
+              0.09000000000003455,
+              -0.027000000000014568,
+              0.00810000000006313,
+              -0.0024300000000227447,
+              0.0007290000000888298
+            ],
+            "radius": 2.0
+          },
+          {
+            "coefficients_n0_through_n6": [
+              1.0000000000000007,
+              -0.3000000000000045,
+              0.09000000000003457,
+              -0.02700000000001455,
+              0.008100000000063156,
+              -0.0024300000000227755,
+              0.0007290000000888016
+            ],
+            "radius": 5.0
+          },
+          {
+            "coefficients_n0_through_n6": [
+              1.0000000000000007,
+              -0.3000000000000045,
+              0.09000000000003457,
+              -0.027000000000014592,
+              0.00810000000006318,
+              -0.0024300000000227464,
+              0.0007290000000888165
+            ],
+            "radius": 11.0
+          }
+        ],
+        "expected_coefficients_n0_through_n6": [
+          1.0,
+          -0.3,
+          0.09,
+          -0.026999999999999996,
+          0.0081,
+          -0.0024299999999999994,
+          0.0007289999999999998
+        ],
+        "inferred_offset_linear_intercept": 1.544241063661659e-16,
+        "inferred_offset_linear_slope": 0.3000000000000043,
+        "inferred_offset_over_radius": [
+          0.30000000000000415,
+          0.30000000000000426,
+          0.3000000000000043
+        ],
+        "laplace_forbidden_n_ge_1_present": true,
+        "maximum_radius_spread": 2.220446049250313e-16
+      },
+      "id": "legendre_not_laplace",
+      "kill_condition_triggered": false,
+      "ladder": [
+        {
+          "coefficients_n0_through_n6": [
+            1.0,
+            -0.29999999999999977,
+            0.08999999999999753,
+            -0.02699999999999908,
+            0.008099999999997859,
+            -0.002429999999996414,
+            0.0007289999999879736
+          ],
+          "maximum_absolute_coefficient_error": 1.2026187337643712e-14,
+          "quadrature_order": 16
+        },
+        {
+          "coefficients_n0_through_n6": [
+            1.0,
+            -0.30000000000000054,
+            0.09000000000000487,
+            -0.027000000000001866,
+            0.00810000000000721,
+            -0.0024300000000022724,
+            0.0007290000000068492
+          ],
+          "maximum_absolute_coefficient_error": 7.211245489635587e-15,
+          "quadrature_order": 32
+        },
+        {
+          "coefficients_n0_through_n6": [
+            1.0,
+            -0.29999999999999916,
+            0.08999999999999256,
+            -0.026999999999997075,
+            0.008099999999987947,
+            -0.0024299999999961306,
+            0.0007289999999857072
+          ],
+          "maximum_absolute_coefficient_error": 1.429260355900741e-14,
+          "quadrature_order": 64
+        },
+        {
+          "coefficients_n0_through_n6": [
+            1.0000000000000009,
+            -0.30000000000000443,
+            0.09000000000003455,
+            -0.027000000000014568,
+            0.00810000000006313,
+            -0.0024300000000227447,
+            0.0007290000000888298
+          ],
+          "maximum_absolute_coefficient_error": 8.882998503434436e-14,
+          "quadrature_order": 128
+        }
+      ],
+      "method": "Gauss-Legendre projection of -R Phi/(GM)",
+      "parameters": {
+        "beta_g": 0.3,
+        "maximum_n": 6,
+        "radii": [
+          2.0,
+          5.0,
+          11.0
+        ]
+      },
+      "passed": true,
+      "predeclared_kill": "all n>=1 coefficients vanish",
+      "predeclared_pass": "n>=1 coefficients are present, their normalized angular shape is radius-independent, and the inferred dipole offset grows linearly with radius",
+      "tolerances": {
+        "coefficient_absolute": 1e-12,
+        "dipole_offset_intercept_absolute": 1e-12,
+        "dipole_offset_slope_absolute": 1e-12,
+        "n_ge_1_presence": 1e-05,
+        "radius_shape_absolute": 1e-13
+      },
+      "verdict": "PASS"
+    },
+    {
+      "claim_assessments": {
+        "moving-source-poisson-dipole-divergence": "supports"
+      },
+      "claim_ids": [
+        "moving-source-poisson-dipole-divergence"
+      ],
+      "fine_measurements": {
+        "analytic_profile": [
+          0.00909705286921259,
+          0.0066495863392832194,
+          0.004704194248665972,
+          0.0031444705933590784,
+          0.0018845879657392,
+          0.0008603463825042393,
+          2.3095730526760617e-05,
+          -0.0006644666185935275,
+          -0.0012312500000000004,
+          -0.001699878667640972,
+          -0.002088217119464792,
+          -0.002410487710518031,
+          -0.002678099105602269,
+          -0.0029002670145672855,
+          -0.0030844839403255235,
+          -0.0032368779656366618,
+          -0.0033624891576325504,
+          -0.003465484223454405,
+          -0.003549324468996991
+        ],
+        "expected_effective_density_dipole_coefficient": -0.0004973591971621729,
+        "expected_effective_dipole_moment_slope": -0.13333333333333333,
+        "expected_laplacian_dipole_coefficient": -0.00625,
+        "fine_dipole_relative_error": 3.208450467251378e-05,
+        "finite_difference_profile": [
+          0.00909675835263357,
+          0.0066502523447198305,
+          0.004704747287931354,
+          0.0031444414135606276,
+          0.0018838530194464904,
+          0.0008589743040410267,
+          2.1254180815333253e-05,
+          -0.0006665687392271024,
+          -0.001233399248024014,
+          -0.0017018809958635468,
+          -0.002089913998748471,
+          -0.0024117674059187517,
+          -0.00267890491723044,
+          -0.002900603603039897,
+          -0.0030844224241377556,
+          -0.0032365602353756624,
+          -0.003362131674711221,
+          -0.003465381479239581,
+          -0.003549852215911641
+        ],
+        "interpretation": "rho_eff = laplacian(Phi)/(4 pi G); its l=1 moment accumulates linearly with outer radius",
+        "observed_convergence_orders": [
+          2.00211018480526,
+          2.000515870090983,
+          2.00012824155468,
+          2.0000319898446763
+        ]
+      },
+      "id": "poisson_exterior_dipole",
+      "kill_condition_triggered": false,
+      "ladder": [
+        {
+          "effective_density_dipole_coefficient": -0.0004933320805604112,
+          "effective_dipole_moment_slope": -0.1322537335525338,
+          "grid_spacing": 0.4,
+          "laplacian_dipole_coefficient": -0.006199393760275024,
+          "profile_relative_l2_error": 0.08195202617329625,
+          "spacing_over_radius": 0.1
+        },
+        {
+          "effective_density_dipole_coefficient": -0.0004963415257928247,
+          "effective_dipole_moment_slope": -0.1330605133740618,
+          "grid_spacing": 0.2,
+          "laplacian_dipole_coefficient": -0.006237211564409147,
+          "profile_relative_l2_error": 0.020458061283823343,
+          "spacing_over_radius": 0.05
+        },
+        {
+          "effective_density_dipole_coefficient": -0.0004971040921279281,
+          "effective_dipole_moment_slope": -0.1332649441193406,
+          "grid_spacing": 0.1,
+          "laplacian_dipole_coefficient": -0.00624679425559409,
+          "profile_relative_l2_error": 0.0051126868307001935,
+          "spacing_over_radius": 0.025
+        },
+        {
+          "effective_density_dipole_coefficient": -0.0004972953778527536,
+          "effective_dipole_moment_slope": -0.1333162244886503,
+          "grid_spacing": 0.05,
+          "laplacian_dipole_coefficient": -0.006249198022905484,
+          "profile_relative_l2_error": 0.0012780580956937924,
+          "spacing_over_radius": 0.0125
+        },
+        {
+          "effective_density_dipole_coefficient": -0.0004973432396386877,
+          "effective_dipole_moment_slope": -0.133329055399377,
+          "grid_spacing": 0.025,
+          "laplacian_dipole_coefficient": -0.006249799471845797,
+          "profile_relative_l2_error": 0.0003195074391921762,
+          "spacing_over_radius": 0.00625
+        }
+      ],
+      "method": "seven-point Cartesian finite-difference Laplacian on an exterior angular profile",
+      "parameters": {
+        "beta_g": 0.2,
+        "profile_mu": [
+          -0.9,
+          -0.8,
+          -0.7,
+          -0.6,
+          -0.5,
+          -0.4,
+          -0.29999999999999993,
+          -0.19999999999999996,
+          -0.09999999999999998,
+          0.0,
+          0.09999999999999998,
+          0.20000000000000007,
+          0.30000000000000016,
+          0.4,
+          0.5000000000000001,
+          0.6,
+          0.7000000000000001,
+          0.8000000000000002,
+          0.9
+        ],
+        "radius": 4.0
+      },
+      "passed": true,
+      "predeclared_kill": "the exterior profile converges to zero or fails to converge",
+      "predeclared_pass": "the nonzero exterior Laplacian profile and effective dipole density converge at second order under grid refinement",
+      "tolerances": {
+        "fine_dipole_relative": 0.0005,
+        "fine_profile_relative_l2": 0.0005,
+        "minimum_last_pair_convergence_order": 1.8,
+        "nonzero_profile_l2_floor": 0.0001
+      },
+      "verdict": "PASS"
+    },
+    {
+      "beta_ladder": [
+        {
+          "beta_g": 0.2,
+          "quadrature_ladder": [
+            {
+              "circle_work": -1.271227047239254e-17,
+              "generic_loop_work": 0.009578256618905084,
+              "generic_work_over_beta_GM_per_inner_radius": 0.14367384928357624,
+              "samples_per_segment": 64
+            },
+            {
+              "circle_work": -1.3647394846161287e-17,
+              "generic_loop_work": 0.009577617844987,
+              "generic_work_over_beta_GM_per_inner_radius": 0.143664267674805,
+              "samples_per_segment": 128
+            },
+            {
+              "circle_work": -1.3877787807814457e-17,
+              "generic_loop_work": 0.009577458147139475,
+              "generic_work_over_beta_GM_per_inner_radius": 0.14366187220709212,
+              "samples_per_segment": 256
+            },
+            {
+              "circle_work": -2.7755575615628914e-17,
+              "generic_loop_work": 0.009577418222404585,
+              "generic_work_over_beta_GM_per_inner_radius": 0.14366127333606876,
+              "samples_per_segment": 512
+            }
+          ]
+        },
+        {
+          "beta_g": 0.1,
+          "quadrature_ladder": [
+            {
+              "circle_work": -6.613633252161577e-18,
+              "generic_loop_work": 0.007196646943912165,
+              "generic_work_over_beta_GM_per_inner_radius": 0.21589940831736493,
+              "samples_per_segment": 64
+            },
+            {
+              "circle_work": -4.0284886971414524e-18,
+              "generic_loop_work": 0.0071961538461576095,
+              "generic_work_over_beta_GM_per_inner_radius": 0.21588461538472828,
+              "samples_per_segment": 128
+            },
+            {
+              "circle_work": 0.0,
+              "generic_loop_work": 0.0071960305690245,
+              "generic_work_over_beta_GM_per_inner_radius": 0.215880917070735,
+              "samples_per_segment": 256
+            },
+            {
+              "circle_work": 0.0,
+              "generic_loop_work": 0.007195999749572808,
+              "generic_work_over_beta_GM_per_inner_radius": 0.21587999248718423,
+              "samples_per_segment": 512
+            }
+          ]
+        },
+        {
+          "beta_g": 0.05,
+          "quadrature_ladder": [
+            {
+              "circle_work": -4.221612209115433e-18,
+              "generic_loop_work": 0.004320855215471378,
+              "generic_work_over_beta_GM_per_inner_radius": 0.25925131292828263,
+              "samples_per_segment": 64
+            },
+            {
+              "circle_work": -4.101333530605322e-18,
+              "generic_loop_work": 0.004320555705622611,
+              "generic_work_over_beta_GM_per_inner_radius": 0.2592333423373566,
+              "samples_per_segment": 128
+            },
+            {
+              "circle_work": 0.0,
+              "generic_loop_work": 0.004320480826708745,
+              "generic_work_over_beta_GM_per_inner_radius": 0.2592288496025247,
+              "samples_per_segment": 256
+            },
+            {
+              "circle_work": 0.0,
+              "generic_loop_work": 0.004320462106889543,
+              "generic_work_over_beta_GM_per_inner_radius": 0.25922772641337255,
+              "samples_per_segment": 512
+            }
+          ]
+        },
+        {
+          "beta_g": 0.025,
+          "quadrature_ladder": [
+            {
+              "circle_work": -8.761708806398483e-18,
+              "generic_loop_work": 0.0023571409068953754,
+              "generic_work_over_beta_GM_per_inner_radius": 0.282856908827445,
+              "samples_per_segment": 64
+            },
+            {
+              "circle_work": -4.9568368073321656e-18,
+              "generic_loop_work": 0.002356976687057227,
+              "generic_work_over_beta_GM_per_inner_radius": 0.28283720244686716,
+              "samples_per_segment": 128
+            },
+            {
+              "circle_work": -5.204170427930421e-18,
+              "generic_loop_work": 0.0023569356313487234,
+              "generic_work_over_beta_GM_per_inner_radius": 0.2828322757618468,
+              "samples_per_segment": 256
+            },
+            {
+              "circle_work": -3.469446951953614e-18,
+              "generic_loop_work": 0.00235692536737476,
+              "generic_work_over_beta_GM_per_inner_radius": 0.2828310440849712,
+              "samples_per_segment": 512
+            }
+          ]
+        },
+        {
+          "beta_g": 0.0125,
+          "quadrature_ladder": [
+            {
+              "circle_work": 5.338001633596601e-18,
+              "generic_loop_work": 0.001229816471974185,
+              "generic_work_over_beta_GM_per_inner_radius": 0.2951559532738044,
+              "samples_per_segment": 64
+            },
+            {
+              "circle_work": 4.4939333016576904e-18,
+              "generic_loop_work": 0.001229730592589818,
+              "generic_work_over_beta_GM_per_inner_radius": 0.2951353422215563,
+              "samples_per_segment": 128
+            },
+            {
+              "circle_work": 0.0,
+              "generic_loop_work": 0.0012297091223637778,
+              "generic_work_over_beta_GM_per_inner_radius": 0.2951301893673067,
+              "samples_per_segment": 256
+            },
+            {
+              "circle_work": 8.673617379884035e-19,
+              "generic_loop_work": 0.0012297037547834924,
+              "generic_work_over_beta_GM_per_inner_radius": 0.2951289011480382,
+              "samples_per_segment": 512
+            }
+          ]
+        },
+        {
+          "beta_g": 0.00625,
+          "quadrature_ladder": [
+            {
+              "circle_work": 2.9739326778098485e-18,
+              "generic_loop_work": 0.0006279817060930002,
+              "generic_work_over_beta_GM_per_inner_radius": 0.30143121892464003,
+              "samples_per_segment": 64
+            },
+            {
+              "circle_work": 1.3976043629695956e-20,
+              "generic_loop_work": 0.0006279378049317838,
+              "generic_work_over_beta_GM_per_inner_radius": 0.3014101463672562,
+              "samples_per_segment": 128
+            },
+            {
+              "circle_work": 4.336808689942018e-19,
+              "generic_loop_work": 0.0006279268294501446,
+              "generic_work_over_beta_GM_per_inner_radius": 0.3014048781360694,
+              "samples_per_segment": 256
+            },
+            {
+              "circle_work": -8.673617379884035e-19,
+              "generic_loop_work": 0.0006279240855677876,
+              "generic_work_over_beta_GM_per_inner_radius": 0.3014035610725381,
+              "samples_per_segment": 512
+            }
+          ]
+        }
+      ],
+      "claim_assessments": {
+        "moving-source-retarded-direction-curl": "supports",
+        "retarded-wake-retarded-direction-conservative": "kills"
+      },
+      "claim_ids": [
+        "moving-source-retarded-direction-curl",
+        "retarded-wake-retarded-direction-conservative"
+      ],
+      "curl_ladder": [
+        {
+          "curl_z": 0.0014862843046983543,
+          "grid_spacing": 0.12,
+          "relative_error": 0.100364448334608
+        },
+        {
+          "curl_z": 0.0013845919480816316,
+          "grid_spacing": 0.06,
+          "relative_error": 0.02507693198616856
+        },
+        {
+          "curl_z": 0.0013591868089023393,
+          "grid_spacing": 0.03,
+          "relative_error": 0.006268342088854517
+        },
+        {
+          "curl_z": 0.0013528366521679824,
+          "grid_spacing": 0.015,
+          "relative_error": 0.0015670297694345692
+        },
+        {
+          "curl_z": 0.00135124918358015,
+          "grid_spacing": 0.0075,
+          "relative_error": 0.0003917539548565774
+        }
+      ],
+      "fine_measurements": {
+        "analytic_curl_z_at_beta_0p1": 0.0013507200336650576,
+        "generic_work_linear_fit_intercept": 0.0011889146096465586,
+        "generic_work_linear_fit_slope": 0.046158592072923506,
+        "maximum_fine_circle_work_absolute": 2.7755575615628914e-17,
+        "maximum_fine_quadrature_relative_shift": 4.3697485572202766e-06,
+        "small_beta_scaled_work_relative_shift": 0.02126074369569264
+      },
+      "id": "retarded_direction_curl",
+      "kill_condition_triggered": false,
+      "method": "finite-difference curl plus trapezoidal line integrals on constant-radius and radius-angle loops",
+      "parameters": {
+        "beta_g_ladder": [
+          0.2,
+          0.1,
+          0.05,
+          0.025,
+          0.0125,
+          0.00625
+        ],
+        "circle_radius": 4.0,
+        "generic_loop": {
+          "inner_radius": 3.0,
+          "outer_radius": 5.0,
+          "theta_a": 0.35,
+          "theta_b": 1.4
+        }
+      },
+      "passed": true,
+      "predeclared_kill": "curl or generic loop work converges to zero, circle work remains nonzero, or beta_g scaling fails",
+      "predeclared_pass": "curl is nonzero, constant-radius circle work vanishes, and generic radius-angle loop work converges and scales as beta_g GM/R",
+      "tolerances": {
+        "circle_work_absolute": 1e-12,
+        "fine_curl_relative_error": 0.0005,
+        "fine_quadrature_relative_shift": 2e-05,
+        "generic_work_absolute_floor": 1e-05,
+        "small_beta_scaled_work_relative_shift": 0.03
+      },
+      "verdict": "PASS"
+    },
+    {
+      "claim_assessments": {
+        "moving-source-2beta-not-4beta": "supports",
+        "retarded-wake-4beta-contrast": "kills",
+        "retarded-wake-rescues-parent": "kills; this negative control supplies no rescue and does not retest the parent debts"
+      },
+      "claim_ids": [
+        "moving-source-2beta-not-4beta",
+        "retarded-wake-4beta-contrast",
+        "retarded-wake-rescues-parent"
+      ],
+      "fine_measurements": {
+        "observed_asymptotic_orders": [
+          2.0443941193584076,
+          2.0108883161428093,
+          2.0027092872560353,
+          2.000676527661151
+        ]
+      },
+      "id": "two_beta_not_four_beta",
+      "kill_condition_triggered": false,
+      "ladder": [
+        {
+          "beta_g": 0.2,
+          "contrast_over_beta_g": 2.083333333333333,
+          "contrast_over_g0": 0.41666666666666663,
+          "g_lead_over_g0": 0.8333333333333334,
+          "g_trail_over_g0": 1.25,
+          "relative_error_from_2beta": 0.04166666666666652,
+          "relative_error_from_4beta": 0.47916666666666674
+        },
+        {
+          "beta_g": 0.1,
+          "contrast_over_beta_g": 2.0202020202020208,
+          "contrast_over_g0": 0.2020202020202021,
+          "g_lead_over_g0": 0.9090909090909091,
+          "g_trail_over_g0": 1.1111111111111112,
+          "relative_error_from_2beta": 0.010101010101010388,
+          "relative_error_from_4beta": 0.4949494949494948
+        },
+        {
+          "beta_g": 0.05,
+          "contrast_over_beta_g": 2.0050125313283207,
+          "contrast_over_g0": 0.10025062656641603,
+          "g_lead_over_g0": 0.9523809523809523,
+          "g_trail_over_g0": 1.0526315789473684,
+          "relative_error_from_2beta": 0.0025062656641603454,
+          "relative_error_from_4beta": 0.4987468671679198
+        },
+        {
+          "beta_g": 0.025,
+          "contrast_over_beta_g": 2.0012507817385883,
+          "contrast_over_g0": 0.05003126954346471,
+          "g_lead_over_g0": 0.9756097560975611,
+          "g_trail_over_g0": 1.0256410256410258,
+          "relative_error_from_2beta": 0.0006253908692941401,
+          "relative_error_from_4beta": 0.49968730456535293
+        },
+        {
+          "beta_g": 0.0125,
+          "contrast_over_beta_g": 2.0003125488357387,
+          "contrast_over_g0": 0.025003906860446734,
+          "g_lead_over_g0": 0.9876543209876544,
+          "g_trail_over_g0": 1.0126582278481011,
+          "relative_error_from_2beta": 0.00015627441786936203,
+          "relative_error_from_4beta": 0.4999218627910653
+        }
+      ],
+      "method": "direct evaluation of the radial derivative of Phi on the leading and trailing axes",
+      "parameters": {
+        "beta_g_ladder": [
+          0.2,
+          0.1,
+          0.05,
+          0.025,
+          0.0125
+        ],
+        "force_rule": "a = -gradient(Phi_lag)"
+      },
+      "passed": true,
+      "predeclared_kill": "the declared potential-gradient rule approaches 4 beta_g instead",
+      "predeclared_pass": "(g_trail-g_lead)/g0 approaches 2 beta_g and remains separated from 4 beta_g",
+      "tolerances": {
+        "fine_contrast_over_beta_absolute_from_2": 0.0005,
+        "fine_contrast_over_beta_minimum_distance_from_4": 1.9,
+        "minimum_last_pair_asymptotic_order": 1.9
+      },
+      "verdict": "PASS"
+    }
+  ],
+  "claim_id_count": 8,
+  "claim_ids": [
+    "moving-source-2beta-not-4beta",
+    "moving-source-legendre-not-laplace",
+    "moving-source-poisson-dipole-divergence",
+    "moving-source-retarded-direction-curl",
+    "retarded-wake-4beta-contrast",
+    "retarded-wake-delayed-center-dipole",
+    "retarded-wake-rescues-parent",
+    "retarded-wake-retarded-direction-conservative"
+  ],
+  "model": {
+    "lag": "Delta(R) = -w R/c_g",
+    "potential": "Phi_lag = -GM/[R sqrt(1 + 2 beta_g cos(theta) + beta_g^2)]",
+    "scope": "negative control for the refuted delayed-center shortcut; not the live Branch C gate",
+    "units": "GM = 1"
+  },
+  "overall_verdict": "PASS",
+  "run_date": "2026-09-04",
+  "schema_version": 1,
+  "sim": "delayed-center-analytic-checks",
+  "task": "ORB-11169"
+}
