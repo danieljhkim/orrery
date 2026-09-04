@@ -1,6 +1,6 @@
 {
   "slug": "level-core-far-field-slot-coefficients",
-  "title": "Level-core far-field slot coefficients",
+  "title": "Level-core far-field shell stability",
   "kind": "py",
   "entry": "main.py",
   "status": "active",
@@ -16,10 +16,10 @@
     "resolution-convergence"
   ],
   "family": "gravity-as-scarcity",
-  "summary": "A settled large-box ladder finds a converged nonzero disturbance-speed dipole tail, a quadrupole slot only at one wind, and no converged far-field alpha1 obstruction regime; the trough floors and the Galilean null passes.",
+  "summary": "A larger-box deterministic rung extends the far-field ladder through r=24, finds boundary-sensitive dipole exponents, no alpha1 regime, and a surviving slot-order half-order contraction channel.",
   "provenance": {
     "almanac": "15-discussions/26-08/from-galactic-motion-to-the-moving-gravity-medium-problem.md",
-    "orbit_task": "ORB-11041",
-    "predecessors": ["ORB-11039", "ORB-10938", "ORB-10935", "ORB-10751"]
+    "orbit_task": "ORB-11171",
+    "predecessors": ["ORB-11041", "ORB-11040", "ORB-10938"]
   }
 }

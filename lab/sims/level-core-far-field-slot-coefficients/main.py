@@ -1,9 +1,9 @@
-"""Measure far-field PPN-slot proxies of the settled moving level-core wake.
+"""Test larger-box shell stability and the half-order wake contraction.
 
 This fixture reuses the ORB-10938 rolling-rule momentum, consumed-density
 continuity, boundary treatment, and frozen ORB-10751 shear stencil directly.
 It changes only the geometry and diagnostics: a small core is placed in a
-large box, three winds cross their matching radii inside the shell ladder, and
+large box, three winds cross their matching radii inside an extended shell ladder, and
 the settled disturbance field is reduced into radial tail verdicts and
 dimensionless lattice-unit slot proxies.  No Bernoulli speed is imposed.
 
@@ -22,17 +22,18 @@ from pathlib import Path
 import numpy as np
 
 SEED = 42
-TASK_ID = "ORB-11041"
-RUN_ID = "jrun-20260828-0507-3"
-RUN_DATE = "2026-08-28"
-RUN_RECORD = "2026-08-28-seed-42.json"
+TASK_ID = "ORB-11171"
+RUN_ID = "jrun-20260904-0258-3"
+RUN_DATE = "2026-09-04"
+RUN_RECORD = "2026-09-04-seed-42.json"
 
-GRID_SIZES = (41, 57)
-DOMAIN_HALF_WIDTH = 24.0
+GRID_SIZES = (47, 63)
+DOMAIN_HALF_WIDTH = 26.0
 CORE_SIGMA = 1.0
 CORE_REGION_RADIUS = 2.0
 PROBE_RADIUS = 5.0
-SHELL_RADII = (3.0, 5.0, 8.0, 11.0, 14.0, 17.0, 20.0)
+ORB_11041_SHELL_RADII = (3.0, 5.0, 8.0, 11.0, 14.0, 17.0, 20.0)
+SHELL_RADII = ORB_11041_SHELL_RADII + (22.0, 24.0)
 WIND_RATIOS = (0.65, 0.8, 1.0)
 END_TIME = 480.0
 DIAGNOSTIC_INTERVAL = 10.0
@@ -44,6 +45,17 @@ TAIL_SLOPE_TOLERANCE = 0.35
 TAIL_R2_MINIMUM = 0.90
 TAIL_LOCAL_SLOPE_SPREAD_MAXIMUM = 1.0
 CONVERGENCE_RELATIVE_TOLERANCE = 0.30
+ORB_11041_SPEED_DIPOLE_EXPONENTS = {
+    0.65: -0.9438736254360486,
+    0.8: -1.0778145749438193,
+    1.0: -1.1069085352334405,
+}
+ORB_11041_SPEED_DIPOLE_ERRORS = {
+    0.65: 0.02953918875663253,
+    0.8: 0.029384894837297004,
+    1.0: 0.06830757618846217,
+}
+ORB_11041_ALPHA2 = {"coefficient": 52.1874740924607, "error": 13.183751943940806}
 
 
 def load_predecessor():
@@ -101,6 +113,10 @@ def shell_reduction(apparatus, level: dict, velocity: np.ndarray, wind: float) -
     disturbance[0] -= wind
     curl, grad_squared = vector_calculus(disturbance, level["spacing"])
     disturbance_squared = np.sum(disturbance**2, axis=0)
+    delta_velocity = disturbance - level["gp_velocity"]
+    half_order_contraction = 2.0 * np.sum(
+        level["gp_velocity"] * delta_velocity, axis=0
+    )
     denominator = C_SQUARED - disturbance_squared
     safe_denominator = np.maximum(denominator, 1.0e-12)
     vorticity_term = curl / safe_denominator
@@ -115,6 +131,9 @@ def shell_reduction(apparatus, level: dict, velocity: np.ndarray, wind: float) -
         points, directions, weights = apparatus.shell_quadrature(radius)
         sampled_u = apparatus.sample_vector(disturbance, level["axis"], points)
         sampled_u2 = np.sum(sampled_u**2, axis=1)
+        sampled_contraction = apparatus.sample_scalar(
+            half_order_contraction, level["axis"], points
+        )
         sampled_speed = np.sqrt(sampled_u2)
         sampled_phi = apparatus.sample_scalar(level["sigma"], level["axis"], points)
         sampled_curl = apparatus.sample_vector(curl, level["axis"], points)
@@ -159,6 +178,12 @@ def shell_reduction(apparatus, level: dict, velocity: np.ndarray, wind: float) -
                     ),
                     "squared_legendre": apparatus.legendre_coefficients(
                         sampled_u2, directions, weights
+                    ),
+                },
+                "half_order_u_GP_dot_delta_v": {
+                    "formula": "2 u_GP dot delta_v",
+                    "legendre": apparatus.legendre_coefficients(
+                        sampled_contraction, directions, weights
                     ),
                 },
                 "direction_field": {
@@ -232,6 +257,12 @@ def radial_fits(rows: list[dict]) -> dict:
         ),
         "speed_w_hat_l3": power_law_fit(
             rows, lambda row: abs(row["disturbance_speed"]["squared_legendre"]["l3"])
+        ),
+        "half_order_u_GP_dot_delta_v_l1": power_law_fit(
+            rows,
+            lambda row: abs(
+                row["half_order_u_GP_dot_delta_v"]["legendre"]["l1"]
+            ),
         ),
         # Obstruction is one derivative above g0i.  Multiplication by r maps
         # its r^-2 PPN derivative tail to the requested Phi-like r^-1 ladder.
@@ -542,6 +573,9 @@ def run_experiment() -> dict:
                 "core_region_to_first_wind_dominated_radius": (
                     None if first is None else CORE_REGION_RADIUS / first["radius"]
                 ),
+                "core_sigma_to_first_wind_dominated_radius": (
+                    None if first is None else CORE_SIGMA / first["radius"]
+                ),
                 "first_wind_dominated_radius_to_box_half_width": (
                     None if first is None else first["radius"] / DOMAIN_HALF_WIDTH
                 ),
@@ -582,6 +616,89 @@ def run_experiment() -> dict:
             }
         )
 
+    g1_passed = bool(
+        all(row["steady"] for row in g1_cases)
+        and not any(
+            row["claim_ppn_far_field_trans_critical_killed"]
+            for row in cavitation_kills
+        )
+    )
+    g2_passed = all(
+        row["fields"]["speed_w_hat_l1"]["converged"]
+        and row["fields"]["half_order_u_GP_dot_delta_v_l1"]["converged"]
+        for row in convergence_by_wind
+    )
+    g3_passed = all(
+        row["slots"]["two_alpha3_minus_alpha1_dipole_lattice"]["coefficient"]
+        is not None
+        for row in slots_by_wind
+    )
+    g4_fields = [
+        wind_scaling(fine_by_ratio, coarse_by_ratio, field)
+        for field in ("vorticity", "Bernoulli_anisotropy", "total")
+    ]
+    g4_passed = all(row["resolution_converged"] for row in g4_fields)
+    g5 = galilean_null(apparatus, levels, winds)
+
+    question_rows = []
+    for ratio in WIND_RATIOS:
+        fine = reductions[(fine_size, ratio)]
+        convergence = next(
+            row["fields"]
+            for row in convergence_by_wind
+            if row["wind_ratio_to_v_GP_at_r5"] == ratio
+        )
+        subset_fit = power_law_fit(
+            [
+                row
+                for row in fine["rows"]
+                if row["radius"] in ORB_11041_SHELL_RADII
+            ],
+            lambda row: abs(
+                row["disturbance_speed"]["squared_legendre"]["l1"]
+            ),
+        )
+        exponent = fine["fits"]["speed_w_hat_l1"].get("power_law_exponent")
+        old_exponent = ORB_11041_SPEED_DIPOLE_EXPONENTS[ratio]
+        error = ORB_11041_SPEED_DIPOLE_ERRORS[ratio]
+        question_rows.append(
+            {
+                "wind_ratio_to_v_GP_at_r5": ratio,
+                "ORB_11041_shell_subset_fit": subset_fit,
+                "extended_ladder_fit": fine["fits"]["speed_w_hat_l1"],
+                "ORB_11041_quoted_exponent": old_exponent,
+                "ORB_11041_quoted_exponent_error": error,
+                "holds_within_quoted_error": bool(
+                    exponent is not None and abs(exponent - old_exponent) <= error
+                ),
+                "alpha1_regime": convergence["g0i_total_dipole"][
+                    "reported_verdict"
+                ],
+                # ORB-11040 identifies the measured w-hat speed dipole as
+                # the symmetry channel containing 2 u_GP . delta-v.  That
+                # channel, rather than the decomposition-dependent residual
+                # above, is the predeclared hazard arbiter.
+                "half_order_tail": convergence["speed_w_hat_l1"][
+                    "reported_verdict"
+                ],
+                "anisotropy_regime": convergence[
+                    "g0i_Bernoulli_anisotropy_piece"
+                ]["reported_verdict"],
+            }
+        )
+    alpha2_middle = next(
+        row["slots"]["alpha2_speed_quadrupole_lattice"]
+        for row in slots_by_wind
+        if row["wind_ratio_to_v_GP_at_r5"] == 0.8
+    )
+    alpha2_coefficient = alpha2_middle.get("coefficient")
+    alpha2_stable = bool(
+        alpha2_coefficient is not None
+        and abs(alpha2_coefficient - ORB_11041_ALPHA2["coefficient"])
+        <= ORB_11041_ALPHA2["error"]
+        + (alpha2_middle.get("apparatus_error") or 0.0)
+    )
+
     return {
         "schema_version": 1,
         "task_id": TASK_ID,
@@ -590,9 +707,9 @@ def run_experiment() -> dict:
         "seed": SEED,
         "apparatus": {
             "implementation_decision": (
-                "new slug because the large-box/small-core geometry and far-field "
-                "question differ from ORB-10938; its evolution module is imported "
-                "instead of duplicating more than 50 helper lines"
+                "in-place evolution of ORB-11041 because this is the same model, "
+                "same G1-G5 definitions, and same slot question on a longer ladder; "
+                "git history preserves the superseded half-width-24 run"
             ),
             "shared_apparatus_source": "../level-core-dynamical-relaxation/main.py",
             "equations": {
@@ -615,11 +732,9 @@ def run_experiment() -> dict:
             "end_time": END_TIME,
             "scale_separation": matching,
             "feasibility_decision": (
-                "The 48-unit box doubles ORB-10938's width while a one-unit core "
-                "keeps all three matching transitions inside the shell ladder.  "
-                "The 41^3->57^3 ladder prioritizes three winds and a complete "
-                "T=480 settlement test; any failed resolution gate is reported as "
-                "no scaling regime rather than extrapolated."
+                "The 52-unit box admits exactly two added shells (r=22,24) at all "
+                "three winds. The 47^3->63^3 ladder improves core sampling on both "
+                "corresponding rungs while retaining the full T=480 horizon."
             ),
             "obstruction_tail_convention": (
                 "curl fields are one derivative above g0i; r times each obstruction "
@@ -635,32 +750,94 @@ def run_experiment() -> dict:
                 "criterion_inherited_from_ORB_10938": True,
                 "cases": g1_cases,
                 "cavitation_claim_gate": cavitation_kills,
-                "passed": bool(
-                    all(row["steady"] for row in g1_cases)
-                    and not any(
-                        row["claim_ppn_far_field_trans_critical_killed"]
-                        for row in cavitation_kills
-                    )
-                ),
+                "passed": g1_passed,
+                "pass_kill_verdict": "PASS" if g1_passed else "KILL",
             },
             "G2_radial_falloff": {
                 "predeclared_worst_verdict": "no_scaling_regime",
                 "per_wind_rung_convergence": convergence_by_wind,
+                "passed": g2_passed,
+                "pass_kill_verdict": "PASS" if g2_passed else "KILL",
             },
             "G3_slot_coefficients_lattice_units": {
                 "normalization_warning": (
                     "These are apparatus-defined dimensionless lattice proxies, not physical alpha values."
                 ),
                 "per_wind": slots_by_wind,
+                "passed": g3_passed,
+                "pass_kill_verdict": "PASS" if g3_passed else "KILL",
             },
             "G4_per_wind_scaling": {
                 "outer_shell_radius": SHELL_RADII[-1],
-                "fields": [
-                    wind_scaling(fine_by_ratio, coarse_by_ratio, field)
-                    for field in ("vorticity", "Bernoulli_anisotropy", "total")
-                ],
+                "fields": g4_fields,
+                "passed": g4_passed,
+                "pass_kill_verdict": "PASS" if g4_passed else "KILL",
             },
-            "G5_Galilean_null": galilean_null(apparatus, levels, winds),
+            "G5_Galilean_null": {
+                **g5,
+                "pass_kill_verdict": "PASS" if g5["passed"] else "KILL",
+            },
+        },
+        "predeclared_questions": {
+            "Q1_shell_stability": {
+                "speed_dipole_by_wind": question_rows,
+                "middle_wind_alpha2_ORB_11041": ORB_11041_ALPHA2,
+                "middle_wind_alpha2_extended": alpha2_middle,
+                "middle_wind_alpha2_holds_within_combined_error": alpha2_stable,
+                "verdict": (
+                    "stable"
+                    if alpha2_stable
+                    and all(row["holds_within_quoted_error"] for row in question_rows)
+                    else "boundary_artifact_or_unstable"
+                ),
+            },
+            "Q2_alpha1_regime": {
+                "by_wind": [
+                    {
+                        "wind_ratio": row["wind_ratio_to_v_GP_at_r5"],
+                        "verdict": row["alpha1_regime"],
+                    }
+                    for row in question_rows
+                ],
+                "answer": (
+                    "present"
+                    if any(
+                        row["alpha1_regime"] == "slot_matching_tail"
+                        for row in question_rows
+                    )
+                    else "absent_on_converged_ladder"
+                ),
+            },
+            "Q3_half_order_hazard": {
+                "arbitrating_measurement": (
+                    "wind-axis l=1 of |w_hat|^2, the ORB-11040 "
+                    "2 u_GP dot delta_v symmetry channel"
+                ),
+                "by_wind": [
+                    {
+                        "wind_ratio": row["wind_ratio_to_v_GP_at_r5"],
+                        "verdict": row["half_order_tail"],
+                    }
+                    for row in question_rows
+                ],
+                "answer": (
+                    "faster-than-slot"
+                    if all(
+                        row["half_order_tail"]
+                        == "faster_decay_near_zone_confined"
+                        for row in question_rows
+                    )
+                    else "slot-order"
+                    if all(
+                        row["half_order_tail"] == "slot_matching_tail"
+                        for row in question_rows
+                    )
+                    else "indeterminate"
+                ),
+            },
+            "Q4_lowest_wind_anisotropy": {
+                "answer": question_rows[0]["anisotropy_regime"],
+            },
         },
     }
 
