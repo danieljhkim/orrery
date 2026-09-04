@@ -17,7 +17,7 @@
   "summary": "Exact SymPy gates verify the reservoir-frame PG reduction, pure-wind flatness, Schwarzschild diagonalization, and two-piece shift obstruction; a generic wake fires the predeclared super-PPN half-order kill.",
   "provenance": {
     "almanac": "15-discussions/26-08/from-galactic-motion-to-the-moving-gravity-medium-problem.md",
-    "principia": "theory/ppn-reduction-of-the-settled-flow.md",
+    "principia": "theory/ppn-reduction-of-the-settled-flow/",
     "orbit_task": "ORB-11040",
     "predecessors": ["ORB-11039", "ORB-10938", "ORB-10935"]
   }

@@ -21,8 +21,8 @@
       "ORB-10160",
       "ORB-10164"
     ],
-    "theory_context": "../../principia/theory/two-substance-vortex-vacuum.md",
-    "parent_theory": "../../principia/theory/gravity-as-scarcity.md",
+    "theory_context": "../../principia/theory/two-substance-vortex-vacuum/",
+    "parent_theory": "../../principia/theory/gravity-as-scarcity/",
     "companion_sim": "../two-substance-vortex-lattice/"
   }
 }

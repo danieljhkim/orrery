@@ -23,6 +23,6 @@
       "ORB-10932"
     ],
     "parent_apparatus": "../shear-consumption-lattice/",
-    "theory_context": "../../principia/theory/shear-sourced-consumption.md"
+    "theory_context": "../../principia/theory/shear-sourced-consumption/"
   }
 }

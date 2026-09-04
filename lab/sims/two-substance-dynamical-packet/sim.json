@@ -21,7 +21,7 @@
       "ORB-10940",
       "ORB-10941"
     ],
-    "theory_context": "../../principia/theory/swirl-photon.md",
+    "theory_context": "../../principia/theory/swirl-photon/",
     "companion_sims": [
       "../two-substance-vortex-lattice/",
       "../two-substance-defect-gravity/",

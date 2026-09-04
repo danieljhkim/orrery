@@ -1,7 +1,7 @@
 # PPN reduction symbolic checks
 
 This deterministic SymPy fixture turns the four exact algebra rows in
-principia's `theory/ppn-reduction-of-the-settled-flow.md` into cataloged
+principia's `theory/ppn-reduction-of-the-settled-flow/` into cataloged
 pass/fail gates and executes its predeclared half-order hazard.
 
 Run it with:
@@ -55,5 +55,5 @@ classification, exact zero, gate verdict, and the prominent hazard verdict.
 ## Provenance
 
 The fixture implements Orbit task `ORB-11040`, requested by principia
-`theory/ppn-reduction-of-the-settled-flow.md`, and belongs to the almanac thread
+`theory/ppn-reduction-of-the-settled-flow/`, and belongs to the almanac thread
 `15-discussions/26-08/from-galactic-motion-to-the-moving-gravity-medium-problem.md`.
