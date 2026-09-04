@@ -1,0 +1,227 @@
+{
+  "checks": [
+    {
+      "available_profile_matches_lense_thirring": false,
+      "id": "omega_radial_falloff",
+      "method": "nested log-spaced radial ladders; least-squares log Omega versus log r",
+      "passed": false,
+      "predeclared_kill": "the default flat profile exponent differs from -3 by more than its estimated ladder error",
+      "predeclared_pass": "the default flat profile exponent differs from -3 by no more than its estimated ladder error",
+      "primary_profile": "flat (the UI default)",
+      "profile_results": [
+        {
+          "estimated_ladder_error": 7.105427357601002e-15,
+          "ladder": [
+            {
+              "measured_exponent": -1.0,
+              "sample_count": 5
+            },
+            {
+              "measured_exponent": -1.0,
+              "sample_count": 9
+            },
+            {
+              "measured_exponent": -1.0,
+              "sample_count": 17
+            },
+            {
+              "measured_exponent": -1.0,
+              "sample_count": 33
+            }
+          ],
+          "lense_thirring_target_exponent": -3.0,
+          "matches_lense_thirring": false,
+          "measured_exponent": -1.0,
+          "profile": "flat",
+          "radial_domain": [
+            80.0,
+            320.0
+          ],
+          "target_distance": 2.0,
+          "u0": 1.2,
+          "verdict": "KILL"
+        },
+        {
+          "estimated_ladder_error": 7.105427357601002e-15,
+          "ladder": [
+            {
+              "measured_exponent": 0.0,
+              "sample_count": 5
+            },
+            {
+              "measured_exponent": -1.7084941353679603e-16,
+              "sample_count": 9
+            },
+            {
+              "measured_exponent": -5.0249827510822885e-17,
+              "sample_count": 17
+            },
+            {
+              "measured_exponent": 2.7408996824084366e-17,
+              "sample_count": 33
+            }
+          ],
+          "lense_thirring_target_exponent": -3.0,
+          "matches_lense_thirring": false,
+          "measured_exponent": 2.7408996824084366e-17,
+          "profile": "solid",
+          "radial_domain": [
+            80.0,
+            320.0
+          ],
+          "target_distance": 3.0,
+          "u0": 1.2,
+          "verdict": "KILL"
+        },
+        {
+          "estimated_ladder_error": 7.327471962526033e-15,
+          "ladder": [
+            {
+              "measured_exponent": -1.9999999999999993,
+              "sample_count": 5
+            },
+            {
+              "measured_exponent": -1.9999999999999996,
+              "sample_count": 9
+            },
+            {
+              "measured_exponent": -2.0,
+              "sample_count": 17
+            },
+            {
+              "measured_exponent": -1.9999999999999998,
+              "sample_count": 33
+            }
+          ],
+          "lense_thirring_target_exponent": -3.0,
+          "matches_lense_thirring": false,
+          "measured_exponent": -1.9999999999999998,
+          "profile": "whirl",
+          "radial_domain": [
+            80.0,
+            320.0
+          ],
+          "target_distance": 1.0000000000000002,
+          "u0": 1.2,
+          "verdict": "KILL"
+        }
+      ],
+      "verdict": "KILL"
+    },
+    {
+      "amplitude_ladder": [
+        {
+          "omega": 0.0009375,
+          "u0": 0.15
+        },
+        {
+          "omega": 0.001875,
+          "u0": 0.3
+        },
+        {
+          "omega": 0.00375,
+          "u0": 0.6
+        },
+        {
+          "omega": 0.0075,
+          "u0": 1.2
+        },
+        {
+          "omega": 0.015,
+          "u0": 2.4
+        }
+      ],
+      "estimated_ladder_error": 7.105427357601002e-15,
+      "id": "spin_surrogate_scaling",
+      "lense_thirring_target_exponent": 1.0,
+      "measured_exponent": 0.9999999999999998,
+      "method": "log-log fit of Omega versus u0 at fixed r=160",
+      "parameter_interpretation": "u0 is the toy's free swirl-amplitude/spin surrogate; the toy defines no angular momentum J",
+      "passed": true,
+      "predeclared_kill": "Omega is not linear in u0 within the amplitude-ladder error",
+      "predeclared_pass": "Omega is linear in the J surrogate u0 within the amplitude-ladder error",
+      "verdict": "PASS"
+    },
+    {
+      "id": "spin_sign_reversal",
+      "method": "evaluate the transcribed law at signed u0 with fixed r=160",
+      "odd_symmetry_residual": 0.0,
+      "passed": true,
+      "predeclared_kill": "Omega fails the odd-in-u0 sign-source test",
+      "predeclared_pass": "Omega(-u0)=-Omega(u0), Omega(0)=0, and nonzero signs follow u0",
+      "samples": [
+        {
+          "omega": -0.0075,
+          "u0": -1.2
+        },
+        {
+          "omega": 0.0,
+          "u0": 0.0
+        },
+        {
+          "omega": 0.0075,
+          "u0": 1.2
+        }
+      ],
+      "tolerance": 7.105427357601002e-15,
+      "verdict": "PASS"
+    }
+  ],
+  "diagnostics": [
+    {
+      "gm_ladder": [
+        {
+          "GM": 56.25,
+          "omega": 0.0075
+        },
+        {
+          "GM": 112.5,
+          "omega": 0.0075
+        },
+        {
+          "GM": 225.0,
+          "omega": 0.0075
+        },
+        {
+          "GM": 450.0,
+          "omega": 0.0075
+        },
+        {
+          "GM": 900.0,
+          "omega": 0.0075
+        }
+      ],
+      "id": "mass_parameter_decoupling",
+      "interpretation": "GM affects tracer gravity but is absent from flow(r); the toy supplies no rotating-source map from mass and spin to u0",
+      "measured_exponent": 0.0,
+      "method": "vary the toy's GM parameter while holding the separately imposed flow law fixed",
+      "verdict": "NO_SOURCE_COUPLING"
+    }
+  ],
+  "full_lense_thirring_shape_reproduced": false,
+  "interpretation": "the toy is linear and odd in its free swirl amplitude, but its default Omega falls as r^-1 (and no selectable profile falls as r^-3); it does not reproduce the full Lense-Thirring shape",
+  "model": {
+    "comparator": "equatorial Omega_LT = 2 G J / (c^2 r^3)",
+    "comparator_shape_tests": [
+      "r^-3",
+      "linear in J",
+      "odd under J sign reversal"
+    ],
+    "measured_quantity": "Omega(r) = flow(r)/r",
+    "toy_geometry": "2-D equatorial visualization with no polar dependence",
+    "units": "dimensionless browser coordinates; no lattice-to-physical normalization"
+  },
+  "overall_verdict": "KILL",
+  "run_date": "2026-09-04",
+  "schema_version": 1,
+  "shape_tests_passed": 2,
+  "shape_tests_total": 3,
+  "sim": "frame-drag-swirl-lense-thirring-check",
+  "source": {
+    "flow_law_lines": "35-39",
+    "omega_use_lines": "74-75",
+    "path": "../frame-drag-swirl/index.html",
+    "sha256": "8fe7965fed27778cc567e36a86fc0e75f2703c14e04361fff82ea635b14ccea8"
+  },
+  "task": "ORB-11172"
+}

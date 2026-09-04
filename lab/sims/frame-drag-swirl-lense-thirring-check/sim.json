@@ -1,0 +1,23 @@
+{
+  "slug": "frame-drag-swirl-lense-thirring-check",
+  "title": "Frame-drag swirl Lense–Thirring shape check",
+  "kind": "py",
+  "entry": "main.py",
+  "status": "active",
+  "created": "2026-09-04",
+  "topics": [
+    "gravity",
+    "frame-dragging",
+    "lense-thirring",
+    "power-law",
+    "numerical-verification"
+  ],
+  "family": "gravity-as-scarcity",
+  "summary": "Deterministic radial and parameter ladders show that the imported toy is linear and odd in its free swirl amplitude but its default angular velocity falls as r^-1, not the Lense–Thirring r^-3.",
+  "provenance": {
+    "almanac": "15-discussions/26-07/gravity-as-scarcity-of-space.md",
+    "theory_context": "../../principia/studies/moving-source-gravity-bounds.md",
+    "related_sim": "../frame-drag-swirl/",
+    "orbit_task": "ORB-11172"
+  }
+}
