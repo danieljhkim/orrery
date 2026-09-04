@@ -1,0 +1,24 @@
+{
+  "slug": "level-core-cavitation-threshold-map",
+  "title": "Level-core cavitation threshold map",
+  "kind": "py",
+  "entry": "main.py",
+  "status": "active",
+  "created": "2026-09-04",
+  "topics": [
+    "gravity",
+    "gravity-as-scarcity",
+    "moving-source",
+    "cavitation",
+    "dynamical-relaxation",
+    "resolution-convergence",
+    "preferred-frame"
+  ],
+  "family": "gravity-as-scarcity",
+  "summary": "A deterministic wind/core/box sweep maps the moving level-core density trough's flooring and cavitation boundary, fits the flooring-side law, and reports a dimensionless solar-system comparison.",
+  "provenance": {
+    "almanac": "15-discussions/26-08/from-galactic-motion-to-the-moving-gravity-medium-problem.md",
+    "orbit_task": "ORB-11170",
+    "predecessors": ["ORB-10938", "ORB-11041"]
+  }
+}

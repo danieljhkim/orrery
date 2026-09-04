@@ -1,0 +1,2302 @@
+{
+  "apparatus": {
+    "ORB_11041_comparator": "level-core-far-field-slot-coefficients",
+    "base_grid_size": 33,
+    "base_horizon": 360.0,
+    "cavitation_density_threshold": 0.01,
+    "core_sigmas": [
+      0.75,
+      1.0,
+      1.5
+    ],
+    "equations": {
+      "Bernoulli_speed_imposed": false,
+      "consumption": "s=n*sqrt((3/2)*e_dev:e_dev)",
+      "continuity": "dn/dt + div(n v) = -s",
+      "momentum": "dv/dt + (v.grad)v = c^2 grad sigma"
+    },
+    "expected_stencil_sha256": "aa1155e07536c3318c0afb0baabbbf472d66658046be4d21d816f135632c8461",
+    "feasibility_tradeoff": "A 3x5 coarse fixed-box map is refined only at every categorical edge endpoint; the three-box corner receives a full matched-spacing two-rung ladder. This prioritizes converged verdict changes over a dense unconverged grid.",
+    "fine_grid_size_on_verdict_changing_cells": 41,
+    "fine_horizon": 480.0,
+    "fixed_box_half_width": 12.0,
+    "imported_from_task": "ORB-10938",
+    "measured_stencil_sha256": "aa1155e07536c3318c0afb0baabbbf472d66658046be4d21d816f135632c8461",
+    "normalization": "U/v_GP(r_core), with r_core = 2 * Gaussian sigma",
+    "shared_evolution_module": "../level-core-dynamical-relaxation/main.py",
+    "stencil_sha256_match": true,
+    "wind_ratios": [
+      0.05,
+      0.15,
+      0.3,
+      0.6,
+      1.0
+    ]
+  },
+  "gates": {
+    "G1_threshold_curve": {
+      "boundary_midpoint_by_core_sigma": {
+        "0.75": 0.22499999999999998,
+        "1.0": 0.22499999999999998,
+        "1.5": 0.22499999999999998
+      },
+      "box_categories_at_cavitating_corner": [
+        {
+          "half_width": 12.0,
+          "verdict": "candidate"
+        },
+        {
+          "half_width": 18.0,
+          "verdict": "floors"
+        },
+        {
+          "half_width": 24.0,
+          "verdict": "floors"
+        }
+      ],
+      "explanation": "The same dimensionless wind/core cell changes category when only the box half-width changes, so the ORB-10938 kill is boundary-driven on this apparatus rather than a pinned shear-law threshold.",
+      "fixed_box_boundary_brackets": [
+        {
+          "brackets": [
+            {
+              "lower_ratio": 0.15,
+              "lower_verdict": "candidate",
+              "midpoint_estimate": 0.22499999999999998,
+              "upper_ratio": 0.3,
+              "upper_verdict": "floors"
+            }
+          ],
+          "core_sigma": 0.75,
+          "half_width": 12.0
+        },
+        {
+          "brackets": [
+            {
+              "lower_ratio": 0.15,
+              "lower_verdict": "candidate",
+              "midpoint_estimate": 0.22499999999999998,
+              "upper_ratio": 0.3,
+              "upper_verdict": "floors"
+            }
+          ],
+          "core_sigma": 1.0,
+          "half_width": 12.0
+        },
+        {
+          "brackets": [
+            {
+              "lower_ratio": 0.15,
+              "lower_verdict": "candidate",
+              "midpoint_estimate": 0.22499999999999998,
+              "upper_ratio": 0.3,
+              "upper_verdict": "floors"
+            }
+          ],
+          "core_sigma": 1.5,
+          "half_width": 12.0
+        }
+      ],
+      "predeclared_reading": "G1c_box_tracking",
+      "table": [
+        {
+          "U_over_v_GP_at_r_core": 0.05,
+          "core_sigma": 0.75,
+          "half_width": 12.0,
+          "resolution_converged": true,
+          "resolution_ladder": [
+            {
+              "category": "candidate",
+              "grid_size": 33,
+              "joint_settlement": "still-decaying",
+              "n_min": 0.009408958412659681,
+              "spacing": 0.75
+            },
+            {
+              "category": "candidate",
+              "grid_size": 41,
+              "joint_settlement": "settled",
+              "n_min": 0.00031425900083485703,
+              "spacing": 0.5999999999999996
+            }
+          ],
+          "verdict": "candidate",
+          "verdict_changing_cell": true
+        },
+        {
+          "U_over_v_GP_at_r_core": 0.15,
+          "core_sigma": 0.75,
+          "half_width": 12.0,
+          "resolution_converged": false,
+          "resolution_ladder": [
+            {
+              "category": "floors",
+              "grid_size": 33,
+              "joint_settlement": "still-decaying",
+              "n_min": 0.024184334908709998,
+              "spacing": 0.75
+            },
+            {
+              "category": "candidate",
+              "grid_size": 41,
+              "joint_settlement": "settled",
+              "n_min": 0.0043357438083091605,
+              "spacing": 0.5999999999999996
+            }
+          ],
+          "verdict": "candidate",
+          "verdict_changing_cell": true
+        },
+        {
+          "U_over_v_GP_at_r_core": 0.3,
+          "core_sigma": 0.75,
+          "half_width": 12.0,
+          "resolution_converged": true,
+          "resolution_ladder": [
+            {
+              "category": "floors",
+              "grid_size": 33,
+              "joint_settlement": "still-decaying",
+              "n_min": 0.14665121788134944,
+              "spacing": 0.75
+            },
+            {
+              "category": "floors",
+              "grid_size": 41,
+              "joint_settlement": "settled",
+              "n_min": 0.14138422426634817,
+              "spacing": 0.5999999999999996
+            }
+          ],
+          "verdict": "floors",
+          "verdict_changing_cell": true
+        },
+        {
+          "U_over_v_GP_at_r_core": 0.6,
+          "core_sigma": 0.75,
+          "half_width": 12.0,
+          "resolution_converged": true,
+          "resolution_ladder": [
+            {
+              "category": "floors",
+              "grid_size": 33,
+              "joint_settlement": "stalled",
+              "n_min": 0.2232337377377614,
+              "spacing": 0.75
+            }
+          ],
+          "verdict": "floors",
+          "verdict_changing_cell": false
+        },
+        {
+          "U_over_v_GP_at_r_core": 1.0,
+          "core_sigma": 0.75,
+          "half_width": 12.0,
+          "resolution_converged": true,
+          "resolution_ladder": [
+            {
+              "category": "floors",
+              "grid_size": 33,
+              "joint_settlement": "stalled",
+              "n_min": 0.30665186874164246,
+              "spacing": 0.75
+            }
+          ],
+          "verdict": "floors",
+          "verdict_changing_cell": false
+        },
+        {
+          "U_over_v_GP_at_r_core": 0.05,
+          "core_sigma": 1.0,
+          "half_width": 12.0,
+          "resolution_converged": true,
+          "resolution_ladder": [
+            {
+              "category": "candidate",
+              "grid_size": 33,
+              "joint_settlement": "still-decaying",
+              "n_min": 0.009430106301063527,
+              "spacing": 0.75
+            },
+            {
+              "category": "candidate",
+              "grid_size": 41,
+              "joint_settlement": "settled",
+              "n_min": 0.0003174451426642505,
+              "spacing": 0.5999999999999996
+            }
+          ],
+          "verdict": "candidate",
+          "verdict_changing_cell": true
+        },
+        {
+          "U_over_v_GP_at_r_core": 0.15,
+          "core_sigma": 1.0,
+          "half_width": 12.0,
+          "resolution_converged": false,
+          "resolution_ladder": [
+            {
+              "category": "floors",
+              "grid_size": 33,
+              "joint_settlement": "still-decaying",
+              "n_min": 0.020873997730540925,
+              "spacing": 0.75
+            },
+            {
+              "category": "candidate",
+              "grid_size": 41,
+              "joint_settlement": "settled",
+              "n_min": 0.0019720631823206504,
+              "spacing": 0.5999999999999996
+            }
+          ],
+          "verdict": "candidate",
+          "verdict_changing_cell": true
+        },
+        {
+          "U_over_v_GP_at_r_core": 0.3,
+          "core_sigma": 1.0,
+          "half_width": 12.0,
+          "resolution_converged": true,
+          "resolution_ladder": [
+            {
+              "category": "floors",
+              "grid_size": 33,
+              "joint_settlement": "still-decaying",
+              "n_min": 0.09112521506915897,
+              "spacing": 0.75
+            },
+            {
+              "category": "floors",
+              "grid_size": 41,
+              "joint_settlement": "settled",
+              "n_min": 0.08229833411641607,
+              "spacing": 0.5999999999999996
+            }
+          ],
+          "verdict": "floors",
+          "verdict_changing_cell": true
+        },
+        {
+          "U_over_v_GP_at_r_core": 0.6,
+          "core_sigma": 1.0,
+          "half_width": 12.0,
+          "resolution_converged": true,
+          "resolution_ladder": [
+            {
+              "category": "floors",
+              "grid_size": 33,
+              "joint_settlement": "stalled",
+              "n_min": 0.23325578547126705,
+              "spacing": 0.75
+            }
+          ],
+          "verdict": "floors",
+          "verdict_changing_cell": false
+        },
+        {
+          "U_over_v_GP_at_r_core": 1.0,
+          "core_sigma": 1.0,
+          "half_width": 12.0,
+          "resolution_converged": true,
+          "resolution_ladder": [
+            {
+              "category": "floors",
+              "grid_size": 33,
+              "joint_settlement": "still-decaying",
+              "n_min": 0.2945920435022128,
+              "spacing": 0.75
+            }
+          ],
+          "verdict": "floors",
+          "verdict_changing_cell": false
+        },
+        {
+          "U_over_v_GP_at_r_core": 0.05,
+          "core_sigma": 1.5,
+          "half_width": 12.0,
+          "resolution_converged": true,
+          "resolution_ladder": [
+            {
+              "category": "candidate",
+              "grid_size": 33,
+              "joint_settlement": "still-decaying",
+              "n_min": 0.009519583276701545,
+              "spacing": 0.75
+            },
+            {
+              "category": "candidate",
+              "grid_size": 41,
+              "joint_settlement": "still-decaying",
+              "n_min": 0.000325940127794973,
+              "spacing": 0.5999999999999996
+            }
+          ],
+          "verdict": "candidate",
+          "verdict_changing_cell": true
+        },
+        {
+          "U_over_v_GP_at_r_core": 0.15,
+          "core_sigma": 1.5,
+          "half_width": 12.0,
+          "resolution_converged": false,
+          "resolution_ladder": [
+            {
+              "category": "floors",
+              "grid_size": 33,
+              "joint_settlement": "still-decaying",
+              "n_min": 0.015296760297500985,
+              "spacing": 0.75
+            },
+            {
+              "category": "candidate",
+              "grid_size": 41,
+              "joint_settlement": "settled",
+              "n_min": 0.0012382918033337906,
+              "spacing": 0.5999999999999996
+            }
+          ],
+          "verdict": "candidate",
+          "verdict_changing_cell": true
+        },
+        {
+          "U_over_v_GP_at_r_core": 0.3,
+          "core_sigma": 1.5,
+          "half_width": 12.0,
+          "resolution_converged": true,
+          "resolution_ladder": [
+            {
+              "category": "floors",
+              "grid_size": 33,
+              "joint_settlement": "still-decaying",
+              "n_min": 0.0419197821312442,
+              "spacing": 0.75
+            },
+            {
+              "category": "floors",
+              "grid_size": 41,
+              "joint_settlement": "settled",
+              "n_min": 0.025120995354883456,
+              "spacing": 0.5999999999999996
+            }
+          ],
+          "verdict": "floors",
+          "verdict_changing_cell": true
+        },
+        {
+          "U_over_v_GP_at_r_core": 0.6,
+          "core_sigma": 1.5,
+          "half_width": 12.0,
+          "resolution_converged": true,
+          "resolution_ladder": [
+            {
+              "category": "floors",
+              "grid_size": 33,
+              "joint_settlement": "still-decaying",
+              "n_min": 0.2442116842659728,
+              "spacing": 0.75
+            }
+          ],
+          "verdict": "floors",
+          "verdict_changing_cell": false
+        },
+        {
+          "U_over_v_GP_at_r_core": 1.0,
+          "core_sigma": 1.5,
+          "half_width": 12.0,
+          "resolution_converged": true,
+          "resolution_ladder": [
+            {
+              "category": "floors",
+              "grid_size": 33,
+              "joint_settlement": "still-decaying",
+              "n_min": 0.24748017276001671,
+              "spacing": 0.75
+            }
+          ],
+          "verdict": "floors",
+          "verdict_changing_cell": false
+        },
+        {
+          "U_over_v_GP_at_r_core": 0.15,
+          "core_sigma": 1.0,
+          "half_width": 12.0,
+          "resolution_converged": false,
+          "resolution_ladder": [
+            {
+              "category": "floors",
+              "grid_size": 21,
+              "joint_settlement": "still-decaying",
+              "n_min": 0.03967185883459704,
+              "spacing": 1.1999999999999993
+            },
+            {
+              "category": "candidate",
+              "grid_size": 29,
+              "joint_settlement": "settled",
+              "n_min": 0.00423606438719942,
+              "spacing": 0.8571428571428577
+            }
+          ],
+          "verdict": "candidate",
+          "verdict_changing_cell": true
+        },
+        {
+          "U_over_v_GP_at_r_core": 0.15,
+          "core_sigma": 1.0,
+          "half_width": 18.0,
+          "resolution_converged": true,
+          "resolution_ladder": [
+            {
+              "category": "floors",
+              "grid_size": 31,
+              "joint_settlement": "still-decaying",
+              "n_min": 0.07156619250324378,
+              "spacing": 1.1999999999999993
+            },
+            {
+              "category": "floors",
+              "grid_size": 43,
+              "joint_settlement": "settled",
+              "n_min": 0.06491533337359282,
+              "spacing": 0.8571428571428577
+            }
+          ],
+          "verdict": "floors",
+          "verdict_changing_cell": true
+        },
+        {
+          "U_over_v_GP_at_r_core": 0.15,
+          "core_sigma": 1.0,
+          "half_width": 24.0,
+          "resolution_converged": true,
+          "resolution_ladder": [
+            {
+              "category": "floors",
+              "grid_size": 41,
+              "joint_settlement": "still-decaying",
+              "n_min": 0.0761279587416854,
+              "spacing": 1.1999999999999993
+            },
+            {
+              "category": "floors",
+              "grid_size": 57,
+              "joint_settlement": "settled",
+              "n_min": 0.0637357345314657,
+              "spacing": 0.8571428571428577
+            }
+          ],
+          "verdict": "floors",
+          "verdict_changing_cell": true
+        }
+      ]
+    },
+    "G2_floor_law": {
+      "admission": "flooring-side samples admitted when either the joint field settled or the local trough saturated under the inherited criteria",
+      "boundary_side_fit_predictions": [
+        0.11440442773471488,
+        0.10542086209962079,
+        0.08745373082943263
+      ],
+      "continuity_at_boundary_verdict": "discontinuous_positive_floor_at_sampled_boundary",
+      "fit": {
+        "a": 0.05022471979625921,
+        "b_U_over_v_GP": 0.30376801614579296,
+        "c_core_sigma": -0.03593426254037632,
+        "rmse": 0.04100271737426931,
+        "sample_count": 7
+      },
+      "model": "n_inf = a + b*(U/v_GP(r_core)) + c*core_sigma",
+      "samples": [
+        {
+          "U_over_v_GP_at_r_core": 0.3,
+          "core_sigma": 0.75,
+          "grid_size": 41,
+          "joint_settled": true,
+          "n_infinity": 0.14138422426634817,
+          "trough_saturated": false
+        },
+        {
+          "U_over_v_GP_at_r_core": 0.6,
+          "core_sigma": 0.75,
+          "grid_size": 33,
+          "joint_settled": false,
+          "n_infinity": 0.2232337377377614,
+          "trough_saturated": false
+        },
+        {
+          "U_over_v_GP_at_r_core": 1.0,
+          "core_sigma": 0.75,
+          "grid_size": 33,
+          "joint_settled": false,
+          "n_infinity": 0.30665186874164246,
+          "trough_saturated": true
+        },
+        {
+          "U_over_v_GP_at_r_core": 0.3,
+          "core_sigma": 1.0,
+          "grid_size": 41,
+          "joint_settled": true,
+          "n_infinity": 0.08229833411641607,
+          "trough_saturated": false
+        },
+        {
+          "U_over_v_GP_at_r_core": 0.6,
+          "core_sigma": 1.0,
+          "grid_size": 33,
+          "joint_settled": false,
+          "n_infinity": 0.23325578547126705,
+          "trough_saturated": true
+        },
+        {
+          "U_over_v_GP_at_r_core": 1.0,
+          "core_sigma": 1.0,
+          "grid_size": 33,
+          "joint_settled": false,
+          "n_infinity": 0.2945920435022128,
+          "trough_saturated": true
+        },
+        {
+          "U_over_v_GP_at_r_core": 0.3,
+          "core_sigma": 1.5,
+          "grid_size": 41,
+          "joint_settled": true,
+          "n_infinity": 0.025120995354883456,
+          "trough_saturated": false
+        },
+        {
+          "U_over_v_GP_at_r_core": 0.6,
+          "core_sigma": 1.5,
+          "grid_size": 33,
+          "joint_settled": false,
+          "n_infinity": 0.2442116842659728,
+          "trough_saturated": true
+        },
+        {
+          "U_over_v_GP_at_r_core": 1.0,
+          "core_sigma": 1.5,
+          "grid_size": 33,
+          "joint_settled": false,
+          "n_infinity": 0.24748017276001671,
+          "trough_saturated": false
+        }
+      ],
+      "zero_test_threshold": 0.01
+    },
+    "G3_dimensionless_solar_system_reading": {
+      "admission": "conditional arithmetic only; G1 is not pinned, so no physical gate verdict is admitted",
+      "comparisons": [
+        {
+          "U_km_per_s": 30.0,
+          "U_over_v_GP_at_r_core": 2.6819238333631326,
+          "body": "Earth",
+          "side_of_measured_boundary": "above_measured_boundary_range",
+          "v_GP_at_body_radius_km_per_s": 11.186,
+          "velocity_scale_label": "Earth orbital speed"
+        },
+        {
+          "U_km_per_s": 220.0,
+          "U_over_v_GP_at_r_core": 0.3561599481949166,
+          "body": "Sun",
+          "side_of_measured_boundary": "above_measured_boundary_range",
+          "v_GP_at_body_radius_km_per_s": 617.7,
+          "velocity_scale_label": "Sun-in-Galaxy speed"
+        },
+        {
+          "U_km_per_s": 369.82,
+          "U_over_v_GP_at_r_core": 0.0021015494726095074,
+          "body": "representative neutron star",
+          "side_of_measured_boundary": "below_measured_boundary_range",
+          "v_GP_at_body_radius_km_per_s": 175974.91984844505,
+          "velocity_scale_label": "CMB dipole speed; Newtonian v_GP proxy for 1.4 M_sun, 12 km"
+        }
+      ],
+      "label": "Dimensionless U/v_GP(r_core) comparison only; this is NOT a lattice-to-physical-unit normalization.",
+      "measured_boundary_midpoint_range": [
+        0.22499999999999998,
+        0.22499999999999998
+      ],
+      "substrate_inertia_debt": "open",
+      "velocity_scale_citation": "principia studies/lorentz-violation-bounds.md, 'The velocity scales' (30 km/s Earth orbital and 369.82 km/s CMB); 220 km/s is the task-predeclared Sun-in-Galaxy scale"
+    },
+    "G4_Galilean_null": {
+      "cases": [
+        {
+          "certified_horizon": 480.0,
+          "certifying_step": 0.4,
+          "core_sigma": 0.75,
+          "grid_size": 33,
+          "half_width": 12.0,
+          "maximum_change_or_rhs": 8.777083671441753e-17,
+          "passed": true
+        },
+        {
+          "certified_horizon": 480.0,
+          "certifying_step": 0.4,
+          "core_sigma": 0.75,
+          "grid_size": 41,
+          "half_width": 12.0,
+          "maximum_change_or_rhs": 0.0,
+          "passed": true
+        },
+        {
+          "certified_horizon": 480.0,
+          "certifying_step": 0.4,
+          "core_sigma": 1.0,
+          "grid_size": 21,
+          "half_width": 12.0,
+          "maximum_change_or_rhs": 2.1942709178604383e-17,
+          "passed": true
+        },
+        {
+          "certified_horizon": 480.0,
+          "certifying_step": 0.4,
+          "core_sigma": 1.0,
+          "grid_size": 29,
+          "half_width": 12.0,
+          "maximum_change_or_rhs": 8.777083671441753e-17,
+          "passed": true
+        },
+        {
+          "certified_horizon": 480.0,
+          "certifying_step": 0.4,
+          "core_sigma": 1.0,
+          "grid_size": 33,
+          "half_width": 12.0,
+          "maximum_change_or_rhs": 4.3885418357208765e-17,
+          "passed": true
+        },
+        {
+          "certified_horizon": 480.0,
+          "certifying_step": 0.4,
+          "core_sigma": 1.0,
+          "grid_size": 41,
+          "half_width": 12.0,
+          "maximum_change_or_rhs": 0.0,
+          "passed": true
+        },
+        {
+          "certified_horizon": 480.0,
+          "certifying_step": 0.4,
+          "core_sigma": 1.5,
+          "grid_size": 33,
+          "half_width": 12.0,
+          "maximum_change_or_rhs": 0.0,
+          "passed": true
+        },
+        {
+          "certified_horizon": 480.0,
+          "certifying_step": 0.4,
+          "core_sigma": 1.5,
+          "grid_size": 41,
+          "half_width": 12.0,
+          "maximum_change_or_rhs": 8.777083671441753e-17,
+          "passed": true
+        },
+        {
+          "certified_horizon": 480.0,
+          "certifying_step": 0.4,
+          "core_sigma": 1.0,
+          "grid_size": 31,
+          "half_width": 18.0,
+          "maximum_change_or_rhs": 2.1942709178604383e-17,
+          "passed": true
+        },
+        {
+          "certified_horizon": 480.0,
+          "certifying_step": 0.4,
+          "core_sigma": 1.0,
+          "grid_size": 43,
+          "half_width": 18.0,
+          "maximum_change_or_rhs": 8.777083671441753e-17,
+          "passed": true
+        },
+        {
+          "certified_horizon": 480.0,
+          "certifying_step": 0.4,
+          "core_sigma": 1.0,
+          "grid_size": 41,
+          "half_width": 24.0,
+          "maximum_change_or_rhs": 2.1942709178604383e-17,
+          "passed": true
+        },
+        {
+          "certified_horizon": 480.0,
+          "certifying_step": 0.4,
+          "core_sigma": 1.0,
+          "grid_size": 57,
+          "half_width": 24.0,
+          "maximum_change_or_rhs": 8.777083671441753e-17,
+          "passed": true
+        }
+      ],
+      "criterion": "At every swept geometry, the identical deterministic update maps uniform wind/density with zero core force exactly to itself; induction therefore certifies the recorded horizon.",
+      "passed": true
+    }
+  },
+  "limitations": [
+    "Each category is a finite-horizon numerical verdict under the imported positivity-floor diagnostic, not an infinite-time proof.",
+    "The fixed-box boundary is bracketed by the declared coarse wind ratios rather than root-found between them.",
+    "The floor law is an empirical linear response surface over admitted flooring-side cells, not a new term in the shear law.",
+    "The neutron-star v_GP value is a Newtonian compactness proxy; G3 uses it only in the explicitly dimensionless comparison."
+  ],
+  "predecessors": [
+    "ORB-10938",
+    "ORB-11041"
+  ],
+  "raw_runs": {
+    "box_ladders": [
+      {
+        "category": "floors",
+        "cell_id": "box-L12-s1-u0.15-coarse-n21",
+        "core_radius_definition": "r_core = 2 * Gaussian sigma",
+        "core_sigma": 1.0,
+        "core_sigma_in_cells": 0.8333333333333338,
+        "final_residuals": {
+          "dn_rms": 0.000667532860172627,
+          "dv_rms": 0.00012323923953966887
+        },
+        "grid_size": 21,
+        "half_width": 12.0,
+        "horizon": 360.0,
+        "joint_settlement": {
+          "criterion": "dv_rms < 0.002 and dn_rms < 0.002 for the final 11 samples, all after 0.75*T",
+          "density": {
+            "extrapolated_threshold_time": null,
+            "final_residual": 0.000667532860172627,
+            "late_log_residual_slope_per_time": -0.019802872099035855,
+            "slope_floor_per_time": 0.002,
+            "threshold": 0.002,
+            "verdict": "still-decaying"
+          },
+          "velocity": {
+            "extrapolated_threshold_time": null,
+            "final_residual": 0.00012323923953966887,
+            "late_log_residual_slope_per_time": -0.008264379523793214,
+            "slope_floor_per_time": 0.002,
+            "threshold": 0.002,
+            "verdict": "still-decaying"
+          },
+          "verdict": "still-decaying"
+        },
+        "phase": "box_half_width_sweep_at_cavitating_corner",
+        "spacing": 1.1999999999999993,
+        "stencil_sha256": "aa1155e07536c3318c0afb0baabbbf472d66658046be4d21d816f135632c8461",
+        "trough": {
+          "candidate": false,
+          "core_shell_mean_final_window_relative_change": 0.33756377863753134,
+          "cutoff_reached": false,
+          "extrapolated_cutoff_time": 2714.829401105466,
+          "final_minimum_density": 0.03967185883459704,
+          "minimum_density_final_window_log_slope_per_time": -0.008407716385964579,
+          "minimum_density_final_window_relative_change": 0.5344652649579777,
+          "positivity_cutoff": 1e-10,
+          "saturated": false
+        },
+        "v_GP_at_r_core": 0.25061756210520775,
+        "wind_ratio_to_v_GP_at_r_core": 0.15,
+        "wind_speed_lattice": 0.03759263431578116
+      },
+      {
+        "category": "candidate",
+        "cell_id": "box-L12-s1-u0.15-fine-n29",
+        "core_radius_definition": "r_core = 2 * Gaussian sigma",
+        "core_sigma": 1.0,
+        "core_sigma_in_cells": 1.166666666666666,
+        "final_residuals": {
+          "dn_rms": 0.00012682338717858593,
+          "dv_rms": 5.2067861777552695e-05
+        },
+        "grid_size": 29,
+        "half_width": 12.0,
+        "horizon": 480.0,
+        "joint_settlement": {
+          "criterion": "dv_rms < 0.002 and dn_rms < 0.002 for the final 11 samples, all after 0.75*T",
+          "density": {
+            "extrapolated_threshold_time": null,
+            "final_residual": 0.00012682338717858593,
+            "late_log_residual_slope_per_time": -0.013461473912557455,
+            "slope_floor_per_time": 0.002,
+            "threshold": 0.002,
+            "verdict": "settled"
+          },
+          "velocity": {
+            "extrapolated_threshold_time": null,
+            "final_residual": 5.2067861777552695e-05,
+            "late_log_residual_slope_per_time": -0.008603694757264052,
+            "slope_floor_per_time": 0.002,
+            "threshold": 0.002,
+            "verdict": "settled"
+          },
+          "verdict": "settled"
+        },
+        "phase": "box_half_width_sweep_at_cavitating_corner",
+        "spacing": 0.8571428571428577,
+        "stencil_sha256": "aa1155e07536c3318c0afb0baabbbf472d66658046be4d21d816f135632c8461",
+        "trough": {
+          "candidate": true,
+          "core_shell_mean_final_window_relative_change": 0.03164973142558324,
+          "cutoff_reached": false,
+          "extrapolated_cutoff_time": 1728.0864019011303,
+          "final_minimum_density": 0.00423606438719942,
+          "minimum_density_final_window_log_slope_per_time": -0.014070925099280917,
+          "minimum_density_final_window_relative_change": 0.757674267145554,
+          "positivity_cutoff": 1e-10,
+          "saturated": false
+        },
+        "v_GP_at_r_core": 0.25090369464751716,
+        "wind_ratio_to_v_GP_at_r_core": 0.15,
+        "wind_speed_lattice": 0.03763555419712757
+      },
+      {
+        "category": "floors",
+        "cell_id": "box-L18-s1-u0.15-coarse-n31",
+        "core_radius_definition": "r_core = 2 * Gaussian sigma",
+        "core_sigma": 1.0,
+        "core_sigma_in_cells": 0.8333333333333338,
+        "final_residuals": {
+          "dn_rms": 0.0011760652581434964,
+          "dv_rms": 0.00015384960671895002
+        },
+        "grid_size": 31,
+        "half_width": 18.0,
+        "horizon": 360.0,
+        "joint_settlement": {
+          "criterion": "dv_rms < 0.002 and dn_rms < 0.002 for the final 11 samples, all after 0.75*T",
+          "density": {
+            "extrapolated_threshold_time": null,
+            "final_residual": 0.0011760652581434964,
+            "late_log_residual_slope_per_time": -0.0021041569201762896,
+            "slope_floor_per_time": 0.002,
+            "threshold": 0.002,
+            "verdict": "still-decaying"
+          },
+          "velocity": {
+            "extrapolated_threshold_time": null,
+            "final_residual": 0.00015384960671895002,
+            "late_log_residual_slope_per_time": -9.951811654473021e-05,
+            "slope_floor_per_time": 0.002,
+            "threshold": 0.002,
+            "verdict": "stalled"
+          },
+          "verdict": "still-decaying"
+        },
+        "phase": "box_half_width_sweep_at_cavitating_corner",
+        "spacing": 1.1999999999999993,
+        "stencil_sha256": "aa1155e07536c3318c0afb0baabbbf472d66658046be4d21d816f135632c8461",
+        "trough": {
+          "candidate": false,
+          "core_shell_mean_final_window_relative_change": 0.25471047894382404,
+          "cutoff_reached": false,
+          "extrapolated_cutoff_time": 20474.380378166767,
+          "final_minimum_density": 0.07156619250324378,
+          "minimum_density_final_window_log_slope_per_time": -0.0010136389020367414,
+          "minimum_density_final_window_relative_change": 0.10423375434652718,
+          "positivity_cutoff": 1e-10,
+          "saturated": false
+        },
+        "v_GP_at_r_core": 0.25799899389934594,
+        "wind_ratio_to_v_GP_at_r_core": 0.15,
+        "wind_speed_lattice": 0.03869984908490189
+      },
+      {
+        "category": "floors",
+        "cell_id": "box-L18-s1-u0.15-fine-n43",
+        "core_radius_definition": "r_core = 2 * Gaussian sigma",
+        "core_sigma": 1.0,
+        "core_sigma_in_cells": 1.166666666666666,
+        "final_residuals": {
+          "dn_rms": 0.0008401967737657647,
+          "dv_rms": 0.00020641829328954729
+        },
+        "grid_size": 43,
+        "half_width": 18.0,
+        "horizon": 480.0,
+        "joint_settlement": {
+          "criterion": "dv_rms < 0.002 and dn_rms < 0.002 for the final 11 samples, all after 0.75*T",
+          "density": {
+            "extrapolated_threshold_time": null,
+            "final_residual": 0.0008401967737657647,
+            "late_log_residual_slope_per_time": -0.002856401812071411,
+            "slope_floor_per_time": 0.002,
+            "threshold": 0.002,
+            "verdict": "settled"
+          },
+          "velocity": {
+            "extrapolated_threshold_time": null,
+            "final_residual": 0.00020641829328954729,
+            "late_log_residual_slope_per_time": 0.001442290108560427,
+            "slope_floor_per_time": 0.002,
+            "threshold": 0.002,
+            "verdict": "settled"
+          },
+          "verdict": "settled"
+        },
+        "phase": "box_half_width_sweep_at_cavitating_corner",
+        "spacing": 0.8571428571428577,
+        "stencil_sha256": "aa1155e07536c3318c0afb0baabbbf472d66658046be4d21d816f135632c8461",
+        "trough": {
+          "candidate": false,
+          "core_shell_mean_final_window_relative_change": 0.2020065342067328,
+          "cutoff_reached": false,
+          "extrapolated_cutoff_time": 5464117.478503845,
+          "final_minimum_density": 0.06491533337359282,
+          "minimum_density_final_window_log_slope_per_time": -3.713859052349511e-06,
+          "minimum_density_final_window_relative_change": 0.0004334141061209713,
+          "positivity_cutoff": 1e-10,
+          "saturated": false
+        },
+        "v_GP_at_r_core": 0.2582608816206629,
+        "wind_ratio_to_v_GP_at_r_core": 0.15,
+        "wind_speed_lattice": 0.03873913224309943
+      },
+      {
+        "category": "floors",
+        "cell_id": "box-L24-s1-u0.15-coarse-n41",
+        "core_radius_definition": "r_core = 2 * Gaussian sigma",
+        "core_sigma": 1.0,
+        "core_sigma_in_cells": 0.8333333333333338,
+        "final_residuals": {
+          "dn_rms": 0.0009350069920502405,
+          "dv_rms": 8.988014615856176e-05
+        },
+        "grid_size": 41,
+        "half_width": 24.0,
+        "horizon": 360.0,
+        "joint_settlement": {
+          "criterion": "dv_rms < 0.002 and dn_rms < 0.002 for the final 11 samples, all after 0.75*T",
+          "density": {
+            "extrapolated_threshold_time": null,
+            "final_residual": 0.0009350069920502405,
+            "late_log_residual_slope_per_time": -0.0035662043500088825,
+            "slope_floor_per_time": 0.002,
+            "threshold": 0.002,
+            "verdict": "still-decaying"
+          },
+          "velocity": {
+            "extrapolated_threshold_time": null,
+            "final_residual": 8.988014615856176e-05,
+            "late_log_residual_slope_per_time": -0.0004628107151151693,
+            "slope_floor_per_time": 0.002,
+            "threshold": 0.002,
+            "verdict": "stalled"
+          },
+          "verdict": "still-decaying"
+        },
+        "phase": "box_half_width_sweep_at_cavitating_corner",
+        "spacing": 1.1999999999999993,
+        "stencil_sha256": "aa1155e07536c3318c0afb0baabbbf472d66658046be4d21d816f135632c8461",
+        "trough": {
+          "candidate": false,
+          "core_shell_mean_final_window_relative_change": 0.3292053454439195,
+          "cutoff_reached": false,
+          "extrapolated_cutoff_time": 3748.6918884594143,
+          "final_minimum_density": 0.0761279587416854,
+          "minimum_density_final_window_log_slope_per_time": -0.006034927906182778,
+          "minimum_density_final_window_relative_change": 0.44993919816775124,
+          "positivity_cutoff": 1e-10,
+          "saturated": false
+        },
+        "v_GP_at_r_core": 0.2615985511001666,
+        "wind_ratio_to_v_GP_at_r_core": 0.15,
+        "wind_speed_lattice": 0.03923978266502499
+      },
+      {
+        "category": "floors",
+        "cell_id": "box-L24-s1-u0.15-fine-n57",
+        "core_radius_definition": "r_core = 2 * Gaussian sigma",
+        "core_sigma": 1.0,
+        "core_sigma_in_cells": 1.166666666666666,
+        "final_residuals": {
+          "dn_rms": 0.0008053237062562073,
+          "dv_rms": 0.00010035904054749389
+        },
+        "grid_size": 57,
+        "half_width": 24.0,
+        "horizon": 480.0,
+        "joint_settlement": {
+          "criterion": "dv_rms < 0.002 and dn_rms < 0.002 for the final 11 samples, all after 0.75*T",
+          "density": {
+            "extrapolated_threshold_time": null,
+            "final_residual": 0.0008053237062562073,
+            "late_log_residual_slope_per_time": -0.0011763802258487582,
+            "slope_floor_per_time": 0.002,
+            "threshold": 0.002,
+            "verdict": "settled"
+          },
+          "velocity": {
+            "extrapolated_threshold_time": null,
+            "final_residual": 0.00010035904054749389,
+            "late_log_residual_slope_per_time": 0.0006112850888979807,
+            "slope_floor_per_time": 0.002,
+            "threshold": 0.002,
+            "verdict": "settled"
+          },
+          "verdict": "settled"
+        },
+        "phase": "box_half_width_sweep_at_cavitating_corner",
+        "spacing": 0.8571428571428577,
+        "stencil_sha256": "aa1155e07536c3318c0afb0baabbbf472d66658046be4d21d816f135632c8461",
+        "trough": {
+          "candidate": false,
+          "core_shell_mean_final_window_relative_change": 0.22599078826108482,
+          "cutoff_reached": false,
+          "extrapolated_cutoff_time": 61557.585560197396,
+          "final_minimum_density": 0.0637357345314657,
+          "minimum_density_final_window_log_slope_per_time": -0.00033191948980890905,
+          "minimum_density_final_window_relative_change": 0.03620606672297213,
+          "positivity_cutoff": 1e-10,
+          "saturated": false
+        },
+        "v_GP_at_r_core": 0.2618528163477931,
+        "wind_ratio_to_v_GP_at_r_core": 0.15,
+        "wind_speed_lattice": 0.03927792245216897
+      }
+    ],
+    "fixed_box_base": [
+      {
+        "category": "candidate",
+        "cell_id": "fixed-s0.75-u0.05-n33",
+        "core_radius_definition": "r_core = 2 * Gaussian sigma",
+        "core_sigma": 0.75,
+        "core_sigma_in_cells": 1.0,
+        "final_residuals": {
+          "dn_rms": 0.0016564576867381053,
+          "dv_rms": 0.00015759554344765595
+        },
+        "grid_size": 33,
+        "half_width": 12.0,
+        "horizon": 360.0,
+        "joint_settlement": {
+          "criterion": "dv_rms < 0.002 and dn_rms < 0.002 for the final 11 samples, all after 0.75*T",
+          "density": {
+            "extrapolated_threshold_time": null,
+            "final_residual": 0.0016564576867381053,
+            "late_log_residual_slope_per_time": 0.002233476777954341,
+            "slope_floor_per_time": 0.002,
+            "threshold": 0.002,
+            "verdict": "stalled"
+          },
+          "velocity": {
+            "extrapolated_threshold_time": null,
+            "final_residual": 0.00015759554344765595,
+            "late_log_residual_slope_per_time": -0.0049167120183961814,
+            "slope_floor_per_time": 0.002,
+            "threshold": 0.002,
+            "verdict": "still-decaying"
+          },
+          "verdict": "still-decaying"
+        },
+        "phase": "fixed_box_core_wind_sweep",
+        "spacing": 0.75,
+        "stencil_sha256": "aa1155e07536c3318c0afb0baabbbf472d66658046be4d21d816f135632c8461",
+        "trough": {
+          "candidate": true,
+          "core_shell_mean_final_window_relative_change": 0.7351672622342992,
+          "cutoff_reached": false,
+          "extrapolated_cutoff_time": 2030.8162714547482,
+          "final_minimum_density": 0.009408958412659681,
+          "minimum_density_final_window_log_slope_per_time": -0.010988495996052526,
+          "minimum_density_final_window_relative_change": 0.6726213998075149,
+          "positivity_cutoff": 1e-10,
+          "saturated": false
+        },
+        "v_GP_at_r_core": 0.2947273665495195,
+        "wind_ratio_to_v_GP_at_r_core": 0.05,
+        "wind_speed_lattice": 0.014736368327475975
+      },
+      {
+        "category": "floors",
+        "cell_id": "fixed-s0.75-u0.15-n33",
+        "core_radius_definition": "r_core = 2 * Gaussian sigma",
+        "core_sigma": 0.75,
+        "core_sigma_in_cells": 1.0,
+        "final_residuals": {
+          "dn_rms": 0.0006276871817250542,
+          "dv_rms": 9.6639794554047e-05
+        },
+        "grid_size": 33,
+        "half_width": 12.0,
+        "horizon": 360.0,
+        "joint_settlement": {
+          "criterion": "dv_rms < 0.002 and dn_rms < 0.002 for the final 11 samples, all after 0.75*T",
+          "density": {
+            "extrapolated_threshold_time": null,
+            "final_residual": 0.0006276871817250542,
+            "late_log_residual_slope_per_time": -0.009957520719771684,
+            "slope_floor_per_time": 0.002,
+            "threshold": 0.002,
+            "verdict": "still-decaying"
+          },
+          "velocity": {
+            "extrapolated_threshold_time": null,
+            "final_residual": 9.6639794554047e-05,
+            "late_log_residual_slope_per_time": -0.018600581619326772,
+            "slope_floor_per_time": 0.002,
+            "threshold": 0.002,
+            "verdict": "still-decaying"
+          },
+          "verdict": "still-decaying"
+        },
+        "phase": "fixed_box_core_wind_sweep",
+        "spacing": 0.75,
+        "stencil_sha256": "aa1155e07536c3318c0afb0baabbbf472d66658046be4d21d816f135632c8461",
+        "trough": {
+          "candidate": false,
+          "core_shell_mean_final_window_relative_change": 0.1765629386488195,
+          "cutoff_reached": false,
+          "extrapolated_cutoff_time": 2034.1926622414742,
+          "final_minimum_density": 0.024184334908709998,
+          "minimum_density_final_window_log_slope_per_time": -0.011530214647371435,
+          "minimum_density_final_window_relative_change": 0.6544819715627799,
+          "positivity_cutoff": 1e-10,
+          "saturated": false
+        },
+        "v_GP_at_r_core": 0.2947273665495195,
+        "wind_ratio_to_v_GP_at_r_core": 0.15,
+        "wind_speed_lattice": 0.04420910498242792
+      },
+      {
+        "category": "floors",
+        "cell_id": "fixed-s0.75-u0.3-n33",
+        "core_radius_definition": "r_core = 2 * Gaussian sigma",
+        "core_sigma": 0.75,
+        "core_sigma_in_cells": 1.0,
+        "final_residuals": {
+          "dn_rms": 4.38378488217924e-05,
+          "dv_rms": 1.7614099468492834e-05
+        },
+        "grid_size": 33,
+        "half_width": 12.0,
+        "horizon": 360.0,
+        "joint_settlement": {
+          "criterion": "dv_rms < 0.002 and dn_rms < 0.002 for the final 11 samples, all after 0.75*T",
+          "density": {
+            "extrapolated_threshold_time": null,
+            "final_residual": 4.38378488217924e-05,
+            "late_log_residual_slope_per_time": -0.028120255528092233,
+            "slope_floor_per_time": 0.002,
+            "threshold": 0.002,
+            "verdict": "still-decaying"
+          },
+          "velocity": {
+            "extrapolated_threshold_time": null,
+            "final_residual": 1.7614099468492834e-05,
+            "late_log_residual_slope_per_time": -0.002412651480992978,
+            "slope_floor_per_time": 0.002,
+            "threshold": 0.002,
+            "verdict": "still-decaying"
+          },
+          "verdict": "still-decaying"
+        },
+        "phase": "fixed_box_core_wind_sweep",
+        "spacing": 0.75,
+        "stencil_sha256": "aa1155e07536c3318c0afb0baabbbf472d66658046be4d21d816f135632c8461",
+        "trough": {
+          "candidate": false,
+          "core_shell_mean_final_window_relative_change": 0.00391137394720145,
+          "cutoff_reached": false,
+          "extrapolated_cutoff_time": 69568.12795549635,
+          "final_minimum_density": 0.14665121788134944,
+          "minimum_density_final_window_log_slope_per_time": -0.00030496638725150316,
+          "minimum_density_final_window_relative_change": 0.028249863196922877,
+          "positivity_cutoff": 1e-10,
+          "saturated": false
+        },
+        "v_GP_at_r_core": 0.2947273665495195,
+        "wind_ratio_to_v_GP_at_r_core": 0.3,
+        "wind_speed_lattice": 0.08841820996485585
+      },
+      {
+        "category": "floors",
+        "cell_id": "fixed-s0.75-u0.6-n33",
+        "core_radius_definition": "r_core = 2 * Gaussian sigma",
+        "core_sigma": 0.75,
+        "core_sigma_in_cells": 1.0,
+        "final_residuals": {
+          "dn_rms": 6.574592873191265e-05,
+          "dv_rms": 1.7090385717416595e-05
+        },
+        "grid_size": 33,
+        "half_width": 12.0,
+        "horizon": 360.0,
+        "joint_settlement": {
+          "criterion": "dv_rms < 0.002 and dn_rms < 0.002 for the final 11 samples, all after 0.75*T",
+          "density": {
+            "extrapolated_threshold_time": null,
+            "final_residual": 6.574592873191265e-05,
+            "late_log_residual_slope_per_time": 0.0013857668227575753,
+            "slope_floor_per_time": 0.002,
+            "threshold": 0.002,
+            "verdict": "stalled"
+          },
+          "velocity": {
+            "extrapolated_threshold_time": null,
+            "final_residual": 1.7090385717416595e-05,
+            "late_log_residual_slope_per_time": 0.001049186979160875,
+            "slope_floor_per_time": 0.002,
+            "threshold": 0.002,
+            "verdict": "stalled"
+          },
+          "verdict": "stalled"
+        },
+        "phase": "fixed_box_core_wind_sweep",
+        "spacing": 0.75,
+        "stencil_sha256": "aa1155e07536c3318c0afb0baabbbf472d66658046be4d21d816f135632c8461",
+        "trough": {
+          "candidate": false,
+          "core_shell_mean_final_window_relative_change": 0.013762517339531037,
+          "cutoff_reached": false,
+          "extrapolated_cutoff_time": 34373.81974902903,
+          "final_minimum_density": 0.2232337377377614,
+          "minimum_density_final_window_log_slope_per_time": -0.0006328696742563387,
+          "minimum_density_final_window_relative_change": 0.06554388449735737,
+          "positivity_cutoff": 1e-10,
+          "saturated": false
+        },
+        "v_GP_at_r_core": 0.2947273665495195,
+        "wind_ratio_to_v_GP_at_r_core": 0.6,
+        "wind_speed_lattice": 0.1768364199297117
+      },
+      {
+        "category": "floors",
+        "cell_id": "fixed-s0.75-u1-n33",
+        "core_radius_definition": "r_core = 2 * Gaussian sigma",
+        "core_sigma": 0.75,
+        "core_sigma_in_cells": 1.0,
+        "final_residuals": {
+          "dn_rms": 1.7547495800826107e-16,
+          "dv_rms": 9.186137923278164e-17
+        },
+        "grid_size": 33,
+        "half_width": 12.0,
+        "horizon": 360.0,
+        "joint_settlement": {
+          "criterion": "dv_rms < 0.002 and dn_rms < 0.002 for the final 11 samples, all after 0.75*T",
+          "density": {
+            "extrapolated_threshold_time": null,
+            "final_residual": 1.7547495800826107e-16,
+            "late_log_residual_slope_per_time": 8.262912375916832e-05,
+            "slope_floor_per_time": 0.002,
+            "threshold": 0.002,
+            "verdict": "stalled"
+          },
+          "velocity": {
+            "extrapolated_threshold_time": null,
+            "final_residual": 9.186137923278164e-17,
+            "late_log_residual_slope_per_time": 4.533447821951963e-05,
+            "slope_floor_per_time": 0.002,
+            "threshold": 0.002,
+            "verdict": "stalled"
+          },
+          "verdict": "stalled"
+        },
+        "phase": "fixed_box_core_wind_sweep",
+        "spacing": 0.75,
+        "stencil_sha256": "aa1155e07536c3318c0afb0baabbbf472d66658046be4d21d816f135632c8461",
+        "trough": {
+          "candidate": false,
+          "core_shell_mean_final_window_relative_change": 0.0,
+          "cutoff_reached": false,
+          "extrapolated_cutoff_time": null,
+          "final_minimum_density": 0.30665186874164246,
+          "minimum_density_final_window_log_slope_per_time": 1.902529231648467e-18,
+          "minimum_density_final_window_relative_change": 0.0,
+          "positivity_cutoff": 1e-10,
+          "saturated": true
+        },
+        "v_GP_at_r_core": 0.2947273665495195,
+        "wind_ratio_to_v_GP_at_r_core": 1.0,
+        "wind_speed_lattice": 0.2947273665495195
+      },
+      {
+        "category": "candidate",
+        "cell_id": "fixed-s1-u0.05-n33",
+        "core_radius_definition": "r_core = 2 * Gaussian sigma",
+        "core_sigma": 1.0,
+        "core_sigma_in_cells": 1.3333333333333333,
+        "final_residuals": {
+          "dn_rms": 0.0021442442026831446,
+          "dv_rms": 0.00013310612866121015
+        },
+        "grid_size": 33,
+        "half_width": 12.0,
+        "horizon": 360.0,
+        "joint_settlement": {
+          "criterion": "dv_rms < 0.002 and dn_rms < 0.002 for the final 11 samples, all after 0.75*T",
+          "density": {
+            "extrapolated_threshold_time": null,
+            "final_residual": 0.0021442442026831446,
+            "late_log_residual_slope_per_time": 0.0009825389796360206,
+            "slope_floor_per_time": 0.002,
+            "threshold": 0.002,
+            "verdict": "stalled"
+          },
+          "velocity": {
+            "extrapolated_threshold_time": null,
+            "final_residual": 0.00013310612866121015,
+            "late_log_residual_slope_per_time": -0.006501568887206801,
+            "slope_floor_per_time": 0.002,
+            "threshold": 0.002,
+            "verdict": "still-decaying"
+          },
+          "verdict": "still-decaying"
+        },
+        "phase": "fixed_box_core_wind_sweep",
+        "spacing": 0.75,
+        "stencil_sha256": "aa1155e07536c3318c0afb0baabbbf472d66658046be4d21d816f135632c8461",
+        "trough": {
+          "candidate": true,
+          "core_shell_mean_final_window_relative_change": 0.7149749564638772,
+          "cutoff_reached": false,
+          "extrapolated_cutoff_time": 1951.2827726309313,
+          "final_minimum_density": 0.009430106301063527,
+          "minimum_density_final_window_log_slope_per_time": -0.011539120096064864,
+          "minimum_density_final_window_relative_change": 0.6851141336076157,
+          "positivity_cutoff": 1e-10,
+          "saturated": false
+        },
+        "v_GP_at_r_core": 0.2511400982814844,
+        "wind_ratio_to_v_GP_at_r_core": 0.05,
+        "wind_speed_lattice": 0.012557004914074223
+      },
+      {
+        "category": "floors",
+        "cell_id": "fixed-s1-u0.15-n33",
+        "core_radius_definition": "r_core = 2 * Gaussian sigma",
+        "core_sigma": 1.0,
+        "core_sigma_in_cells": 1.3333333333333333,
+        "final_residuals": {
+          "dn_rms": 0.0006604197501770593,
+          "dv_rms": 0.00020158650016864827
+        },
+        "grid_size": 33,
+        "half_width": 12.0,
+        "horizon": 360.0,
+        "joint_settlement": {
+          "criterion": "dv_rms < 0.002 and dn_rms < 0.002 for the final 11 samples, all after 0.75*T",
+          "density": {
+            "extrapolated_threshold_time": null,
+            "final_residual": 0.0006604197501770593,
+            "late_log_residual_slope_per_time": -0.009280380067619056,
+            "slope_floor_per_time": 0.002,
+            "threshold": 0.002,
+            "verdict": "still-decaying"
+          },
+          "velocity": {
+            "extrapolated_threshold_time": null,
+            "final_residual": 0.00020158650016864827,
+            "late_log_residual_slope_per_time": -0.0038759629697154713,
+            "slope_floor_per_time": 0.002,
+            "threshold": 0.002,
+            "verdict": "still-decaying"
+          },
+          "verdict": "still-decaying"
+        },
+        "phase": "fixed_box_core_wind_sweep",
+        "spacing": 0.75,
+        "stencil_sha256": "aa1155e07536c3318c0afb0baabbbf472d66658046be4d21d816f135632c8461",
+        "trough": {
+          "candidate": false,
+          "core_shell_mean_final_window_relative_change": 0.37331615319331535,
+          "cutoff_reached": false,
+          "extrapolated_cutoff_time": 1866.2519327547711,
+          "final_minimum_density": 0.020873997730540925,
+          "minimum_density_final_window_log_slope_per_time": -0.012718058308213437,
+          "minimum_density_final_window_relative_change": 0.6908018254431452,
+          "positivity_cutoff": 1e-10,
+          "saturated": false
+        },
+        "v_GP_at_r_core": 0.2511400982814844,
+        "wind_ratio_to_v_GP_at_r_core": 0.15,
+        "wind_speed_lattice": 0.03767101474222266
+      },
+      {
+        "category": "floors",
+        "cell_id": "fixed-s1-u0.3-n33",
+        "core_radius_definition": "r_core = 2 * Gaussian sigma",
+        "core_sigma": 1.0,
+        "core_sigma_in_cells": 1.3333333333333333,
+        "final_residuals": {
+          "dn_rms": 0.00011149314517251459,
+          "dv_rms": 1.797175088351293e-05
+        },
+        "grid_size": 33,
+        "half_width": 12.0,
+        "horizon": 360.0,
+        "joint_settlement": {
+          "criterion": "dv_rms < 0.002 and dn_rms < 0.002 for the final 11 samples, all after 0.75*T",
+          "density": {
+            "extrapolated_threshold_time": null,
+            "final_residual": 0.00011149314517251459,
+            "late_log_residual_slope_per_time": -0.023584192752117678,
+            "slope_floor_per_time": 0.002,
+            "threshold": 0.002,
+            "verdict": "still-decaying"
+          },
+          "velocity": {
+            "extrapolated_threshold_time": null,
+            "final_residual": 1.797175088351293e-05,
+            "late_log_residual_slope_per_time": -0.011763524770548438,
+            "slope_floor_per_time": 0.002,
+            "threshold": 0.002,
+            "verdict": "still-decaying"
+          },
+          "verdict": "still-decaying"
+        },
+        "phase": "fixed_box_core_wind_sweep",
+        "spacing": 0.75,
+        "stencil_sha256": "aa1155e07536c3318c0afb0baabbbf472d66658046be4d21d816f135632c8461",
+        "trough": {
+          "candidate": false,
+          "core_shell_mean_final_window_relative_change": 0.007408995700742347,
+          "cutoff_reached": false,
+          "extrapolated_cutoff_time": 4657.015157337888,
+          "final_minimum_density": 0.09112521506915897,
+          "minimum_density_final_window_log_slope_per_time": -0.00480108387940171,
+          "minimum_density_final_window_relative_change": 0.3815041429162769,
+          "positivity_cutoff": 1e-10,
+          "saturated": false
+        },
+        "v_GP_at_r_core": 0.2511400982814844,
+        "wind_ratio_to_v_GP_at_r_core": 0.3,
+        "wind_speed_lattice": 0.07534202948444532
+      },
+      {
+        "category": "floors",
+        "cell_id": "fixed-s1-u0.6-n33",
+        "core_radius_definition": "r_core = 2 * Gaussian sigma",
+        "core_sigma": 1.0,
+        "core_sigma_in_cells": 1.3333333333333333,
+        "final_residuals": {
+          "dn_rms": 5.9505938202918404e-05,
+          "dv_rms": 1.718985221252561e-05
+        },
+        "grid_size": 33,
+        "half_width": 12.0,
+        "horizon": 360.0,
+        "joint_settlement": {
+          "criterion": "dv_rms < 0.002 and dn_rms < 0.002 for the final 11 samples, all after 0.75*T",
+          "density": {
+            "extrapolated_threshold_time": null,
+            "final_residual": 5.9505938202918404e-05,
+            "late_log_residual_slope_per_time": 0.002220235379381687,
+            "slope_floor_per_time": 0.002,
+            "threshold": 0.002,
+            "verdict": "stalled"
+          },
+          "velocity": {
+            "extrapolated_threshold_time": null,
+            "final_residual": 1.718985221252561e-05,
+            "late_log_residual_slope_per_time": 0.0009878520187122715,
+            "slope_floor_per_time": 0.002,
+            "threshold": 0.002,
+            "verdict": "stalled"
+          },
+          "verdict": "stalled"
+        },
+        "phase": "fixed_box_core_wind_sweep",
+        "spacing": 0.75,
+        "stencil_sha256": "aa1155e07536c3318c0afb0baabbbf472d66658046be4d21d816f135632c8461",
+        "trough": {
+          "candidate": false,
+          "core_shell_mean_final_window_relative_change": 0.002325037223094068,
+          "cutoff_reached": false,
+          "extrapolated_cutoff_time": 7499638713.883221,
+          "final_minimum_density": 0.23325578547126705,
+          "minimum_density_final_window_log_slope_per_time": -2.8761695266205335e-09,
+          "minimum_density_final_window_relative_change": 4.77704205815145e-07,
+          "positivity_cutoff": 1e-10,
+          "saturated": true
+        },
+        "v_GP_at_r_core": 0.2511400982814844,
+        "wind_ratio_to_v_GP_at_r_core": 0.6,
+        "wind_speed_lattice": 0.15068405896889064
+      },
+      {
+        "category": "floors",
+        "cell_id": "fixed-s1-u1-n33",
+        "core_radius_definition": "r_core = 2 * Gaussian sigma",
+        "core_sigma": 1.0,
+        "core_sigma_in_cells": 1.3333333333333333,
+        "final_residuals": {
+          "dn_rms": 1.5536289643337535e-16,
+          "dv_rms": 7.870461852895607e-17
+        },
+        "grid_size": 33,
+        "half_width": 12.0,
+        "horizon": 360.0,
+        "joint_settlement": {
+          "criterion": "dv_rms < 0.002 and dn_rms < 0.002 for the final 11 samples, all after 0.75*T",
+          "density": {
+            "extrapolated_threshold_time": null,
+            "final_residual": 1.5536289643337535e-16,
+            "late_log_residual_slope_per_time": -0.006322219069784395,
+            "slope_floor_per_time": 0.002,
+            "threshold": 0.002,
+            "verdict": "still-decaying"
+          },
+          "velocity": {
+            "extrapolated_threshold_time": null,
+            "final_residual": 7.870461852895607e-17,
+            "late_log_residual_slope_per_time": 3.941909526543321e-05,
+            "slope_floor_per_time": 0.002,
+            "threshold": 0.002,
+            "verdict": "stalled"
+          },
+          "verdict": "still-decaying"
+        },
+        "phase": "fixed_box_core_wind_sweep",
+        "spacing": 0.75,
+        "stencil_sha256": "aa1155e07536c3318c0afb0baabbbf472d66658046be4d21d816f135632c8461",
+        "trough": {
+          "candidate": false,
+          "core_shell_mean_final_window_relative_change": 0.0,
+          "cutoff_reached": false,
+          "extrapolated_cutoff_time": 2.2608037889649052e+16,
+          "final_minimum_density": 0.2945920435022128,
+          "minimum_density_final_window_log_slope_per_time": -9.644219128279804e-16,
+          "minimum_density_final_window_relative_change": 1.9842098093210664e-13,
+          "positivity_cutoff": 1e-10,
+          "saturated": true
+        },
+        "v_GP_at_r_core": 0.2511400982814844,
+        "wind_ratio_to_v_GP_at_r_core": 1.0,
+        "wind_speed_lattice": 0.2511400982814844
+      },
+      {
+        "category": "candidate",
+        "cell_id": "fixed-s1.5-u0.05-n33",
+        "core_radius_definition": "r_core = 2 * Gaussian sigma",
+        "core_sigma": 1.5,
+        "core_sigma_in_cells": 2.0,
+        "final_residuals": {
+          "dn_rms": 0.008564882834375493,
+          "dv_rms": 0.00011130696544077372
+        },
+        "grid_size": 33,
+        "half_width": 12.0,
+        "horizon": 360.0,
+        "joint_settlement": {
+          "criterion": "dv_rms < 0.002 and dn_rms < 0.002 for the final 11 samples, all after 0.75*T",
+          "density": {
+            "extrapolated_threshold_time": null,
+            "final_residual": 0.008564882834375493,
+            "late_log_residual_slope_per_time": 0.0031258513863512065,
+            "slope_floor_per_time": 0.002,
+            "threshold": 0.002,
+            "verdict": "stalled"
+          },
+          "velocity": {
+            "extrapolated_threshold_time": null,
+            "final_residual": 0.00011130696544077372,
+            "late_log_residual_slope_per_time": -0.008201282472251228,
+            "slope_floor_per_time": 0.002,
+            "threshold": 0.002,
+            "verdict": "still-decaying"
+          },
+          "verdict": "still-decaying"
+        },
+        "phase": "fixed_box_core_wind_sweep",
+        "spacing": 0.75,
+        "stencil_sha256": "aa1155e07536c3318c0afb0baabbbf472d66658046be4d21d816f135632c8461",
+        "trough": {
+          "candidate": true,
+          "core_shell_mean_final_window_relative_change": 0.7586742329925216,
+          "cutoff_reached": false,
+          "extrapolated_cutoff_time": 1911.6191603597042,
+          "final_minimum_density": 0.009519583276701545,
+          "minimum_density_final_window_log_slope_per_time": -0.011840177792783138,
+          "minimum_density_final_window_relative_change": 0.6898109448918306,
+          "positivity_cutoff": 1e-10,
+          "saturated": false
+        },
+        "v_GP_at_r_core": 0.19639535892076876,
+        "wind_ratio_to_v_GP_at_r_core": 0.05,
+        "wind_speed_lattice": 0.009819767946038439
+      },
+      {
+        "category": "floors",
+        "cell_id": "fixed-s1.5-u0.15-n33",
+        "core_radius_definition": "r_core = 2 * Gaussian sigma",
+        "core_sigma": 1.5,
+        "core_sigma_in_cells": 2.0,
+        "final_residuals": {
+          "dn_rms": 0.0007216907772074479,
+          "dv_rms": 0.000421902099464785
+        },
+        "grid_size": 33,
+        "half_width": 12.0,
+        "horizon": 360.0,
+        "joint_settlement": {
+          "criterion": "dv_rms < 0.002 and dn_rms < 0.002 for the final 11 samples, all after 0.75*T",
+          "density": {
+            "extrapolated_threshold_time": null,
+            "final_residual": 0.0007216907772074479,
+            "late_log_residual_slope_per_time": -0.011563515552447976,
+            "slope_floor_per_time": 0.002,
+            "threshold": 0.002,
+            "verdict": "still-decaying"
+          },
+          "velocity": {
+            "extrapolated_threshold_time": null,
+            "final_residual": 0.000421902099464785,
+            "late_log_residual_slope_per_time": 0.003057639031166966,
+            "slope_floor_per_time": 0.002,
+            "threshold": 0.002,
+            "verdict": "stalled"
+          },
+          "verdict": "still-decaying"
+        },
+        "phase": "fixed_box_core_wind_sweep",
+        "spacing": 0.75,
+        "stencil_sha256": "aa1155e07536c3318c0afb0baabbbf472d66658046be4d21d816f135632c8461",
+        "trough": {
+          "candidate": false,
+          "core_shell_mean_final_window_relative_change": 0.5817737843685381,
+          "cutoff_reached": false,
+          "extrapolated_cutoff_time": 1515.9065565350256,
+          "final_minimum_density": 0.015296760297500985,
+          "minimum_density_final_window_log_slope_per_time": -0.016303858305092234,
+          "minimum_density_final_window_relative_change": 0.7705883031899612,
+          "positivity_cutoff": 1e-10,
+          "saturated": false
+        },
+        "v_GP_at_r_core": 0.19639535892076876,
+        "wind_ratio_to_v_GP_at_r_core": 0.15,
+        "wind_speed_lattice": 0.029459303838115312
+      },
+      {
+        "category": "floors",
+        "cell_id": "fixed-s1.5-u0.3-n33",
+        "core_radius_definition": "r_core = 2 * Gaussian sigma",
+        "core_sigma": 1.5,
+        "core_sigma_in_cells": 2.0,
+        "final_residuals": {
+          "dn_rms": 0.0004445616605289324,
+          "dv_rms": 2.805122150094804e-05
+        },
+        "grid_size": 33,
+        "half_width": 12.0,
+        "horizon": 360.0,
+        "joint_settlement": {
+          "criterion": "dv_rms < 0.002 and dn_rms < 0.002 for the final 11 samples, all after 0.75*T",
+          "density": {
+            "extrapolated_threshold_time": null,
+            "final_residual": 0.0004445616605289324,
+            "late_log_residual_slope_per_time": -0.012002168015458423,
+            "slope_floor_per_time": 0.002,
+            "threshold": 0.002,
+            "verdict": "still-decaying"
+          },
+          "velocity": {
+            "extrapolated_threshold_time": null,
+            "final_residual": 2.805122150094804e-05,
+            "late_log_residual_slope_per_time": -0.024380267102847613,
+            "slope_floor_per_time": 0.002,
+            "threshold": 0.002,
+            "verdict": "still-decaying"
+          },
+          "verdict": "still-decaying"
+        },
+        "phase": "fixed_box_core_wind_sweep",
+        "spacing": 0.75,
+        "stencil_sha256": "aa1155e07536c3318c0afb0baabbbf472d66658046be4d21d816f135632c8461",
+        "trough": {
+          "candidate": false,
+          "core_shell_mean_final_window_relative_change": 0.0788983753984234,
+          "cutoff_reached": false,
+          "extrapolated_cutoff_time": 2190.5923186721107,
+          "final_minimum_density": 0.0419197821312442,
+          "minimum_density_final_window_log_slope_per_time": -0.010845589862470575,
+          "minimum_density_final_window_relative_change": 0.6564593720374033,
+          "positivity_cutoff": 1e-10,
+          "saturated": false
+        },
+        "v_GP_at_r_core": 0.19639535892076876,
+        "wind_ratio_to_v_GP_at_r_core": 0.3,
+        "wind_speed_lattice": 0.058918607676230625
+      },
+      {
+        "category": "floors",
+        "cell_id": "fixed-s1.5-u0.6-n33",
+        "core_radius_definition": "r_core = 2 * Gaussian sigma",
+        "core_sigma": 1.5,
+        "core_sigma_in_cells": 2.0,
+        "final_residuals": {
+          "dn_rms": 8.925224912605421e-05,
+          "dv_rms": 1.7052409406394266e-05
+        },
+        "grid_size": 33,
+        "half_width": 12.0,
+        "horizon": 360.0,
+        "joint_settlement": {
+          "criterion": "dv_rms < 0.002 and dn_rms < 0.002 for the final 11 samples, all after 0.75*T",
+          "density": {
+            "extrapolated_threshold_time": null,
+            "final_residual": 8.925224912605421e-05,
+            "late_log_residual_slope_per_time": -0.0038111986741683457,
+            "slope_floor_per_time": 0.002,
+            "threshold": 0.002,
+            "verdict": "still-decaying"
+          },
+          "velocity": {
+            "extrapolated_threshold_time": null,
+            "final_residual": 1.7052409406394266e-05,
+            "late_log_residual_slope_per_time": 0.000777202603099366,
+            "slope_floor_per_time": 0.002,
+            "threshold": 0.002,
+            "verdict": "stalled"
+          },
+          "verdict": "still-decaying"
+        },
+        "phase": "fixed_box_core_wind_sweep",
+        "spacing": 0.75,
+        "stencil_sha256": "aa1155e07536c3318c0afb0baabbbf472d66658046be4d21d816f135632c8461",
+        "trough": {
+          "candidate": false,
+          "core_shell_mean_final_window_relative_change": 0.001751930900403748,
+          "cutoff_reached": false,
+          "extrapolated_cutoff_time": 32312653.22042325,
+          "final_minimum_density": 0.2442116842659728,
+          "minimum_density_final_window_log_slope_per_time": -6.689754549808505e-07,
+          "minimum_density_final_window_relative_change": 9.74182474473766e-05,
+          "positivity_cutoff": 1e-10,
+          "saturated": true
+        },
+        "v_GP_at_r_core": 0.19639535892076876,
+        "wind_ratio_to_v_GP_at_r_core": 0.6,
+        "wind_speed_lattice": 0.11783721535246125
+      },
+      {
+        "category": "floors",
+        "cell_id": "fixed-s1.5-u1-n33",
+        "core_radius_definition": "r_core = 2 * Gaussian sigma",
+        "core_sigma": 1.5,
+        "core_sigma_in_cells": 2.0,
+        "final_residuals": {
+          "dn_rms": 0.0003922531980366801,
+          "dv_rms": 1.3257562337052024e-05
+        },
+        "grid_size": 33,
+        "half_width": 12.0,
+        "horizon": 360.0,
+        "joint_settlement": {
+          "criterion": "dv_rms < 0.002 and dn_rms < 0.002 for the final 11 samples, all after 0.75*T",
+          "density": {
+            "extrapolated_threshold_time": null,
+            "final_residual": 0.0003922531980366801,
+            "late_log_residual_slope_per_time": -0.01650938772885261,
+            "slope_floor_per_time": 0.002,
+            "threshold": 0.002,
+            "verdict": "still-decaying"
+          },
+          "velocity": {
+            "extrapolated_threshold_time": null,
+            "final_residual": 1.3257562337052024e-05,
+            "late_log_residual_slope_per_time": 0.0002851443267926513,
+            "slope_floor_per_time": 0.002,
+            "threshold": 0.002,
+            "verdict": "stalled"
+          },
+          "verdict": "still-decaying"
+        },
+        "phase": "fixed_box_core_wind_sweep",
+        "spacing": 0.75,
+        "stencil_sha256": "aa1155e07536c3318c0afb0baabbbf472d66658046be4d21d816f135632c8461",
+        "trough": {
+          "candidate": false,
+          "core_shell_mean_final_window_relative_change": 3.3274310099354484e-11,
+          "cutoff_reached": false,
+          "extrapolated_cutoff_time": 13128.051437382219,
+          "final_minimum_density": 0.24748017276001671,
+          "minimum_density_final_window_log_slope_per_time": -0.00169402717601615,
+          "minimum_density_final_window_relative_change": 0.15034869044436797,
+          "positivity_cutoff": 1e-10,
+          "saturated": false
+        },
+        "v_GP_at_r_core": 0.19639535892076876,
+        "wind_ratio_to_v_GP_at_r_core": 1.0,
+        "wind_speed_lattice": 0.19639535892076876
+      }
+    ],
+    "fixed_box_fine_verdict_cells": [
+      {
+        "category": "candidate",
+        "cell_id": "fixed-s0.75-u0.05-n41",
+        "core_radius_definition": "r_core = 2 * Gaussian sigma",
+        "core_sigma": 0.75,
+        "core_sigma_in_cells": 1.2500000000000007,
+        "final_residuals": {
+          "dn_rms": 0.0001646560450896394,
+          "dv_rms": 0.0002462239089888293
+        },
+        "grid_size": 41,
+        "half_width": 12.0,
+        "horizon": 480.0,
+        "joint_settlement": {
+          "criterion": "dv_rms < 0.002 and dn_rms < 0.002 for the final 11 samples, all after 0.75*T",
+          "density": {
+            "extrapolated_threshold_time": null,
+            "final_residual": 0.0001646560450896394,
+            "late_log_residual_slope_per_time": -0.016656242558502305,
+            "slope_floor_per_time": 0.002,
+            "threshold": 0.002,
+            "verdict": "settled"
+          },
+          "velocity": {
+            "extrapolated_threshold_time": null,
+            "final_residual": 0.0002462239089888293,
+            "late_log_residual_slope_per_time": 0.0011192070495983936,
+            "slope_floor_per_time": 0.002,
+            "threshold": 0.002,
+            "verdict": "settled"
+          },
+          "verdict": "settled"
+        },
+        "phase": "fixed_box_core_wind_sweep",
+        "spacing": 0.5999999999999996,
+        "stencil_sha256": "aa1155e07536c3318c0afb0baabbbf472d66658046be4d21d816f135632c8461",
+        "trough": {
+          "candidate": true,
+          "core_shell_mean_final_window_relative_change": 0.6856532251373472,
+          "cutoff_reached": false,
+          "extrapolated_cutoff_time": 1014.1262901096743,
+          "final_minimum_density": 0.00031425900083485703,
+          "minimum_density_final_window_log_slope_per_time": -0.02800940178068982,
+          "minimum_density_final_window_relative_change": 0.9376749425911249,
+          "positivity_cutoff": 1e-10,
+          "saturated": false
+        },
+        "v_GP_at_r_core": 0.29547293390210433,
+        "wind_ratio_to_v_GP_at_r_core": 0.05,
+        "wind_speed_lattice": 0.014773646695105218
+      },
+      {
+        "category": "candidate",
+        "cell_id": "fixed-s0.75-u0.15-n41",
+        "core_radius_definition": "r_core = 2 * Gaussian sigma",
+        "core_sigma": 0.75,
+        "core_sigma_in_cells": 1.2500000000000007,
+        "final_residuals": {
+          "dn_rms": 0.00012174818703450457,
+          "dv_rms": 1.1824595488380686e-05
+        },
+        "grid_size": 41,
+        "half_width": 12.0,
+        "horizon": 480.0,
+        "joint_settlement": {
+          "criterion": "dv_rms < 0.002 and dn_rms < 0.002 for the final 11 samples, all after 0.75*T",
+          "density": {
+            "extrapolated_threshold_time": null,
+            "final_residual": 0.00012174818703450457,
+            "late_log_residual_slope_per_time": -0.009607255748554023,
+            "slope_floor_per_time": 0.002,
+            "threshold": 0.002,
+            "verdict": "settled"
+          },
+          "velocity": {
+            "extrapolated_threshold_time": null,
+            "final_residual": 1.1824595488380686e-05,
+            "late_log_residual_slope_per_time": -0.008001510743984499,
+            "slope_floor_per_time": 0.002,
+            "threshold": 0.002,
+            "verdict": "settled"
+          },
+          "verdict": "settled"
+        },
+        "phase": "fixed_box_core_wind_sweep",
+        "spacing": 0.5999999999999996,
+        "stencil_sha256": "aa1155e07536c3318c0afb0baabbbf472d66658046be4d21d816f135632c8461",
+        "trough": {
+          "candidate": true,
+          "core_shell_mean_final_window_relative_change": 0.0026867536288041408,
+          "cutoff_reached": false,
+          "extrapolated_cutoff_time": 1884.4364491074093,
+          "final_minimum_density": 0.0043357438083091605,
+          "minimum_density_final_window_log_slope_per_time": -0.012521028516261235,
+          "minimum_density_final_window_relative_change": 0.7125203601049147,
+          "positivity_cutoff": 1e-10,
+          "saturated": false
+        },
+        "v_GP_at_r_core": 0.29547293390210433,
+        "wind_ratio_to_v_GP_at_r_core": 0.15,
+        "wind_speed_lattice": 0.04432094008531565
+      },
+      {
+        "category": "candidate",
+        "cell_id": "fixed-s1-u0.05-n41",
+        "core_radius_definition": "r_core = 2 * Gaussian sigma",
+        "core_sigma": 1.0,
+        "core_sigma_in_cells": 1.6666666666666676,
+        "final_residuals": {
+          "dn_rms": 0.00016860065852276388,
+          "dv_rms": 0.0001808979541673627
+        },
+        "grid_size": 41,
+        "half_width": 12.0,
+        "horizon": 480.0,
+        "joint_settlement": {
+          "criterion": "dv_rms < 0.002 and dn_rms < 0.002 for the final 11 samples, all after 0.75*T",
+          "density": {
+            "extrapolated_threshold_time": null,
+            "final_residual": 0.00016860065852276388,
+            "late_log_residual_slope_per_time": -0.021031706337070622,
+            "slope_floor_per_time": 0.002,
+            "threshold": 0.002,
+            "verdict": "settled"
+          },
+          "velocity": {
+            "extrapolated_threshold_time": null,
+            "final_residual": 0.0001808979541673627,
+            "late_log_residual_slope_per_time": -0.00035982897970762733,
+            "slope_floor_per_time": 0.002,
+            "threshold": 0.002,
+            "verdict": "settled"
+          },
+          "verdict": "settled"
+        },
+        "phase": "fixed_box_core_wind_sweep",
+        "spacing": 0.5999999999999996,
+        "stencil_sha256": "aa1155e07536c3318c0afb0baabbbf472d66658046be4d21d816f135632c8461",
+        "trough": {
+          "candidate": true,
+          "core_shell_mean_final_window_relative_change": 0.7403820523514835,
+          "cutoff_reached": false,
+          "extrapolated_cutoff_time": 1013.2930449565029,
+          "final_minimum_density": 0.0003174451426642505,
+          "minimum_density_final_window_log_slope_per_time": -0.02807208070300586,
+          "minimum_density_final_window_relative_change": 0.9386167783519314,
+          "positivity_cutoff": 1e-10,
+          "saturated": false
+        },
+        "v_GP_at_r_core": 0.25125521018427477,
+        "wind_ratio_to_v_GP_at_r_core": 0.05,
+        "wind_speed_lattice": 0.01256276050921374
+      },
+      {
+        "category": "candidate",
+        "cell_id": "fixed-s1-u0.15-n41",
+        "core_radius_definition": "r_core = 2 * Gaussian sigma",
+        "core_sigma": 1.0,
+        "core_sigma_in_cells": 1.6666666666666676,
+        "final_residuals": {
+          "dn_rms": 0.00048183091221642565,
+          "dv_rms": 0.0003967903961834127
+        },
+        "grid_size": 41,
+        "half_width": 12.0,
+        "horizon": 480.0,
+        "joint_settlement": {
+          "criterion": "dv_rms < 0.002 and dn_rms < 0.002 for the final 11 samples, all after 0.75*T",
+          "density": {
+            "extrapolated_threshold_time": null,
+            "final_residual": 0.00048183091221642565,
+            "late_log_residual_slope_per_time": -0.005872093070049592,
+            "slope_floor_per_time": 0.002,
+            "threshold": 0.002,
+            "verdict": "settled"
+          },
+          "velocity": {
+            "extrapolated_threshold_time": null,
+            "final_residual": 0.0003967903961834127,
+            "late_log_residual_slope_per_time": -0.0008523220307159463,
+            "slope_floor_per_time": 0.002,
+            "threshold": 0.002,
+            "verdict": "settled"
+          },
+          "verdict": "settled"
+        },
+        "phase": "fixed_box_core_wind_sweep",
+        "spacing": 0.5999999999999996,
+        "stencil_sha256": "aa1155e07536c3318c0afb0baabbbf472d66658046be4d21d816f135632c8461",
+        "trough": {
+          "candidate": true,
+          "core_shell_mean_final_window_relative_change": 0.025616176944949862,
+          "cutoff_reached": false,
+          "extrapolated_cutoff_time": 1390.619655637946,
+          "final_minimum_density": 0.0019720631823206504,
+          "minimum_density_final_window_log_slope_per_time": -0.018445874567219158,
+          "minimum_density_final_window_relative_change": 0.8402587773887094,
+          "positivity_cutoff": 1e-10,
+          "saturated": false
+        },
+        "v_GP_at_r_core": 0.25125521018427477,
+        "wind_ratio_to_v_GP_at_r_core": 0.15,
+        "wind_speed_lattice": 0.03768828152764121
+      },
+      {
+        "category": "candidate",
+        "cell_id": "fixed-s1.5-u0.05-n41",
+        "core_radius_definition": "r_core = 2 * Gaussian sigma",
+        "core_sigma": 1.5,
+        "core_sigma_in_cells": 2.5000000000000013,
+        "final_residuals": {
+          "dn_rms": 0.0005666864789282055,
+          "dv_rms": 0.00012663764327989775
+        },
+        "grid_size": 41,
+        "half_width": 12.0,
+        "horizon": 480.0,
+        "joint_settlement": {
+          "criterion": "dv_rms < 0.002 and dn_rms < 0.002 for the final 11 samples, all after 0.75*T",
+          "density": {
+            "extrapolated_threshold_time": null,
+            "final_residual": 0.0005666864789282055,
+            "late_log_residual_slope_per_time": -0.009558940777173336,
+            "slope_floor_per_time": 0.002,
+            "threshold": 0.002,
+            "verdict": "still-decaying"
+          },
+          "velocity": {
+            "extrapolated_threshold_time": null,
+            "final_residual": 0.00012663764327989775,
+            "late_log_residual_slope_per_time": -0.002241825086930261,
+            "slope_floor_per_time": 0.002,
+            "threshold": 0.002,
+            "verdict": "settled"
+          },
+          "verdict": "still-decaying"
+        },
+        "phase": "fixed_box_core_wind_sweep",
+        "spacing": 0.5999999999999996,
+        "stencil_sha256": "aa1155e07536c3318c0afb0baabbbf472d66658046be4d21d816f135632c8461",
+        "trough": {
+          "candidate": true,
+          "core_shell_mean_final_window_relative_change": 0.6925014940703477,
+          "cutoff_reached": false,
+          "extrapolated_cutoff_time": 1019.56337270893,
+          "final_minimum_density": 0.000325940127794973,
+          "minimum_density_final_window_log_slope_per_time": -0.027794796381583636,
+          "minimum_density_final_window_relative_change": 0.9368867065617444,
+          "positivity_cutoff": 1e-10,
+          "saturated": false
+        },
+        "v_GP_at_r_core": 0.1965227075039697,
+        "wind_ratio_to_v_GP_at_r_core": 0.05,
+        "wind_speed_lattice": 0.009826135375198485
+      },
+      {
+        "category": "candidate",
+        "cell_id": "fixed-s1.5-u0.15-n41",
+        "core_radius_definition": "r_core = 2 * Gaussian sigma",
+        "core_sigma": 1.5,
+        "core_sigma_in_cells": 2.5000000000000013,
+        "final_residuals": {
+          "dn_rms": 0.00016420769061603694,
+          "dv_rms": 8.675829275098732e-05
+        },
+        "grid_size": 41,
+        "half_width": 12.0,
+        "horizon": 480.0,
+        "joint_settlement": {
+          "criterion": "dv_rms < 0.002 and dn_rms < 0.002 for the final 11 samples, all after 0.75*T",
+          "density": {
+            "extrapolated_threshold_time": null,
+            "final_residual": 0.00016420769061603694,
+            "late_log_residual_slope_per_time": -0.013119059404307593,
+            "slope_floor_per_time": 0.002,
+            "threshold": 0.002,
+            "verdict": "settled"
+          },
+          "velocity": {
+            "extrapolated_threshold_time": null,
+            "final_residual": 8.675829275098732e-05,
+            "late_log_residual_slope_per_time": -0.020221102485870154,
+            "slope_floor_per_time": 0.002,
+            "threshold": 0.002,
+            "verdict": "settled"
+          },
+          "verdict": "settled"
+        },
+        "phase": "fixed_box_core_wind_sweep",
+        "spacing": 0.5999999999999996,
+        "stencil_sha256": "aa1155e07536c3318c0afb0baabbbf472d66658046be4d21d816f135632c8461",
+        "trough": {
+          "candidate": true,
+          "core_shell_mean_final_window_relative_change": 0.17388959628008163,
+          "cutoff_reached": false,
+          "extrapolated_cutoff_time": 1298.8718074644594,
+          "final_minimum_density": 0.0012382918033337906,
+          "minimum_density_final_window_log_slope_per_time": -0.019944304290381427,
+          "minimum_density_final_window_relative_change": 0.8635679277650415,
+          "positivity_cutoff": 1e-10,
+          "saturated": false
+        },
+        "v_GP_at_r_core": 0.1965227075039697,
+        "wind_ratio_to_v_GP_at_r_core": 0.15,
+        "wind_speed_lattice": 0.029478406125595453
+      },
+      {
+        "category": "floors",
+        "cell_id": "fixed-s0.75-u0.3-n41",
+        "core_radius_definition": "r_core = 2 * Gaussian sigma",
+        "core_sigma": 0.75,
+        "core_sigma_in_cells": 1.2500000000000007,
+        "final_residuals": {
+          "dn_rms": 1.16209691049009e-05,
+          "dv_rms": 2.023655676880017e-06
+        },
+        "grid_size": 41,
+        "half_width": 12.0,
+        "horizon": 480.0,
+        "joint_settlement": {
+          "criterion": "dv_rms < 0.002 and dn_rms < 0.002 for the final 11 samples, all after 0.75*T",
+          "density": {
+            "extrapolated_threshold_time": null,
+            "final_residual": 1.16209691049009e-05,
+            "late_log_residual_slope_per_time": -0.032773575381139224,
+            "slope_floor_per_time": 0.002,
+            "threshold": 0.002,
+            "verdict": "settled"
+          },
+          "velocity": {
+            "extrapolated_threshold_time": null,
+            "final_residual": 2.023655676880017e-06,
+            "late_log_residual_slope_per_time": -0.03959845624771159,
+            "slope_floor_per_time": 0.002,
+            "threshold": 0.002,
+            "verdict": "settled"
+          },
+          "verdict": "settled"
+        },
+        "phase": "fixed_box_core_wind_sweep",
+        "spacing": 0.5999999999999996,
+        "stencil_sha256": "aa1155e07536c3318c0afb0baabbbf472d66658046be4d21d816f135632c8461",
+        "trough": {
+          "candidate": false,
+          "core_shell_mean_final_window_relative_change": 0.010890550458801487,
+          "cutoff_reached": false,
+          "extrapolated_cutoff_time": 7997869264331.611,
+          "final_minimum_density": 0.14138422426634817,
+          "minimum_density_final_window_log_slope_per_time": -2.63439875484029e-12,
+          "minimum_density_final_window_relative_change": 4.1580508773438087e-10,
+          "positivity_cutoff": 1e-10,
+          "saturated": false
+        },
+        "v_GP_at_r_core": 0.29547293390210433,
+        "wind_ratio_to_v_GP_at_r_core": 0.3,
+        "wind_speed_lattice": 0.0886418801706313
+      },
+      {
+        "category": "floors",
+        "cell_id": "fixed-s1-u0.3-n41",
+        "core_radius_definition": "r_core = 2 * Gaussian sigma",
+        "core_sigma": 1.0,
+        "core_sigma_in_cells": 1.6666666666666676,
+        "final_residuals": {
+          "dn_rms": 1.9720842702266778e-05,
+          "dv_rms": 3.280086522149565e-06
+        },
+        "grid_size": 41,
+        "half_width": 12.0,
+        "horizon": 480.0,
+        "joint_settlement": {
+          "criterion": "dv_rms < 0.002 and dn_rms < 0.002 for the final 11 samples, all after 0.75*T",
+          "density": {
+            "extrapolated_threshold_time": null,
+            "final_residual": 1.9720842702266778e-05,
+            "late_log_residual_slope_per_time": -0.023914113695853913,
+            "slope_floor_per_time": 0.002,
+            "threshold": 0.002,
+            "verdict": "settled"
+          },
+          "velocity": {
+            "extrapolated_threshold_time": null,
+            "final_residual": 3.280086522149565e-06,
+            "late_log_residual_slope_per_time": -0.029980444509552603,
+            "slope_floor_per_time": 0.002,
+            "threshold": 0.002,
+            "verdict": "settled"
+          },
+          "verdict": "settled"
+        },
+        "phase": "fixed_box_core_wind_sweep",
+        "spacing": 0.5999999999999996,
+        "stencil_sha256": "aa1155e07536c3318c0afb0baabbbf472d66658046be4d21d816f135632c8461",
+        "trough": {
+          "candidate": false,
+          "core_shell_mean_final_window_relative_change": 0.012696868132819372,
+          "cutoff_reached": false,
+          "extrapolated_cutoff_time": 119727.98728049242,
+          "final_minimum_density": 0.08229833411641607,
+          "minimum_density_final_window_log_slope_per_time": -0.00017214920758831006,
+          "minimum_density_final_window_relative_change": 0.019899216973519613,
+          "positivity_cutoff": 1e-10,
+          "saturated": false
+        },
+        "v_GP_at_r_core": 0.25125521018427477,
+        "wind_ratio_to_v_GP_at_r_core": 0.3,
+        "wind_speed_lattice": 0.07537656305528243
+      },
+      {
+        "category": "floors",
+        "cell_id": "fixed-s1.5-u0.3-n41",
+        "core_radius_definition": "r_core = 2 * Gaussian sigma",
+        "core_sigma": 1.5,
+        "core_sigma_in_cells": 2.5000000000000013,
+        "final_residuals": {
+          "dn_rms": 1.582345907641291e-05,
+          "dv_rms": 6.857912303679344e-06
+        },
+        "grid_size": 41,
+        "half_width": 12.0,
+        "horizon": 480.0,
+        "joint_settlement": {
+          "criterion": "dv_rms < 0.002 and dn_rms < 0.002 for the final 11 samples, all after 0.75*T",
+          "density": {
+            "extrapolated_threshold_time": null,
+            "final_residual": 1.582345907641291e-05,
+            "late_log_residual_slope_per_time": -0.027091363433096375,
+            "slope_floor_per_time": 0.002,
+            "threshold": 0.002,
+            "verdict": "settled"
+          },
+          "velocity": {
+            "extrapolated_threshold_time": null,
+            "final_residual": 6.857912303679344e-06,
+            "late_log_residual_slope_per_time": -0.006761746670172446,
+            "slope_floor_per_time": 0.002,
+            "threshold": 0.002,
+            "verdict": "settled"
+          },
+          "verdict": "settled"
+        },
+        "phase": "fixed_box_core_wind_sweep",
+        "spacing": 0.5999999999999996,
+        "stencil_sha256": "aa1155e07536c3318c0afb0baabbbf472d66658046be4d21d816f135632c8461",
+        "trough": {
+          "candidate": false,
+          "core_shell_mean_final_window_relative_change": 0.0015366390745295746,
+          "cutoff_reached": false,
+          "extrapolated_cutoff_time": 8200.189669232896,
+          "final_minimum_density": 0.025120995354883456,
+          "minimum_density_final_window_log_slope_per_time": -0.0025053529051048966,
+          "minimum_density_final_window_relative_change": 0.22889574152389186,
+          "positivity_cutoff": 1e-10,
+          "saturated": false
+        },
+        "v_GP_at_r_core": 0.1965227075039697,
+        "wind_ratio_to_v_GP_at_r_core": 0.3,
+        "wind_speed_lattice": 0.058956812251190906
+      }
+    ]
+  },
+  "reproducibility": {
+    "byte_identical_check_command": "PYTHONDONTWRITEBYTECODE=1 UV_CACHE_DIR=/tmp/orbit-uv-cache-11170 uv run lab/sims/level-core-cavitation-threshold-map/main.py --check-determinism",
+    "byte_identical_rerun_verified": true,
+    "canonical_json": "indent=2, keys sorted, allow_nan=false",
+    "random_numbers_used": false
+  },
+  "run_date": "2026-09-04",
+  "run_id": "jrun-20260904-0216",
+  "schema_version": 1,
+  "seed": 42,
+  "task_id": "ORB-11170",
+  "verdict": {
+    "G1": "G1c_box_tracking",
+    "G2": "discontinuous_positive_floor_at_sampled_boundary",
+    "G3": "conditional arithmetic only; G1 is not pinned, so no physical gate verdict is admitted",
+    "G4": "passed",
+    "theory_reconciliation": "deferred to kepler; principia intentionally untouched"
+  }
+}
