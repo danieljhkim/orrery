@@ -1,0 +1,1156 @@
+{
+  "diagnoses": {
+    "D1_estimator_degeneracy": {
+      "by_n": {
+        "3": {
+          "R0_gate_false_fail_rate_8_bins": 0.9602720843910283,
+          "R0_per_bin_false_fail_rate": 0.33183,
+          "R1_reproducibility_band_false_fire_rate": 0.44116,
+          "cap_isolation_false_disagreement_rate": 0.344265,
+          "p_sigma_hat_below_quarter_of_true": 0.260235,
+          "sd_over_mad_sigma_p95": 12.980544175172403,
+          "sigma_hat_over_true_sigma_median": 0.5381278502838269,
+          "sigma_hat_over_true_sigma_p05": 0.0442343952220348
+        },
+        "5": {
+          "R0_gate_false_fail_rate_8_bins": 0.7025311396619784,
+          "R0_per_bin_false_fail_rate": 0.14063,
+          "R1_reproducibility_band_false_fire_rate": 0.242715,
+          "cap_isolation_false_disagreement_rate": 0.1666,
+          "p_sigma_hat_below_quarter_of_true": 0.09114,
+          "sd_over_mad_sigma_p95": 4.098016298248364,
+          "sigma_hat_over_true_sigma_median": 0.7452164293935599,
+          "sigma_hat_over_true_sigma_p05": 0.17908959355421009
+        }
+      },
+      "null_distribution": "N(0,1)",
+      "trials": 200000
+    },
+    "D2_null_bias_floor": {
+      "R0_bins_failing_frozen_sanity_gate": [
+        {
+          "B_i_mad_sigma": 0.0038934385715818347,
+          "B_i_median": 0.031467733978451706,
+          "B_i_sd": 0.019779290096673216,
+          "B_i_sem": 0.008845567440569939,
+          "S_i_median_noise_inflation": -0.00655585699150385,
+          "comparator_sampling_median": 0.038023590969955556,
+          "g_N_hi_ms2": 1e-08,
+          "g_N_lo_ms2": 3.1622776601683795e-09,
+          "mad_sigma_understates_sd_by": 5.080159795262223,
+          "n_seeds": 5,
+          "run_id": "R0"
+        }
+      ],
+      "per_bin": [
+        {
+          "B_i_mad_sigma": 0.04012846046058286,
+          "B_i_median": 0.05887261842336644,
+          "B_i_sd": 0.05164529192839456,
+          "B_i_sem": 0.023096476693942287,
+          "S_i_median_noise_inflation": 0.04929885362132802,
+          "comparator_sampling_median": -0.0009592726568989907,
+          "g_N_hi_ms2": 1e-11,
+          "g_N_lo_ms2": 3.1622776601683794e-12,
+          "mad_sigma_understates_sd_by": 1.2869990858264893,
+          "n_seeds": 5,
+          "run_id": "R0"
+        },
+        {
+          "B_i_mad_sigma": 0.03261347831061574,
+          "B_i_median": 0.04631532454326848,
+          "B_i_sd": 0.028183663151118237,
+          "B_i_sem": 0.01260411733217126,
+          "S_i_median_noise_inflation": 0.032970981133542465,
+          "comparator_sampling_median": 0.02904752925242049,
+          "g_N_hi_ms2": 3.1622776601683794e-11,
+          "g_N_lo_ms2": 1e-11,
+          "mad_sigma_understates_sd_by": 0.8641722567183031,
+          "n_seeds": 5,
+          "run_id": "R0"
+        },
+        {
+          "B_i_mad_sigma": 0.05096899201505464,
+          "B_i_median": -0.004266166823466144,
+          "B_i_sd": 0.04325550463519991,
+          "B_i_sem": 0.019344449753072847,
+          "S_i_median_noise_inflation": 0.0013497135103569535,
+          "comparator_sampling_median": 0.010844189337566146,
+          "g_N_hi_ms2": 1e-10,
+          "g_N_lo_ms2": 3.1622776601683794e-11,
+          "mad_sigma_understates_sd_by": 0.848663136646367,
+          "n_seeds": 5,
+          "run_id": "R0"
+        },
+        {
+          "B_i_mad_sigma": 0.06904922283257793,
+          "B_i_median": 0.01765294086539393,
+          "B_i_sd": 0.0555083256456796,
+          "B_i_sem": 0.024824077892186897,
+          "S_i_median_noise_inflation": 0.021092242399431527,
+          "comparator_sampling_median": 0.03236223021708884,
+          "g_N_hi_ms2": 3.1622776601683795e-10,
+          "g_N_lo_ms2": 1e-10,
+          "mad_sigma_understates_sd_by": 0.8038950095103802,
+          "n_seeds": 5,
+          "run_id": "R0"
+        },
+        {
+          "B_i_mad_sigma": 0.019043778316349888,
+          "B_i_median": 0.016971285115465973,
+          "B_i_sd": 0.018083261776152694,
+          "B_i_sem": 0.008087080517280201,
+          "S_i_median_noise_inflation": -0.0012090471841534889,
+          "comparator_sampling_median": 0.011793250675375289,
+          "g_N_hi_ms2": 1e-09,
+          "g_N_lo_ms2": 3.1622776601683795e-10,
+          "mad_sigma_understates_sd_by": 0.9495627115459252,
+          "n_seeds": 5,
+          "run_id": "R0"
+        },
+        {
+          "B_i_mad_sigma": 0.017148783547844198,
+          "B_i_median": 0.0034526873068402297,
+          "B_i_sd": 0.020783152137885882,
+          "B_i_sem": 0.009294508193406582,
+          "S_i_median_noise_inflation": 0.0011773972064527127,
+          "comparator_sampling_median": 0.00633244156748225,
+          "g_N_hi_ms2": 3.1622776601683795e-09,
+          "g_N_lo_ms2": 1e-09,
+          "mad_sigma_understates_sd_by": 1.2119315682014407,
+          "n_seeds": 5,
+          "run_id": "R0"
+        },
+        {
+          "B_i_mad_sigma": 0.0038934385715818347,
+          "B_i_median": 0.031467733978451706,
+          "B_i_sd": 0.019779290096673216,
+          "B_i_sem": 0.008845567440569939,
+          "S_i_median_noise_inflation": -0.00655585699150385,
+          "comparator_sampling_median": 0.038023590969955556,
+          "g_N_hi_ms2": 1e-08,
+          "g_N_lo_ms2": 3.1622776601683795e-09,
+          "mad_sigma_understates_sd_by": 5.080159795262223,
+          "n_seeds": 5,
+          "run_id": "R0"
+        },
+        {
+          "B_i_mad_sigma": 0.03103011711400837,
+          "B_i_median": 0.01825657723872187,
+          "B_i_sd": 0.04239689655971141,
+          "B_i_sem": 0.018960468548508337,
+          "S_i_median_noise_inflation": -0.002791801857645826,
+          "comparator_sampling_median": 0.019092232721944713,
+          "g_N_hi_ms2": 3.162277660168379e-08,
+          "g_N_lo_ms2": 1e-08,
+          "mad_sigma_understates_sd_by": 1.3663144229826827,
+          "n_seeds": 5,
+          "run_id": "R0"
+        },
+        {
+          "B_i_mad_sigma": 0.08352744719401442,
+          "B_i_median": 0.06557419706561363,
+          "B_i_sd": 0.06723223822875063,
+          "B_i_sem": 0.03006717099178929,
+          "S_i_median_noise_inflation": 0.09621961966122461,
+          "comparator_sampling_median": -0.0009592726568989907,
+          "g_N_hi_ms2": 1e-11,
+          "g_N_lo_ms2": 3.1622776601683794e-12,
+          "mad_sigma_understates_sd_by": 0.8049119240120689,
+          "n_seeds": 5,
+          "run_id": "R1-baseline"
+        },
+        {
+          "B_i_mad_sigma": 0.010789302169807728,
+          "B_i_median": 0.03663021579251191,
+          "B_i_sd": 0.027922489848757476,
+          "B_i_sem": 0.012487317080573906,
+          "S_i_median_noise_inflation": 0.005441011818567931,
+          "comparator_sampling_median": 0.02904752925242049,
+          "g_N_hi_ms2": 3.1622776601683794e-11,
+          "g_N_lo_ms2": 1e-11,
+          "mad_sigma_understates_sd_by": 2.5879792232434133,
+          "n_seeds": 5,
+          "run_id": "R1-baseline"
+        },
+        {
+          "B_i_mad_sigma": 0.02243851650577747,
+          "B_i_median": 0.030316993367212164,
+          "B_i_sd": 0.05177361472007566,
+          "B_i_sem": 0.023153864390994584,
+          "S_i_median_noise_inflation": 0.02260540556784585,
+          "comparator_sampling_median": 0.010844189337566146,
+          "g_N_hi_ms2": 1e-10,
+          "g_N_lo_ms2": 3.1622776601683794e-11,
+          "mad_sigma_understates_sd_by": 2.3073546197559445,
+          "n_seeds": 5,
+          "run_id": "R1-baseline"
+        },
+        {
+          "B_i_mad_sigma": 0.05566610555432045,
+          "B_i_median": 0.011773709420855316,
+          "B_i_sd": 0.061398930115209714,
+          "B_i_sem": 0.02745843629667358,
+          "S_i_median_noise_inflation": -0.0027924942633638095,
+          "comparator_sampling_median": 0.03236223021708884,
+          "g_N_hi_ms2": 3.1622776601683795e-10,
+          "g_N_lo_ms2": 1e-10,
+          "mad_sigma_understates_sd_by": 1.1029859104351214,
+          "n_seeds": 5,
+          "run_id": "R1-baseline"
+        },
+        {
+          "B_i_mad_sigma": 0.029441055776786195,
+          "B_i_median": 0.007859600661488608,
+          "B_i_sd": 0.028629589084111857,
+          "B_i_sem": 0.012803541471992011,
+          "S_i_median_noise_inflation": -0.012058902312326092,
+          "comparator_sampling_median": 0.011793250675375289,
+          "g_N_hi_ms2": 1e-09,
+          "g_N_lo_ms2": 3.1622776601683795e-10,
+          "mad_sigma_understates_sd_by": 0.9724375817624663,
+          "n_seeds": 5,
+          "run_id": "R1-baseline"
+        },
+        {
+          "B_i_mad_sigma": 0.016281654049729533,
+          "B_i_median": 0.0048221609237668606,
+          "B_i_sd": 0.025953691418414103,
+          "B_i_sem": 0.011606843655725374,
+          "S_i_median_noise_inflation": 0.007094544618758469,
+          "comparator_sampling_median": 0.00633244156748225,
+          "g_N_hi_ms2": 3.1622776601683795e-09,
+          "g_N_lo_ms2": 1e-09,
+          "mad_sigma_understates_sd_by": 1.5940451344281719,
+          "n_seeds": 5,
+          "run_id": "R1-baseline"
+        },
+        {
+          "B_i_mad_sigma": 0.023466661735306708,
+          "B_i_median": 0.031236782215791736,
+          "B_i_sd": 0.026573500208204925,
+          "B_i_sem": 0.011884030573130205,
+          "S_i_median_noise_inflation": 0.015900261069522803,
+          "comparator_sampling_median": 0.038023590969955556,
+          "g_N_hi_ms2": 1e-08,
+          "g_N_lo_ms2": 3.1622776601683795e-09,
+          "mad_sigma_understates_sd_by": 1.1323937127462758,
+          "n_seeds": 5,
+          "run_id": "R1-baseline"
+        },
+        {
+          "B_i_mad_sigma": 0.012953049411946598,
+          "B_i_median": 0.02440472451516118,
+          "B_i_sd": 0.03357341661439175,
+          "B_i_sem": 0.015014488357340157,
+          "S_i_median_noise_inflation": 0.012093057554195208,
+          "comparator_sampling_median": 0.019092232721944713,
+          "g_N_hi_ms2": 3.162277660168379e-08,
+          "g_N_lo_ms2": 1e-08,
+          "mad_sigma_understates_sd_by": 2.5919314862975034,
+          "n_seeds": 5,
+          "run_id": "R1-baseline"
+        }
+      ],
+      "pooled_null_B_i": {
+        "fraction_of_null_seed_bins_above_threshold": 0.3416666666666667,
+        "frozen_R1_threshold": 0.04,
+        "max": 0.16546103710571047,
+        "median": 0.02487416649069568,
+        "min": -0.09446780345654038,
+        "n_values": 120,
+        "runs": [
+          "R0",
+          "R1-baseline",
+          "R1-uncapped"
+        ],
+        "sd": 0.04176990915792685
+      },
+      "question": "Is the zero-injection B_i floor small compared with the frozen 0.04 threshold?"
+    },
+    "D3_chance_contamination_audit": {
+      "arms": [
+        {
+          "estimator_error_vs_actual_chance_truth": 0.0010152284263959391,
+          "estimator_error_vs_frozen_gate_truth": 0.0010152284263959391,
+          "median_estimated_rate_by_shift": {
+            "0.5": 0.002036659877800407,
+            "2.0": 0.0,
+            "5.0": 0.0010152284263959391
+          },
+          "median_incidental_chance_fraction_of_selected": 0.0,
+          "median_planted_fraction_of_selected": 0.0,
+          "nominal_planted_fraction_of_true_pairs": 0.0,
+          "planted_pairs_are_physically_bound": false,
+          "run_id": "R1-baseline"
+        },
+        {
+          "estimator_error_vs_actual_chance_truth": 0.0010152284263959391,
+          "estimator_error_vs_frozen_gate_truth": -0.04898477157360406,
+          "median_estimated_rate_by_shift": {
+            "0.5": 0.0020060180541624875,
+            "2.0": 0.0010152284263959391,
+            "5.0": 0.0
+          },
+          "median_incidental_chance_fraction_of_selected": 0.0,
+          "median_planted_fraction_of_selected": 0.044132397191574725,
+          "nominal_planted_fraction_of_true_pairs": 0.05,
+          "planted_pairs_are_physically_bound": true,
+          "run_id": "R3-5"
+        },
+        {
+          "estimator_error_vs_actual_chance_truth": 0.0,
+          "estimator_error_vs_frozen_gate_truth": -0.1,
+          "median_estimated_rate_by_shift": {
+            "0.5": 0.0,
+            "2.0": 0.0,
+            "5.0": 0.0009737098344693282
+          },
+          "median_incidental_chance_fraction_of_selected": 0.0,
+          "median_planted_fraction_of_selected": 0.0913604766633565,
+          "nominal_planted_fraction_of_true_pairs": 0.1,
+          "planted_pairs_are_physically_bound": true,
+          "run_id": "R3-10"
+        },
+        {
+          "estimator_error_vs_actual_chance_truth": 0.0,
+          "estimator_error_vs_frozen_gate_truth": -0.19905303030303031,
+          "median_estimated_rate_by_shift": {
+            "0.5": 0.0,
+            "2.0": 0.0019047619047619048,
+            "5.0": 0.000946969696969697
+          },
+          "median_incidental_chance_fraction_of_selected": 0.000946969696969697,
+          "median_planted_fraction_of_selected": 0.17047619047619048,
+          "nominal_planted_fraction_of_true_pairs": 0.2,
+          "planted_pairs_are_physically_bound": true,
+          "run_id": "R3-20"
+        }
+      ],
+      "fixture_planted_instead": "newtonian_mock_pairs() routed through the same add_pairs() path as true pairs: one shared distance per pair and Keplerian relative PM, i.e. bound binaries",
+      "protocol_step_4_requires": "field-star pairs ... consistent with chance alignment (not physical pairs)",
+      "question": "Did the estimator miss real contamination, or was none injected?",
+      "units_mismatch": "the frozen gate compares an estimate of (chance pairs / selected pairs) against a planted (chance pairs / true pairs) ratio; the two denominators differ even when the physics is right"
+    },
+    "D3_chance_positive_control": {
+      "by_sigma": [
+        {
+          "estimate_over_truth": null,
+          "field_pm_sigma_masyr": 30.0,
+          "median_estimate_shift_0.5": 0.0,
+          "median_label_truth": 0.0,
+          "shift_ladder_spread": 0.004098360655737705,
+          "shift_ladder_spread_relative": null
+        },
+        {
+          "estimate_over_truth": 1.515353121801433,
+          "field_pm_sigma_masyr": 10.0,
+          "median_estimate_shift_0.5": 0.0030706243602865915,
+          "median_label_truth": 0.002026342451874367,
+          "shift_ladder_spread": 0.008188331627430911,
+          "shift_ladder_spread_relative": 2.666666666666667
+        },
+        {
+          "estimate_over_truth": 2.3740588637919235,
+          "field_pm_sigma_masyr": 5.0,
+          "median_estimate_shift_0.5": 0.014373716632443531,
+          "median_label_truth": 0.006054490413723511,
+          "shift_ladder_spread": 0.01525940996948118,
+          "shift_ladder_spread_relative": 1.0616189507339049
+        },
+        {
+          "estimate_over_truth": 2.167196819085487,
+          "field_pm_sigma_masyr": 3.0,
+          "median_estimate_shift_0.5": 0.032803180914512925,
+          "median_label_truth": 0.015136226034308779,
+          "shift_ladder_spread": 0.025227043390514632,
+          "shift_ladder_spread_relative": 0.7690425954805369
+        },
+        {
+          "estimate_over_truth": 2.0,
+          "field_pm_sigma_masyr": 2.0,
+          "median_estimate_shift_0.5": 0.06483300589390963,
+          "median_label_truth": 0.03241650294695481,
+          "shift_ladder_spread": 0.03373253493013972,
+          "shift_ladder_spread_relative": 0.5202987963467005
+        },
+        {
+          "estimate_over_truth": 2.097824473248444,
+          "field_pm_sigma_masyr": 1.0,
+          "median_estimate_shift_0.5": 0.16303317535545023,
+          "median_label_truth": 0.07771535580524344,
+          "shift_ladder_spread": 0.054837068573111616,
+          "shift_ladder_spread_relative": 0.33635527525949277
+        }
+      ],
+      "estimator_is_shift_insensitive": false,
+      "estimator_tracks_truth": true,
+      "method": "rescale only field-star PM dispersion; label truth from the fixture's own true/planted labels; every other frozen term untouched",
+      "question": "Given real chance alignments, does chance_alignment_rate see them?",
+      "rows": [
+        {
+          "estimate_over_truth_shift_0.5": null,
+          "estimated_rate_by_shift": {
+            "0.5": 0.004098360655737705,
+            "2.0": 0.0030737704918032786,
+            "5.0": 0.0
+          },
+          "field_pm_sigma_masyr": 30.0,
+          "label_truth_chance_fraction": 0.0,
+          "n_incidental_chance_pairs": 0,
+          "n_selected_pairs": 976,
+          "seed": 7
+        },
+        {
+          "estimate_over_truth_shift_0.5": null,
+          "estimated_rate_by_shift": {
+            "0.5": 0.0,
+            "2.0": 0.0010152284263959391,
+            "5.0": 0.0010152284263959391
+          },
+          "field_pm_sigma_masyr": 30.0,
+          "label_truth_chance_fraction": 0.0,
+          "n_incidental_chance_pairs": 0,
+          "n_selected_pairs": 985,
+          "seed": 11
+        },
+        {
+          "estimate_over_truth_shift_0.5": null,
+          "estimated_rate_by_shift": {
+            "0.5": 0.0,
+            "2.0": 0.0,
+            "5.0": 0.0020639834881320948
+          },
+          "field_pm_sigma_masyr": 30.0,
+          "label_truth_chance_fraction": 0.0,
+          "n_incidental_chance_pairs": 0,
+          "n_selected_pairs": 969,
+          "seed": 23
+        },
+        {
+          "estimate_over_truth_shift_0.5": 3.0,
+          "estimated_rate_by_shift": {
+            "0.5": 0.0030706243602865915,
+            "2.0": 0.009211873080859774,
+            "5.0": 0.0010235414534288639
+          },
+          "field_pm_sigma_masyr": 10.0,
+          "label_truth_chance_fraction": 0.0010235414534288639,
+          "n_incidental_chance_pairs": 1,
+          "n_selected_pairs": 977,
+          "seed": 7
+        },
+        {
+          "estimate_over_truth_shift_0.5": 3.4999999999999996,
+          "estimated_rate_by_shift": {
+            "0.5": 0.0070921985815602835,
+            "2.0": 0.005065856129685917,
+            "5.0": 0.004052684903748734
+          },
+          "field_pm_sigma_masyr": 10.0,
+          "label_truth_chance_fraction": 0.002026342451874367,
+          "n_incidental_chance_pairs": 2,
+          "n_selected_pairs": 987,
+          "seed": 11
+        },
+        {
+          "estimate_over_truth_shift_0.5": 0.5,
+          "estimated_rate_by_shift": {
+            "0.5": 0.0010298661174047373,
+            "2.0": 0.005149330587023687,
+            "5.0": 0.004119464469618949
+          },
+          "field_pm_sigma_masyr": 10.0,
+          "label_truth_chance_fraction": 0.0020597322348094747,
+          "n_incidental_chance_pairs": 2,
+          "n_selected_pairs": 971,
+          "seed": 23
+        },
+        {
+          "estimate_over_truth_shift_0.5": 2.2857142857142856,
+          "estimated_rate_by_shift": {
+            "0.5": 0.01627670396744659,
+            "2.0": 0.013224821973550356,
+            "5.0": 0.001017293997965412
+          },
+          "field_pm_sigma_masyr": 5.0,
+          "label_truth_chance_fraction": 0.007121057985757884,
+          "n_incidental_chance_pairs": 7,
+          "n_selected_pairs": 983,
+          "seed": 7
+        },
+        {
+          "estimate_over_truth_shift_0.5": 2.3333333333333335,
+          "estimated_rate_by_shift": {
+            "0.5": 0.014127144298688193,
+            "2.0": 0.011099899091826439,
+            "5.0": 0.004036326942482341
+          },
+          "field_pm_sigma_masyr": 5.0,
+          "label_truth_chance_fraction": 0.006054490413723511,
+          "n_incidental_chance_pairs": 6,
+          "n_selected_pairs": 991,
+          "seed": 11
+        },
+        {
+          "estimate_over_truth_shift_0.5": 2.8000000000000003,
+          "estimated_rate_by_shift": {
+            "0.5": 0.014373716632443531,
+            "2.0": 0.008213552361396304,
+            "5.0": 0.01026694045174538
+          },
+          "field_pm_sigma_masyr": 5.0,
+          "label_truth_chance_fraction": 0.00513347022587269,
+          "n_incidental_chance_pairs": 5,
+          "n_selected_pairs": 974,
+          "seed": 23
+        },
+        {
+          "estimate_over_truth_shift_0.5": 2.533333333333333,
+          "estimated_rate_by_shift": {
+            "0.5": 0.03834510595358224,
+            "2.0": 0.034308779011099896,
+            "5.0": 0.013118062563067608
+          },
+          "field_pm_sigma_masyr": 3.0,
+          "label_truth_chance_fraction": 0.015136226034308779,
+          "n_incidental_chance_pairs": 15,
+          "n_selected_pairs": 991,
+          "seed": 7
+        },
+        {
+          "estimate_over_truth_shift_0.5": 1.5714285714285716,
+          "estimated_rate_by_shift": {
+            "0.5": 0.032803180914512925,
+            "2.0": 0.027833001988071572,
+            "5.0": 0.02186878727634195
+          },
+          "field_pm_sigma_masyr": 3.0,
+          "label_truth_chance_fraction": 0.020874751491053677,
+          "n_incidental_chance_pairs": 21,
+          "n_selected_pairs": 1006,
+          "seed": 11
+        },
+        {
+          "estimate_over_truth_shift_0.5": 2.142857142857143,
+          "estimated_rate_by_shift": {
+            "0.5": 0.030518819938962362,
+            "2.0": 0.0254323499491353,
+            "5.0": 0.018311291963377416
+          },
+          "field_pm_sigma_masyr": 3.0,
+          "label_truth_chance_fraction": 0.014242115971515769,
+          "n_incidental_chance_pairs": 14,
+          "n_selected_pairs": 983,
+          "seed": 23
+        },
+        {
+          "estimate_over_truth_shift_0.5": 2.307692307692308,
+          "estimated_rate_by_shift": {
+            "0.5": 0.059880239520958084,
+            "2.0": 0.05688622754491018,
+            "5.0": 0.03293413173652695
+          },
+          "field_pm_sigma_masyr": 2.0,
+          "label_truth_chance_fraction": 0.02594810379241517,
+          "n_incidental_chance_pairs": 26,
+          "n_selected_pairs": 1002,
+          "seed": 7
+        },
+        {
+          "estimate_over_truth_shift_0.5": 2.0,
+          "estimated_rate_by_shift": {
+            "0.5": 0.06483300589390963,
+            "2.0": 0.05893909626719057,
+            "5.0": 0.03831041257367387
+          },
+          "field_pm_sigma_masyr": 2.0,
+          "label_truth_chance_fraction": 0.03241650294695481,
+          "n_incidental_chance_pairs": 33,
+          "n_selected_pairs": 1018,
+          "seed": 11
+        },
+        {
+          "estimate_over_truth_shift_0.5": 1.861111111111111,
+          "estimated_rate_by_shift": {
+            "0.5": 0.06666666666666667,
+            "2.0": 0.05572139303482587,
+            "5.0": 0.03781094527363184
+          },
+          "field_pm_sigma_masyr": 2.0,
+          "label_truth_chance_fraction": 0.03582089552238806,
+          "n_incidental_chance_pairs": 36,
+          "n_selected_pairs": 1005,
+          "seed": 23
+        },
+        {
+          "estimate_over_truth_shift_0.5": 2.1772151898734178,
+          "estimated_rate_by_shift": {
+            "0.5": 0.16303317535545023,
+            "2.0": 0.14123222748815165,
+            "5.0": 0.10900473933649289
+          },
+          "field_pm_sigma_masyr": 1.0,
+          "label_truth_chance_fraction": 0.07488151658767772,
+          "n_incidental_chance_pairs": 79,
+          "n_selected_pairs": 1055,
+          "seed": 7
+        },
+        {
+          "estimate_over_truth_shift_0.5": 1.9759036144578312,
+          "estimated_rate_by_shift": {
+            "0.5": 0.15355805243445692,
+            "2.0": 0.14794007490636704,
+            "5.0": 0.11235955056179775
+          },
+          "field_pm_sigma_masyr": 1.0,
+          "label_truth_chance_fraction": 0.07771535580524344,
+          "n_incidental_chance_pairs": 83,
+          "n_selected_pairs": 1068,
+          "seed": 11
+        },
+        {
+          "estimate_over_truth_shift_0.5": 1.8709677419354838,
+          "estimated_rate_by_shift": {
+            "0.5": 0.1638418079096045,
+            "2.0": 0.147834274952919,
+            "5.0": 0.1167608286252354
+          },
+          "field_pm_sigma_masyr": 1.0,
+          "label_truth_chance_fraction": 0.08757062146892655,
+          "n_incidental_chance_pairs": 93,
+          "n_selected_pairs": 1062,
+          "seed": 23
+        }
+      ],
+      "shift_insensitivity_criterion": "0.5/2/5 deg spread within 40% of the estimate; the protocol flags a shift-dependent R_chance at fixed contamination as its own miscalibration finding, so the meaningful comparison is relative, not absolute",
+      "truth_is_monotone_in_ladder": true
+    },
+    "D3_randomisation_overshoot_probe": {
+      "by_n": [
+        {
+          "median_label_truth": 0.03241650294695481,
+          "median_ra_shift_estimate": 0.06483300589390963,
+          "median_sky_scramble_estimate": 0.05788423153692615,
+          "n_true_pairs": 1050,
+          "ra_shift_over_truth": 2.0,
+          "two_randomisations_agree_within_30pct": true
+        },
+        {
+          "median_label_truth": 0.026836158192090395,
+          "median_ra_shift_estimate": 0.078125,
+          "median_sky_scramble_estimate": 0.06818181818181818,
+          "n_true_pairs": 700,
+          "ra_shift_over_truth": 2.911184210526316,
+          "two_randomisations_agree_within_30pct": true
+        },
+        {
+          "median_label_truth": 0.08101851851851852,
+          "median_ra_shift_estimate": 0.1543942992874109,
+          "median_sky_scramble_estimate": 0.08333333333333333,
+          "n_true_pairs": 400,
+          "ra_shift_over_truth": 1.9056667797760434,
+          "two_randomisations_agree_within_30pct": false
+        },
+        {
+          "median_label_truth": 0.14347826086956522,
+          "median_ra_shift_estimate": 0.2631578947368421,
+          "median_sky_scramble_estimate": 0.12608695652173912,
+          "n_true_pairs": 200,
+          "ra_shift_over_truth": 1.8341307814992025,
+          "two_randomisations_agree_within_30pct": false
+        }
+      ],
+      "independent_randomisations_agree_at_every_rung": false,
+      "interpretation": "inconclusive as a mechanism test. The overshoot is real and reproducible, but this ladder confounds what it varies: lowering the true-pair count also frees room under the 8000-star brightness cap for field stars, so the chance-alignment truth itself moves between rungs instead of staying fixed. The ratio neither falls monotonically nor keeps the two randomisations in agreement at the low rungs. What survives is the magnitude, not a cause; a controlled test would hold the selected field population fixed while varying only binary content",
+      "mechanism_probe_conclusive": false,
+      "overshoot_decreases_monotonically_with_true_pair_content": false,
+      "overshoot_ratio_range": [
+        1.8341307814992025,
+        2.911184210526316
+      ],
+      "question": "Is the estimator's overshoot a property of randomisation itself?",
+      "rows": [
+        {
+          "label_truth_chance_fraction": 0.02594810379241517,
+          "n_selected_pairs": 1002,
+          "n_true_pairs": 1050,
+          "ra_shift_estimate": 0.059880239520958084,
+          "ra_shift_over_truth": 2.307692307692308,
+          "seed": 7,
+          "sky_scramble_estimate": 0.05788423153692615
+        },
+        {
+          "label_truth_chance_fraction": 0.03241650294695481,
+          "n_selected_pairs": 1018,
+          "n_true_pairs": 1050,
+          "ra_shift_estimate": 0.06483300589390963,
+          "ra_shift_over_truth": 2.0,
+          "seed": 11,
+          "sky_scramble_estimate": 0.05108055009823183
+        },
+        {
+          "label_truth_chance_fraction": 0.03582089552238806,
+          "n_selected_pairs": 1005,
+          "n_true_pairs": 1050,
+          "ra_shift_estimate": 0.06666666666666667,
+          "ra_shift_over_truth": 1.861111111111111,
+          "seed": 23,
+          "sky_scramble_estimate": 0.0736318407960199
+        },
+        {
+          "label_truth_chance_fraction": 0.03910614525139665,
+          "n_selected_pairs": 716,
+          "n_true_pairs": 700,
+          "ra_shift_estimate": 0.07541899441340782,
+          "ra_shift_over_truth": 1.9285714285714286,
+          "seed": 7,
+          "sky_scramble_estimate": 0.0893854748603352
+        },
+        {
+          "label_truth_chance_fraction": 0.022727272727272728,
+          "n_selected_pairs": 704,
+          "n_true_pairs": 700,
+          "ra_shift_estimate": 0.078125,
+          "ra_shift_over_truth": 3.4375,
+          "seed": 11,
+          "sky_scramble_estimate": 0.06818181818181818
+        },
+        {
+          "label_truth_chance_fraction": 0.026836158192090395,
+          "n_selected_pairs": 708,
+          "n_true_pairs": 700,
+          "ra_shift_estimate": 0.10028248587570622,
+          "ra_shift_over_truth": 3.7368421052631584,
+          "seed": 23,
+          "sky_scramble_estimate": 0.05649717514124294
+        },
+        {
+          "label_truth_chance_fraction": 0.08101851851851852,
+          "n_selected_pairs": 432,
+          "n_true_pairs": 400,
+          "ra_shift_estimate": 0.1597222222222222,
+          "ra_shift_over_truth": 1.9714285714285713,
+          "seed": 7,
+          "sky_scramble_estimate": 0.08333333333333333
+        },
+        {
+          "label_truth_chance_fraction": 0.06413301662707839,
+          "n_selected_pairs": 421,
+          "n_true_pairs": 400,
+          "ra_shift_estimate": 0.1543942992874109,
+          "ra_shift_over_truth": 2.407407407407407,
+          "seed": 11,
+          "sky_scramble_estimate": 0.10451306413301663
+        },
+        {
+          "label_truth_chance_fraction": 0.08372093023255814,
+          "n_selected_pairs": 430,
+          "n_true_pairs": 400,
+          "ra_shift_estimate": 0.14186046511627906,
+          "ra_shift_over_truth": 1.6944444444444444,
+          "seed": 23,
+          "sky_scramble_estimate": 0.07674418604651163
+        },
+        {
+          "label_truth_chance_fraction": 0.14347826086956522,
+          "n_selected_pairs": 230,
+          "n_true_pairs": 200,
+          "ra_shift_estimate": 0.24782608695652175,
+          "ra_shift_over_truth": 1.7272727272727273,
+          "seed": 7,
+          "sky_scramble_estimate": 0.12608695652173912
+        },
+        {
+          "label_truth_chance_fraction": 0.14347826086956522,
+          "n_selected_pairs": 230,
+          "n_true_pairs": 200,
+          "ra_shift_estimate": 0.2956521739130435,
+          "ra_shift_over_truth": 2.0606060606060606,
+          "seed": 11,
+          "sky_scramble_estimate": 0.13478260869565217
+        },
+        {
+          "label_truth_chance_fraction": 0.13596491228070176,
+          "n_selected_pairs": 228,
+          "n_true_pairs": 200,
+          "ra_shift_estimate": 0.2631578947368421,
+          "ra_shift_over_truth": 1.9354838709677418,
+          "seed": 23,
+          "sky_scramble_estimate": 0.12280701754385964
+        }
+      ]
+    },
+    "D4_power_criterion_audit": {
+      "arms": [
+        {
+          "all_seeds_recover_injection_sign": true,
+          "frozen_detection_rate": 0.3333333333333333,
+          "frozen_per_seed_detected": [
+            false,
+            true,
+            false
+          ],
+          "injected_amplitude": 0.02,
+          "paired_delta_B_i_by_seed": [
+            0.01965344957060078,
+            0.012907148499325838,
+            0.014948035451709862
+          ],
+          "paired_delta_median": 0.014948035451709862,
+          "paired_delta_sd_across_seeds": 0.0034597379411104427,
+          "paired_seeds_with_delta_above_2sd_of_null": 3,
+          "recovered_fraction_of_injection": 0.7474017725854931,
+          "run_id": "R4-0.02",
+          "seeds": [
+            7,
+            11,
+            23
+          ],
+          "unpaired_B_i_by_seed": [
+            0.028889155341182415,
+            0.1783681856050363,
+            0.08052223251732349
+          ]
+        },
+        {
+          "all_seeds_recover_injection_sign": true,
+          "frozen_detection_rate": 0.3333333333333333,
+          "frozen_per_seed_detected": [
+            false,
+            true,
+            false
+          ],
+          "injected_amplitude": 0.05,
+          "paired_delta_B_i_by_seed": [
+            0.04691802580368798,
+            0.042677376496326414,
+            0.03843335498358691
+          ],
+          "paired_delta_median": 0.042677376496326414,
+          "paired_delta_sd_across_seeds": 0.00424233552173989,
+          "paired_seeds_with_delta_above_2sd_of_null": 3,
+          "recovered_fraction_of_injection": 0.8535475299265283,
+          "run_id": "R4-0.05",
+          "seeds": [
+            7,
+            11,
+            23
+          ],
+          "unpaired_B_i_by_seed": [
+            0.056153731574269616,
+            0.2081384136020369,
+            0.10400755204920054
+          ]
+        },
+        {
+          "all_seeds_recover_injection_sign": true,
+          "frozen_detection_rate": 0.3333333333333333,
+          "frozen_per_seed_detected": [
+            false,
+            true,
+            false
+          ],
+          "injected_amplitude": 0.1,
+          "paired_delta_B_i_by_seed": [
+            0.08100821743246556,
+            0.09237139368263181,
+            0.0827989254592294
+          ],
+          "paired_delta_median": 0.0827989254592294,
+          "paired_delta_sd_across_seeds": 0.006109562963331989,
+          "paired_seeds_with_delta_above_2sd_of_null": 3,
+          "recovered_fraction_of_injection": 0.827989254592294,
+          "run_id": "R4-0.10",
+          "seeds": [
+            7,
+            11,
+            23
+          ],
+          "unpaired_B_i_by_seed": [
+            0.0902439232030472,
+            0.2578324307883423,
+            0.14837312252484303
+          ]
+        }
+      ],
+      "gate_arithmetic": {
+        "attainable_detection_rates": [
+          0.0,
+          0.333333,
+          0.666667,
+          1.0
+        ],
+        "frozen_required_rate": 0.8,
+        "frozen_seeds_in_R4_rows": 3,
+        "lowest_attainable_rate_meeting_requirement": 1.0,
+        "note": "with three frozen seeds the >=80% requirement is satisfiable only at 3/3, so the frozen rule silently demands 100% power; recorded as a protocol arithmetic inconsistency alongside the 47-vs-44 realization count, not repaired here"
+      },
+      "injected_bin_ms2": [
+        3.1622776601683794e-12,
+        1e-11
+      ],
+      "question": "Did the apparatus fail to recover the injection, or did the gate?"
+    },
+    "D5_cap_truncation_audit": {
+      "brightness_prefix_is_also_a_distance_and_mass_cut": true,
+      "disagreement_uncertainty_note": "the single flagged bin used a combined 1.4826*MAD from 5 and 5 seeds; see the estimator_degeneracy false-disagreement rate for what that test does under a true null",
+      "documented_behaviour": "select_wide_pairs caps the post-quality sample brightest first (wide_binaries.py: np.argsort(phot_g_mean_mag)[:max_stars])",
+      "frozen_cap_disagreements": [
+        {
+          "combined_realization_sigma": 0.0491576861078903,
+          "delta_B_i": -0.08459059668077584,
+          "disagrees_beyond_uncertainty": true,
+          "g_N_hi_ms2": 1e-08,
+          "g_N_lo_ms2": 3.1622776601683795e-09,
+          "run_id": "R1-heavycap"
+        }
+      ],
+      "heavycap_median_distance_relative_to_uncapped": 0.8453817768306482,
+      "heavycap_median_total_mass_relative_to_uncapped": 1.5455258396820721,
+      "live_probe": [
+        {
+          "heavycap": {
+            "cap_applied": true,
+            "max_stars": 2000,
+            "median_pair_distance_pc": 108.23050525706233,
+            "median_pair_total_mass_msun": 2.6434543500424343,
+            "n_capped_stars": 2000,
+            "n_selected_pairs": 81,
+            "true_pair_completeness": 0.07714285714285714
+          },
+          "operational": {
+            "cap_applied": true,
+            "max_stars": 8000,
+            "median_pair_distance_pc": 128.51620861981826,
+            "median_pair_total_mass_msun": 1.738308088146643,
+            "n_capped_stars": 8000,
+            "n_selected_pairs": 976,
+            "true_pair_completeness": 0.9295238095238095
+          },
+          "seed": 7,
+          "uncapped": {
+            "cap_applied": false,
+            "max_stars": null,
+            "median_pair_distance_pc": 130.7800430166805,
+            "median_pair_total_mass_msun": 1.710391558763078,
+            "n_capped_stars": 8253,
+            "n_selected_pairs": 1032,
+            "true_pair_completeness": 0.9828571428571429
+          }
+        },
+        {
+          "heavycap": {
+            "cap_applied": true,
+            "max_stars": 2000,
+            "median_pair_distance_pc": 109.5659264861191,
+            "median_pair_total_mass_msun": 2.617010942358643,
+            "n_capped_stars": 2000,
+            "n_selected_pairs": 75,
+            "true_pair_completeness": 0.07142857142857142
+          },
+          "operational": {
+            "cap_applied": true,
+            "max_stars": 8000,
+            "median_pair_distance_pc": 128.65819370901895,
+            "median_pair_total_mass_msun": 1.7428507498594237,
+            "n_capped_stars": 8000,
+            "n_selected_pairs": 985,
+            "true_pair_completeness": 0.9380952380952381
+          },
+          "seed": 11,
+          "uncapped": {
+            "cap_applied": false,
+            "max_stars": null,
+            "median_pair_distance_pc": 129.6052617751991,
+            "median_pair_total_mass_msun": 1.717522769728543,
+            "n_capped_stars": 8257,
+            "n_selected_pairs": 1036,
+            "true_pair_completeness": 0.9866666666666667
+          }
+        },
+        {
+          "heavycap": {
+            "cap_applied": true,
+            "max_stars": 2000,
+            "median_pair_distance_pc": 114.20818253870982,
+            "median_pair_total_mass_msun": 2.654077169247151,
+            "n_capped_stars": 2000,
+            "n_selected_pairs": 63,
+            "true_pair_completeness": 0.06
+          },
+          "operational": {
+            "cap_applied": true,
+            "max_stars": 8000,
+            "median_pair_distance_pc": 129.20804923712902,
+            "median_pair_total_mass_msun": 1.7311897845742885,
+            "n_capped_stars": 8000,
+            "n_selected_pairs": 969,
+            "true_pair_completeness": 0.9228571428571428
+          },
+          "seed": 23,
+          "uncapped": {
+            "cap_applied": false,
+            "max_stars": null,
+            "median_pair_distance_pc": 131.0916155454137,
+            "median_pair_total_mass_msun": 1.6914161331384712,
+            "n_capped_stars": 8259,
+            "n_selected_pairs": 1033,
+            "true_pair_completeness": 0.9838095238095238
+          }
+        }
+      ],
+      "question": "Is the heavy-cap excursion the documented cap, or an artifact?",
+      "true_pair_completeness_by_arm": {
+        "R1-baseline": {
+          "max": 0.9380952380952381,
+          "median": 0.9323809523809524,
+          "min": 0.9228571428571428
+        },
+        "R1-heavycap": {
+          "max": 0.08,
+          "median": 0.07238095238095238,
+          "min": 0.06
+        },
+        "R1-uncapped": {
+          "max": 0.9895238095238095,
+          "median": 0.9866666666666667,
+          "min": 0.9828571428571429
+        }
+      }
+    }
+  },
+  "environment": {
+    "cpu_count": 14,
+    "machine": "x86_64",
+    "packages": {
+      "astrolabe": "0.1.0",
+      "astropy": "8.0.1",
+      "numpy": "2.5.2",
+      "orrery": "0.1.0",
+      "scipy": "1.18.1"
+    },
+    "platform": "Linux-6.8.0-138-generic-x86_64-with-glibc2.39",
+    "python": "3.12.3"
+  },
+  "experiment": "wide-binary-control-diagnosis",
+  "profile": "full",
+  "protocol_deviations_recorded": [
+    {
+      "detail": "protocol prose declares 47 realizations; the twelve frozen rows enumerate 44. Carried forward from ORB-11222, unrepaired.",
+      "id": "matrix-arithmetic",
+      "owner": "principia ORB-11221"
+    },
+    {
+      "detail": "the R4 gate requires detection in >=80% of seeds while allotting the R4 rows three seeds, so the rule is satisfiable only at 3/3 (100%).",
+      "id": "power-rate-unreachable",
+      "owner": "principia ORB-11221"
+    },
+    {
+      "detail": "protocol step 4 specifies planted pairs that are 'not physical pairs'; the fixture planted bound Keplerian pairs. The fixture is left as the frozen record of that run and is not edited here.",
+      "id": "r3-contamination-not-as-specified",
+      "owner": "orrery ORB-11222 fixture"
+    },
+    {
+      "detail": "the gate compares chance_alignment_rate, a chance/selected fraction, against a planted/true-pair ratio.",
+      "id": "r3-denominator-mismatch",
+      "owner": "principia ORB-11221"
+    }
+  ],
+  "rerun_commands": {
+    "full": "PYTHONDONTWRITEBYTECODE=1 UV_CACHE_DIR=/tmp/orbit-uv-cache-11241 uv run --with ../astrolabe lab/sims/wide-binary-control-diagnosis/main.py --astrolabe-root ../astrolabe --principia-root ../principia",
+    "pilot": "PYTHONDONTWRITEBYTECODE=1 UV_CACHE_DIR=/tmp/orbit-uv-cache-11241 uv run --with ../astrolabe lab/sims/wide-binary-control-diagnosis/main.py --profile pilot --output /tmp/wbdiag-pilot.json --astrolabe-root ../astrolabe --principia-root ../principia"
+  },
+  "run_date": "2026-09-05",
+  "runtime_seconds": 140.89541998399727,
+  "schema_version": 1,
+  "scope": "diagnosis of ORB-11222's failed controls; synthetic apparatus only, no observational or nature-level claim",
+  "sources": {
+    "astrolabe_apparatus_sha256": "6e39198e6babf452ec94f34ccd1eec49e3ca885964f4d6742937b33b5f9269f1",
+    "astrolabe_commit": "90f5b58890da36c44286a4edbde7eead879410a8",
+    "drift_note": "Principia HEAD revised the protocol and gate prose after ORB-11222 (ORB-11234 dated-outcome section). Frozen terms are read from the ORB-11221 blob; no threshold, seed or matrix row differs.",
+    "gate_sha256_at_frozen_commit": "88609aed585cdbbd18586d5dcbeaf59f691965bbce2536152eabdb1bd51d7a89",
+    "gate_sha256_at_principia_head": "96d330df987b0f5f59bca4a1a5d2af67a5f018f4a9e5ea5054b5277e3b01d51c",
+    "orb_11222_evidence_sha256": "d1699b6e59654ade95ab1938bb35386c87e53124bf25255e4215671e56e95ec7",
+    "orb_11222_fixture_sha256": "d3b5e522b24966e84b57e5132994c4a3b6ab9b95c7d0138709b467143bde75c0",
+    "orb_11222_run_commit": "28dd5c72bb670517b93b556f1d2483402c8e8655",
+    "principia_frozen_commit": "c04f2ed1ae91d6c126bc60863b5e48f46abe4576",
+    "principia_head_commit": "f4be1b0c34403a95be57ee2a04d85017219bac57",
+    "principia_head_drifted_from_frozen": true,
+    "protocol_sha256_at_frozen_commit": "50fc37ac41bdbdc0e14ae3c079de3d8ed582d0fb4bf2e740270dc0fd5dfb9443",
+    "protocol_sha256_at_principia_head": "e7b38fe504fbabe10740bce42278f71ef57ecdfacf2e6ab0e149ad0e59c2779c",
+    "verification": {
+      "ORB-11217_merged": true,
+      "ORB-11221_merged": true,
+      "apparatus_exact": true,
+      "frozen_gate_blob_exact": true,
+      "frozen_protocol_blob_exact": true,
+      "gate_id_exact": true,
+      "orb_11222_evidence_exact": true,
+      "orb_11222_fixture_exact": true
+    }
+  },
+  "verdict": {
+    "classification_vocabulary": {
+      "apparatus-behaved-as-specified": "the control passed and the apparatus did what it documents",
+      "faithful-apparatus-limitation": "real behaviour of the Astrolabe apparatus or of the method, which a correct protocol would still have to live with",
+      "fixture-defect": "the Orrery fixture deviates from the frozen protocol, or its implementation of a frozen term does not do what the term says",
+      "protocol-arithmetic-defect": "the frozen protocol is internally inconsistent or specifies an estimator that cannot support the decision it is asked to make; recorded here, repaired only by Principia",
+      "undetermined": "the evidence as scored cannot separate a result from its own null in either direction"
+    },
+    "controls": [
+      {
+        "classification": "protocol-arithmetic-defect",
+        "control": "R0 sanity",
+        "evidence": "Exactly one of eight R0 bins fired. Its five per-seed B_i have sample sd 0.0198 but 1.4826*MAD 0.0039 -- the MAD understates the spread 5.1x because three of five values happen to cluster. Under a true null the same gate fires on at least one of eight bins 70.3% of the time at n=5.",
+        "frozen_outcome": "FAIL",
+        "locus": "the frozen protocol's own uncertainty method; Astrolabe not implicated",
+        "protocol_note": "the estimator is the protocol's, not the fixture's: the frozen uncertainty method is 'median +/- 1.4826xMAD ... across the run's seed list', and the fixture implemented it faithfully. The protocol says a R0 failure indicts the synthetic framework rather than Astrolabe; this diagnosis agrees and narrows it further, to the frozen decision layer rather than the population"
+      },
+      {
+        "classification": "undetermined",
+        "control": "R1 geometry/truncation and cap isolation",
+        "evidence": "The zero-injection null itself spans B_i in [-0.0945, +0.1655] with sd 0.0418; 34.2% of null seed-bins already sit at or above the frozen 0.04 threshold, so the threshold lies inside the null floor. The reproducibility clause (|median| > 1.4826*MAD) fires on a true null 44.1% of the time at n=3 and 24.3% at n=5, and the cap comparison disagrees spuriously 16.7% of the time.",
+        "frozen_outcome": "FAIL",
+        "locus": "decision layer cannot support a verdict either way",
+        "protocol_note": "not reclassified as a pass: the frozen arms genuinely cleared the frozen threshold, and the reproducibility clause is the protocol's own, faithfully implemented. The claim is only that this decision layer cannot distinguish that result from its own null, so the arms neither support nor refute the geometry hypothesis as scored"
+      },
+      {
+        "classification": "fixture-defect + protocol-arithmetic-defect",
+        "control": "R3 shifted-field calibration",
+        "evidence": "Protocol step 4 asks for planted pairs that are explicitly 'not physical pairs'; the fixture planted newtonian_mock_pairs output through the true-pair path, giving both components one shared distance and Keplerian relative PM. The genuine chance-alignment content of the selected sample is 0.0000 (R3-10) and 0.0009 (R3-20), and the estimator returned within 0.0010 of that in every arm. It was scored against contamination that was never injected, in a denominator it does not use.",
+        "frozen_outcome": "FAIL",
+        "locus": "population generator (Orrery fixture) plus the gate's denominator; Astrolabe not implicated",
+        "positive_control": "With genuine chance alignments present the estimator tracks them: label truth 0.0000 -> 0.0777 across the field-PM ladder, estimate 0.0000 -> 0.1630, monotone and shift-insensitive."
+      },
+      {
+        "classification": "fixture-defect + protocol-arithmetic-defect",
+        "control": "R4 known-effect power",
+        "evidence": "The apparatus recovers the injection cleanly. Differencing each injected seed against the same seed of the zero-injection arm gives 85% of the 0.05 amplitude and 83% of the 0.10 amplitude, positive in every seed of every arm. The frozen gate instead tested unpaired |B_i| against zero using a spread that carries the whole comparator-sampling budget, and its >=80% requirement is unreachable below 3/3 with the three seeds the frozen matrix allots.",
+        "frozen_outcome": "FAIL",
+        "locus": "decision layer (Orrery fixture) and the frozen rule's own arithmetic",
+        "protocol_note": "the 80%-of-3-seeds inconsistency is recorded, not repaired; it sits with the protocol's 47-vs-44 realization count"
+      },
+      {
+        "classification": "apparatus-behaved-as-specified",
+        "control": "Independent candidate oracle",
+        "evidence": "unchanged: ORB-11217's spherical selector reproduced the SkyCoord oracle exactly in all 44 enumerated realizations. Nothing in this diagnosis disturbs that result.",
+        "frozen_outcome": "PASS",
+        "locus": "Astrolabe apparatus"
+      }
+    ],
+    "frozen_terms_touched": "none -- thresholds, seed matrix, shift ladder and run rows are read from the ORB-11221 blob and left as they are",
+    "frozen_verdict_unchanged": "unresolved",
+    "headline": "No failed control implicates the Astrolabe apparatus. R0 is a defect of the frozen protocol's own uncertainty method, which the fixture implemented faithfully: 1.4826*MAD over 3-5 seeds collapses whenever a few seeds happen to cluster, and it is used as a denominator by every gate. R3 is a fixture defect -- the arms planted bound Keplerian pairs where the protocol specified pairs that are explicitly 'not physical' -- compounded by a gate that compares the estimate against a ratio built on a different denominator. R4 combines an unpaired reading of an ambiguous rule with a requirement of >=80% detection over three seeds, reachable only at 3/3; paired against the matched zero-injection arm the apparatus recovers the injection in every seed of every arm. R1 and cap isolation are undetermined: the frozen 0.04 threshold lies inside the null's own spread, so that decision layer cannot separate a result from its null.",
+    "open_questions": [
+      {
+        "observation": "When genuine chance alignments exist, chance_alignment_rate sits above the label truth by a factor of about 2.1 (range 1.8-2.9 across the probe). An independent sky-position scramble, sharing no code with the RA shift beyond the selector itself, reproduces the same overshoot, so it is a property of randomisation-based chance estimation on this population rather than of one code branch. The same probe shows a second effect: the estimate moves with the shift magnitude at fixed true contamination, which the protocol itself names as a miscalibration signal. Both appear only in the probe's deliberately contaminated regime; the frozen R3 arms sit at a chance rate of ~0 where neither is measurable.",
+        "routing": "belongs to Astrolabe's own Orbit task. This repository does not edit Astrolabe, and this observation does not affect the ORB-11222 verdict, whose R3 arms contain essentially no genuine chance alignments.",
+        "status": "magnitude reproducible; mechanism NOT established. The probe that varied true-pair content was inconclusive -- it confounds binary content with the field population admitted under the brightness cap, and neither falls monotonically nor keeps the two randomisations in agreement at low rungs.",
+        "suggested_next_test": "hold the selected field population fixed while varying only binary content, so the chance-alignment truth stays put between rungs",
+        "topic": "shifted-field estimator calibration and shift dependence"
+      }
+    ],
+    "scope": "synthetic apparatus diagnosis only; no observational or nature-level claim, and no claim about gravity"
+  }
+}

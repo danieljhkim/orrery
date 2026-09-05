@@ -33,3 +33,14 @@ The protocol prose declares 47 realizations, but the seeds in its 12 frozen
 matrix rows sum to 44. The fixture executes those 44 enumerated realizations
 exactly and records the discrepancy; it does not invent three unregistered
 runs.
+
+## Diagnosis of the failed controls
+
+This sim is the frozen record of its run and is not edited in light of later
+work. The failed controls are diagnosed separately in
+[`wide-binary-control-diagnosis`](../wide-binary-control-diagnosis/) (ORB-11241),
+which pins this sim's `main.py` and `assets/results.json` by SHA-256 and
+reanalyses them. Note that this sim pins the protocol and gate by worktree file
+hash, so it no longer runs against Principia HEAD: ORB-11234 appended a dated
+outcome section to both files. The diagnosis sim pins the same frozen terms by
+git blob at the ORB-11221 commit instead.

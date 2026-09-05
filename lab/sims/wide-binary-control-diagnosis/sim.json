@@ -1,0 +1,30 @@
+{
+  "slug": "wide-binary-control-diagnosis",
+  "title": "Wide-binary control-failure diagnosis",
+  "kind": "py",
+  "entry": "main.py",
+  "status": "active",
+  "created": "2026-09-05",
+  "topics": ["wide-binaries", "selection-bias", "injection-recovery", "synthetic-control", "estimator-calibration", "small-sample-statistics", "diagnosis"],
+  "family": "wide-binary-selection-methodology",
+  "summary": "Diagnoses the four controls that failed in ORB-11222 without retuning the frozen ORB-11221 protocol: reanalyses that run's hash-pinned evidence and adds live probes on its own generator to separate fixture and decision-layer defects from faithful limitations of the Astrolabe apparatus.",
+  "provenance": {
+    "orbit_tasks": ["ORB-11217", "ORB-11221", "ORB-11222", "ORB-11234", "ORB-11241"],
+    "diagnoses": "wide-binary-selection-bias",
+    "orrery_base_revision": "28dd5c72bb670517b93b556f1d2483402c8e8655",
+    "astrolabe": {
+      "revision": "90f5b58890da36c44286a4edbde7eead879410a8",
+      "version": "0.1.0",
+      "apparatus": "src/astrolabe/analysis/wide_binaries.py",
+      "apparatus_sha256": "6e39198e6babf452ec94f34ccd1eec49e3ca885964f4d6742937b33b5f9269f1"
+    },
+    "principia": {
+      "frozen_revision": "c04f2ed1ae91d6c126bc60863b5e48f46abe4576",
+      "protocol": "studies/wide-binary-selection-bias-preregistration.md",
+      "protocol_sha256": "50fc37ac41bdbdc0e14ae3c079de3d8ed582d0fb4bf2e740270dc0fd5dfb9443",
+      "gate_id": "wide-binary-selection-bias-control",
+      "gate_sha256": "88609aed585cdbbd18586d5dcbeaf59f691965bbce2536152eabdb1bd51d7a89",
+      "pin_method": "git blob at the frozen ORB-11221 commit; Principia HEAD has since revised the prose under ORB-11234"
+    }
+  }
+}
