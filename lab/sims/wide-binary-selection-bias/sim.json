@@ -1,0 +1,28 @@
+{
+  "slug": "wide-binary-selection-bias",
+  "title": "Wide-binary selection-bias injection/recovery control",
+  "kind": "py",
+  "entry": "main.py",
+  "status": "active",
+  "created": "2026-09-05",
+  "topics": ["wide-binaries", "selection-bias", "injection-recovery", "synthetic-control", "candidate-oracle", "chance-alignment"],
+  "family": "wide-binary-selection-methodology",
+  "summary": "A preregistered 12-arm Newtonian injection/recovery matrix directly tests Astrolabe's repaired spherical selector, scaled-velocity statistic, cap ladder, sky rotations, shifted-field calibration, and known-effect power without making a nature-level claim.",
+  "provenance": {
+    "orbit_tasks": ["ORB-11217", "ORB-11221", "ORB-11222"],
+    "orrery_base_revision": "73c9bd53e963e44bb365992c1df87a1077cc996f",
+    "astrolabe": {
+      "revision": "90f5b58890da36c44286a4edbde7eead879410a8",
+      "version": "0.1.0",
+      "apparatus": "src/astrolabe/analysis/wide_binaries.py",
+      "apparatus_sha256": "6e39198e6babf452ec94f34ccd1eec49e3ca885964f4d6742937b33b5f9269f1"
+    },
+    "principia": {
+      "revision": "c04f2ed1ae91d6c126bc60863b5e48f46abe4576",
+      "protocol": "studies/wide-binary-selection-bias-preregistration.md",
+      "protocol_sha256": "50fc37ac41bdbdc0e14ae3c079de3d8ed582d0fb4bf2e740270dc0fd5dfb9443",
+      "gate_id": "wide-binary-selection-bias-control",
+      "gate_sha256": "88609aed585cdbbd18586d5dcbeaf59f691965bbce2536152eabdb1bd51d7a89"
+    }
+  }
+}
