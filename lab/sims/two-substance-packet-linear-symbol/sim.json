@@ -1,0 +1,28 @@
+{
+  "slug": "two-substance-packet-linear-symbol",
+  "title": "Two-substance packet linear symbol and polarization controls",
+  "kind": "py",
+  "entry": "main.py",
+  "status": "active",
+  "created": "2026-09-05",
+  "topics": [
+    "two-substance-vacuum",
+    "linear-modes",
+    "dispersion",
+    "polarization",
+    "constraints",
+    "resolution-convergence"
+  ],
+  "family": "two-substance-vortex-vacuum",
+  "summary": "Independent Fourier-operator and time-evolution controls classify both propagating branches as longitudinal sound and transverse currents as frozen, including equal-speed, coupling-off, mixed-background, refinement, and stability guards.",
+  "provenance": {
+    "orbit_tasks": [
+      "ORB-11219",
+      "ORB-11220"
+    ],
+    "theory_context": "../../../principia/theory/two-substance-vortex-vacuum/packet-hamiltonian-linearization.md",
+    "companion_sims": [
+      "../two-substance-dynamical-packet/"
+    ]
+  }
+}

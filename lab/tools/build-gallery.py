@@ -44,6 +44,7 @@ def card(m):
     status_line = f"\n        {status_html}" if status_html else ""
     prov = m.get("provenance", {}).get("almanac")
     prov_html = f'<div class="prov">almanac: {html.escape(prov)}</div>' if prov else ""
+    prov_line = f"\n      {prov_html}" if prov_html else ""
     action = (
         f'<a class="open" href="{href}">open &#8599;</a>'
         if kind == "web"
@@ -58,8 +59,7 @@ def card(m):
       </div>
       <h2>{title}</h2>
       <p>{summary}</p>
-      <div class="chips">{family_html}{topics}</div>
-      {prov_html}
+      <div class="chips">{family_html}{topics}</div>{prov_line}
       <div class="action">{action}</div>
     </div>"""
 
